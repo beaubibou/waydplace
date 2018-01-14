@@ -80,6 +80,7 @@ public class SiteDAO {
 				int id_enseigne = rs.getInt("id_enseigne");
 				Date date_creation = rs.getTimestamp("date_creation");
 				site=new Site(nom, adresse, id, id_enseigne, date_creation, jeton)	;		
+			
 			}
 
 		} catch (SQLException | NamingException e) {

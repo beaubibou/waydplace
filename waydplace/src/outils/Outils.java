@@ -16,5 +16,22 @@ public class Outils {
 
 		return caldate.getTime();
 	}
+	
+	public static String jspAdapterCheked(boolean value) {
+
+		if (value)
+			return "checked";
+
+		return "";
+
+	}
+
+	public static String jspAdapterListSelected(int selectedValue, int value) {
+
+		if (value == selectedValue)
+			return "selected";
+		return "";
+
+	}
 
 }

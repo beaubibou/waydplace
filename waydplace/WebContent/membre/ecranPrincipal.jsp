@@ -44,7 +44,7 @@
 						<div class="col-sm-6 col-sm-offset-5">
 
 							<a
-								href="/waydplace/Frontal?action=<%=ActionPage.PROPOSER_ACTIVITE_MEMBRE%>"
+								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE%>"
 								class="btn btn-info" role="button">Propose</a>
 
 						</div>
@@ -55,12 +55,22 @@
 					<div class="row">
 						<div class="col-sm-6  col-sm-offset-5 ">
 							<a
-								href="/waydplace/Frontal?action=<%=ActionPage.RECHERCHER_ACTIVITE_MEMBRE%>"
+								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>"
 								class="btn btn-info" role="button">Rechercher</a>
 						</div>
 
 					</div>
 
+					<br>
+
+					<div class="row">
+						<div class="col-sm-6  col-sm-offset-5 ">
+							<a
+								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_MES_ACTIVITES%>"
+								class="btn btn-info" role="button">Mes activites</a>
+						</div>
+
+					</div>
 
 				</div>
 

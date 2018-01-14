@@ -11,8 +11,9 @@ import javax.naming.NamingException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
+import critere.CritereEtatActivite;
+import critere.CritereValeurText;
 import poolconnexion.CxoPool;
-
 import bean.RefTypeActivite;
 import bean.RefTypeOrganisateur;
 
@@ -24,7 +25,7 @@ public class CacheDAO {
 	final static String LIBELLE_TOUS="TOUS";
 	static ArrayList<RefTypeActivite> listRefTypeActivite = new ArrayList<RefTypeActivite>();
 	static ArrayList<RefTypeOrganisateur> listRefTypeOrganisteur = new ArrayList<RefTypeOrganisateur>();
-
+	static ArrayList<CritereEtatActivite> listCritereTypeActivite = new ArrayList<CritereEtatActivite>();
 
 	
 	
@@ -43,7 +44,7 @@ public class CacheDAO {
 			preparedStatement = connexion.prepareStatement(requete);
 			rs = preparedStatement.executeQuery();
 
-			listRefTypeActivite.add(new RefTypeActivite(CODE_TOUS, LIBELLE_TOUS,null));
+		
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String libelle = rs.getString("libelle");
@@ -64,6 +65,7 @@ public class CacheDAO {
 			CxoPool.close(connexion, preparedStatement, rs);
 		}
 	}
+	
 	
 	public static ArrayList<RefTypeOrganisateur> getListRefTypeOrganisteur() {
 
@@ -99,5 +101,22 @@ public class CacheDAO {
 
 			CxoPool.close(connexion, preparedStatement, rs);
 		}
+	}
+	
+	public static ArrayList<CritereEtatActivite> getListCritereEtatActivite() {
+		// TODO Auto-generated method stub
+
+		
+		
+		if (listCritereTypeActivite.size()==0){
+			listCritereTypeActivite.add(new CritereEtatActivite(CritereEtatActivite.TOUTES,  CritereValeurText.TOUTES));
+			listCritereTypeActivite.add(new CritereEtatActivite(CritereEtatActivite.ENCOURS,  CritereValeurText.ENCOURS));
+			listCritereTypeActivite.add(new CritereEtatActivite(CritereEtatActivite.PLANIFIEE,  CritereValeurText.PLANIFIEES));
+			listCritereTypeActivite.add(new CritereEtatActivite(CritereEtatActivite.TERMINEE, CritereValeurText.TERMINEES));
+	
+		}
+		
+		
+		return listCritereTypeActivite;
 	}
 }

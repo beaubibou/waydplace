@@ -9,10 +9,11 @@ public class Membre {
 	private Date date_creation; 
 	private String photo,pseudo;
 	private String mail;
+	private int id_site;
 	
 	
 	public Membre(int id, String uid, Date date_creation, String photo,
-			String pseudo,String mail) {
+			String pseudo,String mail,int id_site) {
 		super();
 		this.id = id;
 		this.uid = uid;
@@ -20,7 +21,17 @@ public class Membre {
 		this.photo = photo;
 		this.pseudo = pseudo;
 		this.mail=mail;
+		this.id_site=id_site;
 	}
+	
+	public int getId_site() {
+		return id_site;
+	}
+
+	public void setId_site(int id_site) {
+		this.id_site = id_site;
+	}
+
 	public String getMail() {
 		return mail;
 	}

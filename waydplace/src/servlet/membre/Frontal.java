@@ -1,14 +1,9 @@
 package servlet.membre;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,23 +14,13 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import outils.Outils;
-
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseToken;
-
-import dao.ActiviteDAO;
-import dao.MembreDAO;
-import dao.SiteDAO;
-import bean.Membre;
-import bean.MessageAction;
-import bean.Profil;
-import bean.Site;
 import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
+import bean.MessageAction;
+import bean.Profil;
+import dao.ActiviteDAO;
+
 
 /**
  * Servlet implementation class Frontal
@@ -44,93 +29,7 @@ public class Frontal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(Frontal.class);
 
-	public static FirebaseOptions optionFireBase;
-	public final static String cheminUnixBoulotCle = "/home/devel/perso/cle.json";
-	public final static String cheminWindowsCle = "d:/Dropbox/waydPlace/cle.json";
-	public final static String cheminProdCle = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
 
-	static {
-		boolean chargement = false;
-		if (optionFireBase == null) {
-
-			try {
-
-				File f = new File(cheminUnixBoulotCle);
-
-				if (f.exists()) {
-
-					FileInputStream serviceAccount = new FileInputStream(
-							cheminUnixBoulotCle);
-
-					optionFireBase = new FirebaseOptions.Builder()
-							.setCredentials(
-									GoogleCredentials
-											.fromStream(serviceAccount))
-							.setDatabaseUrl("https://wayd-c0414.firebaseio.com")
-							.build();
-					chargement = true;
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				LOG.error(ExceptionUtils.getStackTrace(e));
-			}
-		}
-
-		if (optionFireBase == null) {
-
-			try {
-				File f = new File(cheminWindowsCle);
-				if (f.exists()) {
-					FileInputStream serviceAccount = new FileInputStream(
-							cheminWindowsCle);
-
-					optionFireBase = new FirebaseOptions.Builder()
-							.setCredentials(
-									GoogleCredentials
-											.fromStream(serviceAccount))
-							.setDatabaseUrl("https://waydplace.firebaseio.com")
-							.build();
-
-					chargement = true;
-
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				LOG.error(ExceptionUtils.getStackTrace(e));
-			}
-		}
-
-		if (optionFireBase == null) {
-
-			try {
-				File f = new File(cheminProdCle);
-				if (f.exists()) {
-
-					FileInputStream serviceAccount = new FileInputStream(
-							cheminProdCle);
-
-					optionFireBase = new FirebaseOptions.Builder()
-							.setCredentials(
-									GoogleCredentials
-											.fromStream(serviceAccount))
-							.setDatabaseUrl("https://wayd-c0414.firebaseio.com")
-							.build();
-					chargement = true;
-				}
-			} catch (IOException e) {
-
-				e.printStackTrace();
-				LOG.error(ExceptionUtils.getStackTrace(e));
-			}
-		}
-
-		if (chargement == false) {
-
-			LOG.error("Le fichier cle.json n a pas pu etre chargé.");
-		}
-	}
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -145,21 +44,7 @@ public class Frontal extends HttpServlet {
 	 *      response)
 	 */
 
-	@Override
-	public void init() throws ServletException {
-		// TODO Auto-generated method stub
-
-		super.init();
-		// Initialistion de l'application
-		// MDC.put("duree", 3);
-
-		LOG.info("Demarrage serveur");
-
-		if (FirebaseApp.getApps().isEmpty())
-			FirebaseApp.initializeApp(optionFireBase);
-
-	}
-
+	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -174,6 +59,9 @@ public class Frontal extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		HttpSession session = request.getSession();
+		Profil profil = (Profil) session.getAttribute("profil");
+		
 		String action = request.getParameter("action");
 		System.out.println(action);
 		// System.out.println("jeton"+tokenFireBase);
@@ -183,30 +71,94 @@ public class Frontal extends HttpServlet {
 		switch (action) {
 
 		
-		case ActionPage.PROPOSER_ACTIVITE_MEMBRE:
+		case ActionPage.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
 			response.sendRedirect("membre/proposeActiviteMembre.jsp");
 			break;
 
-		case ActionPage.RECHERCHER_ACTIVITE_MEMBRE:
+		case ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
 			response.sendRedirect("membre/recherche.jsp");
+			break;
+			
+		case ActionPage.REDIRECTION_MES_ACTIVITES:
+			response.sendRedirect("membre/mesactivites.jsp");
+			break;
+			
+			
+		case ActionPage.REFRESH_MES_ACTIVITE_MEMBRES:
+		
+			MessageAction updateFiltreRecherche=updateFiltreRecherche(request,response,profil);
+			if (updateFiltreRecherche.isOk()){
+			response.sendRedirect("membre/mesactivites.jsp");	
+			}
 			break;
 
 		case ActionPage.AJOUTER_ACTIVITE_MEMBRE:
+		
+			
 			MessageAction ajouteActiviteMembre = ajouterActiviteMembre(request,
-					response);
+					response,profil);
 
+			if (ajouteActiviteMembre.isOk()){
+				
+				
+			}
+			else{
+				
+				
+			}
+			
 			break;
 		}
 
 	}
 
+	private MessageAction updateFiltreRecherche(HttpServletRequest request,
+			HttpServletResponse response, Profil profil) {
+		
+		int critereRechercheEtatMesActivite =0;
+				try {
+					critereRechercheEtatMesActivite = Integer.parseInt(request
+							.getParameter("criterEtatActivite"));
+				}
+
+				catch (Exception e) {
+					e.printStackTrace();
+					LOG.error(ExceptionUtils.getStackTrace(e));
+					// authentification.setAlertMessageDialog( new
+					// MessageAlertDialog("Message Information","Date non conforme",null,AlertJsp.warning));
+					// response.sendRedirect("MesActivites");
+					return new MessageAction(false, e.getMessage());
+
+				}
+
+			
+		
+		MessageAction  vp_updateFiltreRecherche=vp_updateFiltreRecherche(critereRechercheEtatMesActivite);
+		
+		if (vp_updateFiltreRecherche.isOk()){
+			
+			profil.getFiltre().setCritereRechercheEtatMesActivite(critereRechercheEtatMesActivite);
+			
+		}
+		
+		return vp_updateFiltreRecherche;
+	}
+
+	private MessageAction vp_updateFiltreRecherche(int critereEtatActivite) {
+		
+		
+		return new MessageAction(true, "");
+	}
+
 	private MessageAction ajouterActiviteMembre(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,Profil profil) {
 
 		String titre = request.getParameter("titre");
 		String libelle = request.getParameter("description");
+		int id_ref_type_activite =0;
+	
 		try {
-			int typeactivite = Integer.parseInt(request
+			 id_ref_type_activite = Integer.parseInt(request
 					.getParameter("typeactivite"));
 		}
 
@@ -225,7 +177,10 @@ public class Frontal extends HttpServlet {
 
 		Date date_debut = null;
 		Date date_fin = null;
-
+		datedebut="12/12/1972 10:00";
+		datefin="12/12/1972 12:00";
+	
+		
 		try {
 			date_debut = Outils.getDateFromString(datedebut);
 			date_fin = Outils.getDateFromString(datefin);
@@ -246,9 +201,9 @@ public class Frontal extends HttpServlet {
 
 		if (vp_ajouteActivite.isOk()) {// Verification des parametres
 
-			MessageAction ajouteActivite = (ActiviteDAO.AjouteActivite(1,
+			MessageAction ajouteActivite = (ActiviteDAO.AjouteActivite(profil.getIdSite(),
 					Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE, date_debut, date_fin, titre,
-					libelle));
+					libelle,profil.getUID(),id_ref_type_activite));
 
 			if (ajouteActivite.isOk()) {// Si l'activité ajouté
 
