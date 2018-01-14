@@ -102,7 +102,7 @@ public class ActiviteDAO {
 
 			case CritereEtatActivite.TOUTES:
 
-				requete = "SELECT activite.id as idactivite,"
+				requete = " SELECT activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut,"
