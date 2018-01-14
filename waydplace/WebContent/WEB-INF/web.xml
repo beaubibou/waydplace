@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>waydplace</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>Frontal</display-name>
+    <servlet-name>Frontal</servlet-name>
+    <servlet-class>servlet.membre.Frontal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Frontal</servlet-name>
+    <url-pattern>/Frontal</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConnexionMembre</display-name>
+    <servlet-name>ConnexionMembre</servlet-name>
+    <servlet-class>servlet.membre.ConnexionMembre</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConnexionMembre</servlet-name>
+    <url-pattern>/ConnexionMembre</url-pattern>
+  </servlet-mapping>
+</web-app>

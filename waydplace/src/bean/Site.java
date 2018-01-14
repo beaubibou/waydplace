@@ -1,0 +1,67 @@
+package bean;
+
+import java.util.Date;
+
+public class Site {
+	String nom;
+	String adresse;
+	int id;
+	int id_enseigne;
+	Date date_creation;
+	String jeton;
+	
+	@Override
+	public String toString() {
+		return "Site [nom=" + nom + ", adresse=" + adresse + ", id=" + id
+				+ ", id_enseigne=" + id_enseigne + ", date_creation="
+				+ date_creation + ", jeton=" + jeton + "]";
+	}
+	public Site(String nom, String adresse, int id, int id_enseigne,
+			Date date_creation, String jeton) {
+		super();
+		this.nom = nom;
+		this.adresse = adresse;
+		this.id = id;
+		this.id_enseigne = id_enseigne;
+		this.date_creation = date_creation;
+		this.jeton = jeton;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public String getAdresse() {
+		return adresse;
+	}
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getId_enseigne() {
+		return id_enseigne;
+	}
+	public void setId_enseigne(int id_enseigne) {
+		this.id_enseigne = id_enseigne;
+	}
+	public Date getDate_creation() {
+		return date_creation;
+	}
+	public void setDate_creation(Date date_creation) {
+		this.date_creation = date_creation;
+	}
+	public String getJeton() {
+		return jeton;
+	}
+	public void setJeton(String jeton) {
+		this.jeton = jeton;
+	}
+	
+	
+}
