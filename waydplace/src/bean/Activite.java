@@ -3,6 +3,11 @@ package bean;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.axis.encoding.Base64;
+
+import parametre.Parametres;
+
+
 public class Activite {
 
 	String titre;
@@ -30,7 +35,34 @@ public class Activite {
 
 		return false;
 	}
+	
+	public String getTypeUserLienHTML(String lien) {
 
+		if (id_ref_type_organisateur == Parametres.TYPE_ORGANISATEUR_SITE)
+			return "<a href='"
+					+ lien
+					+ "'"
+					+ "<span style='color: blue;'	class='glyphicon glyphicon-usd'></span></a>";
+
+		if (id_ref_type_organisateur == Parametres.TYPE_ORGANISATEUR_MEMBRE)
+			return "<a href='"
+					+ lien
+					+ "'"
+					+ "<span style='color: black;'	class='glyphicon glyphicon-user'></span></a>";
+
+		return "";
+
+	}
+
+	public String getUrlPhoto() {
+
+		if (photoOrganisateur == null)
+			photoOrganisateur = "";
+		byte[] bytes = Base64.decode(photoOrganisateur);
+		
+		String urlPhoto = "data:image/jpeg;base64," + Base64.encode(bytes);
+		return urlPhoto;
+	}
 	
 	public Activite(String titre, String libelle, int id, int id_site,
 			String photoOrganisateur, String pseudoOrganisateur,

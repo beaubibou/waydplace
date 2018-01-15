@@ -144,10 +144,8 @@
 				<%
 					if (listActivite!=null)
 																		for (Activite activite : listActivite) {
-							String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp"
-									+"&latitudeFiltre="+pager.getFiltAdminActivites().getLatitude()+
-									"&longitudeFiltre="+pager.getFiltAdminActivites().getLongitude();
-							String lienParticipant = "DetailParticipant?idPersonne=" + activite.getIdorganisateur()+"&from=listActivite.jsp";
+							String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
+							String lienParticipant = "DetailParticipant?idPersonne=" + activite.getUid_membre()+"&from=listActivite.jsp";
 				%>
 
 				<tr>
@@ -158,19 +156,18 @@
 								class="img-thumbnail pull-left ">
 
 							<p>
-								<%=activite.getTypeUserLienHTML(lienParticipant)%></p>
+							<%=activite.getTypeUserLienHTML(lienParticipant)%></p>
 							<p><%=activite.getEtatHtml()%></p>
-							<p><%=activite.calculDistance()%></p>
+						
 
 						</div>
 					</td>
 
 					<td><a href=<%=lien%>> <%=activite.getTitre()%></a></td>
-					<td><a href=<%=lienParticipant%>><%=activite.getPseudo()%></a></td>
+					<td><a href=<%=lienParticipant%>><%=activite.getPseudoOrganisateur()%></a></td>
 					<td><%=activite.getHoraireLeA()%></td>
-					<td><%=activite.getNbrVu()%></td>
-					<td><%=activite.getNbrSignalement()%></td>
-					<td><%=activite.getLibelleActivite()%></td>
+					<td><%=activite.getTitre()%></td>
+					<td><%=activite.getLibelle()%></td>
 
 				</tr>
 
@@ -194,61 +191,6 @@
 
 
 	</ul>
-	<script>
-		var placeSearch, autocomplete;
-		var componentForm = {
-			street_number : 'short_name',
-			route : 'long_name',
-			locality : 'long_name',
-			administrative_area_level_1 : 'short_name',
-			country : 'long_name',
-			postal_code : 'short_name'
-		};
-
-		function initAutocomplete() {
-			// Create the autocomplete object, restricting the search to geographical
-			// location types.
-			autocomplete = new google.maps.places.Autocomplete(
-			/** @type {!HTMLInputElement} */
-			(document.getElementById('autocomplete')), {
-				types : [ 'geocode' ]
-			});
-
-			// When the user selects an address from the dropdown, populate the address
-			// fields in the form.
-			autocomplete.addListener('place_changed', fillInAddress);
-		}
-
-		function fillInAddress() {
-			// Get the place details from the autocomplete object.
-			var place = autocomplete.getPlace();
-			document.getElementById("latitude").value = autocomplete.getPlace().geometry.location
-					.lat();
-			document.getElementById("longitude").value = autocomplete
-					.getPlace().geometry.location.lng();
-		}
-
-		// Bias the autocomplete object to the user's geographical location,
-		// as supplied by the browser's 'navigator.geolocation' object.
-		function geolocate() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(function(position) {
-					var geolocation = {
-						lat : position.coords.latitude,
-						lng : position.coords.longitude
-					};
-					var circle = new google.maps.Circle({
-						center : geolocation,
-						radius : position.coords.accuracy
-					});
-					autocomplete.setBounds(circle.getBounds());
-				});
-			}
-		}
-	</script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=<%=Outils.getCleMap()%>&libraries=places&callback=initAutocomplete"
-		async defer></script>
 
 
 	<script>
@@ -259,10 +201,7 @@
 				document.getElementById("formulaire").submit();
 			});
 
-			$('#rayon').change(function() {
-
-				document.getElementById("formulaire").submit();
-			});
+		
 		});
 	</script>
 </body>
