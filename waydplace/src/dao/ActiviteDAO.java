@@ -16,8 +16,12 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import critere.CritereEtatActivite;
+import critere.CritereTypeActivite;
+import critere.CritereTypeOrganisateur;
 import critere.FiltreRecherche;
+
 import poolconnexion.CxoPool;
+
 import bean.Activite;
 import bean.MessageAction;
 
@@ -245,10 +249,145 @@ public class ActiviteDAO {
 		return new MessageAction(true, "ok");
 	}
 
-	public static ArrayList<Activite> getListActivite(FiltreRecherche filtre,
-			int pageEnCours, int maxResult) {
-		// TODO Auto-generated method stub
-		return null;
+	public static ArrayList<Activite> getListActivite(
+			FiltreRecherche filtre, int page, int maxResult) {
+		System.out.println("ok1");
+		long debut = System.currentTimeMillis();
+
+		int offset = (maxResult) * page;
+
+		int critereTypeActivite = filtre.getCritereTypeActivite();
+		int critereTypeOrganisateur = filtre.getCritereTypeorganisateur();
+		int critereEtatActivite = filtre.getCritereRechercheEtatActivite();
+	
+		Activite activite = null;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		ArrayList<Activite> retour = new ArrayList<Activite>();
+		Connection connexion = null;
+		
+		try {
+
+			connexion = CxoPool.getConnection();
+			String requete = "SELECT activite.id as idactivite,"
+					+ "activite.id_site,"
+					+ "activite.id_ref_type_organisateur,"
+					+ "activite.date_debut,"
+					+ "activite.date_fin,"
+					+ "activite.titre,"
+					+ "activite.libelle,"
+					+ "activite.date_creation,"
+					+ "activite.id_ref_type_activite,"
+					+ "activite.uid_membre,"
+					+ "membre.photo as photoOrganisateur,"
+					+ "membre.pseudo "
+					+ "from "
+					+ "activite,membre "
+					+ "WHERE (1=1) ";
+					
+
+			
+			// tablesignalement.nbrsignalement = 1
+			if (critereTypeActivite != CritereTypeActivite.TOUS) {// on trie sur
+														// l'activité
+				requete = requete + " and activite.idtypeactivite=? ";
+
+			}
+
+			if (critereTypeOrganisateur != CritereTypeOrganisateur.TOUS) {// on trie sur l'activité
+
+				requete = requete + " and activite.typeuser=? ";
+
+			}
+
+			switch (critereEtatActivite) {
+
+			case CritereEtatActivite.ENCOURS:
+
+				requete = requete
+						+ " and current_timestamp between date_debut and date_fin ";
+
+				break;
+
+			case CritereEtatActivite.PLANIFIEE:
+
+				requete = requete + " and date_debut>current_timestamp ";
+
+				break;
+
+			case CritereEtatActivite.TERMINEE:
+
+				requete = requete + " and date_fin<current_timestamp ";
+				break;
+
+			}
+
+			
+
+			requete = requete
+					+ " order by activite.date_creation desc limit ?  offset ?";
+			preparedStatement = connexion.prepareStatement(requete);
+		
+			int index = 1;
+
+			if (critereTypeActivite != CritereTypeActivite.TOUS) {// on trie sur
+														// l'activité
+
+				preparedStatement.setInt(index, critereTypeActivite);
+				index++;
+			}
+
+			if (critereTypeOrganisateur != CritereTypeOrganisateur.TOUS) {// on trie sur l'activité
+
+				preparedStatement.setInt(index, critereTypeOrganisateur);
+				index++;
+
+			}
+
+			preparedStatement.setInt(index, maxResult);
+			index++;
+			preparedStatement.setInt(index, offset);
+
+			rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("idactivite");
+				String libelle = rs.getString("libelle");
+				String titre = rs.getString("titre");
+				String uid_membre = rs.getString("uid_membre");
+				int id_site = rs.getInt("id_site");
+				int id_ref_type_activite = rs.getInt("id_ref_type_activite");
+				int id_ref_type_organisateur = rs
+						.getInt("id_ref_type_organisateur");
+				String photoOrganisateur = rs.getString("photoOrganisateur");
+				Date datedebut = rs.getTimestamp("date_debut");
+				Date datefin = rs.getTimestamp("date_fin");
+				String pseudoOrganisateur = rs.getString("pseudo");
+
+				activite = new Activite(titre, libelle, id, id_site,
+						photoOrganisateur, pseudoOrganisateur,
+						id_ref_type_organisateur, uid_membre, datefin, datedebut,
+						id_ref_type_activite);
+			
+				retour.add(activite);
+			
+
+			
+			}
+
+		
+			return retour;
+		} catch (SQLException | NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return retour;
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+
 	}
 
 }

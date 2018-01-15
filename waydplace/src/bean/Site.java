@@ -10,12 +10,7 @@ public class Site {
 	Date date_creation;
 	String jeton;
 	
-	@Override
-	public String toString() {
-		return "Site [nom=" + nom + ", adresse=" + adresse + ", id=" + id
-				+ ", id_enseigne=" + id_enseigne + ", date_creation="
-				+ date_creation + ", jeton=" + jeton + "]";
-	}
+	
 	public Site(String nom, String adresse, int id, int id_enseigne,
 			Date date_creation, String jeton) {
 		super();

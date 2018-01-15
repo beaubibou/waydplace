@@ -14,9 +14,11 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import outils.Outils;
+import pager.PagerActivite;
 import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
+
 import bean.MessageAction;
 import bean.Profil;
 import dao.ActiviteDAO;
@@ -76,7 +78,15 @@ public class Frontal extends HttpServlet {
 			break;
 
 		case ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
-			response.sendRedirect("membre/recherche.jsp");
+			
+			int page=0;
+			PagerActivite pager = new PagerActivite(profil.getFiltre(),
+					page);
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("membre/rechercheActivite.jsp").forward(request,
+					response);
+			
+		
 			break;
 			
 		case ActionPage.REDIRECTION_MES_ACTIVITES:

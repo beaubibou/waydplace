@@ -122,15 +122,17 @@ public class ConnexionMembre extends HttpServlet {
 
 			LOG.error("Le fichier cle.json n a pas pu etre chargé.");
 		}
-	}    
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ConnexionMembre() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    @Override
+	}
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ConnexionMembre() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 
@@ -145,26 +147,29 @@ public class ConnexionMembre extends HttpServlet {
 
 	}
 
-
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	doPost(request, response);
+		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+
 		String action = request.getParameter("action");
-		
+
 		if (action == null || action.isEmpty())
 			return;
-	
+
 		switch (action) {
 
 		case ActionPage.ACT_CONNEXION_SITE:
@@ -189,8 +194,25 @@ public class ConnexionMembre extends HttpServlet {
 
 		Site site = SiteDAO.getSiteByJeton(jetonSite);
 
-		// LOG.info(site.);
+		boolean test = true;
 
+	
+		if (test) {
+			Membre membre = MembreDAO
+					.getMembreByUID("t9y13rZHL5ap2Kxx4L9jbgk0wdI3");
+			Profil profil = null;
+			System.out.println(membre);
+			
+			if (membre != null && site != null) {
+				profil = new Profil(site, membre);
+				session.setAttribute("profil", profil);
+				return new MessageAction(true, "");
+			}
+			return new MessageAction(true, "");
+		}
+		
+	
+		
 		if (site == null)
 			return new MessageAction(false, MessageText.JETON_SITE_INVALIDE);
 
@@ -205,23 +227,22 @@ public class ConnexionMembre extends HttpServlet {
 			String photo = null;
 
 			Membre membre = MembreDAO.getMembreByUID(uid);
-			
+
 			if (membre == null) {
-				
+
 				MessageAction ajouteMembre = MembreDAO.ajouteMembre(uid,
 						pseudo, mail, photo, site.getId());
 				if (ajouteMembre.isOk()) {
-			
-				membre = MembreDAO.getMembreByUID(uid);
-				} else
-				{
-					
+
+					membre = MembreDAO.getMembreByUID(uid);
+				} else {
+
 					return ajouteMembre;
 				}
 			}
 
 			MembreDAO.updateSite(site.getId(), uid);
-			
+
 			if (membre != null && site != null) {
 				profil = new Profil(site, membre);
 				session.setAttribute("profil", profil);

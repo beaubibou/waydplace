@@ -127,7 +127,7 @@ public class CacheDAO {
 			rs = preparedStatement.executeQuery();
 			listCritereTypeActivite.add(new CritereTypeActivite(CritereTypeActivite.TOUS, CritereTypeActivite.TEXT_TOUS));
 			while (rs.next()) {
-				int id = rs.getInt("idtypeactivite");
+				int id = rs.getInt("id");
 				String libelle = rs.getString("libelle");
 				listCritereTypeActivite.add(new CritereTypeActivite(id, libelle));
 			}
@@ -166,7 +166,7 @@ public class CacheDAO {
 			rs = preparedStatement.executeQuery();
 			listCritereTypeOrganistateur.add(new CritereTypeOrganisateur(CritereTypeOrganisateur.TOUS, CritereTypeOrganisateur.TEXT_TOUS));
 			while (rs.next()) {
-				int id = rs.getInt("idtypeactivite");
+				int id = rs.getInt("id");
 				String libelle = rs.getString("libelle");
 				listCritereTypeOrganistateur.add(new CritereTypeOrganisateur(id, libelle));
 			}
