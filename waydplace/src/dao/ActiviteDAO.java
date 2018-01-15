@@ -291,13 +291,13 @@ public class ActiviteDAO {
 			// tablesignalement.nbrsignalement = 1
 			if (critereTypeActivite != CritereTypeActivite.TOUS) {// on trie sur
 														// l'activité
-				requete = requete + " and activite.idtypeactivite=? ";
+				requete = requete + " and activite.id_ref_type_activite=? ";
 
 			}
 
 			if (critereTypeOrganisateur != CritereTypeOrganisateur.TOUS) {// on trie sur l'activité
 
-				requete = requete + " and activite.typeuser=? ";
+				requete = requete + " and activite.id_ref_type_organisateur=? ";
 
 			}
 

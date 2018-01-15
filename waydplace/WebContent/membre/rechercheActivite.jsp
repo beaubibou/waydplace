@@ -35,7 +35,7 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-		FiltreRecherche filtre=profil.getFiltre();
+			FiltreRecherche filtre=profil.getFiltre();
 		
 			ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
 			ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
@@ -52,8 +52,10 @@
 			<div class="panel-body" style="background: #99ccff;">
 
 				<form class="form-inline" id="formulaire" method="post"
-					action="ListActivite">
+					action="/waydplace/Frontal">
 
+		<input name='action' value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES%>'>
+	
 
 
 					<div class="form-group">
@@ -122,7 +124,8 @@
 	
 	</div>
 
-
+</div>
+</div>
 
 
 	<div class="container" style="width: 90%;">

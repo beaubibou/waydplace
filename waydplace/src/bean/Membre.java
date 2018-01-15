@@ -2,6 +2,8 @@ package bean;
 
 import java.util.Date;
 
+import org.apache.axis.encoding.Base64;
+
 public class Membre {
 
 	private int id;
@@ -69,6 +71,20 @@ public class Membre {
 		this.pseudo = pseudo;
 	}
 	
+	public String getUrlPhoto() {
+
+		if (photo == null)
+			return "";
+		byte[] bytes = Base64.decode(photo);
+		
+		String urlPhoto = "data:image/jpeg;base64," + Base64.encode(bytes);
+		return urlPhoto;
+	}
+
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return " A implémenter";
+	}
 	
 	
 }

@@ -71,7 +71,7 @@
 							class="form-inline">
 							<div class="form-group">
 								<label for="idEtatActivite">Status:</label> <select
-									class="form-control" id="idEtatActivite" name="criterEtatActivite">
+									class="form-control" id="idEtatActivite" name="critereEtatMesActivite">
 
 									<%
 										for (CritereEtatActivite etatActivite:CacheDAO.getListCritereEtatActivite()) {

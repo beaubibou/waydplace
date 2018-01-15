@@ -57,7 +57,8 @@ public class Activite {
 	public String getUrlPhoto() {
 
 		if (photoOrganisateur == null)
-			photoOrganisateur = "";
+			return "";
+		
 		byte[] bytes = Base64.decode(photoOrganisateur);
 		
 		String urlPhoto = "data:image/jpeg;base64," + Base64.encode(bytes);

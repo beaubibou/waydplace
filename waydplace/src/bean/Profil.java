@@ -28,5 +28,18 @@ public class Profil {
 		this.filtre = filtre;
 	}
 	
+	public String getPhotostr(){
+		
+		return membre.getUrlPhoto() ;
+	}
+	public String getDescription(){
+		
+		return membre.getDescription();
+	}
+	
+	public String getPseudo(){
+		
+		return membre.getPseudo();
+	}
 	
 }
