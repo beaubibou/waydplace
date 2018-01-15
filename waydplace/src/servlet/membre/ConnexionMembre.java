@@ -37,9 +37,9 @@ public class ConnexionMembre extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(Frontal.class);
 
 	public static FirebaseOptions optionFireBase;
-	public final static String cheminUnixBoulotCle = "/home/devel/perso/cle.json";
-	public final static String cheminWindowsCle = "d:/Dropbox/waydPlace/cle.json";
-	public final static String cheminProdCle = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
+	public final static String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
+	public final static String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
+	public final static String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
 
 	static {
 		boolean chargement = false;
@@ -47,12 +47,12 @@ public class ConnexionMembre extends HttpServlet {
 
 			try {
 
-				File f = new File(cheminUnixBoulotCle);
+				File f = new File(CHEMIN_UNIX_BOULOT);
 
 				if (f.exists()) {
 
 					FileInputStream serviceAccount = new FileInputStream(
-							cheminUnixBoulotCle);
+							CHEMIN_UNIX_BOULOT);
 
 					optionFireBase = new FirebaseOptions.Builder()
 							.setCredentials(
@@ -63,7 +63,7 @@ public class ConnexionMembre extends HttpServlet {
 					chargement = true;
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 				LOG.error(ExceptionUtils.getStackTrace(e));
 			}
@@ -72,10 +72,10 @@ public class ConnexionMembre extends HttpServlet {
 		if (optionFireBase == null) {
 
 			try {
-				File f = new File(cheminWindowsCle);
+				File f = new File(CHEMIN_WINDOWS_MAISON);
 				if (f.exists()) {
 					FileInputStream serviceAccount = new FileInputStream(
-							cheminWindowsCle);
+							CHEMIN_WINDOWS_MAISON);
 
 					optionFireBase = new FirebaseOptions.Builder()
 							.setCredentials(
@@ -88,7 +88,7 @@ public class ConnexionMembre extends HttpServlet {
 
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 				LOG.error(ExceptionUtils.getStackTrace(e));
 			}
@@ -97,11 +97,11 @@ public class ConnexionMembre extends HttpServlet {
 		if (optionFireBase == null) {
 
 			try {
-				File f = new File(cheminProdCle);
+				File f = new File(CHEMIN_PROD_CLE);
 				if (f.exists()) {
 
 					FileInputStream serviceAccount = new FileInputStream(
-							cheminProdCle);
+							CHEMIN_PROD_CLE);
 
 					optionFireBase = new FirebaseOptions.Builder()
 							.setCredentials(
@@ -118,7 +118,7 @@ public class ConnexionMembre extends HttpServlet {
 			}
 		}
 
-		if (chargement == false) {
+		if (!chargement) {
 
 			LOG.error("Le fichier cle.json n a pas pu etre chargé.");
 		}
@@ -129,16 +129,13 @@ public class ConnexionMembre extends HttpServlet {
 	 */
 	public ConnexionMembre() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
 	public void init() throws ServletException {
-		// TODO Auto-generated method stub
 
 		super.init();
-		// Initialistion de l'application
-		// MDC.put("duree", 3);
 
 		LOG.info("Demarrage serveur");
 
@@ -153,7 +150,7 @@ public class ConnexionMembre extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 		doPost(request, response);
 	}
 
@@ -163,7 +160,6 @@ public class ConnexionMembre extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		String action = request.getParameter("action");
 
@@ -189,20 +185,21 @@ public class ConnexionMembre extends HttpServlet {
 
 	private MessageAction connexionSite(String tokenFireBase, String jetonSite,
 			HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		
 		final HttpSession session = request.getSession();
 
 		Site site = SiteDAO.getSiteByJeton(jetonSite);
 
 		boolean test = true;
 
-	
 		if (test) {
 			Membre membre = MembreDAO
 					.getMembreByUID("t9y13rZHL5ap2Kxx4L9jbgk0wdI3");
+		
 			Profil profil = null;
-			System.out.println(membre);
+		
 			
+
 			if (membre != null && site != null) {
 				profil = new Profil(site, membre);
 				session.setAttribute("profil", profil);
@@ -210,9 +207,7 @@ public class ConnexionMembre extends HttpServlet {
 			}
 			return new MessageAction(true, "");
 		}
-		
-	
-		
+
 		if (site == null)
 			return new MessageAction(false, MessageText.JETON_SITE_INVALIDE);
 

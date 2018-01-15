@@ -53,11 +53,19 @@
 
 		<a id="btn_googl" e" onclick="signInGoogle()" class="btn btn-primary">Login
 			with Google</a>
+			
+			<a id="btn_googl" e" onclick="signInTest()" class="btn btn-primary">Test
+			</a>
 
 	</div>
 </body>
 
 <script>
+
+function signInTest(){
+	
+	  document.getElementById("formmasque").submit();
+}
 function signInGoogle(){
 	
 	var provider = new firebase.auth.GoogleAuthProvider();
@@ -100,6 +108,7 @@ function signInGoogle(){
 	
 	
 }
+
 
 </script>
 </html>

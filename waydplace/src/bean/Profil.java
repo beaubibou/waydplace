@@ -14,11 +14,9 @@ public class Profil {
 		filtre=new FiltreRecherche();
 	}
 	public int getIdSite() {
-		// TODO Auto-generated method stub
 		return site.getId();
 	}
 	public String getUID() {
-		// TODO Auto-generated method stub
 		return membre.getUid();
 	}
 	public FiltreRecherche getFiltre() {
