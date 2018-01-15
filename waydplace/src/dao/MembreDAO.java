@@ -20,6 +20,7 @@ import bean.MessageAction;
 
 public class MembreDAO {
 
+	
 	private static final Logger LOG = Logger.getLogger(MembreDAO.class);
 
 	public static Membre getMembreByUID(String uid) {
@@ -44,13 +45,15 @@ public class MembreDAO {
 				String photo = rs.getString("PHOTO");
 				String mail = rs.getString("MAIL");
 				int id_site = rs.getInt("id_site");
-				Date date_creation = rs.getTimestamp("DATE_CREATION");
-				membre = new Membre(id, uid, date_creation, photo, pseudo, mail,id_site);
+				Date date_creation = rs.getTimestamp("date_creation");
+				Date date_naissance = rs.getTimestamp("date_naissance");
+				String description = rs.getString("description");
+				
+				membre = new Membre(id, uid, date_creation, photo, pseudo, mail,id_site,date_naissance,description);
 
 			}
 
 		} catch (SQLException | NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 
@@ -65,7 +68,6 @@ public class MembreDAO {
 
 	public static MessageAction ajouteMembre(String uid, String pseudo,
 			String mail, String photo, int idSite) {
-		// TODO Auto-generated method stub
 		long debut = System.currentTimeMillis();
 
 		Connection connexion = null;
@@ -87,7 +89,7 @@ public class MembreDAO {
 			CxoPool.closeConnection(connexion);
 
 		} catch (NamingException | SQLException e) {
-			// TODO Auto-generated catch block
+	
 			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
@@ -104,12 +106,13 @@ public class MembreDAO {
 	public static MessageAction updateSite(int id_site, String uid) {
 		long debut = System.currentTimeMillis();
 		Connection connexion = null;
+		PreparedStatement preparedStatement=null;
 
 		try {
 			connexion = CxoPool.getConnection();
 			connexion.setAutoCommit(false);
 			String requete = "UPDATE  membre set id_site=? where uid=?";
-			PreparedStatement preparedStatement = connexion
+			preparedStatement = connexion
 					.prepareStatement(requete);
 			preparedStatement.setInt(1, id_site);
 			preparedStatement.setString(2, uid);
@@ -118,13 +121,12 @@ public class MembreDAO {
 			connexion.commit();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			CxoPool.rollBack(connexion);
 			return new MessageAction(false, e.getMessage());
 		} finally {
-			CxoPool.closeConnection(connexion);
+			CxoPool.close(connexion,preparedStatement);
 		}
 
 		return new MessageAction(true, "");

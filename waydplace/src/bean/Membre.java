@@ -12,10 +12,12 @@ public class Membre {
 	private String photo,pseudo;
 	private String mail;
 	private int id_site;
+	private Date date_naissance;
+	private String description;
 	
 	
 	public Membre(int id, String uid, Date date_creation, String photo,
-			String pseudo,String mail,int id_site) {
+			String pseudo,String mail,int id_site,Date date_naissance,String description) {
 		super();
 		this.id = id;
 		this.uid = uid;
@@ -24,8 +26,30 @@ public class Membre {
 		this.pseudo = pseudo;
 		this.mail=mail;
 		this.id_site=id_site;
+		this.date_naissance=date_naissance;
+		this.description=description;
 	}
 	
+	
+	
+	public Date getDate_naissance() {
+		return date_naissance;
+	}
+
+
+
+	public void setDate_naissance(Date date_naissance) {
+		this.date_naissance = date_naissance;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
 	public int getId_site() {
 		return id_site;
 	}

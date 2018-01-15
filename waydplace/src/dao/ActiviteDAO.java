@@ -166,7 +166,7 @@ public class ActiviteDAO {
 				int id = rs.getInt("idactivite");
 				String libelle = rs.getString("libelle");
 				String titre = rs.getString("titre");
-				int id_site = rs.getInt("id_site");
+				int idSite = rs.getInt("id_site");
 				int id_ref_type_activite = rs.getInt("id_ref_type_activite");
 				int id_ref_type_organisateur = rs
 						.getInt("id_ref_type_organisateur");
@@ -175,7 +175,7 @@ public class ActiviteDAO {
 				Date datefin = rs.getTimestamp("date_fin");
 				String pseudoOrganisateur = rs.getString("pseudo");
 
-				activite = new Activite(titre, libelle, id, id_site,
+				activite = new Activite(titre, libelle, id, idSite,
 						photoOrganisateur, pseudoOrganisateur,
 						id_ref_type_organisateur, uid, datefin, datedebut,
 						id_ref_type_activite);
@@ -185,10 +185,8 @@ public class ActiviteDAO {
 
 			preparedStatement.close();
 			rs.close();
-			// Cherche dans les activite
-
+	
 		} catch (NamingException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return retour;

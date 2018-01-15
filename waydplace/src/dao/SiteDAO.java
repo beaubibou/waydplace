@@ -21,39 +21,37 @@ public class SiteDAO {
 	private static final Logger LOG = Logger.getLogger(SiteDAO.class);
 
 	public static MessageAction ajouteSite(String nom, String adresse,
-			int id_enseigne, String jeton) {
+			int idEnseigne, String jeton) {
 
-		MessageAction verifie_parametres = VP_AjouteSite(nom, adresse,
-				id_enseigne, jeton);
+		MessageAction verifieParametres = vpAjouteSite(nom, adresse,
+				idEnseigne, jeton);
 
-		if (!verifie_parametres.isOk())
-			return verifie_parametres;
+		if (!verifieParametres.isOk())
+			return verifieParametres;
 
 		return new MessageAction(true, "ok");
 
 	}
 
-	private static MessageAction VP_AjouteSite(String nom, String adresse,
-			int id_enseigne, String jeton) {
-		// TODO Auto-generated method stub
-
+	private static MessageAction vpAjouteSite(String nom, String adresse,
+			int idEnseigne, String jeton) {
+	
 		return new MessageAction(true, "ok");
 	}
 
 	public static MessageAction connexionSite(String jeton) {
 
-		MessageAction verifie_parametres = VP_connexionSite(jeton);
+		MessageAction verifieParametres = vpCconnexionSite(jeton);
 
-		if (!verifie_parametres.isOk())
-			return verifie_parametres;
+		if (!verifieParametres.isOk())
+			return verifieParametres;
 
 		return new MessageAction(true, "ok");
 
 	}
 
-	private static MessageAction VP_connexionSite(String jeton) {
-		// TODO Auto-generated method stub
-
+	private static MessageAction vpCconnexionSite(String jeton) {
+		
 		return new MessageAction(true, "ok");
 	}
 
@@ -77,15 +75,14 @@ public class SiteDAO {
 				int id = rs.getInt("id");
 				String nom = rs.getString("nom");
 				String adresse = rs.getString("adresse");
-				int id_enseigne = rs.getInt("id_enseigne");
-				Date date_creation = rs.getTimestamp("date_creation");
-				site=new Site(nom, adresse, id, id_enseigne, date_creation, jeton)	;		
+				int idEnseigne = rs.getInt("id_enseigne");
+				Date dateCreation = rs.getTimestamp("date_creation");
+				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton)	;		
 			
 			}
 
 		} catch (SQLException | NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 
 		} finally {
