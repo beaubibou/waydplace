@@ -16,6 +16,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import critere.CritereEtatActivite;
+import critere.FiltreRecherche;
 import poolconnexion.CxoPool;
 import bean.Activite;
 import bean.MessageAction;
@@ -242,6 +243,12 @@ public class ActiviteDAO {
 		}
 
 		return new MessageAction(true, "ok");
+	}
+
+	public static ArrayList<Activite> getListActivite(FiltreRecherche filtre,
+			int pageEnCours, int maxResult) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

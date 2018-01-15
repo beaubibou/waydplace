@@ -12,6 +12,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import critere.CritereEtatActivite;
+import critere.CritereTypeActivite;
+import critere.CritereTypeOrganisateur;
 import critere.CritereValeurText;
 import poolconnexion.CxoPool;
 import bean.RefTypeActivite;
@@ -25,7 +27,11 @@ public class CacheDAO {
 	final static String LIBELLE_TOUS="TOUS";
 	static ArrayList<RefTypeActivite> listRefTypeActivite = new ArrayList<RefTypeActivite>();
 	static ArrayList<RefTypeOrganisateur> listRefTypeOrganisteur = new ArrayList<RefTypeOrganisateur>();
-	static ArrayList<CritereEtatActivite> listCritereTypeActivite = new ArrayList<CritereEtatActivite>();
+	
+	
+	static ArrayList<CritereEtatActivite> listCritereEtatActivite = new ArrayList<CritereEtatActivite>();
+	static ArrayList<CritereTypeActivite> listCritereTypeActivite = new ArrayList<CritereTypeActivite>();
+	static ArrayList<CritereTypeOrganisateur> listCritereTypeOrganistateur = new ArrayList<CritereTypeOrganisateur>();
 
 	
 	
@@ -103,20 +109,97 @@ public class CacheDAO {
 		}
 	}
 	
+	
+	public static ArrayList<CritereTypeActivite> getListCrtitereTypeActivite() {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		
+		if (listCritereTypeActivite.size()>0)
+			return listCritereTypeActivite;
+				
+		try {
+			connexion = CxoPool.getConnection();
+
+			String requete = "SELECT id,libelle FROM ref_type_activite";
+			preparedStatement = connexion.prepareStatement(requete);
+			rs = preparedStatement.executeQuery();
+			listCritereTypeActivite.add(new CritereTypeActivite(CritereTypeActivite.TOUS, CritereTypeActivite.TEXT_TOUS));
+			while (rs.next()) {
+				int id = rs.getInt("idtypeactivite");
+				String libelle = rs.getString("libelle");
+				listCritereTypeActivite.add(new CritereTypeActivite(id, libelle));
+			}
+
+			return listCritereTypeActivite;
+
+		} catch (SQLException | NamingException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+			LOG.error( ExceptionUtils.getStackTrace(e));
+			return listCritereTypeActivite;
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+		
+		
+	}
+	
+
+	public static ArrayList<CritereTypeOrganisateur> getListCritereTypeOrganisateurs() {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		
+		if (listCritereTypeOrganistateur.size()>0)
+			return listCritereTypeOrganistateur;
+				
+		try {
+			connexion = CxoPool.getConnection();
+
+			String requete = "SELECT id,libelle FROM ref_type_organisateur";
+			preparedStatement = connexion.prepareStatement(requete);
+			rs = preparedStatement.executeQuery();
+			listCritereTypeOrganistateur.add(new CritereTypeOrganisateur(CritereTypeOrganisateur.TOUS, CritereTypeOrganisateur.TEXT_TOUS));
+			while (rs.next()) {
+				int id = rs.getInt("idtypeactivite");
+				String libelle = rs.getString("libelle");
+				listCritereTypeOrganistateur.add(new CritereTypeOrganisateur(id, libelle));
+			}
+
+			return listCritereTypeOrganistateur;
+
+		} catch (SQLException | NamingException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+			LOG.error( ExceptionUtils.getStackTrace(e));
+			return listCritereTypeOrganistateur;
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+		
+		
+	}
 	public static ArrayList<CritereEtatActivite> getListCritereEtatActivite() {
 		// TODO Auto-generated method stub
 
 		
 		
-		if (listCritereTypeActivite.size()==0){
-			listCritereTypeActivite.add(new CritereEtatActivite(CritereEtatActivite.TOUTES,  CritereValeurText.TOUTES));
-			listCritereTypeActivite.add(new CritereEtatActivite(CritereEtatActivite.ENCOURS,  CritereValeurText.ENCOURS));
-			listCritereTypeActivite.add(new CritereEtatActivite(CritereEtatActivite.PLANIFIEE,  CritereValeurText.PLANIFIEES));
-			listCritereTypeActivite.add(new CritereEtatActivite(CritereEtatActivite.TERMINEE, CritereValeurText.TERMINEES));
+		if (listCritereEtatActivite.size()==0){
+			listCritereEtatActivite.add(new CritereEtatActivite(CritereEtatActivite.TOUTES,  CritereValeurText.TOUTES));
+			listCritereEtatActivite.add(new CritereEtatActivite(CritereEtatActivite.ENCOURS,  CritereValeurText.ENCOURS));
+			listCritereEtatActivite.add(new CritereEtatActivite(CritereEtatActivite.PLANIFIEE,  CritereValeurText.PLANIFIEES));
+			listCritereEtatActivite.add(new CritereEtatActivite(CritereEtatActivite.TERMINEE, CritereValeurText.TERMINEES));
 	
 		}
 		
 		
-		return listCritereTypeActivite;
+		return listCritereEtatActivite;
 	}
 }
