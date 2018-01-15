@@ -38,7 +38,7 @@
 		<h2>Stacked form</h2>
 		<form id="formmasque" action="/waydplace/ConnexionMembre" method="post">
 
-			<input name='action' value='<%=ActionPage.ACT_CONNEXION_SITE%>'>
+			<input type="hidden" name='action' value='<%=ActionPage.ACT_CONNEXION_SITE%>'>
 			
 			<div class="form-group">
 				<label for="codesite">Code site:</label> <input type="text"

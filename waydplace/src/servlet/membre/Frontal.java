@@ -106,6 +106,10 @@ public class Frontal extends HttpServlet {
 		case ActionPage.REDIRECTION_MES_ACTIVITES:
 			response.sendRedirect("membre/mesactivites.jsp");
 			break;
+			
+		case ActionPage.REDIRECTION_COMPTE_MEMBRE:
+			response.sendRedirect("membre/compteMembre.jsp");
+			break;
 
 		case ActionPage.REFRESH_MES_ACTIVITE_MEMBRES:
 

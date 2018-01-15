@@ -71,6 +71,15 @@
 						</div>
 
 					</div>
+					
+						<div class="row">
+						<div class="col-sm-6  col-sm-offset-5 ">
+							<a
+								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_COMPTE_MEMBRE%>"
+								class="btn btn-info" role="button">Mon profil</a>
+						</div>
+
+					</div>
 
 				</div>
 
