@@ -38,12 +38,13 @@
 		<h2>Stacked form</h2>
 		<form id="formmasque" action="/waydplace/ConnexionMembre" method="post">
 
-			<input type="hidden" name='action' value='<%=ActionPage.ACT_CONNEXION_SITE%>'>
+			<input id='action' type="hidden" name='action' >
+			
 			
 			<div class="form-group">
 				<label for="codesite">Code site:</label> <input type="text"
 					class="form-control" id="codesite"
-					placeholder="Tapez le code du site" name="jetonSite">
+					placeholder="Tapez le code du site" name="jetonSite" value="aaaa">
 			</div>
 
 
@@ -51,16 +52,34 @@
 		<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
 		</form>
 
-		<a id="btn_googl" e" onclick="signInGoogle()" class="btn btn-primary">Login
+		<a id="btn_googl"  onclick="signInGoogle()" class="btn btn-primary">Login
 			with Google</a>
 			
-			<a id="btn_googl" e" onclick="signInTest()" class="btn btn-primary">Test
+			<a id="btn_googl" onclick="signInTestMembre()" class="btn btn-primary">Test Membre
 			</a>
-
+		<a id="btn_googl"  onclick="signInTestGestionnaire()" class="btn btn-primary">Test gestionnaire
+			</a>
+			
+			
 	</div>
+	
+	
 </body>
 
+
 <script>
+
+function signInTestMembre(){
+	
+	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE%>';
+	 document.getElementById("formmasque").submit();
+}
+
+
+function signInTestGestionnaire(){
+	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_ADMIN%>';
+	 document.getElementById("formmasque").submit();
+}
 
 function signInTest(){
 	

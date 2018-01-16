@@ -150,7 +150,7 @@ public class ConnexionMembre extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-	
+
 		doPost(request, response);
 	}
 
@@ -168,7 +168,7 @@ public class ConnexionMembre extends HttpServlet {
 
 		switch (action) {
 
-		case ActionPage.ACT_CONNEXION_SITE:
+		case ActionPage.CONNEXION_SITE_MEMBRE:
 
 			String tokenFireBase = request.getParameter("tokenFireBase");
 			String jetonSite = request.getParameter("jetonSite");
@@ -180,12 +180,19 @@ public class ConnexionMembre extends HttpServlet {
 				response.sendRedirect("erreur");
 
 			break;
+
+		case ActionPage.CONNEXION_SITE_ADMIN:
+			
+			if (true) {
+
+			}
+			break;
 		}
 	}
 
 	private MessageAction connexionSite(String tokenFireBase, String jetonSite,
 			HttpServletRequest request, HttpServletResponse response) {
-		
+
 		final HttpSession session = request.getSession();
 
 		Site site = SiteDAO.getSiteByJeton(jetonSite);
@@ -195,10 +202,8 @@ public class ConnexionMembre extends HttpServlet {
 		if (test) {
 			Membre membre = MembreDAO
 					.getMembreByUID("t9y13rZHL5ap2Kxx4L9jbgk0wdI3");
-		
+
 			Profil profil = null;
-		
-			
 
 			if (membre != null && site != null) {
 				profil = new Profil(site, membre);

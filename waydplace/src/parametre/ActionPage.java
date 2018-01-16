@@ -2,7 +2,8 @@ package parametre;
 
 public class ActionPage {
 
-	public static final String ACT_CONNEXION_SITE="connexionsite";
+	public static final String CONNEXION_SITE_MEMBRE="connexionsite";
+	public static final String CONNEXION_SITE_ADMIN="connexionadmin";
 
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_MEMBRE="proposerActiviteMembre";
 	public static final String REDIRECTION_MES_ACTIVITES="redirectionmesactivites";
