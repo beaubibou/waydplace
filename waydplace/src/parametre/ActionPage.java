@@ -14,6 +14,12 @@ public class ActionPage {
 	public static final String REDIRECTION_COMPTE_MEMBRE = "redirectionprofilmembre";
 	
 	
+	public static final String REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE = "proposeractivitegestionnaire";
+	public static final String REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "proposerplusieursactivitegestionnaire";
+	public static final String REDIRECTION_COMPTE_GESTIONNAIRE = "comptegestionnaire";
+	public static final String REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE = "gererActiviteGesionnaire";
+	
+	
 	
 	
 	

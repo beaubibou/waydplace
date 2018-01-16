@@ -182,10 +182,8 @@ public class ConnexionMembre extends HttpServlet {
 			break;
 
 		case ActionPage.CONNEXION_SITE_ADMIN:
+			response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
 			
-			if (true) {
-
-			}
 			break;
 		}
 	}

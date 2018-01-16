@@ -24,4 +24,14 @@
     <servlet-name>ConnexionMembre</servlet-name>
     <url-pattern>/ConnexionMembre</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FrontalGestionnaire</display-name>
+    <servlet-name>FrontalGestionnaire</servlet-name>
+    <servlet-class>servlet.membre.FrontalGestionnaire</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FrontalGestionnaire</servlet-name>
+    <url-pattern>/FrontalGestionnaire</url-pattern>
+  </servlet-mapping>
 </web-app>
