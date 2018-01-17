@@ -59,7 +59,8 @@
 
 
 					<div class="form-group">
-						<label for="typeUser">Type</label> <select
+						<label for="typeUser">Type</label>
+						 <select
 							data-style="btn-primary" class="form-control" id="typeUser"
 							name="typeUser">
 
