@@ -1,4 +1,5 @@
 
+<%@page import="outils.Outils"%>
 <%@page import="bean.Activite"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="dao.CacheDAO"%>
@@ -53,8 +54,8 @@
 <body>
 	<%
 		Activite activite=(Activite) request.getAttribute("activite");
-		ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
-				// Defini le li a rendre actif
+			ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
+			// Defini le li a rendre actif
 	%>
 
 
@@ -65,7 +66,7 @@
 			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title"><%=ProposeActiviteMembre.TITRE_PANEL%></div>
+					<div class="panel-title">Modifier</div>
 				</div>
 
 				<div style="padding-top: 30px" class="panel-body">
@@ -73,6 +74,10 @@
 
 					<form action="/waydplace/Frontal"
 						onsubmit="return valideFormulaire()" method="post">
+		
+				<input  name="action" type="text"  value=<%=ActionPage.MODIFIER_ACTIVITE_MEMBRE %> >
+				<input  name="idactivite" type="text"  value=<%=activite.getId() %> >
+		
 
 						<div class="form-group" style="border-bottom: 1px solid #888;">
 
@@ -84,13 +89,12 @@
 						<br>
 
 						<div class="form-group">
-						
+
 							<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
 							<input type="text" class="form-control" id="titre" required
 								placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
 								maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
-								name="titre" required
-								value="<%=activite.getTitre()%>">
+								name="titre" required value="<%=activite.getTitre()%>">
 						</div>
 
 
@@ -150,10 +154,9 @@
 
 							<%=ProposeActiviteMembre.initNbrCaracteres()%></h5>
 
-						<input type='hidden' name='action'
-							value='<%=ActionPage.AJOUTER_ACTIVITE_MEMBRE%>'>
+						
 
-						<button type="submit" class="btnwayd btn-lg">Proposer</button>
+						<button type="submit" class="btnwayd btn-lg">Modifier</button>
 
 
 					</form>
@@ -169,29 +172,7 @@
 
 
 
-	<script>
 	
-		$(function() {
-
-			$('#datedebut').datetimepicker({
-				defaultDate : new Date,
-				format : 'DD/MM/YYYY HH:mm'
-
-			});
-
-			var heure = new Date().getHours() + 3;
-
-			$('#datefin').datetimepicker(
-					{
-						defaultDate : moment(new Date()).hours(heure)
-								.minutes(0).seconds(0).milliseconds(0),
-						format : 'DD/MM/YYYY HH:mm'
-
-					});
-
-		});
-	
-	</script>
 	<script>
 		function dateDiff(date1, date2) {
 			var diff = {} // Initialisation du retour
@@ -265,10 +246,35 @@
 			return true;
 		}
 
-	
+		
+		
 	</script>
 
 	<script>
+	
+
+	$(function() {
+
+		var dateDebut =<%=Outils.getDateHtml(activite.getDatedebut())%>;
+		var dateFin =<%=Outils.getDateHtml(activite.getDatefin())%>;
+		$('#datedebut').datetimepicker({
+			defaultDate : dateDebut,
+			format : 'DD/MM/YYYY HH:mm'
+
+		});
+
+		$('#datefin').datetimepicker({
+			defaultDate : dateFin,
+			format : 'DD/MM/YYYY HH:mm'
+
+		});
+
+	});
+	
+	
+	
+	
+	
 		$(document).ready(function(e) {
 
 			$('#description').keyup(function() {
@@ -289,7 +295,6 @@
 		var nombreCaractere = $('#description').val().length;
 		var msg = nombreCaractere +   '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
 		$('#nbr').text(msg);
-	
 	</script>
 </body>
 </html>

@@ -441,9 +441,50 @@ public class ActiviteDAO {
 	
 	}
 
-	public static MessageAction modifieActivite(int idActivite) {
-		// TODO Auto-generated method stub
-		return new MessageAction(true, "");
+	
+
+	
+	public static MessageAction   modifieActivite(String titre, String commentaire,
+			Date datedebut, Date datefin, int idtypeactivite, int idactivite) {
+
+		long debut = System.currentTimeMillis();
+
+		PreparedStatement preparedStatement = null;
+		Connection connexion = null;
+		try {
+			connexion = CxoPool.getConnection();
+			connexion.setAutoCommit(false);
+			String requete = "UPDATE  activite set titre=?, libelle=?,  date_debut=?, date_fin=?,id_ref_type_activite=?"
+					+ " WHERE id=?";
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setString(1, titre);
+			preparedStatement.setString(2,commentaire);
+			preparedStatement.setTimestamp(3,new java.sql.Timestamp(datedebut.getTime()));
+			preparedStatement.setTimestamp(4,new java.sql.Timestamp(datefin.getTime()));
+			preparedStatement.setInt(5, idtypeactivite);
+			preparedStatement.setInt(6, idactivite);
+			
+			preparedStatement.execute();
+			preparedStatement.close();
+			connexion.commit();
+			
+			return new MessageAction(true, "");
+
+		} catch (NamingException | SQLException e) {
+			
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			CxoPool.rollBack(connexion);
+
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement);
+		}
+		return  new MessageAction(false, "");
+
 	}
 
+	
+	
+	
+	
 }

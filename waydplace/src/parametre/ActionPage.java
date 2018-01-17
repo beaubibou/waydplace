@@ -12,10 +12,12 @@ public class ActionPage {
 	public static final String REFRESH_MES_ACTIVITE_MEMBRES = "refreshmesactivitemembres";
 	public static final String REFRESH_RECHERCHE_ACTIVITE_MEMBRES = "resfreshRechercheActiviteMembres";
 	public static final String REDIRECTION_COMPTE_MEMBRE = "redirectionprofilmembre";
-	public static final String REDIRECTION_MODIFIER_ACTIVITE_MEMBRE = "modifieractivitemembre";
+	public static final String REDIRECTION_MODIFIER_ACTIVITE_MEMBRE = "redirectionmodifieractivitemembre";
 	public static final String EFFACE_ACTIVITE_MEMBRE = "effaceActiviteMembre";
 	public static final String REDIRECTION_DETAIL_PARTICIPANT_MEMBRE = "detailParticipantMembre";
+	public static final String MODIFIER_ACTIVITE_MEMBRE = "modifierActiviteMembre";
 
+	
 
 	
 	

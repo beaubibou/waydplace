@@ -66,6 +66,8 @@ public class Frontal extends HttpServlet {
 
 		PagerActivite pager = null;
 
+		System.out.println(action);
+
 		if (action == null || action.isEmpty())
 			return;
 
@@ -88,7 +90,7 @@ public class Frontal extends HttpServlet {
 		case ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
 
 			MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
-					request,  profil);
+					request, profil);
 
 			if (updateFiltreRechercheActivite.isOk()) {
 
@@ -113,7 +115,7 @@ public class Frontal extends HttpServlet {
 
 		case ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE:
 
-			Membre membre = getMembre(request,  profil);
+			Membre membre = getMembre(request, profil);
 
 			request.setAttribute("membre", membre);
 			request.getRequestDispatcher("membre/detailMembre.jsp").forward(
@@ -126,7 +128,7 @@ public class Frontal extends HttpServlet {
 
 		case ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
 
-			Activite activite = getActivite(request, response, profil);
+			Activite activite = getActivite(request,  profil);
 
 			request.setAttribute("activite", activite);
 			request.getRequestDispatcher("membre/modifieActivite.jsp").forward(
@@ -136,7 +138,7 @@ public class Frontal extends HttpServlet {
 		case ActionPage.REFRESH_MES_ACTIVITE_MEMBRES:
 
 			MessageAction updateFiltreRecherche = updateFiltreRecherche(
-					request,  profil);
+					request, profil);
 			if (updateFiltreRecherche.isOk()) {
 				response.sendRedirect("membre/mesactivites.jsp");
 			}
@@ -148,11 +150,17 @@ public class Frontal extends HttpServlet {
 
 			break;
 
+		case ActionPage.MODIFIER_ACTIVITE_MEMBRE:
+
+			MessageAction modifierActiviteMembre = modifierActiviteMembre(
+					request, profil);
+
+			break;
+
 		case ActionPage.AJOUTER_ACTIVITE_MEMBRE:
 
 			MessageAction ajouteActiviteMembre = ajouterActiviteMembre(request,
 					response, profil);
-			System.out.println("kkkjoiuui" + ajouteActiviteMembre.isOk());
 
 			if (ajouteActiviteMembre.isOk()) {
 
@@ -168,6 +176,69 @@ public class Frontal extends HttpServlet {
 
 	}
 
+	private MessageAction modifierActiviteMembre(HttpServletRequest request,
+			Profil profil) {
+
+		String titre = request.getParameter("titre");
+		String libelle = request.getParameter("description");
+		int id_ref_type_activite = 0;
+		int idActivite = 0;
+
+		try {
+			id_ref_type_activite = Integer.parseInt(request
+					.getParameter("typeactivite"));
+			idActivite = Integer.parseInt(request.getParameter("idactivite"));
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
+
+			return new MessageAction(false, e.getMessage());
+
+		}
+
+		String datedebutStr = request.getParameter("debut");
+		String datefinStr = request.getParameter("fin");
+
+		Date dateDebut = null;
+		Date dateFin = null;
+
+		try {
+			dateDebut = Outils.getDateFromString(datedebutStr);
+			dateFin = Outils.getDateFromString(datefinStr);
+
+		} catch (ParseException e) {
+
+		
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return new MessageAction(false, e.getMessage());
+		}
+
+		MessageAction vpModifieActivite = vpModifieActivite(titre, libelle,
+				dateDebut, dateFin);
+
+		if (vpModifieActivite.isOk()) {
+
+			MessageAction modifieActivieDAO = ActiviteDAO
+					.modifieActivite( titre,  libelle,
+							 dateDebut,  dateFin,  id_ref_type_activite,  idActivite);
+			if (modifieActivieDAO.isOk())
+				return new MessageAction(true, "");
+			else
+				return modifieActivieDAO;
+
+		}
+		return vpModifieActivite;
+
+	}
+
+	private MessageAction vpModifieActivite(String titre, String libelle,
+			Date dateDebut, Date dateFin) {
+		
+		return new MessageAction(true, "");
+	}
+
 	private MessageAction effaceActivite(HttpServletRequest request,
 			Profil profil) {
 
@@ -180,8 +251,8 @@ public class Frontal extends HttpServlet {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
-
+			
+			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 
 		}
@@ -193,7 +264,8 @@ public class Frontal extends HttpServlet {
 			MessageAction effaceDAO = ActiviteDAO.supprimeActivite(idActivite);
 
 			if (effaceDAO.isOk())
-				return new MessageAction(true,MessageText.SUPPRIME_ACTIVITE_SUCCESS);
+				return new MessageAction(true,
+						MessageText.SUPPRIME_ACTIVITE_SUCCESS);
 			else
 				return effaceDAO;
 		}
@@ -203,14 +275,13 @@ public class Frontal extends HttpServlet {
 	}
 
 	private MessageAction vpEffaceActivite(Profil profil, int idActivite) {
-		
+
 		return new MessageAction(true, "");
 	}
 
-	private Membre getMembre(HttpServletRequest request,
-			 Profil profil) {
+	private Membre getMembre(HttpServletRequest request, Profil profil) {
 
-		Membre membre = null;
+		Membre membre;
 
 		String uid = request.getParameter("idmembre");
 
@@ -221,7 +292,7 @@ public class Frontal extends HttpServlet {
 	}
 
 	private Activite getActivite(HttpServletRequest request,
-			HttpServletResponse response, Profil profil) {
+			 Profil profil) {
 
 		Activite retour = null;
 		int idActivite = 0;
@@ -244,7 +315,7 @@ public class Frontal extends HttpServlet {
 	}
 
 	private MessageAction updateFiltreRecherche(HttpServletRequest request,
-			 Profil profil) {
+			Profil profil) {
 
 		int critereRechercheEtatMesActivite = profil.getFiltre()
 				.getCritereRechercheEtatMesActivite();
@@ -287,7 +358,7 @@ public class Frontal extends HttpServlet {
 			}
 
 		} catch (Exception e) {
-	
+
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 
@@ -317,9 +388,8 @@ public class Frontal extends HttpServlet {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
+	
 			LOG.error(ExceptionUtils.getStackTrace(e));
-
 			return new MessageAction(false, e.getMessage());
 
 		}
@@ -331,12 +401,13 @@ public class Frontal extends HttpServlet {
 		Date dateFin = null;
 
 		try {
-			dateDebut = Outils.getDateFromString(datedebutStr);
-			dateFin = Outils.getDateFromString(datefinStr);
+			
+		dateDebut = Outils.getDateFromString(datedebutStr);
+		dateFin = Outils.getDateFromString(datefinStr);
 
 		} catch (ParseException e) {
 
-			e.printStackTrace();
+			
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 		}
@@ -379,8 +450,10 @@ public class Frontal extends HttpServlet {
 		return new MessageAction(true, "");
 	}
 
+	
 	private void redirectionErreur(MessageAction ajouteMembre) {
 
+	
 	}
 
 }
