@@ -17,41 +17,47 @@ import bean.Profil;
  */
 public class FrontalGestionnaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FrontalGestionnaire() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public FrontalGestionnaire() {
+		super();
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Profil profil = (Profil) session.getAttribute("profil");
 
 		String action = request.getParameter("action");
 		System.out.println(action);
-		PagerActivite pager=null;
-		// System.out.println("jeton"+tokenFireBase);
+		PagerActivite pager = null;
 		if (action == null || action.isEmpty())
 			return;
 
 		switch (action) {
 
 		case ActionPage.REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE:
-			response.sendRedirect("membre/proposeActiviteMembre.jsp");
+
+		
+			response.sendRedirect("gestionnaire/proposeUneActivite.jsp");
+
 			break;
 
 		case ActionPage.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
@@ -59,12 +65,13 @@ public class FrontalGestionnaire extends HttpServlet {
 			int page = 0;
 			pager = new PagerActivite(profil.getFiltre(), page);
 			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("membre/rechercheActivite.jsp")
-					.forward(request, response);
+			request.getRequestDispatcher(
+					"gestionnaire/proposePlusieursActivite.jsp").forward(
+					request, response);
 
 			break;
 		}
-	
+
 	}
 
 }

@@ -29,6 +29,13 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
 	type="text/css">
+	<script src="/waydplace/js/moment.js"></script>
+	<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	
 </head>
 
 <body>
@@ -54,7 +61,7 @@
 				<form class="form-inline" id="formulaire" method="post"
 					action="/waydplace/Frontal">
 
-		<input name='action' value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES%>'>
+		<input type="hidden" name='action' value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES%>'>
 	
 
 
@@ -117,6 +124,27 @@
 						</select>
 					</div>
 			
+				<div class="form-group">
+				<label for="iddatedebut">Date debut</label>
+				<div class='input-group date' id='datedebut'>
+					<input type='text' class="form-control" id="iddatedebut"
+						name="debut" /> <span class="input-group-addon"> <span
+						class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+			</div>
+
+
+
+			<div class="form-group">
+				<label for="iddatefin">Date fin</label>
+				<div class='input-group date' id="datefin">
+					<input type='text' class="form-control" id="iddatefin" name="fin" />
+					<span class="input-group-addon"> <span
+						class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+			</div>
 			<button id="go" type="submit" class="btn btn-info"
 				name="rechercheactivite">Rechercher</button>
 		
@@ -138,9 +166,7 @@
 					<th style="width: 5%;" class="text-center">Titre</th>
 					<th style="width: 30%;" class="text-center">User</th>
 					<th style="width: 10%;" class="text-center">Le</th>
-					<th style="width: 5%;" class="text-center">Vu</th>
-					<th style="width: 5%;" class="text-center">Sign.</th>
-					<th style="width: 5%;" class="text-center">Type</th>
+				
 				</tr>
 			</thead>
 			<tbody
@@ -170,7 +196,6 @@
 					<td><a href=<%=lien%>> <%=activite.getTitre()%></a></td>
 					<td><a href=<%=lienParticipant%>><%=activite.getPseudoOrganisateur()%></a></td>
 					<td><%=activite.getHoraireLeA()%></td>
-					<td><%=activite.getTitre()%></td>
 					<td><%=activite.getLibelle()%></td>
 
 				</tr>
@@ -205,8 +230,25 @@
 				document.getElementById("formulaire").submit();
 			});
 
+			
+			$('#datedebut').datetimepicker({
+				defaultDate : new Date(<%=filtre.getCritereDateDebutCreation().getYear()%>,<%=filtre.getCritereDateDebutCreation().getMonthOfYear()-1%>,<%=filtre.getCritereDateDebutCreation().getDayOfMonth()%>),
+				format : 'DD/MM/YYYY'
+
+			}).on('dp.change', function (e) {document.getElementById("formulaire").submit(); });
+
+	
+			$('#datefin').datetimepicker(
+					{
+						defaultDate : new Date(<%=filtre.getCritereDateFinCreation().getYear()%>,<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>,<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>,	),
+			format : 'DD/MM/YYYY'
+
+							}).on('dp.change', function (e) {document.getElementById("formulaire").submit(); });
 		
 		});
+		
+		
+	
 	</script>
 </body>
 

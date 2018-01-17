@@ -45,8 +45,8 @@
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
 		FiltreRecherche filtre=profil.getFiltre();
-	
 		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
+	
 	%>
 
 
@@ -86,7 +86,7 @@
 								</select>
 
 							</div>
-							<input name='action' value='<%=ActionPage.REFRESH_MES_ACTIVITE_MEMBRES%>'>
+							<input type="hidden" name='action' value='<%=ActionPage.REFRESH_MES_ACTIVITE_MEMBRES%>'>
 						</form>
 					</div>
 
@@ -115,7 +115,7 @@
 										for (Activite activite : listMesActivite) {
 										String lienEfface = "/wayd/SupprimeActivite?idactivite=" + activite.getId();
 										String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-										String lienEdit = "/wayd/ModifierActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
+										String lienEdit = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
 				%>
 
 

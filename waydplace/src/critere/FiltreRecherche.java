@@ -1,6 +1,9 @@
 package critere;
 
+import java.util.Date;
+
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 
 public class FiltreRecherche {
 	private static final Logger LOG = Logger.getLogger(FiltreRecherche.class);
@@ -15,6 +18,10 @@ public class FiltreRecherche {
 	int CritereRechercheEtatActivite=CritereEtatActivite.TOUTES;
 	int critereTypeActivite=CritereTypeActivite.TOUS;
 	int critereTypeorganisateur=CritereTypeOrganisateur.TOUS;
+
+	private DateTime critereDateFinCreation;
+
+	private DateTime critereDateDebutCreation;
 	
 	
 
@@ -22,6 +29,9 @@ public class FiltreRecherche {
 		return critereTypeActivite;
 	}
 
+	
+
+	
 
 	public void setCritereTypeActivite(int critereTypeActivite) {
 		this.critereTypeActivite = critereTypeActivite;
@@ -59,9 +69,56 @@ public class FiltreRecherche {
 	}
 
 
+	
+
+
+
+
 	public FiltreRecherche(){
+		
+		 critereDateDebutCreation = new DateTime() .withHourOfDay(0)
+			    .withMinuteOfHour(0)
+			    .withSecondOfMinute(0)
+			    .withMillisOfSecond(00);
+	
+		
+		critereDateFinCreation = new DateTime() .withHourOfDay(23)
+			    .withMinuteOfHour(59)
+			    .withSecondOfMinute(59);
 	
 	}
+
+
+	public DateTime getCritereDateFinCreation() {
+		return critereDateFinCreation;
+	}
+
+
+
+
+
+	public void setCritereDateFinCreation(DateTime critereDateFinCreation) {
+		this.critereDateFinCreation = critereDateFinCreation;
+	}
+
+
+
+
+
+	public DateTime getCritereDateDebutCreation() {
+		return critereDateDebutCreation;
+	}
+
+
+
+
+
+	public void setCritereDateDebutCreation(DateTime critereDateDebutCreation) {
+		this.critereDateDebutCreation = critereDateDebutCreation;
+	}
+
+
+
 
 
 	public int getQuand() {

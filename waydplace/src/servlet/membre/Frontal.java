@@ -18,6 +18,7 @@ import pager.PagerActivite;
 import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
+import bean.Activite;
 import bean.MessageAction;
 import bean.Profil;
 import dao.ActiviteDAO;
@@ -34,7 +35,7 @@ public class Frontal extends HttpServlet {
 	 */
 	public Frontal() {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	/**
@@ -44,8 +45,10 @@ public class Frontal extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
+		
 		doPost(request, response);
+		
 	}
 
 	/**
@@ -54,15 +57,14 @@ public class Frontal extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
+	
 		HttpSession session = request.getSession();
 		Profil profil = (Profil) session.getAttribute("profil");
 
 		String action = request.getParameter("action");
-		System.out.println(action);
+	
 		PagerActivite pager=null;
-		// System.out.println("jeton"+tokenFireBase);
+	
 		if (action == null || action.isEmpty())
 			return;
 
@@ -111,6 +113,15 @@ public class Frontal extends HttpServlet {
 			response.sendRedirect("membre/compteMembre.jsp");
 			break;
 
+		case ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
+			
+			Activite activite=getActivite(request,
+					response, profil);
+			
+			request.setAttribute("activite", activite);
+			request.getRequestDispatcher("membre/modifieActivite.jsp").forward(request, response);
+		
+			break;
 		case ActionPage.REFRESH_MES_ACTIVITE_MEMBRES:
 
 			MessageAction updateFiltreRecherche = updateFiltreRecherche(
@@ -137,6 +148,31 @@ public class Frontal extends HttpServlet {
 			break;
 		}
 
+	}
+
+	private Activite getActivite(HttpServletRequest request,
+			HttpServletResponse response, Profil profil) {
+	
+		Activite retour =null;
+		 int idActivite=0;
+		try {
+		
+		  idActivite = Integer.parseInt(request
+					.getParameter("idactivite"));
+			
+		}
+		
+		catch(Exception e){
+			e.printStackTrace();
+			
+			return retour;
+			
+		}
+		
+		
+		retour  =ActiviteDAO.getActivite( idActivite,profil.getUID());
+		
+		return retour;
 	}
 
 	private MessageAction updateFiltreRecherche(HttpServletRequest request,
@@ -217,6 +253,7 @@ public class Frontal extends HttpServlet {
 		catch (Exception e) {
 			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
+		
 			// authentification.setAlertMessageDialog( new
 			// MessageAlertDialog("Message Information","Date non conforme",null,AlertJsp.warning));
 			// response.sendRedirect("MesActivites");
@@ -224,37 +261,33 @@ public class Frontal extends HttpServlet {
 
 		}
 
-		String datedebut = request.getParameter("debut");
-		String datefin = request.getParameter("fin");
+		String datedebutStr = request.getParameter("debut");
+		String datefinStr = request.getParameter("fin");
 
-		Date date_debut = null;
-		Date date_fin = null;
-		datedebut = "12/12/1972 10:00";
-		datefin = "12/12/1972 12:00";
+		Date dateDebut = null;
+		Date dateFin = null;
+	
 
 		try {
-			date_debut = Outils.getDateFromString(datedebut);
-			date_fin = Outils.getDateFromString(datefin);
+			dateDebut = Outils.getDateFromString(datedebutStr);
+			dateFin = Outils.getDateFromString(datefinStr);
 
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
-			// authentification.setAlertMessageDialog( new
-			// MessageAlertDialog("Message Information","Date non conforme",null,AlertJsp.warning));
-			// response.sendRedirect("MesActivites");
-			return new MessageAction(false, e.getMessage());
+				return new MessageAction(false, e.getMessage());
 		}
 
-		MessageAction vp_ajouteActivite = vp_ajouteActiviteMembre(titre,
-				libelle, date_debut, date_fin);
+		MessageAction vpAjouteActivite = vpAjouteActiviteMembre(titre,
+				libelle, dateDebut, dateFin);
 
-		if (vp_ajouteActivite.isOk()) {// Verification des parametres
+		if (vpAjouteActivite.isOk()) {// Verification des parametres
 
 			MessageAction ajouteActivite = (ActiviteDAO.AjouteActivite(
 					profil.getIdSite(),
-					Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE, date_debut,
-					date_fin, titre, libelle, profil.getUID(),
+					Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE, dateDebut,
+					dateFin, titre, libelle, profil.getUID(),
 					id_ref_type_activite));
 
 			if (ajouteActivite.isOk()) {// Si l'activité ajouté
@@ -272,21 +305,21 @@ public class Frontal extends HttpServlet {
 
 		else {
 
-			return vp_ajouteActivite;
+			return vpAjouteActivite;
 
 		}
 
 		return new MessageAction(false, MessageText.ERREUR_INCONNUE);
 	}
 
-	private MessageAction vp_ajouteActiviteMembre(String titre, String libelle,
-			Date date_debut, Date date_fin) {
-		// TODO Auto-generated method stub
+	private MessageAction vpAjouteActiviteMembre(String titre, String libelle,
+			Date dateDebut, Date dateFin) {
+	
 		return new MessageAction(true, "");
 	}
 
 	private void redirectionErreur(MessageAction ajouteMembre) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
