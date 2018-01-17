@@ -36,7 +36,8 @@
 
 <script src="js/alertdialog.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+	type="text/css">
 
 
 </head>
@@ -44,9 +45,8 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-		FiltreRecherche filtre=profil.getFiltre();
-		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
-	
+			FiltreRecherche filtre=profil.getFiltre();
+			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
 	%>
 
 
@@ -71,7 +71,8 @@
 							class="form-inline">
 							<div class="form-group">
 								<label for="idEtatActivite">Status:</label> <select
-									class="form-control" id="idEtatActivite" name="critereEtatMesActivite">
+									class="form-control" id="idEtatActivite"
+									name="critereEtatMesActivite">
 
 									<%
 										for (CritereEtatActivite etatActivite:CacheDAO.getListCritereEtatActivite()) {
@@ -86,11 +87,12 @@
 								</select>
 
 							</div>
-							<input type="hidden" name='action' value='<%=ActionPage.REFRESH_MES_ACTIVITE_MEMBRES%>'>
+							<input type="hidden" name='action'
+								value='<%=ActionPage.REFRESH_MES_ACTIVITE_MEMBRES%>'>
 						</form>
 					</div>
 
-					</div>
+				</div>
 
 
 			</div>
@@ -110,12 +112,12 @@
 				style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
 
 				<%
-										
-				if (listMesActivite!=null)
-										for (Activite activite : listMesActivite) {
-										String lienEfface = "/wayd/SupprimeActivite?idactivite=" + activite.getId();
-										String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-										String lienEdit = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
+					if (listMesActivite!=null)
+					for (Activite activite : listMesActivite)
+					{
+					String lienEffaceActivite = "/waydplace/Frontal?action="+ActionPage.EFFACE_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
+					String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
+					String lienModifierActivite = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
 				%>
 
 
@@ -131,16 +133,17 @@
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
 					</a> <%
- 			if (!activite.isTerminee()){ %> <a title="Modifier" href="<%=lienEdit%>">
+ 	if (!activite.isTerminee()){
+ %> <a title="Modifier" href="<%=lienModifierActivite%>">
 							<button title="Modifier" type="button" class="btnwayd btn-sm">
 								<span class="glyphicon glyphicon-edit"></span>
 							</button>
-					</a>
-
-						<button title="Supprimer" id=<%out.println(lienEfface);%>
-							name="supprimer" type="button" class="btn btn-danger btn-sm">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button> <%
+					</a> <a title="Supprimer" href="<%=lienEffaceActivite%>">
+							<button title="Supprimer" name="supprimer" type="button"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+					</a> <%
  	}
  %></td>
 
@@ -156,16 +159,16 @@
 
 
 	<script type="text/javascript">
-	$('select').on('change', function() {
+		$('select').on('change', function() {
 
-	document.getElementById("formulaire").submit();
-	});
+			document.getElementById("formulaire").submit();
+		});
 	</script>
 
 
 
-	
-	
+
+
 
 </body>
 </html>

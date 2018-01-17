@@ -30,8 +30,10 @@ public class Membre {
 		this.description=description;
 	}
 	
-	
-	
+	public String getAge(){
+		
+		return " à oimplemener";
+	}
 	public Date getDate_naissance() {
 		return date_naissance;
 	}

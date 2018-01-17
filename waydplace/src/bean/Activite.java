@@ -29,7 +29,7 @@ public class Activite {
 	Date datefin,datedebut;
 	
 	public boolean isTerminee() {
-		// TODO Auto-generated method stub
+		
 		if (datefin.before(new Date()))
 			return true;
 

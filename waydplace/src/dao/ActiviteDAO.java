@@ -7,12 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.naming.NamingException;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-
 import poolconnexion.CxoPool;
 import bean.Activite;
 import bean.MessageAction;
@@ -218,7 +215,7 @@ public class ActiviteDAO {
 
 	public static ArrayList<Activite> getListActivite(FiltreRecherche filtre,
 			int page, int maxResult) {
-		System.out.println("ok1");
+
 		long debut = System.currentTimeMillis();
 
 		int offset = (maxResult) * page;
@@ -412,6 +409,36 @@ public class ActiviteDAO {
 
 		return activite;
 
+	}
+
+	public static MessageAction supprimeActivite(int idactivite) {
+
+		long debut = System.currentTimeMillis();
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+		
+			connexion = CxoPool.getConnection();
+			String requete = "DELETE FROM activite where ( id=? );";
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setInt(1, idactivite);
+			preparedStatement.execute();
+			preparedStatement.close();
+	
+			return new MessageAction(true, "");
+			
+		} catch (SQLException | NamingException e) {
+		
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return new MessageAction(true, e.getMessage());
+
+		} finally {
+
+			CxoPool.close(connexion,preparedStatement);
+		}
+	
 	}
 
 }

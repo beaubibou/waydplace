@@ -1,5 +1,6 @@
 
 
+<%@page import="com.sun.accessibility.internal.resources.accessibility"%>
 <%@page import="pager.PagerActivite"%>
 <%@page import="critere.CritereTypeOrganisateur"%>
 <%@page import="critere.CritereTypeActivite"%>
@@ -175,8 +176,9 @@
 					if (listActivite!=null)
 																		for (Activite activite : listActivite) {
 							String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-							String lienParticipant = "DetailParticipant?idPersonne=" + activite.getUid_membre()+"&from=listActivite.jsp";
-				%>
+					
+							String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();	
+							%>
 
 				<tr>
 					<td>
@@ -186,7 +188,7 @@
 								class="img-thumbnail pull-left ">
 
 							<p>
-							<%=activite.getTypeUserLienHTML(lienParticipant)%></p>
+							<%=activite.getTypeUserLienHTML(lienDetailParticipant)%></p>
 							<p><%=activite.getEtatHtml()%></p>
 						
 
@@ -194,7 +196,7 @@
 					</td>
 
 					<td><a href=<%=lien%>> <%=activite.getTitre()%></a></td>
-					<td><a href=<%=lienParticipant%>><%=activite.getPseudoOrganisateur()%></a></td>
+					<td><a href=<%=lienDetailParticipant%>><%=activite.getPseudoOrganisateur()%></a></td>
 					<td><%=activite.getHoraireLeA()%></td>
 					<td><%=activite.getLibelle()%></td>
 
