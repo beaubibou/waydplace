@@ -441,4 +441,9 @@ public class ActiviteDAO {
 	
 	}
 
+	public static MessageAction modifieActivite(int idActivite) {
+		// TODO Auto-generated method stub
+		return new MessageAction(true, "");
+	}
+
 }
