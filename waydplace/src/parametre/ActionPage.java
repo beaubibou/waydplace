@@ -16,9 +16,6 @@ public class ActionPage {
 	public static final String EFFACE_ACTIVITE_MEMBRE = "effaceActiviteMembre";
 	public static final String REDIRECTION_DETAIL_PARTICIPANT_MEMBRE = "detailParticipantMembre";
 	public static final String MODIFIER_ACTIVITE_MEMBRE = "modifierActiviteMembre";
-
-	
-
 	
 	
 	
@@ -26,6 +23,11 @@ public class ActionPage {
 	public static final String REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "proposerplusieursactivitegestionnaire";
 	public static final String REDIRECTION_COMPTE_GESTIONNAIRE = "comptegestionnaire";
 	public static final String REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE = "gererActiviteGesionnaire";
+	public static final String REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE = "rediModifierActiviteGesionnaire";
+	
+	public static final String AJOUTER_ACTIVITE_GESTIONNAIRE = "ajouterActiviteGesionnaire";
+	public static final String EFFACE_ACTIVITE_GESTIONNAIRE = "effaceActiviteGestionnaire";
+	public static final String MODIFIER_ACTIVITE_GESTIONNAIRE = "modifieractivitegestionnaire";
 	
 	
 	

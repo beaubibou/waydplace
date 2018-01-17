@@ -7,9 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+
 import javax.naming.NamingException;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+
+import parametre.Parametres;
 import poolconnexion.CxoPool;
 import bean.Activite;
 import bean.MessageAction;
@@ -21,6 +25,162 @@ import critere.FiltreRecherche;
 public class ActiviteDAO {
 	private static final Logger LOG = Logger.getLogger(ActiviteDAO.class);
 
+	public static ArrayList<Activite>  getMesActiviteBySite(int idSite,int etatActivite){
+	
+		long debut = System.currentTimeMillis();
+
+		Activite activite = null;
+		ArrayList<Activite> retour = new ArrayList<Activite>();
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+
+		Connection connexion = null;
+		try {
+			connexion = CxoPool.getConnection();
+			String requete = "";
+			switch (etatActivite)
+
+			{
+			case CritereEtatActivite.ENCOURS:
+
+				requete = "SELECT activite.id as idactivite,"
+						+ "activite.id_site,"
+						+ "activite.id_ref_type_organisateur,"
+						+ "activite.date_debut," + "activite.date_fin,"
+						+ "activite.titre," + "activite.libelle,"
+						+ "activite.date_creation,"
+						+ "activite.id_ref_type_activite,"
+						+ "activite.uid_membre,"
+						+ "membre.photo as photoOrganisateur,"
+						+ "membre.pseudo " + "from " + "activite,membre "
+						+ "WHERE " + "membre.uid = activite.uid_membre "
+						+ "and activite.id_ref_type_organisateur=? and activite.id_site=? "
+						+ "and ?  between date_debut and date_fin "
+						+ "ORDER BY date_debut DESC";
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setInt(1, Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+				preparedStatement.setInt(2, idSite);
+				preparedStatement.setTimestamp(3, new java.sql.Timestamp(
+						new Date().getTime()));
+
+				rs = preparedStatement.executeQuery();
+
+				break;
+			case CritereEtatActivite.TERMINEE:
+
+				requete = "SELECT activite.id as idactivite,"
+						+ "activite.id_site,"
+						+ "activite.id_ref_type_organisateur,"
+						+ "activite.date_debut," + "activite.date_fin,"
+						+ "activite.titre," + "activite.libelle,"
+						+ "activite.date_creation,"
+						+ "activite.id_ref_type_activite,"
+						+ "activite.uid_membre,"
+						+ "membre.photo as photoOrganisateur,"
+						+ "membre.pseudo " + "from " + "activite,membre "
+						+ "WHERE " + "membre.uid = activite.uid_membre "
+						+ "and  activite.id_ref_type_organisateur=? and activite.id_site=? "
+						+ "and date_fin<? "
+						+ "ORDER BY date_debut DESC";
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setInt(1, Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+				preparedStatement.setInt(2, idSite);
+			
+				preparedStatement.setTimestamp(3, new java.sql.Timestamp(
+						new Date().getTime()));
+				rs = preparedStatement.executeQuery();
+
+				break;
+
+			case CritereEtatActivite.TOUTES:
+
+				requete = " SELECT activite.id as idactivite,"
+						+ "activite.id_site,"
+						+ "activite.id_ref_type_organisateur,"
+						+ "activite.date_debut," + "activite.date_fin,"
+						+ "activite.titre," + "activite.libelle,"
+						+ "activite.date_creation,"
+						+ "activite.id_ref_type_activite,"
+						+ "activite.uid_membre,"
+						+ "membre.photo as photoOrganisateur,"
+						+ "membre.pseudo " + "from " + "activite,membre "
+						+ "WHERE " + "membre.uid = activite.uid_membre "
+						+ "and  activite.id_ref_type_organisateur=? and activite.id_site=? "
+						+ "ORDER BY date_debut DESC";
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setInt(1, Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+				preparedStatement.setInt(2, idSite);
+			
+				rs = preparedStatement.executeQuery();
+				break;
+
+			case CritereEtatActivite.PLANIFIEE:
+				requete = "SELECT activite.id as idactivite,"
+						+ "activite.id_site,"
+						+ "activite.id_ref_type_organisateur,"
+						+ "activite.date_debut," + "activite.date_fin,"
+						+ "activite.titre," + "activite.libelle,"
+						+ "activite.date_creation,"
+						+ "activite.id_ref_type_activite,"
+						+ "activite.uid_membre,"
+						+ "membre.photo as photoOrganisateur,"
+						+ "membre.pseudo " + "from " + "activite,membre "
+						+ "WHERE " + "membre.uid = activite.uid_membre "
+						+ "and activite.id_ref_type_organisateur=? and activite.id_site=? " + "and date_debut>? "
+						+ "ORDER BY date_debut DESC";
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setInt(1, Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+				preparedStatement.setInt(2, idSite);
+				
+				preparedStatement.setTimestamp(3, new java.sql.Timestamp(
+						new Date().getTime()));
+				rs = preparedStatement.executeQuery();
+
+				break;
+
+			}
+
+			while (rs.next()) {
+
+				int id = rs.getInt("idactivite");
+				String libelle = rs.getString("libelle");
+				String titre = rs.getString("titre");
+				String uid=rs.getString("uid_membre");
+				int id_ref_type_activite = rs.getInt("id_ref_type_activite");
+				int id_ref_type_organisateur = rs.getInt("id_ref_type_organisateur");
+				String photoOrganisateur = rs.getString("photoOrganisateur");
+				Date datedebut = rs.getTimestamp("date_debut");
+				Date datefin = rs.getTimestamp("date_fin");
+				String pseudoOrganisateur = rs.getString("pseudo");
+			
+				activite = new Activite(titre, libelle, id, idSite,
+						photoOrganisateur, pseudoOrganisateur,
+						id_ref_type_organisateur, uid, datefin, datedebut,
+						id_ref_type_activite);
+				retour.add(activite);
+
+			}
+
+			preparedStatement.close();
+			rs.close();
+
+		} catch (NamingException | SQLException e) {
+			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return retour;
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+
+		return retour;
+
+		
+		
+	}
 	public static ArrayList<Activite> getMesActivite(String uid,
 			int etatActivite) {
 		long debut = System.currentTimeMillis();

@@ -14,10 +14,11 @@ public class Membre {
 	private int id_site;
 	private Date date_naissance;
 	private String description;
+	private int id_ref_type_organisateur;
 	
 	
 	public Membre(int id, String uid, Date date_creation, String photo,
-			String pseudo,String mail,int id_site,Date date_naissance,String description) {
+			String pseudo,String mail,int id_site,Date date_naissance,String description,int id_ref_type_organisateur) {
 		super();
 		this.id = id;
 		this.uid = uid;
@@ -30,6 +31,14 @@ public class Membre {
 		this.description=description;
 	}
 	
+	public int getId_ref_type_organisateur() {
+		return id_ref_type_organisateur;
+	}
+
+	public void setId_ref_type_organisateur(int id_ref_type_organisateur) {
+		this.id_ref_type_organisateur = id_ref_type_organisateur;
+	}
+
 	public String getAge(){
 		
 		return " à oimplemener";

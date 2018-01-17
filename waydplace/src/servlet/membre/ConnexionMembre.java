@@ -24,6 +24,7 @@ import dao.MembreDAO;
 import dao.SiteDAO;
 import parametre.ActionPage;
 import parametre.MessageText;
+import parametre.Parametres;
 import bean.Membre;
 import bean.MessageAction;
 import bean.Profil;
@@ -182,8 +183,17 @@ public class ConnexionMembre extends HttpServlet {
 			break;
 
 		case ActionPage.CONNEXION_SITE_ADMIN:
-			response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+
+			tokenFireBase = request.getParameter("tokenFireBase");
+			jetonSite = request.getParameter("jetonSite");
+			connexionSite(tokenFireBase, jetonSite, request, response);
+			Profil profil = (Profil) request.getSession()
+					.getAttribute("profil");
 			
+			profil.setTypeOrganisateur(Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE);
+		
+			response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+
 			break;
 		}
 	}

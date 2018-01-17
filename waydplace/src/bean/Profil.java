@@ -39,5 +39,8 @@ public class Profil {
 		
 		return membre.getPseudo();
 	}
+	public void setTypeOrganisateur(int id_ref_type_organisateur) {
+		membre.setId_ref_type_organisateur(id_ref_type_organisateur);
+	}
 	
 }

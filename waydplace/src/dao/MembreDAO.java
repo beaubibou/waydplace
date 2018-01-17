@@ -48,8 +48,8 @@ public class MembreDAO {
 				Date date_creation = rs.getTimestamp("date_creation");
 				Date date_naissance = rs.getTimestamp("date_naissance");
 				String description = rs.getString("description");
-				
-				membre = new Membre(id, uid, date_creation, photo, pseudo, mail,id_site,date_naissance,description);
+				int id_ref_type_organisateur = rs.getInt("id_ref_type_organisateur");
+				membre = new Membre(id, uid, date_creation, photo, pseudo, mail,id_site,date_naissance,description,id_ref_type_organisateur);
 
 			}
 

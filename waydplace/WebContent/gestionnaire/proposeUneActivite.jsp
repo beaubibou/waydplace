@@ -69,7 +69,7 @@
 				<div style="padding-top: 30px" class="panel-body">
 				
 				
-					<form action="/waydplace/Frontal"
+					<form action="/waydplace/FrontalGestionnaire"
 						onsubmit="return valideFormulaire()" method="post">
 
 						<div class="form-group"   style="border-bottom: 1px solid #888;">
@@ -146,7 +146,7 @@
 
 							<%=ProposeActiviteMembre.initNbrCaracteres()%></h5>
 							
-						<input type='hidden' name='action' value='<%=ActionPage.AJOUTER_ACTIVITE_MEMBRE%>'>
+						<input type='hidden' name='action' value='<%=ActionPage.AJOUTER_ACTIVITE_GESTIONNAIRE%>'>
 
 						<button type="submit" class="btnwayd btn-lg">Proposer</button>
 
