@@ -63,8 +63,7 @@ public class FrontalGestionnaire extends HttpServlet {
 		case ActionPage.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
 
 			int page = 0;
-			pager = new PagerActivite(profil.getFiltre(), page);
-			request.setAttribute("pager", pager);
+		
 			request.getRequestDispatcher(
 					"gestionnaire/proposePlusieursActivite.jsp").forward(
 					request, response);
