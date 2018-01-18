@@ -42,7 +42,7 @@ public class AdapterAgenda {
 		"allDay: false,className: 'important'},");
 		}
 		
-		retour.delete(retour.length(), retour.length());
+		retour.delete(retour.length()-1, retour.length());
 		
 		return retour.toString();
 		

@@ -2,6 +2,7 @@ package servlet.membre;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,6 +25,8 @@ import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
 import bean.Activite;
+import bean.ActiviteAgenda;
+import bean.AdapterAgenda;
 import bean.MessageAction;
 import bean.Profil;
 import dao.ActiviteDAO;
@@ -116,6 +119,9 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		case ActionPage.REDIRECTION_PLANING_GESTIONNAIRE:
 
+			ArrayList<ActiviteAgenda> listActivite=ActiviteDAO.getActiviteAgendaBySite(profil.getIdSite());
+			AdapterAgenda adapterAgenda=new AdapterAgenda(listActivite);
+			System.out.println(adapterAgenda.getHtmlItemAgenda());
 			request.getRequestDispatcher(
 					"gestionnaire/ecranPrincipalGestionnaire.jsp").forward(
 					request, response);

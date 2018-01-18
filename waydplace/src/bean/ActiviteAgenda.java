@@ -6,10 +6,12 @@ public class ActiviteAgenda {
  String titre;
  Date dateDebut;
  Date dateFin;
+ int id;
  
  
-public ActiviteAgenda(String titre, Date dateDebut, Date dateFin) {
+public ActiviteAgenda(int id,String titre, Date dateDebut, Date dateFin) {
 	super();
+	this.id=id;
 	this.titre = titre;
 	this.dateDebut = dateDebut;
 	this.dateFin = dateFin;
@@ -31,6 +33,12 @@ public Date getDateFin() {
 }
 public void setDateFin(Date dateFin) {
 	this.dateFin = dateFin;
+}
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
 }
  
  

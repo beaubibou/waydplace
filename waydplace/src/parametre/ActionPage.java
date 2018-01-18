@@ -16,8 +16,7 @@ public class ActionPage {
 	public static final String EFFACE_ACTIVITE_MEMBRE = "effaceActiviteMembre";
 	public static final String REDIRECTION_DETAIL_PARTICIPANT_MEMBRE = "detailParticipantMembre";
 	public static final String MODIFIER_ACTIVITE_MEMBRE = "modifierActiviteMembre";
-	
-	
+		
 	
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE = "redirectionproposeractivite";
 	public static final String REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "proposerplusieursactivitegestionnaire";
@@ -28,15 +27,13 @@ public class ActionPage {
 	public static final String REDIRECTION_PLANING_GESTIONNAIRE = "planingGestionnaire";
 
 	
-
 	public static final String AJOUTER_ACTIVITE_GESTIONNAIRE = "ajouterActiviteGesionnaire";
 	public static final String EFFACE_ACTIVITE_GESTIONNAIRE = "effaceActiviteGestionnaire";
 	public static final String MODIFIER_ACTIVITE_GESTIONNAIRE = "modifieractivitegestionnaire";
 	public static final String AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "ajouterplsactivitegestionnaire";
 	public static final String REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE = "refreshrechercheactivitegestionnaire";
 	
-	
-	
+		
 	
 	
 	
