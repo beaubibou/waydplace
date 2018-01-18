@@ -26,7 +26,7 @@ public class PagerActivite {
 
 		this.pageEnCours = pageEnCours;
 		this.filtre=filtre;
-System.out.println("pageractivite");
+
 		// On recherhce les maxresult+1 si on
 		listActivite =ActiviteDAO.getListActivite(filtre,pageEnCours, maxResult );
 

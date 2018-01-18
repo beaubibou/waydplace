@@ -20,7 +20,6 @@ public class FiltreRecherche {
 	int critereTypeorganisateur=CritereTypeOrganisateur.TOUS;
 
 	private DateTime critereDateFinCreation;
-
 	private DateTime critereDateDebutCreation;
 	
 	

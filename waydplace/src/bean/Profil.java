@@ -1,5 +1,7 @@
 package bean;
 
+import org.joda.time.DateTime;
+
 import critere.FiltreRecherche;
 
 public class Profil {
@@ -41,6 +43,15 @@ public class Profil {
 	}
 	public void setTypeOrganisateur(int id_ref_type_organisateur) {
 		membre.setId_ref_type_organisateur(id_ref_type_organisateur);
+	}
+	public void setDateDebutCreation(DateTime critereDateDebut) {
+		
+		filtre.setCritereDateDebutCreation(critereDateDebut);
+		
+	}
+	public void setDateFinCreation(DateTime critereDateFin) {
+		
+		filtre.setCritereDateFinCreation(critereDateFin);
 	}
 	
 }

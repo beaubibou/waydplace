@@ -13,6 +13,10 @@ import javax.naming.NamingException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
+
+
+import org.joda.time.DateTime;
+
 import parametre.Parametres;
 import poolconnexion.CxoPool;
 import bean.Activite;
@@ -383,7 +387,14 @@ public class ActiviteDAO {
 		int critereTypeActivite = filtre.getCritereTypeActivite();
 		int critereTypeOrganisateur = filtre.getCritereTypeorganisateur();
 		int critereEtatActivite = filtre.getCritereRechercheEtatActivite();
-
+	
+		DateTime critereDateDebut=filtre.getCritereDateDebutCreation();
+		DateTime critereDateFin=filtre.getCritereDateFinCreation();
+	
+		String critereDateDebutStr=critereDateDebut.toString("dd/MM/yyyy");
+		String critereDateFinStr=critereDateFin.toString("dd/MM/yyyy");
+		
+		
 		Activite activite = null;
 
 		PreparedStatement preparedStatement = null;
@@ -404,20 +415,17 @@ public class ActiviteDAO {
 					+ "membre.photo as photoOrganisateur," + "membre.pseudo "
 					+ "from " + "activite,membre " + "WHERE (1=1) ";
 
-			// tablesignalement.nbrsignalement = 1
-			if (critereTypeActivite != CritereTypeActivite.TOUS) {// on trie sur
-				// l'activité
+			requete=requete+" and to_char (date_debut,'dd/mm/yyyy') between ? and ? ";
+			
+		
+			if (critereTypeActivite != CritereTypeActivite.TOUS) {// on trie sur l'activité
 				requete = requete + " and activite.id_ref_type_activite=? ";
 
 			}
 
-			if (critereTypeOrganisateur != CritereTypeOrganisateur.TOUS) {// on
-																			// trie
-																			// sur
-																			// l'activité
+			if (critereTypeOrganisateur != CritereTypeOrganisateur.TOUS) {// on	trie sur 'activité
 
 				requete = requete + " and activite.id_ref_type_organisateur=? ";
-
 			}
 
 			switch (critereEtatActivite) {
@@ -442,24 +450,25 @@ public class ActiviteDAO {
 
 			}
 
+			
+			
 			requete = requete
 					+ " order by activite.date_creation desc limit ?  offset ?";
 			preparedStatement = connexion.prepareStatement(requete);
 
-			int index = 1;
+			preparedStatement.setString (1, critereDateDebutStr);
+			preparedStatement.setString (2, critereDateFinStr);
+			
+			
+			int index = 3;
 
-			if (critereTypeActivite != CritereTypeActivite.TOUS) {// on trie sur
-				// l'activité
+			if (critereTypeActivite != CritereTypeActivite.TOUS) {
 
 				preparedStatement.setInt(index, critereTypeActivite);
 				index++;
 			}
 
 			if (critereTypeOrganisateur != CritereTypeOrganisateur.TOUS) {// on
-																			// trie
-																			// sur
-																			// l'activité
-
 				preparedStatement.setInt(index, critereTypeOrganisateur);
 				index++;
 

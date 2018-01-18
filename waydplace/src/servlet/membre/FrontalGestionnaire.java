@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import outils.Outils;
 import pager.PagerActivite;
@@ -213,6 +216,8 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		int critereRechercheTypeOrganisateur = profil.getFiltre()
 				.getCritereTypeorganisateur();
+		
+		
 
 		try {
 			if (request.getParameter("critereEtatMesActivite") != null) {
@@ -243,6 +248,22 @@ public class FrontalGestionnaire extends HttpServlet {
 				profil.getFiltre().setCritereTypeorganisateur(
 						critereRechercheTypeOrganisateur);
 			}
+			
+			if (request.getParameter("debut") != null) {
+
+				String datedebut = request.getParameter("debut");
+			DateTime critereDateDebut = getDateFromString(datedebut);
+				profil.setDateDebutCreation(critereDateDebut);
+
+			}
+			if (request.getParameter("fin") != null) {
+
+				String datefin = request.getParameter("fin");
+				DateTime critereDateFin = getDateFromString(datefin);
+				profil.setDateFinCreation(critereDateFin);
+
+			}
+
 
 		} catch (Exception e) {
 
@@ -257,6 +278,12 @@ public class FrontalGestionnaire extends HttpServlet {
 		return new MessageAction(true, "");
 	}
 
+	public DateTime getDateFromString(String datestr) throws ParseException {
+
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		DateTime dt = formatter.parseDateTime(datestr);
+		return dt;
+	}
 
 	private MessageAction ajouterPlusieursActiviteGestionnaire(
 			HttpServletRequest request, HttpServletResponse response,
