@@ -47,8 +47,8 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-			FiltreRecherche filtre=profil.getFiltre();
-			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActiviteBySite(profil.getIdSite(), filtre.getCritereRechercheEtatMesActivite());
+		FiltreRecherche filtre=profil.getFiltre();
+		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActiviteBySite(profil.getIdSite(), filtre.getCritereRechercheEtatMesActivite());
 	%>
 
 <%@ include file="menuGestionnaire.jsp"%>

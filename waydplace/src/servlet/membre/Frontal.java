@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import outils.Outils;
 import pager.PagerActivite;
@@ -364,6 +367,20 @@ public class Frontal extends HttpServlet {
 						critereRechercheTypeOrganisateur);
 			}
 
+			if (request.getParameter("debut") != null) {
+
+				String datedebut = request.getParameter("debut");
+			DateTime critereDateDebut = getDateFromString(datedebut);
+				profil.setDateDebutCreation(critereDateDebut);
+
+			}
+			if (request.getParameter("fin") != null) {
+
+				String datefin = request.getParameter("fin");
+				DateTime critereDateFin = getDateFromString(datefin);
+				profil.setDateFinCreation(critereDateFin);
+
+			}
 		} catch (Exception e) {
 
 			LOG.error(ExceptionUtils.getStackTrace(e));
@@ -458,6 +475,12 @@ public class Frontal extends HttpServlet {
 
 	private void redirectionErreur(MessageAction ajouteMembre) {
 
+	}
+	public DateTime getDateFromString(String datestr) throws ParseException {
+
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		DateTime dt = formatter.parseDateTime(datestr);
+		return dt;
 	}
 
 }

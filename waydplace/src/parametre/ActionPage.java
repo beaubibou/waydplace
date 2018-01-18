@@ -25,6 +25,9 @@ public class ActionPage {
 	public static final String REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE = "gererActiviteGesionnaire";
 	public static final String REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE = "rediModifierActiviteGesionnaire";
 	public static final String REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE = "redirechercheractivite";
+	public static final String REDIRECTION_PLANING_GESTIONNAIRE = "planingGestionnaire";
+
+	
 
 	public static final String AJOUTER_ACTIVITE_GESTIONNAIRE = "ajouterActiviteGesionnaire";
 	public static final String EFFACE_ACTIVITE_GESTIONNAIRE = "effaceActiviteGestionnaire";

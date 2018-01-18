@@ -131,7 +131,7 @@
 				{
 					title: 'All Day Event',
 					start: new Date(y, m,d,16,00),
-				start: new Date(y, m,d,17,00)
+					start: new Date(y, m,d,17,00)
 				},
 				{
 					id: 999,

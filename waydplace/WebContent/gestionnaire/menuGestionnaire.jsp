@@ -30,6 +30,9 @@
 <li>
 					<a
 					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE%>">Rechercher </a></li>
+<li>
+	<a
+					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_PLANING_GESTIONNAIRE%>">Planning </a></li>
 
 
 				<li
