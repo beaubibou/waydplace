@@ -2757,9 +2757,9 @@ setDefaults({
 	firstHour: 6,
 	slotMinutes: 30,
 	defaultEventMinutes: 120,
-	axisFormat: 'h(:mm)tt',
+	axisFormat: 'H(:mm)tt',
 	timeFormat: {
-		agenda: 'h:mm{ - h:mm}'
+		agenda: 'H:mm{ - H:mm}'
 	},
 	dragOpacity: {
 		agenda: .5

@@ -1,5 +1,20 @@
+<%@page import="bean.AdapterAgenda"%>
+<%@page import="bean.ActiviteAgenda"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@page import="dao.ActiviteDAO"%>
+<%@page import="parametre.ActionPage"%>
+<%@page import="critere.FiltreRecherche"%>
+<%@page import="bean.Profil"%>
+<%@page import="bean.Activite"%>
+<%@page import="outils.Outils"%>
+<%@page import="dao.CacheDAO"%>
+<%@page import="critere.CritereEtatActivite"%>
+<%@page import="text.pageweb.MesActivites"%>
+<%@page import="java.util.ArrayList"%>
+
+    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,6 +35,11 @@
 <script src="/waydplace/js/agenda.js"></script>
 <link href="/waydplace/css/agenda.css" rel="stylesheet" type="text/css">
 <link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"	type="text/css">
+
+<%Profil profil = (Profil) request.getSession().getAttribute("profil");
+FiltreRecherche filtre=profil.getFiltre();
+ArrayList<ActiviteAgenda> listMesActivite=ActiviteDAO.getActiviteAgendaBySite(profil.getIdSite());
+AdapterAgenda adapterAgenda=new AdapterAgenda(listMesActivite);%>
 <script>
 
 	$(document).ready(function() {
@@ -73,7 +93,7 @@
 			selectable: true,
 			defaultView: 'month',
 			
-			axisFormat: 'h:mm',
+			axisFormat: 'H:mm',
 			columnFormat: {
                 month: 'ddd',    // Mon
                 week: 'ddd d', // Mon 7
@@ -128,58 +148,7 @@
 			},
 			
 			events: [
-				{
-					title: 'All Day Event',
-					start: new Date(y, m,d,16,00),
-					start: new Date(y, m,d,17,00)
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d-3, 16, 0),
-					allDay: false,
-					className: 'info'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d+4, 16, 0),
-					allDay: false,
-					className: 'info'
-				},
-				{
-					title: 'Meeting',
-					start: new Date(y, m, d, 10, 30),
-					allDay: false,
-					className: 'important'
-				},
-				{
-					title: 'Lunch',
-					start: new Date(y, m, d, 12, 0),
-					end: new Date(y, m, d, 14, 0),
-					allDay: false,
-					className: 'important'
-				},
-				{
-					title: 'Lunch',
-					start: new Date(y, m, d, 17, 0),
-					end: new Date(y, m, d, 21, 0),
-					allDay: false,
-					className: 'important'
-				},
-				{
-					title: 'Birthday Party',
-					start: new Date(y, m, d+1, 19, 0),
-					end: new Date(y, m, d+1, 22, 30),
-					allDay: false,
-				},
-				{
-					title: 'Click for Google',
-					start: new Date(y, m, 28),
-					end: new Date(y, m, 29),
-					url: 'http://google.com/',
-					className: 'success'
-				}
+				<%=adapterAgenda.getHtmlItemAgenda()%>
 			],			
 		});
 		
