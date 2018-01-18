@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 
+<%@page import="critere.CritereDuree"%>
 <%@page import="text.pageweb.ProposePlusieursActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
 <html lang="fr">
@@ -37,7 +38,9 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
+
+<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
+	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet" media="all"
 	type="text/css">
 </head>
@@ -143,7 +146,13 @@
 
 										<label for="duree"><%=ProposePlusieursActivite.LABEL_DUREE%></label>
 										<select class="form-control" id="typeactivite" name="duree">
-										
+											<%
+												for (CritereDuree criteeDuree:CacheDAO.getListCritereDuree()) {
+											%>
+											<option value="<%=criteeDuree.getDureeMinutes()%>"><%=criteeDuree.getLibelle()%></option>
+											<%
+												}
+											%>
 										</select>
 									</div>
 								</div>
@@ -255,7 +264,7 @@
 		if (datedebut > datefin) {
 		
 
-// 			BootstrapDialog.show({
+ 			BootstrapDialog.show({
 <%-- 				message:"<%=Erreur_HTML.DATEDEBUT_SUP_DATEFIN%>" --%>
  						});
 

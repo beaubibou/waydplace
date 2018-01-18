@@ -66,7 +66,7 @@ public class Frontal extends HttpServlet {
 
 		PagerActivite pager = null;
 
-		System.out.println(action);
+		LOG.info("Action" + action);
 
 		if (action == null || action.isEmpty())
 			return;
@@ -128,7 +128,7 @@ public class Frontal extends HttpServlet {
 
 		case ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
 
-			Activite activite = getActivite(request,  profil);
+			Activite activite = getActivite(request, profil);
 
 			request.setAttribute("activite", activite);
 			request.getRequestDispatcher("membre/modifieActivite.jsp").forward(
@@ -157,7 +157,6 @@ public class Frontal extends HttpServlet {
 
 			}
 
-			
 			break;
 
 		case ActionPage.MODIFIER_ACTIVITE_MEMBRE:
@@ -170,7 +169,7 @@ public class Frontal extends HttpServlet {
 		case ActionPage.AJOUTER_ACTIVITE_MEMBRE:
 
 			MessageAction ajouteActiviteMembre = ajouterActiviteMembre(request,
-					response, profil);
+					 profil);
 
 			if (ajouteActiviteMembre.isOk()) {
 
@@ -220,7 +219,6 @@ public class Frontal extends HttpServlet {
 
 		} catch (ParseException e) {
 
-		
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 		}
@@ -230,9 +228,9 @@ public class Frontal extends HttpServlet {
 
 		if (vpModifieActivite.isOk()) {
 
-			MessageAction modifieActivieDAO = ActiviteDAO
-					.modifieActivite( titre,  libelle,
-							 dateDebut,  dateFin,  id_ref_type_activite,  idActivite);
+			MessageAction modifieActivieDAO = ActiviteDAO.modifieActivite(
+					titre, libelle, dateDebut, dateFin, id_ref_type_activite,
+					idActivite);
 			if (modifieActivieDAO.isOk())
 				return new MessageAction(true, "");
 			else
@@ -245,7 +243,7 @@ public class Frontal extends HttpServlet {
 
 	private MessageAction vpModifieActivite(String titre, String libelle,
 			Date dateDebut, Date dateFin) {
-		
+
 		return new MessageAction(true, "");
 	}
 
@@ -261,7 +259,7 @@ public class Frontal extends HttpServlet {
 		}
 
 		catch (Exception e) {
-			
+
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 
@@ -301,8 +299,7 @@ public class Frontal extends HttpServlet {
 
 	}
 
-	private Activite getActivite(HttpServletRequest request,
-			 Profil profil) {
+	private Activite getActivite(HttpServletRequest request, Profil profil) {
 
 		Activite retour = null;
 		int idActivite = 0;
@@ -386,7 +383,7 @@ public class Frontal extends HttpServlet {
 	}
 
 	private MessageAction ajouterActiviteMembre(HttpServletRequest request,
-			HttpServletResponse response, Profil profil) {
+			 Profil profil) {
 
 		String titre = request.getParameter("titre");
 		String libelle = request.getParameter("description");
@@ -398,7 +395,7 @@ public class Frontal extends HttpServlet {
 		}
 
 		catch (Exception e) {
-	
+
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 
@@ -411,13 +408,12 @@ public class Frontal extends HttpServlet {
 		Date dateFin = null;
 
 		try {
-			
-		dateDebut = Outils.getDateFromString(datedebutStr);
-		dateFin = Outils.getDateFromString(datefinStr);
+
+			dateDebut = Outils.getDateFromString(datedebutStr);
+			dateFin = Outils.getDateFromString(datefinStr);
 
 		} catch (ParseException e) {
 
-			
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 		}
@@ -460,10 +456,8 @@ public class Frontal extends HttpServlet {
 		return new MessageAction(true, "");
 	}
 
-	
 	private void redirectionErreur(MessageAction ajouteMembre) {
 
-	
 	}
 
 }

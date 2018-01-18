@@ -5,15 +5,17 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+
 import outils.Outils;
-import dao.ActiviteDAO;
 import pager.PagerActivite;
 import parametre.ActionPage;
 import parametre.MessageText;
@@ -21,14 +23,14 @@ import parametre.Parametres;
 import bean.Activite;
 import bean.MessageAction;
 import bean.Profil;
+import dao.ActiviteDAO;
 
 /**
  * Servlet implementation class FrontalGestionnaire
  */
 public class FrontalGestionnaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = Logger
-			.getLogger(FrontalGestionnaire.class);
+	private static final Logger LOG = Logger.getLogger(FrontalGestionnaire.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -57,8 +59,13 @@ public class FrontalGestionnaire extends HttpServlet {
 		HttpSession session = request.getSession();
 		Profil profil = (Profil) session.getAttribute("profil");
 		String action = request.getParameter("action");
-		System.out.println(action);
+		
+		
+		LOG.info("Action:"+action);
+	
 		PagerActivite pager = null;
+		 int page=0 ;
+	
 		if (action == null || action.isEmpty())
 			return;
 
@@ -75,8 +82,8 @@ public class FrontalGestionnaire extends HttpServlet {
 			Activite activite = getActivite(request, profil);
 
 			request.setAttribute("activite", activite);
-			request.getRequestDispatcher("gestionnaire/modifieActivite.jsp").forward(
-					request, response);
+			request.getRequestDispatcher("gestionnaire/modifieActivite.jsp")
+					.forward(request, response);
 
 			break;
 
@@ -84,16 +91,14 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			MessageAction modifierActiviteMembre = modifierActiviteMembre(
 					request, profil);
- 
-			
+
 			response.sendRedirect("gestionnaire/mesactivites.jsp");
-			
-			
+
 			break;
 
 		case ActionPage.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
 
-			int page = 0;
+		
 
 			request.getRequestDispatcher(
 					"gestionnaire/proposePlusieursActivite.jsp").forward(
@@ -107,6 +112,39 @@ public class FrontalGestionnaire extends HttpServlet {
 					.forward(request, response);
 
 			break;
+			
+		case ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE:
+
+			
+			pager = new PagerActivite(profil.getFiltre(), page);
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("gestionnaire/rechercheActivite.jsp")
+					.forward(request, response);
+
+			break;
+			
+		case ActionPage.REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE:
+
+			MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
+					request, profil);
+
+			if (updateFiltreRechercheActivite.isOk()) {
+
+				int pageEncours = 0;
+
+				if (request.getParameter("page") != null)
+					pageEncours = Integer
+							.parseInt(request.getParameter("page"));
+
+				pager = new PagerActivite(profil.getFiltre(), pageEncours);
+				request.setAttribute("pager", pager);
+				request.getRequestDispatcher("gestionnaire/rechercheActivite.jsp")
+						.forward(request, response);
+
+			}
+
+			break;
+
 
 		case ActionPage.AJOUTER_ACTIVITE_GESTIONNAIRE:
 
@@ -123,7 +161,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			}
 
 			break;
-			
+
 		case ActionPage.AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
 
 			MessageAction ajoutePlusieursActiviteMembre = ajouterPlusieursActiviteGestionnaire(
@@ -137,7 +175,6 @@ public class FrontalGestionnaire extends HttpServlet {
 			} else {
 
 			}
-				
 
 			break;
 
@@ -153,26 +190,89 @@ public class FrontalGestionnaire extends HttpServlet {
 			} else {
 
 			}
-			
+
 			break;
+			
+		default:
 
 		}
+		
+	
+		
+	}
+	
+	private MessageAction updateFiltreRecherche(HttpServletRequest request,
+			Profil profil) {
+
+		int critereRechercheEtatMesActivite = profil.getFiltre()
+				.getCritereRechercheEtatMesActivite();
+		int critereTypeActivite = profil.getFiltre().getCritereTypeActivite();
+
+		int critereRechercheEtatActivite = profil.getFiltre()
+				.getCritereRechercheEtatActivite();
+
+		int critereRechercheTypeOrganisateur = profil.getFiltre()
+				.getCritereTypeorganisateur();
+
+		try {
+			if (request.getParameter("critereEtatMesActivite") != null) {
+				critereRechercheEtatMesActivite = Integer.parseInt(request
+						.getParameter("critereEtatMesActivite"));
+				profil.getFiltre().setCritereRechercheEtatMesActivite(
+						critereRechercheEtatMesActivite);
+
+			}
+			if (request.getParameter("typeactivite") != null) {
+
+				critereTypeActivite = Integer.parseInt(request
+						.getParameter("typeactivite"));
+
+				profil.getFiltre().setCritereTypeActivite(critereTypeActivite);
+			}
+
+			if (request.getParameter("etatActivite") != null) {
+				critereRechercheEtatActivite = Integer.parseInt(request
+						.getParameter("etatActivite"));
+				profil.getFiltre().setCritereRechercheEtatActivite(
+						critereRechercheEtatActivite);
+			}
+
+			if (request.getParameter("typeUser") != null) {
+				critereRechercheTypeOrganisateur = Integer.parseInt(request
+						.getParameter("typeUser"));
+				profil.getFiltre().setCritereTypeorganisateur(
+						critereRechercheTypeOrganisateur);
+			}
+
+		} catch (Exception e) {
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return new MessageAction(false, e.getMessage());
+
+		}
+
+		// MessageAction vp_updateFiltreRecherche =
+		// vp_updateFiltreRecherche(critereRechercheEtatMesActivite);
+
+		return new MessageAction(true, "");
 	}
 
-	
+
 	private MessageAction ajouterPlusieursActiviteGestionnaire(
 			HttpServletRequest request, HttpServletResponse response,
 			Profil profil) {
-	
+
 		HashMap<Integer, String> joursVoulus = new HashMap<Integer, String>();
 
 		String titre = request.getParameter("titre");
 		String libelle = request.getParameter("description");
 		int id_ref_type_activite = 0;
-
+		int duree;
 		try {
 			id_ref_type_activite = Integer.parseInt(request
 					.getParameter("typeactivite"));
+			 duree=Integer.parseInt(request
+					.getParameter("duree"));
 		}
 
 		catch (Exception e) {
@@ -182,7 +282,6 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		}
 
-		
 		String datedebutStr = request.getParameter("debut");
 		String datefinStr = request.getParameter("fin");
 		String heuredebut = request.getParameter("heuredebut");
@@ -191,8 +290,8 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		try {
 
-			dateDebut = Outils.getDateFromString(datedebutStr,heuredebut);
-			dateFin = Outils.getDateFromString(datefinStr,heuredebut);
+			dateDebut = Outils.getDateFromString(datedebutStr, heuredebut);
+			dateFin = Outils.getDateFromString(datefinStr, heuredebut);
 
 		} catch (ParseException e) {
 
@@ -222,59 +321,68 @@ public class FrontalGestionnaire extends HttpServlet {
 		if (request.getParameter("dimanche") != null)
 			joursVoulus.put(1, "dimanche");
 
-		
-		MessageAction vpAjouteActivite = vpAjoutePlusieursActiviteGestionnaire(titre,
-				libelle, dateDebut, dateFin);
-	
-		
-		
-		
+		MessageAction vpAjouteActivite = vpAjoutePlusieursActiviteGestionnaire(
+				titre, libelle, dateDebut, dateFin);
+
 		if (vpAjouteActivite.isOk()) {// Verification des parametres
-		
+
 			ajouteActivites(profil.getIdSite(),
 					Parametres.ID_REF_TYPE_ORGANISATEUR_SITE, dateDebut,
 					dateFin, titre, libelle, profil.getUID(),
-					id_ref_type_activite,joursVoulus );
-		
+					id_ref_type_activite, joursVoulus,duree);
+
 			return new MessageAction(true, "");
-			
+
 		}
-	
-	
-	
-	return new MessageAction(false, "err");
+
+		return new MessageAction(false, "err");
 	}
 
-	private int ajouteActivites(int idSite,
-			int id_ref_type_organisateur, Date dateDebut, Date dateFin,
-			String titre, String libelle, String uid, int id_ref_type_activite,
-			HashMap<Integer, String> joursVoulus) {
-		// TODO Auto-generated method stub
+	private int ajouteActivites(int idSite, int id_ref_type_organisateur,
+			Date dateDebut, Date dateFin, String titre, String libelle,
+			String uid, int id_ref_type_activite,
+			HashMap<Integer, String> joursVoulus,int duree) {
+		
 		int nbrAjout = 0;
-		long nbrJours = (dateFin.getTime() - dateDebut.getTime()) / 1000 / 3600/ 24 + 1;
+		long nbrJours = (dateFin.getTime() - dateDebut.getTime()) / 1000 / 3600
+				/ 24 + 1;
 		for (int f = 0; f <= nbrJours; f++) {
 
 			Calendar datetmp = Calendar.getInstance();
 			datetmp.setTime(dateDebut);
 			datetmp.add(Calendar.DAY_OF_MONTH, f);
-				if (joursVoulus.containsKey(datetmp.get(Calendar.DAY_OF_WEEK))) {
-				ActiviteDAO.AjouteActivite(idSite, id_ref_type_organisateur, dateDebut, dateFin, titre, libelle, uid, id_ref_type_activite);
+		
+			if (joursVoulus.containsKey(datetmp.get(Calendar.DAY_OF_WEEK))) {
+		
+				Calendar calFin = Calendar.getInstance();
+				Calendar calDebut=Calendar.getInstance();
+			
+				calDebut.setTime(dateDebut);
+				calDebut.add(Calendar.DAY_OF_MONTH, f);
+				calFin.setTime(dateDebut);
+				calFin.add(Calendar.MINUTE, duree);
+				calFin.add(Calendar.DAY_OF_MONTH, f);
+				LOG.info(calFin.getTime());
+				
+				
+				ActiviteDAO.AjouteActivite(idSite, id_ref_type_organisateur,
+						calDebut.getTime(), calFin.getTime(), titre, libelle, uid,
+						id_ref_type_activite);
 				nbrAjout++;
-				}
+			}
 
 		}
 
 		return nbrAjout;
 
 	}
-	
-	
+
 	private MessageAction vpAjoutePlusieursActiviteGestionnaire(String titre,
 			String libelle, Date dateDebut, Date dateFin) {
 		// TODO Auto-generated method stub
-	
-			return new MessageAction(true, "");
-		
+
+		return new MessageAction(true, "");
+
 	}
 
 	private MessageAction modifierActiviteMembre(HttpServletRequest request,
@@ -310,7 +418,6 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		} catch (ParseException e) {
 
-		
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 		}
@@ -320,9 +427,9 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		if (vpModifieActivite.isOk()) {
 
-			MessageAction modifieActivieDAO = ActiviteDAO
-					.modifieActivite( titre,  libelle,
-							 dateDebut,  dateFin,  id_ref_type_activite,  idActivite);
+			MessageAction modifieActivieDAO = ActiviteDAO.modifieActivite(
+					titre, libelle, dateDebut, dateFin, id_ref_type_activite,
+					idActivite);
 			if (modifieActivieDAO.isOk())
 				return new MessageAction(true, "");
 			else
@@ -335,9 +442,10 @@ public class FrontalGestionnaire extends HttpServlet {
 
 	private MessageAction vpModifieActivite(String titre, String libelle,
 			Date dateDebut, Date dateFin) {
-		
+
 		return new MessageAction(true, "");
 	}
+
 	private Activite getActivite(HttpServletRequest request, Profil profil) {
 
 		Activite retour = null;

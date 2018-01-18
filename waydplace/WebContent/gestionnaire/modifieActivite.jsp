@@ -39,17 +39,20 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
-	type="text/css">
+
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
-	type="text/css">
+
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
 	media="all" type="text/css">
+	
+	
+<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
+	type="text/css">
+	
 </head>
 <body>
 	<%

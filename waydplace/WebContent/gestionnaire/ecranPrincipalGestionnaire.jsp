@@ -12,14 +12,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
-	type="text/css">
+
 
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 
 <script src="/waydplace/js/agenda.js"></script>
 <link href="/waydplace/css/agenda.css" rel="stylesheet" type="text/css">
+<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"	type="text/css">
 <script>
 
 	$(document).ready(function() {

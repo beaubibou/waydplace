@@ -6,15 +6,16 @@ public class CritereEtatActivite {
 	private static final Logger LOG = Logger.getLogger(CritereEtatActivite.class);
 	   
 	public final static int TOUTES = 0, ENCOURS = 1, TERMINEE = 2,PLANIFIEE=3;
-
+	int id;
+	String libelle;
+	
 	public CritereEtatActivite(int id, String libelle) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
 	}
 
-	int id;
-	String libelle;
+
 
 	public int getId() {
 		return id;

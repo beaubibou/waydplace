@@ -24,11 +24,13 @@ public class ActionPage {
 	public static final String REDIRECTION_COMPTE_GESTIONNAIRE = "comptegestionnaire";
 	public static final String REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE = "gererActiviteGesionnaire";
 	public static final String REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE = "rediModifierActiviteGesionnaire";
-	
+	public static final String REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE = "redirechercheractivite";
+
 	public static final String AJOUTER_ACTIVITE_GESTIONNAIRE = "ajouterActiviteGesionnaire";
 	public static final String EFFACE_ACTIVITE_GESTIONNAIRE = "effaceActiviteGestionnaire";
 	public static final String MODIFIER_ACTIVITE_GESTIONNAIRE = "modifieractivitegestionnaire";
 	public static final String AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "ajouterplsactivitegestionnaire";
+	public static final String REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE = "refreshrechercheactivitegestionnaire";
 	
 	
 	

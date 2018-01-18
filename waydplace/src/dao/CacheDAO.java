@@ -11,6 +11,7 @@ import javax.naming.NamingException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
+import critere.CritereDuree;
 import critere.CritereEtatActivite;
 import critere.CritereTypeActivite;
 import critere.CritereTypeOrganisateur;
@@ -32,6 +33,7 @@ public class CacheDAO {
 	static ArrayList<CritereEtatActivite> listCritereEtatActivite = new ArrayList<CritereEtatActivite>();
 	static ArrayList<CritereTypeActivite> listCritereTypeActivite = new ArrayList<CritereTypeActivite>();
 	static ArrayList<CritereTypeOrganisateur> listCritereTypeOrganistateur = new ArrayList<CritereTypeOrganisateur>();
+	static ArrayList<CritereDuree> listCritereDuree = new ArrayList<CritereDuree>();
 
 	
 	
@@ -61,9 +63,6 @@ public class CacheDAO {
 			return listRefTypeActivite;
 
 		} catch (SQLException | NamingException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
 			LOG.error( ExceptionUtils.getStackTrace(e));
 			return listRefTypeActivite;
 		} finally {
@@ -98,9 +97,7 @@ public class CacheDAO {
 			return listRefTypeOrganisteur;
 
 		} catch (SQLException | NamingException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
+		
 			LOG.error( ExceptionUtils.getStackTrace(e));
 			return listRefTypeOrganisteur;
 		} finally {
@@ -135,9 +132,7 @@ public class CacheDAO {
 			return listCritereTypeActivite;
 
 		} catch (SQLException | NamingException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
+		
 			LOG.error( ExceptionUtils.getStackTrace(e));
 			return listCritereTypeActivite;
 		} finally {
@@ -149,13 +144,47 @@ public class CacheDAO {
 	}
 	
 
+	public static ArrayList<CritereDuree> getListCritereDuree() {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		
+		if (!listCritereDuree.isEmpty())
+			return listCritereDuree;
+				
+		try {
+			connexion = CxoPool.getConnection();
+
+			String requete = "SELECT id,libelle,duree FROM ref_duree_activite";
+			preparedStatement = connexion.prepareStatement(requete);
+			rs = preparedStatement.executeQuery();
+				while (rs.next()) {
+				int id = rs.getInt("id");
+				String libelle = rs.getString("libelle");
+				int duree = rs.getInt("duree");
+				listCritereDuree.add(new CritereDuree(id, libelle,duree));
+			}
+
+			return listCritereDuree;
+
+		} catch (SQLException | NamingException e) {
+				LOG.error( ExceptionUtils.getStackTrace(e));
+			return listCritereDuree;
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+		
+		
+	}
 	public static ArrayList<CritereTypeOrganisateur> getListCritereTypeOrganisateurs() {
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		
-		if (listCritereTypeOrganistateur.size()>0)
+		if (!listCritereTypeOrganistateur.isEmpty())
 			return listCritereTypeOrganistateur;
 				
 		try {
@@ -174,10 +203,7 @@ public class CacheDAO {
 			return listCritereTypeOrganistateur;
 
 		} catch (SQLException | NamingException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			LOG.error( ExceptionUtils.getStackTrace(e));
+				LOG.error( ExceptionUtils.getStackTrace(e));
 			return listCritereTypeOrganistateur;
 		} finally {
 
@@ -187,8 +213,7 @@ public class CacheDAO {
 		
 	}
 	public static ArrayList<CritereEtatActivite> getListCritereEtatActivite() {
-		// TODO Auto-generated method stub
-
+	
 		
 		
 		if (listCritereEtatActivite.size()==0){

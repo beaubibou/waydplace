@@ -27,6 +27,10 @@
 					<a
 					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.GERER%> </a></li>
 
+<li>
+					<a
+					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE%>">Rechercher </a></li>
+
 
 				<li
 										class="dropdown"><a class="dropdown-toggle"

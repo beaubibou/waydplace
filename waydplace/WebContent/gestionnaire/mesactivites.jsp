@@ -36,8 +36,9 @@
 
 <script src="js/alertdialog.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
 	type="text/css">
+
 
 
 </head>
@@ -52,9 +53,6 @@
 
 <%@ include file="menuGestionnaire.jsp"%>
 
-	<script type="text/javascript">
-		
-	</script>
 
 	<div class="container margedebut ">
 
