@@ -148,6 +148,16 @@ public class Frontal extends HttpServlet {
 
 			MessageAction effaceActivite = effaceActivite(request, profil);
 
+			if (effaceActivite.isOk()) {
+
+				LOG.info(effaceActivite.getMessage());
+				response.sendRedirect("membre/mesactivites.jsp");
+
+			} else {
+
+			}
+
+			
 			break;
 
 		case ActionPage.MODIFIER_ACTIVITE_MEMBRE:
@@ -164,7 +174,7 @@ public class Frontal extends HttpServlet {
 
 			if (ajouteActiviteMembre.isOk()) {
 
-				System.out.println("joiuui" + ajouteActiviteMembre);
+				LOG.info(ajouteActiviteMembre.getMessage());
 				response.sendRedirect("membre/mesactivites.jsp");
 
 			} else {

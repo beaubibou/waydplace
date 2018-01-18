@@ -63,9 +63,10 @@
 				<div style="padding-top: 30px" class="panel-body">
 
 
-					<form action="/wayd/AjouteActivitePlanifiee"
+					<form action="/waydplace/FrontalGestionnaire"
 						onsubmit="return valideFormulaire()" method="post">
 
+			
 						<div class="form-group" style="border-bottom: 1px solid #888;">
 
 							<p class="text-tuto"><%=ProposePlusieursActivite.MESSAGE_JUMBO_LIGNE1%></p>
@@ -186,7 +187,8 @@
 						<h5 class="nbrcaracteremax" id="nbr">
 
 							<%=ProposePlusieursActivite.initNbrCaracteres()%></h5>
-						
+							<input type='hidden' name='action' value='<%=ActionPage.AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE%>'>
+							
 						<button type="submit" class="btnwayd btn-lg"><%=ProposePlusieursActivite.LABEL_BUTTON_PROPOSEZ%></button>
 
 					</form>
@@ -255,7 +257,7 @@
 
 // 			BootstrapDialog.show({
 <%-- 				message:"<%=Erreur_HTML.DATEDEBUT_SUP_DATEFIN%>" --%>
-// 						});
+ 						});
 
 			
 			return false;

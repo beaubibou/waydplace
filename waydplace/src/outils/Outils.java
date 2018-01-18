@@ -17,6 +17,20 @@ public class Outils {
 		return caldate.getTime();
 	}
 	
+	public static Date getDateFromString(String datestr, String heurestr)
+			throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date d = sdf.parse(datestr);
+		Calendar caldate = Calendar.getInstance();
+		caldate.setTime(d);
+		SimpleDateFormat heureformat = new SimpleDateFormat("HH:mm");
+		Date dateheure = heureformat.parse(heurestr);
+		Calendar calHeure = Calendar.getInstance();
+		calHeure.setTime(dateheure);
+		caldate.set(Calendar.HOUR_OF_DAY, calHeure.get(Calendar.HOUR_OF_DAY));
+		caldate.set(Calendar.MINUTE, calHeure.get(Calendar.MINUTE));
+		return caldate.getTime();
+	}
 	public static String jspAdapterCheked(boolean value) {
 
 		if (value)

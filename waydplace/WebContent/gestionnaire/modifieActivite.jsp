@@ -54,11 +54,11 @@
 <body>
 	<%
 		Activite activite=(Activite) request.getAttribute("activite");
-			ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
+		ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
 			// Defini le li a rendre actif
 	%>
 
-
+<%@ include file="menuGestionnaire.jsp"%>
 
 
 	<div class="container">

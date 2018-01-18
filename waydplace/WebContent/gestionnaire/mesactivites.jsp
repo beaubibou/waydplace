@@ -41,6 +41,7 @@
 
 
 </head>
+
 <body>
 
 	<%
@@ -49,6 +50,7 @@
 			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActiviteBySite(profil.getIdSite(), filtre.getCritereRechercheEtatMesActivite());
 	%>
 
+<%@ include file="menuGestionnaire.jsp"%>
 
 	<script type="text/javascript">
 		
