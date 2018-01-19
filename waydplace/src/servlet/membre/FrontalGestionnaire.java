@@ -109,6 +109,14 @@ public class FrontalGestionnaire extends HttpServlet {
 					request, response);
 
 			break;
+			
+		case ActionPage.REDIRECTION_COMPTE_GESTIONNAIRE:
+
+			request.getRequestDispatcher(
+					"gestionnaire/compteGestionnaire.jsp").forward(
+					request, response);
+
+			break;
 
 		case ActionPage.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE:
 

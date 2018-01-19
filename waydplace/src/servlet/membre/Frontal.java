@@ -169,6 +169,14 @@ public class Frontal extends HttpServlet {
 
 			break;
 
+		case ActionPage.MODIFIER_COMPTE_MEMBRE:
+
+			MessageAction modifierCompteMembre = modifierCompteMembre(
+					request, profil);
+
+			break;
+
+			
 		case ActionPage.AJOUTER_ACTIVITE_MEMBRE:
 
 			MessageAction ajouteActiviteMembre = ajouterActiviteMembre(request,
@@ -185,6 +193,61 @@ public class Frontal extends HttpServlet {
 
 			break;
 		}
+
+	}
+
+	private MessageAction modifierCompteMembre(HttpServletRequest request,
+			Profil profil) {
+		String titre = request.getParameter("titre");
+		String libelle = request.getParameter("description");
+		int id_ref_type_activite = 0;
+		int idActivite = 0;
+
+		try {
+			id_ref_type_activite = Integer.parseInt(request
+					.getParameter("typeactivite"));
+			idActivite = Integer.parseInt(request.getParameter("idactivite"));
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
+
+			return new MessageAction(false, e.getMessage());
+
+		}
+
+		String datedebutStr = request.getParameter("debut");
+		String datefinStr = request.getParameter("fin");
+
+		Date dateDebut = null;
+		Date dateFin = null;
+
+		try {
+			dateDebut = Outils.getDateFromString(datedebutStr);
+			dateFin = Outils.getDateFromString(datefinStr);
+
+		} catch (ParseException e) {
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return new MessageAction(false, e.getMessage());
+		}
+
+		MessageAction vpModifieActivite = vpModifieActivite(titre, libelle,
+				dateDebut, dateFin);
+
+		if (vpModifieActivite.isOk()) {
+
+			MessageAction modifieActivieDAO = ActiviteDAO.modifieActivite(
+					titre, libelle, dateDebut, dateFin, id_ref_type_activite,
+					idActivite);
+			if (modifieActivieDAO.isOk())
+				return new MessageAction(true, "");
+			else
+				return modifieActivieDAO;
+
+		}
+		return vpModifieActivite;
 
 	}
 

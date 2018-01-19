@@ -1,5 +1,4 @@
 
-<%@page import="parametre.ActionPage"%>
 <%@page import="bean.Profil"%>
 <%@page import="text.pageweb.CompteMembre"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -97,11 +96,9 @@
 					</div>
 
 
-					<form action="/waydplace/Frontal" method="post"
+					<form action="/wayd/ComptePro" method="post"
 						onsubmit="return valideFormulaire()">
 
-	<input  name="action" type="text"  value=<%=ActionPage.MODIFIER_COMPTE_MEMBRE %> >
-			
 						<div class="form-group">
 
 							<div class="row">
