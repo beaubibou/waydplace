@@ -173,7 +173,7 @@ public class ConnexionMembre extends HttpServlet {
 
 			String tokenFireBase = request.getParameter("tokenFireBase");
 			String jetonSite = request.getParameter("jetonSite");
-			MessageAction retour = connexionSite(tokenFireBase, jetonSite,
+			MessageAction retour = connexionSite("ucpamembre", jetonSite,
 					request, response);
 			if (retour.isOk())
 				response.sendRedirect("membre/ecranPrincipal.jsp");
@@ -186,12 +186,11 @@ public class ConnexionMembre extends HttpServlet {
 
 			tokenFireBase = request.getParameter("tokenFireBase");
 			jetonSite = request.getParameter("jetonSite");
-			connexionSite(tokenFireBase, jetonSite, request, response);
-			Profil profil = (Profil) request.getSession()
-					.getAttribute("profil");
-			
-			profil.setTypeOrganisateur(Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE);
-		
+	//		connexionSite(tokenFireBase, jetonSite, request, response);
+			 connexionSite("ucpagestionnaire", jetonSite,
+					request, response);
+				
+				
 			response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
 
 			break;
@@ -209,7 +208,7 @@ public class ConnexionMembre extends HttpServlet {
 
 		if (test) {
 			Membre membre = MembreDAO
-					.getMembreByUID("t9y13rZHL5ap2Kxx4L9jbgk0wdI3");
+					.getMembreByUID(tokenFireBase);
 
 			Profil profil = null;
 

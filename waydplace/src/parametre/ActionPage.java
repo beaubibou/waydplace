@@ -21,7 +21,7 @@ public class ActionPage {
 	
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE = "redirectionproposeractivite";
 	public static final String REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "proposerplusieursactivitegestionnaire";
-	public static final String REDIRECTION_COMPTE_GESTIONNAIRE = "comptegestionnaire";
+	public static final String REDIRECTION_SITE_GESTIONNAIRE = "redirectionsitegestionnaire";
 	public static final String REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE = "gererActiviteGesionnaire";
 	public static final String REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE = "rediModifierActiviteGesionnaire";
 	public static final String REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE = "redirechercheractivite";
@@ -33,8 +33,8 @@ public class ActionPage {
 	public static final String MODIFIER_ACTIVITE_GESTIONNAIRE = "modifieractivitegestionnaire";
 	public static final String AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "ajouterplsactivitegestionnaire";
 	public static final String REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE = "refreshrechercheactivitegestionnaire";
-	public static final String MODIFIER_COMPTE_GESTIONNAIRE = "modifiercompteGetionnaire";
-	
+	public static final String MODIFIER_SITE_GESTIONNAIRE = "modifierSiteGetionnaire";
+	public static final String DECONNEXION_GESTIONNAIRE = "deconnexionGetionnaire";
 	
 	
 	

@@ -30,6 +30,8 @@ import bean.AdapterAgenda;
 import bean.MessageAction;
 import bean.Profil;
 import dao.ActiviteDAO;
+import dao.MembreDAO;
+import dao.SiteDAO;
 
 /**
  * Servlet implementation class FrontalGestionnaire
@@ -102,6 +104,19 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			break;
 
+		case ActionPage.MODIFIER_SITE_GESTIONNAIRE:
+
+			MessageAction modifierSite = modifierSite(request, profil);
+			if (modifierSite.isOk()) {
+
+				LOG.info(modifierSite.getMessage());
+				response.sendRedirect("membre/mesactivites.jsp");
+			} else {
+				LOG.info(modifierSite.getMessage());
+				redirectionErreur(modifierSite, request, response);
+			}
+			break;
+
 		case ActionPage.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
 
 			request.getRequestDispatcher(
@@ -109,11 +124,10 @@ public class FrontalGestionnaire extends HttpServlet {
 					request, response);
 
 			break;
-			
-		case ActionPage.REDIRECTION_COMPTE_GESTIONNAIRE:
 
-			request.getRequestDispatcher(
-					"gestionnaire/compteGestionnaire.jsp").forward(
+		case ActionPage.REDIRECTION_SITE_GESTIONNAIRE:
+
+			request.getRequestDispatcher("gestionnaire/site.jsp").forward(
 					request, response);
 
 			break;
@@ -124,11 +138,22 @@ public class FrontalGestionnaire extends HttpServlet {
 					.forward(request, response);
 
 			break;
+			
+		case ActionPage.DECONNEXION_GESTIONNAIRE:
+
+			
+			session.invalidate();
+			
+			request.getRequestDispatcher("index.jsp")
+					.forward(request, response);
+
+			break;	
 
 		case ActionPage.REDIRECTION_PLANING_GESTIONNAIRE:
 
-			ArrayList<ActiviteAgenda> listActivite=ActiviteDAO.getActiviteAgendaBySite(profil.getIdSite());
-			AdapterAgenda adapterAgenda=new AdapterAgenda(listActivite);
+			ArrayList<ActiviteAgenda> listActivite = ActiviteDAO
+					.getActiviteAgendaBySite(profil.getIdSite());
+			AdapterAgenda adapterAgenda = new AdapterAgenda(listActivite);
 			System.out.println(adapterAgenda.getHtmlItemAgenda());
 			request.getRequestDispatcher(
 					"gestionnaire/ecranPrincipalGestionnaire.jsp").forward(
@@ -181,7 +206,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			} else {
 
 			}
-
+		
 			break;
 
 		case ActionPage.AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
@@ -218,6 +243,43 @@ public class FrontalGestionnaire extends HttpServlet {
 		default:
 
 		}
+
+	}
+
+	private MessageAction modifierSite(HttpServletRequest request, Profil profil) {
+		String nom = request.getParameter("nom");
+		String description = request.getParameter("description");
+
+		MessageAction vpModifieSite = vpModifieSite(nom, description, profil);
+
+		
+		if (vpModifieSite.isOk()) {
+				LOG.info("modifie DAO"+ profil.getIdSite());
+			MessageAction modifieSiteDAO = SiteDAO.modifieSite(nom,
+					description,  profil.getIdSite());
+			
+			if (modifieSiteDAO.isOk()) {
+				profil.setNomSite(nom);
+				profil.setDescriptionSite(description);
+				return new MessageAction(true, "");
+			} else
+				
+				return modifieSiteDAO;
+
+		}
+
+		return new MessageAction(false, "Erreur inconnue");
+	}
+
+	private MessageAction vpModifieSite(String nom, String description,
+			Profil profil) {
+		// TODO Auto-generated method stub
+		return new MessageAction(true, "");
+	}
+
+	private void redirectionErreur(MessageAction modifierSite,
+			HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
 
 	}
 

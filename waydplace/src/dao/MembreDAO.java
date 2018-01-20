@@ -14,7 +14,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import poolconnexion.CxoPool;
-
 import bean.Membre;
 import bean.MessageAction;
 
@@ -131,5 +130,45 @@ public class MembreDAO {
 
 		return new MessageAction(true, "");
 	}
+
+	public static MessageAction modifieCompteMembre(String pseudo,
+			String description,String uid) {
+		
+
+			long debut = System.currentTimeMillis();
+
+			PreparedStatement preparedStatement = null;
+			Connection connexion = null;
+			try {
+				connexion = CxoPool.getConnection();
+				connexion.setAutoCommit(false);
+				String requete = "UPDATE  membre set pseudo=?, description=? WHERE uid=?";
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setString(1, pseudo);
+				preparedStatement.setString(2, description);
+				preparedStatement.setString(3, uid);
+				
+				
+				preparedStatement.execute();
+				preparedStatement.close();
+				connexion.commit();
+				
+
+				return new MessageAction(true, "");
+
+			} catch (NamingException | SQLException e) {
+
+				LOG.error(ExceptionUtils.getStackTrace(e));
+				CxoPool.rollBack(connexion);
+
+			} finally {
+
+				CxoPool.close(connexion, preparedStatement);
+			}
+			return new MessageAction(false, "");
+
+		}
+
+	
 
 }

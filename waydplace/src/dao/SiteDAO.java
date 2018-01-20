@@ -71,14 +71,13 @@ public class SiteDAO {
 			rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-		
 				int id = rs.getInt("id");
 				String nom = rs.getString("nom");
 				String adresse = rs.getString("adresse");
 				int idEnseigne = rs.getInt("id_enseigne");
 				Date dateCreation = rs.getTimestamp("date_creation");
-				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton)	;		
-			
+				String description= rs.getString("description");
+				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton,description)	;		
 			}
 
 		} catch (SQLException | NamingException e) {
@@ -92,6 +91,39 @@ public class SiteDAO {
 		
 		return site;
 
+	}
+
+	public static MessageAction modifieSite(String nom, String description,
+			 int idSite) {
+		long debut = System.currentTimeMillis();
+LOG.info("met a jour site");
+		PreparedStatement preparedStatement = null;
+		Connection connexion = null;
+		try {
+	
+			connexion = CxoPool.getConnection();
+			connexion.setAutoCommit(false);
+			String requete = "UPDATE  site set nom=?, description=?	WHERE id=?";
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setString(1, nom);
+			preparedStatement.setString(2, description);
+			preparedStatement.setInt(3, idSite);
+			preparedStatement.execute();
+			preparedStatement.close();
+			connexion.commit();
+
+			return new MessageAction(true, "");
+
+		} catch (NamingException | SQLException e) {
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			CxoPool.rollBack(connexion);
+
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement);
+		}
+		return new MessageAction(false, "");
 	}
 
 }

@@ -37,9 +37,14 @@
 <link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"	type="text/css">
 
 <%Profil profil = (Profil) request.getSession().getAttribute("profil");
+
+
+
 FiltreRecherche filtre=profil.getFiltre();
 ArrayList<ActiviteAgenda> listMesActivite=ActiviteDAO.getActiviteAgendaBySite(profil.getIdSite());
 AdapterAgenda adapterAgenda=new AdapterAgenda(listMesActivite);%>
+
+
 <script>
 
 	$(document).ready(function() {
@@ -164,7 +169,7 @@ AdapterAgenda adapterAgenda=new AdapterAgenda(listMesActivite);%>
 		text-align: center;
 		font-size: 14px;
 		font-family: 'Roboto', sans-serif;
-		background:url(http://www.digiphotohub.com/wp-content/uploads/2015/09/bigstock-Abstract-Blurred-Background-Of-92820527.jpg);
+		<!--background:url(http://www.digiphotohub.com/wp-content/uploads/2015/09/bigstock-Abstract-Blurred-Background-Of-92820527.jpg);-->
 		}
 		
 	#wrap {
@@ -234,10 +239,10 @@ box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
 
 <body>
 <%@ include file="menuGestionnaire.jsp"%>
-</br>
+
 <div id='wrap'></div>
 
-<div id='calendar'></div>
+<div id='calendar' style='margin-top: 120px;'></div>
 
 <div style='clear:both'></div>
 </body>

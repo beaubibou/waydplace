@@ -1,4 +1,7 @@
 
+<%@page import="parametre.ActionPage"%>
+<%@page import="text.pageweb.SiteText"%>
+<%@page import="bean.Site"%>
 <%@page import="bean.Profil"%>
 <%@page import="text.pageweb.CompteMembre"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -6,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title><%=CompteMembre.TITRE_ONGLET%></title>
+<title><%=SiteText.TITRE_ONGLET%></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,34 +28,37 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css" />
-
-<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet" media="all"
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
 	type="text/css" />
+
+<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
+	media="all" type="text/css" />
 
 
 
 
 
 </head>
+<%@ include file="menuGestionnaire.jsp"%>
 <body>
-<%
-
-	Profil profil = (Profil) request.getSession().getAttribute("profil");
- %>
+	<%
+		Profil profil = (Profil) request.getSession()
+				.getAttribute("profil");
+		Site site = profil.getSite();
+	%>
 
 	<div class="container margedebut">
 		<div id="loginbox" class="mainbox col-md-8 col-md-offset-2 col-sm-8">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title">Mon compte</div>
+					<div class="panel-title">Site</div>
 				</div>
 				<div style="padding-top: 30px" class="panel-body">
 
 					<div style="border-bottom: 1px solid #888;">
 
-						<p class="text-tuto"><%=CompteMembre.MESSAGE_JUMBO_L1%></p>
-						<p class="text-tuto"><%=CompteMembre.MESSAGE_JUMBO_L2%></p>
+						<p class="text-tuto"><%=SiteText.MESSAGE_JUMBO_L1%></p>
+						<p class="text-tuto"><%=SiteText.MESSAGE_JUMBO_L2%></p>
 
 					</div>
 					<br> <br>
@@ -61,8 +67,7 @@
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-4">
-								<img height="300" width="200"
-									src=<%=profil.getPhotostr()%>
+								<img height="300" width="200" src=<%=profil.getPhotostr()%>
 									class="img-thumbnail" />
 							</div>
 							<div class="col-sm-8">
@@ -70,25 +75,24 @@
 									enctype="multipart/form-data" onsubmit="return valideFichier()">
 									<input type="file" name="file" size="50" id="file" /> <br>
 
-									<input type="submit" value="Envoyer la photo" class="btn btnwayd btn-sm" />
+									<input type="submit" value="Envoyer la photo"
+										class="btn btnwayd btn-sm" />
 
 
 								</form>
-								<br>
-								<a title="Supprimer photo"
-										href="/wayd/ComptePro?action=supprimerPhoto">
-										<button type="button" class="btn btn-danger btn-sm">
-											<span class="glyphicon glyphicon-trash"> Supprimer la photo</span>
-										</button>
-									</a>
-									<br>
-									<br>
-										<a title="Mot de passe"
-										href="/wayd/auth/changementmotdepasse.jsp">
-										<button type="button" class="btn btnwayd  btn-sm">
-											<span class="glyphicon glyphicon-lock">Changer mot de passe</span>
-										</button>
-									</a>
+								<br> <a title="Supprimer photo"
+									href="/wayd/ComptePro?action=supprimerPhoto">
+									<button type="button" class="btn btn-danger btn-sm">
+										<span class="glyphicon glyphicon-trash"> Supprimer la
+											photo</span>
+									</button>
+								</a> <br> <br> <a title="Mot de passe"
+									href="/wayd/auth/changementmotdepasse.jsp">
+									<button type="button" class="btn btnwayd  btn-sm">
+										<span class="glyphicon glyphicon-lock">Changer mot de
+											passe</span>
+									</button>
+								</a>
 							</div>
 
 						</div>
@@ -96,21 +100,19 @@
 					</div>
 
 
-					<form action="/wayd/ComptePro" method="post"
+					<form action="/waydplace/FrontalGestionnaire" method="post"
 						onsubmit="return valideFormulaire()">
+
+						<input name="action" type="text"
+							value=<%=ActionPage.MODIFIER_SITE_GESTIONNAIRE%>>
 
 						<div class="form-group">
 
 							<div class="row">
-								
-								<div class="col-sm-1 ">
-								
 
-								</div>
+								<div class="col-sm-1 "></div>
 
-								<div class="col-sm-1">
-								
-								</div>
+								<div class="col-sm-1"></div>
 
 
 
@@ -119,45 +121,39 @@
 							<div class="row">
 								<div class="col-sm-8">
 									<div class="form-group">
-										<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
+										<label for="nom"><%=SiteText.LABEL_NOM%></label> <input
 											type="text" class="form-control" id="nom"
-											placeholder="<%=CompteMembre.getHintNomSociete()%>"
-											maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="nom"
-											required value="<%=profil.getPseudo()%>">
+											placeholder="<%=SiteText.getHintNomSociete()%>"
+											maxlength="<%=SiteText.TAILLE_NOM_SITE_MAX%>" name="nom"
+											required value="<%=site.getNom()%>">
 									</div>
 								</div>
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label for="typro"><%=CompteMembre.TYPE_COMPTE%></label> <input
+										<label for="typro"><%=SiteText.TYPE_COMPTE%></label> <input
 											type="text" class="form-control" disabled id="typepro"
-											value="Professionel">
+											value="Site">
 									</div>
 								</div>
 
 							</div>
 						</div>
 
-						
-						
-
-						
 
 						<div class="form-group">
-							<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
+							<label for="description"><%=SiteText.LABEL_DESCRIPTION_PROFIL%></label>
 							<textarea class="form-control" rows="5" id="description"
-								name="commentaire"
-								placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
-								maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=profil.getDescription()%></textarea>
+								name="description"
+								placeholder="<%=SiteText.getHintDescriptionProfil()%>"
+								maxlength="<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=site.getDescription()%></textarea>
 						</div>
 
 						<h5 class="nbrcaracteremax" id="nbr">
-							0 Caractére "<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"
+							0 Caractére <%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
 						</h5>
 
 						<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
 
-					
-						<div class="form-group">
 
 
 					</form>
@@ -188,29 +184,31 @@
 	</script>
 
 	<script>
-		$(document).ready(function(e) {
+	
+	$(document).ready(function(e) {
 
-			$('#description').keyup(function() {
+		$('#description').keyup(function() {
 
-				var nombreCaractere = $(this).val().length;
-				//alert(nombreCaractere);
+			var nombreCaractere = $(this).val().length;
+			//alert(nombreCaractere);
 
-				var msg = nombreCaractere + '/ <%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>';
+			var msg = nombreCaractere + '/ <%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>';
 
-												$('#nbr').text(msg);
-												// Le script qui devra calculer et afficher le nombre de mots et de caractères
+											$('#nbr').text(msg);
+											// Le script qui devra calculer et afficher le nombre de mots et de caractères
 
-											})
+										})
 
-						});
+					});
 
-		// Init le nombre de caraterces	
-		var nombreCaractere = $('#description').val().length;
-		var msg = nombreCaractere + "/"
-				+
-	<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-		;
-		$('#nbr').text(msg);
+	// Init le nombre de caraterces	
+	var nombreCaractere = $('#description').val().length;
+	var msg = nombreCaractere + "/"
+			+
+<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
+	;
+	$('#nbr').text(msg);
+	
 	</script>
 </body>
 </html>

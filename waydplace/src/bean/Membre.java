@@ -118,7 +118,7 @@ public class Membre {
 
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return " A implémenter";
+		return description;
 	}
 	
 	

@@ -9,10 +9,17 @@ public class Site {
 	int id_enseigne;
 	Date date_creation;
 	String jeton;
+	String description;
 	
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public Site(String nom, String adresse, int id, int id_enseigne,
-			Date date_creation, String jeton) {
+			Date date_creation, String jeton,String description) {
 		super();
 		this.nom = nom;
 		this.adresse = adresse;
@@ -20,6 +27,7 @@ public class Site {
 		this.id_enseigne = id_enseigne;
 		this.date_creation = date_creation;
 		this.jeton = jeton;
+		this.description=description;
 	}
 	public String getNom() {
 		return nom;

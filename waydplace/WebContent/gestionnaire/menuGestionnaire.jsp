@@ -1,7 +1,8 @@
-
-
+<%@page import="bean.Profil"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="text.pageweb.MenuGestionnaireText"%>
+
+
 <nav class="navbar navbar-inverse navbar-fixed-top" id="menupro">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -22,7 +23,7 @@
 			<ul class="nav navbar-nav">
 		
 					<li ><a
-					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_COMPTE_GESTIONNAIRE%>"><%=MenuGestionnaireText.MON_COMPTE%></a></li>
+					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_SITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.MON_COMPTE%></a></li>
 				<li>
 					<a
 					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.GERER%> </a></li>
@@ -54,13 +55,18 @@
 
 			<ul class="nav navbar-nav navbar-right">
 
+<%if ((Profil) request.getSession().getAttribute("profil")==null){ %>
 			
 				<li><a href="/wayd/Deconnexion"><span
 						class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
-				
-			
-
-
+		
+		
+		<%} %>
+		els
+		e{
+		<li><a href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.DECONNEXION_GESTIONNAIRE %>"><span
+						class="glyphicon glyphicon-log-out"></span> Deconnexion</a></li>
+		}
 			</ul>
 		</div>
 	</div>

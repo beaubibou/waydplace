@@ -53,5 +53,33 @@ public class Profil {
 		
 		filtre.setCritereDateFinCreation(critereDateFin);
 	}
+	public void setPseudo(String pseudo) {
+		membre.setPseudo(pseudo);
+		
+	}
+	public void setDescription(String description) {
+		membre.setDescription(description);
+		
+	}
+	public Site getSite() {
+		return site;
+	}
+	public void setSite(Site site) {
+		this.site = site;
+	}
+	public Membre getMembre() {
+		return membre;
+	}
+	public void setMembre(Membre membre) {
+		this.membre = membre;
+	}
+	public void setDescriptionSite(String description) {
+		site.setDescription(description);
+		
+	}
+	public void setNomSite(String nom) {
+		// TODO Auto-generated method stub
+		site.setNom(nom);
+	}
 	
 }

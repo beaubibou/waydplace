@@ -173,7 +173,15 @@ public class Frontal extends HttpServlet {
 
 			MessageAction modifierCompteMembre = modifierCompteMembre(
 					request, profil);
-
+			if (modifierCompteMembre.isOk()){
+				
+				LOG.info(modifierCompteMembre.getMessage());
+				response.sendRedirect("membre/mesactivites.jsp");
+			}
+			else{
+				LOG.info(modifierCompteMembre.getMessage());
+				redirectionErreur(modifierCompteMembre);
+			}
 			break;
 
 			
@@ -198,58 +206,34 @@ public class Frontal extends HttpServlet {
 
 	private MessageAction modifierCompteMembre(HttpServletRequest request,
 			Profil profil) {
-		String titre = request.getParameter("titre");
-		String libelle = request.getParameter("description");
-		int id_ref_type_activite = 0;
-		int idActivite = 0;
+	
+		String pseudo = request.getParameter("pseudo");
+		String description = request.getParameter("commentaire");
+		String uid = request.getParameter("uid");
+		MessageAction vpModifieCompte= vpModifieCompte(pseudo, description,uid);
+		
+		if (vpModifieCompte.isOk()) {
 
-		try {
-			id_ref_type_activite = Integer.parseInt(request
-					.getParameter("typeactivite"));
-			idActivite = Integer.parseInt(request.getParameter("idactivite"));
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-			LOG.error(ExceptionUtils.getStackTrace(e));
-
-			return new MessageAction(false, e.getMessage());
-
-		}
-
-		String datedebutStr = request.getParameter("debut");
-		String datefinStr = request.getParameter("fin");
-
-		Date dateDebut = null;
-		Date dateFin = null;
-
-		try {
-			dateDebut = Outils.getDateFromString(datedebutStr);
-			dateFin = Outils.getDateFromString(datefinStr);
-
-		} catch (ParseException e) {
-
-			LOG.error(ExceptionUtils.getStackTrace(e));
-			return new MessageAction(false, e.getMessage());
-		}
-
-		MessageAction vpModifieActivite = vpModifieActivite(titre, libelle,
-				dateDebut, dateFin);
-
-		if (vpModifieActivite.isOk()) {
-
-			MessageAction modifieActivieDAO = ActiviteDAO.modifieActivite(
-					titre, libelle, dateDebut, dateFin, id_ref_type_activite,
-					idActivite);
-			if (modifieActivieDAO.isOk())
+			MessageAction modifieMembreDAO = MembreDAO.modifieCompteMembre(pseudo,description,profil.getUID());
+			if (modifieMembreDAO.isOk()){
+				profil.setPseudo(pseudo);
+			profil.setDescription(description);
 				return new MessageAction(true, "");
-			else
-				return modifieActivieDAO;
+		}
+				else
+				return modifieMembreDAO;
 
 		}
-		return vpModifieActivite;
+	
+		return new MessageAction(false,"Erreur inconnue");
 
 	}
+private MessageAction vpModifieCompte(String pseudo, String description,
+			Object u) {
+		// TODO Auto-generated method stub
+		return new MessageAction(true, "");
+	}
+
 
 	private MessageAction modifierActiviteMembre(HttpServletRequest request,
 			Profil profil) {

@@ -67,7 +67,7 @@
 					<div class="panel-title"><%=ProposeActiviteMembre.TITRE_PANEL%></div>
 				</div>
 
-				<div style="padding-top: 30px" class="panel-body">
+				<div style="padding-top: 3"0px" class="panel-body">
 				
 				
 					<form action="/waydplace/FrontalGestionnaire"

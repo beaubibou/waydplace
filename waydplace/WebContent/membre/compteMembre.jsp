@@ -100,7 +100,7 @@
 					<form action="/waydplace/Frontal" method="post"
 						onsubmit="return valideFormulaire()">
 
-	<input  name="action" type="text"  value=<%=ActionPage.MODIFIER_COMPTE_MEMBRE %> >
+					<input  name="action" type="text"  value=<%=ActionPage.MODIFIER_COMPTE_MEMBRE %> >
 			
 						<div class="form-group">
 
@@ -125,7 +125,7 @@
 										<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
 											type="text" class="form-control" id="nom"
 											placeholder="<%=CompteMembre.getHintNomSociete()%>"
-											maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="nom"
+											maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
 											required value="<%=profil.getPseudo()%>">
 									</div>
 								</div>
@@ -133,7 +133,7 @@
 									<div class="form-group">
 										<label for="typro"><%=CompteMembre.TYPE_COMPTE%></label> <input
 											type="text" class="form-control" disabled id="typepro"
-											value="Professionel">
+											value="Membre">
 									</div>
 								</div>
 
@@ -160,8 +160,7 @@
 						<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
 
 					
-						<div class="form-group">
-
+						
 
 					</form>
 
@@ -191,6 +190,7 @@
 	</script>
 
 	<script>
+	
 		$(document).ready(function(e) {
 
 			$('#description').keyup(function() {

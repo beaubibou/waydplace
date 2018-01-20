@@ -485,7 +485,7 @@ public class ActiviteDAO {
 					+ "from " + "activite,membre " + "WHERE (1=1) ";
 
 			requete = requete
-					+ " and to_char (date_debut,'dd/mm/yyyy') between ? and ? ";
+					+ " and to_date(to_char (date_debut,'dd/MM/yyyy'),'dd/MM/yyyy') between to_date(?,'dd/MM/yyyy') and to_date(?,'dd/MM/yyyy') ";
 
 			if (critereTypeActivite != CritereTypeActivite.TOUS) {// on trie sur
 																	// l'activité
@@ -702,7 +702,6 @@ public class ActiviteDAO {
 					new java.sql.Timestamp(datefin.getTime()));
 			preparedStatement.setInt(5, idtypeactivite);
 			preparedStatement.setInt(6, idactivite);
-
 			preparedStatement.execute();
 			preparedStatement.close();
 			connexion.commit();
