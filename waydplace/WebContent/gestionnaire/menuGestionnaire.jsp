@@ -61,12 +61,11 @@
 						class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
 		
 		
-		<%} %>
-		els
-		e{
+		<%}else{ %>
+		
 		<li><a href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.DECONNEXION_GESTIONNAIRE %>"><span
 						class="glyphicon glyphicon-log-out"></span> Deconnexion</a></li>
-		}
+	<%} %>	
 			</ul>
 		</div>
 	</div>

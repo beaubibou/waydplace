@@ -112,7 +112,7 @@ public class Frontal extends HttpServlet {
 
 			break;
 
-		case ActionPage.REDIRECTION_MES_ACTIVITES:
+		case ActionPage.REDIRECTION_MES_ACTIVITES_MEMBRE:
 			response.sendRedirect("membre/mesactivites.jsp");
 			break;
 
@@ -171,24 +171,30 @@ public class Frontal extends HttpServlet {
 
 		case ActionPage.MODIFIER_COMPTE_MEMBRE:
 
-			MessageAction modifierCompteMembre = modifierCompteMembre(
-					request, profil);
-			if (modifierCompteMembre.isOk()){
-				
+			MessageAction modifierCompteMembre = modifierCompteMembre(request,
+					profil);
+			if (modifierCompteMembre.isOk()) {
+
 				LOG.info(modifierCompteMembre.getMessage());
 				response.sendRedirect("membre/mesactivites.jsp");
-			}
-			else{
+			} else {
 				LOG.info(modifierCompteMembre.getMessage());
 				redirectionErreur(modifierCompteMembre);
 			}
 			break;
 
-			
+		case ActionPage.DECONNEXION_MEMBRE:
+
+			session.invalidate();
+
+			request.getRequestDispatcher("index.jsp")
+					.forward(request, response);
+			break;
+
 		case ActionPage.AJOUTER_ACTIVITE_MEMBRE:
 
 			MessageAction ajouteActiviteMembre = ajouterActiviteMembre(request,
-					 profil);
+					profil);
 
 			if (ajouteActiviteMembre.isOk()) {
 
@@ -206,34 +212,35 @@ public class Frontal extends HttpServlet {
 
 	private MessageAction modifierCompteMembre(HttpServletRequest request,
 			Profil profil) {
-	
+
 		String pseudo = request.getParameter("pseudo");
 		String description = request.getParameter("commentaire");
 		String uid = request.getParameter("uid");
-		MessageAction vpModifieCompte= vpModifieCompte(pseudo, description,uid);
-		
+		MessageAction vpModifieCompte = vpModifieCompte(pseudo, description,
+				uid);
+
 		if (vpModifieCompte.isOk()) {
 
-			MessageAction modifieMembreDAO = MembreDAO.modifieCompteMembre(pseudo,description,profil.getUID());
-			if (modifieMembreDAO.isOk()){
+			MessageAction modifieMembreDAO = MembreDAO.modifieCompteMembre(
+					pseudo, description, profil.getUID());
+			if (modifieMembreDAO.isOk()) {
 				profil.setPseudo(pseudo);
-			profil.setDescription(description);
+				profil.setDescription(description);
 				return new MessageAction(true, "");
-		}
-				else
+			} else
 				return modifieMembreDAO;
 
 		}
-	
-		return new MessageAction(false,"Erreur inconnue");
+
+		return new MessageAction(false, "Erreur inconnue");
 
 	}
-private MessageAction vpModifieCompte(String pseudo, String description,
+
+	private MessageAction vpModifieCompte(String pseudo, String description,
 			Object u) {
 		// TODO Auto-generated method stub
 		return new MessageAction(true, "");
 	}
-
 
 	private MessageAction modifierActiviteMembre(HttpServletRequest request,
 			Profil profil) {
@@ -417,7 +424,7 @@ public class Frontal extends HttpServlet {
 			if (request.getParameter("debut") != null) {
 
 				String datedebut = request.getParameter("debut");
-			DateTime critereDateDebut = getDateFromString(datedebut);
+				DateTime critereDateDebut = getDateFromString(datedebut);
 				profil.setDateDebutCreation(critereDateDebut);
 
 			}
@@ -447,7 +454,7 @@ public class Frontal extends HttpServlet {
 	}
 
 	private MessageAction ajouterActiviteMembre(HttpServletRequest request,
-			 Profil profil) {
+			Profil profil) {
 
 		String titre = request.getParameter("titre");
 		String libelle = request.getParameter("description");
@@ -523,6 +530,7 @@ public class Frontal extends HttpServlet {
 	private void redirectionErreur(MessageAction ajouteMembre) {
 
 	}
+
 	public DateTime getDateFromString(String datestr) throws ParseException {
 
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");

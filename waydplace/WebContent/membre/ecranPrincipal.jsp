@@ -30,6 +30,8 @@
 </head>
 <body>
 
+<%@include file="menuMembre.jsp"%>
+
 	<div class="container">
 		<div id="loginbox"
 			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
@@ -66,7 +68,7 @@
 					<div class="row">
 						<div class="col-sm-6  col-sm-offset-5 ">
 							<a
-								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_MES_ACTIVITES%>"
+								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_MES_ACTIVITES_MEMBRE%>"
 								class="btn btn-info" role="button">Mes activites</a>
 						</div>
 

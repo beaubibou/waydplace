@@ -4,6 +4,7 @@ public class MessageAction {
 
 	boolean reponse;
 	String message;
+	Object reponseObject;
 	public boolean isReponse() {
 		return reponse;
 	}
@@ -21,9 +22,22 @@ public class MessageAction {
 		this.reponse = reponse;
 		this.message = message;
 	}
+	public MessageAction(boolean reponse, String message, Object objectReponse) {
+	
+		super();
+		this.reponse = reponse;
+		this.message = message;
+		this.reponseObject=objectReponse;
+	}
 	public boolean isOk() {
 		// TODO Auto-generated method stub
 		return reponse;
+	}
+	public Object getReponseObject() {
+		return reponseObject;
+	}
+	public void setReponseObject(Object reponseObject) {
+		this.reponseObject = reponseObject;
 	}
 	
 }

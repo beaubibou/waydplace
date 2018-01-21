@@ -36,7 +36,9 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	
+	<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
+<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet" media="all"
+	type="text/css">
 </head>
 
 <body>
@@ -53,9 +55,9 @@
 			ArrayList<Activite> listActivite = pager.getListActivite();
 	%>
 
+	<%@ include file="menuMembre.jsp"%>
 
-
-	<div class="container" style="width: 90%;">
+	<div class="container" style="width: 90%;margin-top: 120px">
 		<div class="panel panel-primary">
 			<div class="panel-body" style="background: #99ccff;">
 
@@ -190,7 +192,7 @@
 							<p>
 							<%=activite.getTypeUserLienHTML(lienDetailParticipant)%></p>
 							<p><%=activite.getEtatHtml()%></p>
-						
+							
 
 						</div>
 					</td>
@@ -199,7 +201,8 @@
 					<td><a href=<%=lienDetailParticipant%>><%=activite.getPseudoOrganisateur()%></a></td>
 					<td><%=activite.getHoraireLeA()%></td>
 					<td><%=activite.getLibelle()%></td>
-
+					<%=activite.getLienMessage(profil)%>
+						
 				</tr>
 
 				<%

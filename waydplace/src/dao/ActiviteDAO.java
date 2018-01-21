@@ -482,7 +482,8 @@ public class ActiviteDAO {
 					+ "activite.date_creation,"
 					+ "activite.id_ref_type_activite," + "activite.uid_membre,"
 					+ "membre.photo as photoOrganisateur," + "membre.pseudo "
-					+ "from " + "activite,membre " + "WHERE (1=1) ";
+					+ "from " + "activite,membre " +
+					"WHERE membre.uid=activite.uid_membre ";
 
 			requete = requete
 					+ " and to_date(to_char (date_debut,'dd/MM/yyyy'),'dd/MM/yyyy') between to_date(?,'dd/MM/yyyy') and to_date(?,'dd/MM/yyyy') ";

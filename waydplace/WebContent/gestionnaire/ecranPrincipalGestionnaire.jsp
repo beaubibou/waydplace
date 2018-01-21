@@ -36,9 +36,8 @@
 <link href="/waydplace/css/agenda.css" rel="stylesheet" type="text/css">
 <link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"	type="text/css">
 
-<%Profil profil = (Profil) request.getSession().getAttribute("profil");
-
-
+<%
+Profil profil = (Profil) request.getSession().getAttribute("profil");
 
 FiltreRecherche filtre=profil.getFiltre();
 ArrayList<ActiviteAgenda> listMesActivite=ActiviteDAO.getActiviteAgendaBySite(profil.getIdSite());

@@ -56,7 +56,7 @@
 	<%@ include file="menuGestionnaire.jsp"%>
 
 
-	<div class="container" style="width: 90%; margin-top: 80px;">
+	<div class="container" style="width: 90%; margin-top: 120px;">
 
 		<div class="panel panel-primary">
 			<div class="panel-body" style="background: #99ccff;">

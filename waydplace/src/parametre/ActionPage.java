@@ -6,8 +6,10 @@ public class ActionPage {
 	public static final String CONNEXION_SITE_ADMIN="connexionadmin";
 
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_MEMBRE="proposerActiviteMembre";
-	public static final String REDIRECTION_MES_ACTIVITES="redirectionmesactivites";
+	public static final String REDIRECTION_MES_ACTIVITES_MEMBRE="redirectionmesactivites";
 	public static final String REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE = "rechercherActivite";
+	public static final String REDIRECTION_ENVOYER_MESSAGE_MEMBRE ="rediEnvoyerMessageMembre" ;
+	
 	public static final String AJOUTER_ACTIVITE_MEMBRE = "ajouteActiviteMembre";
 	public static final String REFRESH_MES_ACTIVITE_MEMBRES = "refreshmesactivitemembres";
 	public static final String REFRESH_RECHERCHE_ACTIVITE_MEMBRES = "resfreshRechercheActiviteMembres";
@@ -18,6 +20,8 @@ public class ActionPage {
 	public static final String MODIFIER_ACTIVITE_MEMBRE = "modifierActiviteMembre";
 	public static final String MODIFIER_COMPTE_MEMBRE = "modifiercompteMembre";
 		
+	public static final String DECONNEXION_MEMBRE = "deconnexionMembre";
+
 	
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE = "redirectionproposeractivite";
 	public static final String REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "proposerplusieursactivitegestionnaire";
@@ -35,7 +39,7 @@ public class ActionPage {
 	public static final String REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE = "refreshrechercheactivitegestionnaire";
 	public static final String MODIFIER_SITE_GESTIONNAIRE = "modifierSiteGetionnaire";
 	public static final String DECONNEXION_GESTIONNAIRE = "deconnexionGetionnaire";
-	
+		
 	
 	
 	

@@ -55,12 +55,19 @@
 		<a id="btn_googl"  onclick="signInGoogle()" class="btn btn-primary">Login
 			with Google</a>
 			
-			<a id="btn_googl" onclick="signInTestMembre()" class="btn btn-primary">Test Membre
-			</a>
-		<a id="btn_googl"  onclick="signInTestGestionnaire()" class="btn btn-primary">Test gestionnaire
+			
+			<a id="btn_googl"  onclick="signInTestGestionnaire()" class="btn btn-primary">Gestionnaire
 			</a>
 			
+			<a id="btn_googl"  onclick="signInTestMembre1()" class="btn btn-primary">Membre 1
+			</a>
 			
+			<a id="btn_googl"  onclick="signInTestMembre2()" class="btn btn-primary">Membre 2
+			</a>
+			
+			<a id="btn_googl"  onclick="signInTestAnonyme()" class="btn btn-primary">Anonyme
+			</a>
+				
 	</div>
 	
 	
@@ -69,15 +76,32 @@
 
 <script>
 
-function signInTestMembre(){
+function signInTestMembre1(){
 	
 	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE%>';
+	 document.getElementById("token").value="membre1";
+	 document.getElementById("formmasque").submit();
+}
+
+function signInTestAnonyme(){
+	
+	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE%>';
+	 document.getElementById("token").value="anonyme";
+	 document.getElementById("formmasque").submit();
+}
+
+
+function signInTestMembre2(){
+	
+	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE%>';
+	 document.getElementById("token").value="membre2";
 	 document.getElementById("formmasque").submit();
 }
 
 
 function signInTestGestionnaire(){
-	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_ADMIN%>';
+	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE%>';
+	 document.getElementById("token").value="gestionnaire";
 	 document.getElementById("formmasque").submit();
 }
 

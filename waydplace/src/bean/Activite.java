@@ -2,13 +2,14 @@ package bean;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.apache.axis.encoding.Base64;
-
+import org.apache.log4j.Logger;
+import parametre.ActionPage;
 import parametre.Parametres;
 
 
 public class Activite {
+	private static final Logger LOG = Logger.getLogger(Activite.class);
 
 	String titre;
 
@@ -26,6 +27,14 @@ public class Activite {
 	
 	private String  uid_membre;
 	
+	public int getId_ref_type_activite() {
+		return id_ref_type_activite;
+	}
+
+	public void setId_ref_type_activite(int id_ref_type_activite) {
+		this.id_ref_type_activite = id_ref_type_activite;
+	}
+
 	Date datefin,datedebut;
 	
 	public boolean isTerminee() {
@@ -34,6 +43,31 @@ public class Activite {
 			return true;
 
 		return false;
+	}
+	
+	public boolean isOrganistateur(String uid){
+		
+		if (uid_membre.equals(uid))return true;
+		return false;
+	}
+	public String getLienMessage(Profil profil){
+		
+		LOG.info("lienmessage");
+		if (profil.isAnonyme())return "";
+		
+		if (isOrganistateur(profil.getUID())) return "";
+		
+		
+		String lien ="<p><a href='/waydplace/Frontal?action="+ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE+"&uid_emetteur="+profil.getUID()+
+				"&uid_destinaire="+uid_membre+"'"+
+				 "<span style='color: blue;'	class='glyphicon glyphicon-envelope'></span></a></p>";
+
+		
+		
+		return lien; 
+		
+		
+		
 	}
 	
 	public String getTypeUserLienHTML(String lien) {

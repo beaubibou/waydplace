@@ -1,11 +1,13 @@
 package bean;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
 import critere.FiltreRecherche;
 
 public class Profil {
-	
+	private static final Logger LOG = Logger.getLogger(Profil.class);
+
 	Site site;
 	Membre membre;
 	FiltreRecherche filtre;
@@ -80,6 +82,14 @@ public class Profil {
 	public void setNomSite(String nom) {
 		// TODO Auto-generated method stub
 		site.setNom(nom);
+	}
+	public boolean isAnonyme() {
+		// TODO Auto-generated method stub
+		return membre.isAnonyme();
+	}
+	public int getTypeOrganisteur() {
+		// TODO Auto-generated method stub
+		return membre.getId_ref_type_organisateur();
 	}
 	
 }

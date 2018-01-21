@@ -49,7 +49,7 @@
 			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
 	%>
 
-
+	<%@ include file="menuMembre.jsp"%>
 	<script type="text/javascript">
 		
 	</script>

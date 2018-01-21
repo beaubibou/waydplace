@@ -41,7 +41,7 @@
 
 	Profil profil = (Profil) request.getSession().getAttribute("profil");
  %>
-
+<%@include file="menuMembre.jsp"%>
 	<div class="container margedebut">
 		<div id="loginbox" class="mainbox col-md-8 col-md-offset-2 col-sm-8">
 			<div class="panel panel-default">

@@ -59,7 +59,7 @@
 	%>
 
 
-
+	<%@ include file="menuMembre.jsp"%>
 
 	<div class="container">
 		<div id="loginbox"

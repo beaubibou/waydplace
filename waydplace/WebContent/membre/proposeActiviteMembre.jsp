@@ -55,7 +55,7 @@
 		
 	%>
 
-
+	<%@ include file="menuMembre.jsp"%>
 
 
 	<div class="container" >

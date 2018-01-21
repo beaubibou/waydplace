@@ -3,8 +3,12 @@ package bean;
 import java.util.Date;
 
 import org.apache.axis.encoding.Base64;
+import org.apache.log4j.Logger;
+
+import parametre.Parametres;
 
 public class Membre {
+	private static final Logger LOG = Logger.getLogger(Membre.class);
 
 	private int id;
 	private String uid;
@@ -15,8 +19,13 @@ public class Membre {
 	private Date date_naissance;
 	private String description;
 	private int id_ref_type_organisateur;
+	private boolean anonyme;
 	
 	
+	public void setAnonyme(boolean anonyme) {
+		this.anonyme = anonyme;
+	}
+
 	public Membre(int id, String uid, Date date_creation, String photo,
 			String pseudo,String mail,int id_site,Date date_naissance,String description,int id_ref_type_organisateur) {
 		super();
@@ -29,6 +38,7 @@ public class Membre {
 		this.id_site=id_site;
 		this.date_naissance=date_naissance;
 		this.description=description;
+		this.id_ref_type_organisateur=id_ref_type_organisateur;
 	}
 	
 	public int getId_ref_type_organisateur() {
@@ -119,6 +129,16 @@ public class Membre {
 	public String getDescription() {
 		// TODO Auto-generated method stub
 		return description;
+	}
+
+	public boolean isAnonyme() {
+		// TODO Auto-generated method stub
+	LOG.info("id ref"+id_ref_type_organisateur);
+		
+		if (id_ref_type_organisateur==Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR)
+			return true;
+		
+		return false;
 	}
 	
 	

@@ -60,7 +60,7 @@
 		
 	%>
 
-	
+	<%@ include file="menuMembre.jsp"%>
 
 	<div class="container">
 		<div id="loginbox" style="margin-top: 50px;"

@@ -173,28 +173,54 @@ public class ConnexionMembre extends HttpServlet {
 
 			String tokenFireBase = request.getParameter("tokenFireBase");
 			String jetonSite = request.getParameter("jetonSite");
-			MessageAction retour = connexionSite("ucpamembre", jetonSite,
+			MessageAction retour = connexionSite(tokenFireBase, jetonSite,
 					request, response);
-			if (retour.isOk())
+		
+			if (retour.isOk()){
+			
+			Profil profil = (Profil)retour.getReponseObject();
+				
+			switch (profil.getTypeOrganisteur()) {
+			
+			case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
 				response.sendRedirect("membre/ecranPrincipal.jsp");
-			else
-				response.sendRedirect("erreur");
-
 			break;
 
-		case ActionPage.CONNEXION_SITE_ADMIN:
+			case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+				response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+				
+				break;
 
-			tokenFireBase = request.getParameter("tokenFireBase");
-			jetonSite = request.getParameter("jetonSite");
-	//		connexionSite(tokenFireBase, jetonSite, request, response);
-			 connexionSite("ucpagestionnaire", jetonSite,
-					request, response);
-				
-				
-			response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+			case Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR:
+				response.sendRedirect("membre/ecranPrincipal.jsp");
+					break;
+			
+			
+			default:
+				response.sendRedirect("erreur");
+				break;
+			}
+			}
+			else
+			{
+				response.sendRedirect("erreur");
+			}
 
 			break;
 		}
+		// case ActionPage.CONNEXION_SITE_ADMIN:
+		//
+		// tokenFireBase = request.getParameter("tokenFireBase");
+		// jetonSite = request.getParameter("jetonSite");
+		// // connexionSite(tokenFireBase, jetonSite, request, response);
+		// connexionSite("ucpagestionnaire", jetonSite,
+		// request, response);
+		//
+		//
+		// response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+		//
+		// break;
+		// }
 	}
 
 	private MessageAction connexionSite(String tokenFireBase, String jetonSite,
@@ -204,28 +230,39 @@ public class ConnexionMembre extends HttpServlet {
 
 		Site site = SiteDAO.getSiteByJeton(jetonSite);
 
-		boolean test = true;
-
-		if (test) {
-			Membre membre = MembreDAO
-					.getMembreByUID(tokenFireBase);
-
-			Profil profil = null;
-
-			if (membre != null && site != null) {
-				profil = new Profil(site, membre);
-				session.setAttribute("profil", profil);
-				return new MessageAction(true, "");
-			}
-			return new MessageAction(true, "");
-		}
-
 		if (site == null)
 			return new MessageAction(false, MessageText.JETON_SITE_INVALIDE);
+		
+		
+		
+		
+		LOG.info(jetonSite + ":" + tokenFireBase);
+
+		Membre membre;
+		if (tokenFireBase.equals("anonyme")) {
+
+		membre=new Membre(0, "Visiteur", null, null, "Visiteur", null, site.getId(), null, "Visiteur", Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR);
+			
+		} else {
+
+			membre = MembreDAO.getMembreByUID(tokenFireBase);
+		}
+		Profil profil = null;
+
+		if (membre != null && site != null) {
+			profil = new Profil(site, membre);
+			session.setAttribute("profil", profil);
+			
+			
+			return new MessageAction(true, "",profil);
+		}
+		
+		
+		
+		
 
 		try {
-			Profil profil = null;
-
+			
 			FirebaseToken token = FirebaseAuth.getInstance()
 					.verifyIdTokenAsync(tokenFireBase).get();
 			String uid = token.getUid();
@@ -233,7 +270,7 @@ public class ConnexionMembre extends HttpServlet {
 			String pseudo = token.getName();
 			String photo = null;
 
-			Membre membre = MembreDAO.getMembreByUID(uid);
+			 membre = MembreDAO.getMembreByUID(uid);
 
 			if (membre == null) {
 
