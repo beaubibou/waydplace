@@ -199,8 +199,7 @@
 			var nombreCaractere = $(this).val().length;
 			//alert(nombreCaractere);
 
-			var msg = nombreCaractere + '/ <%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
-		';
+			var msg = nombreCaractere + '/ <%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>';
 
 												$('#nbr').text(msg);
 												// Le script qui devra calculer et afficher le nombre de mots et de caractères
