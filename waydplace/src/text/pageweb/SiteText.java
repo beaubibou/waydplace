@@ -6,9 +6,10 @@ public class SiteText {
 		public static String HINT_ADRESSE="Saissisez l'adresse de la structure.";
 		public static String HINT_TELEPHONE=CommunText.HINT_TELEPHONE;
 		public static String AUCUN_FICHIER_SELECTIONNE="Aucune image selectionnée";
-		
+		public static int TAILLE_JETON_MAX=20;
 		public static String TYPE_COMPTE="Type de compte";
 		
+		public static String LABEL_JETON="Jeton";
 		public static int TAILLE_NOM_SITE_MAX = 50;
 		public static int TAILLE_SITE_WEB_MAX = CommunText.TAILLE_SITE_WEB_MAX;
 		public static int TAILLE_TELEPHONNE_MAX = CommunText.TAILLE_TELEPHONNE_MAX;
@@ -24,6 +25,7 @@ public class SiteText {
 				
 		public static String MESSAGE_JUMBO_L2 = "Préciser votre adresse exacte pour être localisé par la communauté.";
 		
+		public static String HINT_DESCRIPTION_JETON="Créer le jeton qui sert à identifier le site";
 		
 		public static String LABEL_NOM = CommunText.LABEL_NOM;
 		
@@ -49,6 +51,7 @@ public class SiteText {
 			return CommunText.getHintDescriptionProfil();
 			
 		}
+		
 		
 	
 

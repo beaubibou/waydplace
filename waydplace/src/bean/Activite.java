@@ -50,7 +50,7 @@ public class Activite {
 		if (uid_membre.equals(uid))return true;
 		return false;
 	}
-	public String getLienMessage(Profil profil){
+	public String getLienMessage(Profil profil,int idActivite,String uidEmetteur){
 		
 		LOG.info("lienmessage");
 		if (profil.isAnonyme())return "";
@@ -59,8 +59,8 @@ public class Activite {
 		
 		
 		String lien ="<p><a href='/waydplace/Frontal?action="+ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE+"&uid_emetteur="+profil.getUID()+
-				"&uid_destinaire="+uid_membre+"'"+
-				 "<span style='color: blue;'	class='glyphicon glyphicon-envelope'></span></a></p>";
+				"&idactivite="+idActivite+"&uid_destinataire="+uidEmetteur+
+				 "'<span style='color: blue;'	class='glyphicon glyphicon-envelope'></span></a></p>";
 
 		
 		

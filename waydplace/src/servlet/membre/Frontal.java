@@ -27,6 +27,7 @@ import bean.MessageAction;
 import bean.Profil;
 import dao.ActiviteDAO;
 import dao.MembreDAO;
+import dao.MessageDAO;
 
 /**
  * Servlet implementation class Frontal
@@ -128,6 +129,21 @@ public class Frontal extends HttpServlet {
 		case ActionPage.REDIRECTION_COMPTE_MEMBRE:
 			response.sendRedirect("membre/compteMembre.jsp");
 			break;
+			
+		case ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE:
+		
+			MessageAction vpRedirectionEnvoiMessage=vpRedirectionEnvoiMessage(
+					request, profil);
+			
+			if (vpRedirectionEnvoiMessage.isOk()){
+			request.getRequestDispatcher("membre/envoiMessage.jsp").forward(
+					request, response);
+			}
+			else{
+				
+			}
+			
+			break;	
 
 		case ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
 
@@ -171,8 +187,10 @@ public class Frontal extends HttpServlet {
 
 		case ActionPage.MODIFIER_COMPTE_MEMBRE:
 
+			
 			MessageAction modifierCompteMembre = modifierCompteMembre(request,
 					profil);
+		
 			if (modifierCompteMembre.isOk()) {
 
 				LOG.info(modifierCompteMembre.getMessage());
@@ -202,12 +220,94 @@ public class Frontal extends HttpServlet {
 				response.sendRedirect("membre/mesactivites.jsp");
 
 			} else {
-
+				redirectionErreur(ajouteActiviteMembre);
 			}
 
 			break;
+	
+			case ActionPage.ENVOI_MESSAGE_MEMBRE:
+
+				MessageAction vpEnvoiMessage=vpEnvoiMessage(request, profil);
+				
+			if (vpEnvoiMessage.isOk()){
+				
+					MessageAction vpEnvoiMessageDAO=vpEnvoiMessageDAO(request, profil);
+					if (vpEnvoiMessageDAO.isOk()){
+					
+						page = 0;
+						pager = new PagerActivite(profil.getFiltre(), page);
+						request.setAttribute("pager", pager);
+						request.getRequestDispatcher("membre/rechercheActivite.jsp")
+								.forward(request, response);
+						
+					}
+					else{
+						
+					redirectionErreur(vpEnvoiMessageDAO);
+					}
+				
+				}
+				else{
+					redirectionErreur(vpEnvoiMessage);
+				}
+				
+				break;	
+				
+				
+			
+			
+		
+		
 		}
 
+	}
+
+	private MessageAction vpEnvoiMessageDAO(HttpServletRequest request,
+			Profil profil) {
+		String  idactiviteStr = request.getParameter("idactivite");
+		String uidEmetteur = request.getParameter("uid_emetteur");
+		String uidDestinataire = request.getParameter("uid_destinataire");
+		String message = request.getParameter("message");
+		
+		int idActivite = Integer.parseInt(idactiviteStr);
+		
+		MessageDAO.ajouteMessage(uidEmetteur, uidDestinataire, message);
+		return new MessageAction(true, "");
+	}
+
+	private MessageAction vpEnvoiMessage(HttpServletRequest request,
+			Profil profil) {
+	
+		return new MessageAction(true, "");
+	}
+
+	private MessageAction vpRedirectionEnvoiMessage(HttpServletRequest request,
+			Profil profil) {
+		int idActivite=0;
+		String  idactiviteStr = request.getParameter("idactivite");
+		String uidEmetteur = request.getParameter("uid_emetteur");
+		String uidDestinataire = request.getParameter("uid_destinataire");
+		
+		try {
+			idActivite = Integer.parseInt(idactiviteStr);
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
+
+			
+			return new MessageAction(false, e.getMessage());
+
+		}
+		
+		
+		request.setAttribute("idactivite", idActivite);
+		request.setAttribute("uid_emetteur", uidEmetteur);
+		request.setAttribute("uid_destinataire", uidDestinataire);
+		
+		return new MessageAction(true,"");
+		
 	}
 
 	private MessageAction modifierCompteMembre(HttpServletRequest request,

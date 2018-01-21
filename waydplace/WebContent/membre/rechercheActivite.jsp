@@ -30,15 +30,16 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
 	type="text/css">
-	<script src="/waydplace/js/moment.js"></script>
-	<link
+<script src="/waydplace/js/moment.js"></script>
+<link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
-<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet" media="all"
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
 	type="text/css">
+<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
+	media="all" type="text/css">
 </head>
 
 <body>
@@ -57,20 +58,20 @@
 
 	<%@ include file="menuMembre.jsp"%>
 
-	<div class="container" style="width: 90%;margin-top: 120px">
+	<div class="container" style="width: 90%; margin-top: 120px">
 		<div class="panel panel-primary">
 			<div class="panel-body" style="background: #99ccff;">
 
 				<form class="form-inline" id="formulaire" method="post"
 					action="/waydplace/Frontal">
 
-		<input type="hidden" name='action' value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES%>'>
-	
+					<input type="hidden" name='action'
+						value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES%>'>
+
 
 
 					<div class="form-group">
-						<label for="typeUser">Type</label>
-						 <select
+						<label for="typeUser">Type</label> <select
 							data-style="btn-primary" class="form-control" id="typeUser"
 							name="typeUser">
 
@@ -126,38 +127,38 @@
 
 						</select>
 					</div>
-			
-				<div class="form-group">
-				<label for="iddatedebut">Date debut</label>
-				<div class='input-group date' id='datedebut'>
-					<input type='text' class="form-control" id="iddatedebut"
-						name="debut" /> <span class="input-group-addon"> <span
-						class="glyphicon glyphicon-calendar"></span>
-					</span>
-				</div>
+
+					<div class="form-group">
+						<label for="iddatedebut">Date debut</label>
+						<div class='input-group date' id='datedebut'>
+							<input type='text' class="form-control" id="iddatedebut"
+								name="debut" /> <span class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<label for="iddatefin">Date fin</label>
+						<div class='input-group date' id="datefin">
+							<input type='text' class="form-control" id="iddatefin" name="fin" />
+							<span class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+					<button id="go" type="submit" class="btn btn-info"
+						name="rechercheactivite">Rechercher</button>
+
+
+				</form>
+
 			</div>
 
-
-
-			<div class="form-group">
-				<label for="iddatefin">Date fin</label>
-				<div class='input-group date' id="datefin">
-					<input type='text' class="form-control" id="iddatefin" name="fin" />
-					<span class="input-group-addon"> <span
-						class="glyphicon glyphicon-calendar"></span>
-					</span>
-				</div>
-			</div>
-			<button id="go" type="submit" class="btn btn-info"
-				name="rechercheactivite">Rechercher</button>
-		
-
-		</form>
-	
+		</div>
 	</div>
-
-</div>
-</div>
 
 
 	<div class="container" style="width: 90%;">
@@ -169,18 +170,17 @@
 					<th style="width: 5%;" class="text-center">Titre</th>
 					<th style="width: 30%;" class="text-center">User</th>
 					<th style="width: 10%;" class="text-center">Le</th>
-				
+
 				</tr>
 			</thead>
 			<tbody
 				style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
 				<%
 					if (listActivite!=null)
-																		for (Activite activite : listActivite) {
-							String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-					
-							String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();	
-							%>
+																						for (Activite activite : listActivite) {
+					String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
+					String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();
+				%>
 
 				<tr>
 					<td>
@@ -190,10 +190,12 @@
 								class="img-thumbnail pull-left ">
 
 							<p>
-							<%=activite.getTypeUserLienHTML(lienDetailParticipant)%></p>
-							<p><%=activite.getEtatHtml()%></p>
-							
 
+								<%=activite.getTypeUserLienHTML(lienDetailParticipant)%></p>
+
+							<p><%=activite.getEtatHtml()%></p>
+
+							<%=activite.getLienMessage(profil,activite.getId(),activite.getUid_membre())%>
 						</div>
 					</td>
 
@@ -201,8 +203,8 @@
 					<td><a href=<%=lienDetailParticipant%>><%=activite.getPseudoOrganisateur()%></a></td>
 					<td><%=activite.getHoraireLeA()%></td>
 					<td><%=activite.getLibelle()%></td>
-					<%=activite.getLienMessage(profil)%>
-						
+
+
 				</tr>
 
 				<%

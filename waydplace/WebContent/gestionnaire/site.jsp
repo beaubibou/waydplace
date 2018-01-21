@@ -110,22 +110,31 @@
 
 							<div class="row">
 
-								<div class="col-sm-1 "></div>
+								
+								<div class="col-sm-8 ">
 
-								<div class="col-sm-1"></div>
-
-
-
-							</div>
-							<br>
-							<div class="row">
-								<div class="col-sm-8">
 									<div class="form-group">
 										<label for="nom"><%=SiteText.LABEL_NOM%></label> <input
 											type="text" class="form-control" id="nom"
 											placeholder="<%=SiteText.getHintNomSociete()%>"
 											maxlength="<%=SiteText.TAILLE_NOM_SITE_MAX%>" name="nom"
 											required value="<%=site.getNom()%>">
+									</div>
+								
+
+							</div>
+								
+						</div>
+						<div class="form-group">
+					
+							<div class="row">
+								<div class="col-sm-8">
+									<div class="form-group">
+										<label for="jeton"><%=SiteText.LABEL_JETON%></label> <input
+											type="text" class="form-control" id="jeton"
+											placeholder="<%=SiteText.HINT_DESCRIPTION_JETON%>"
+											maxlength="<%=SiteText.TAILLE_JETON_MAX%>" name="jetonSite"
+											required value="<%=site.getJeton()%>">
 									</div>
 								</div>
 								<div class="col-sm-4">
@@ -138,21 +147,19 @@
 
 							</div>
 						</div>
-
-
-						<div class="form-group">
+		</div>
 							<label for="description"><%=SiteText.LABEL_DESCRIPTION_PROFIL%></label>
 							<textarea class="form-control" rows="5" id="description"
 								name="description"
 								placeholder="<%=SiteText.getHintDescriptionProfil()%>"
 								maxlength="<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=site.getDescription()%></textarea>
-						</div>
-
+					
 						<h5 class="nbrcaracteremax" id="nbr">
-							0 Caractére <%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
+							0 Caractére
+							<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
 						</h5>
+				<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
 
-						<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
 
 
 
@@ -192,23 +199,23 @@
 			var nombreCaractere = $(this).val().length;
 			//alert(nombreCaractere);
 
-			var msg = nombreCaractere + '/ <%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>';
+			var msg = nombreCaractere + '/ <%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
+		';
 
-											$('#nbr').text(msg);
-											// Le script qui devra calculer et afficher le nombre de mots et de caractères
+												$('#nbr').text(msg);
+												// Le script qui devra calculer et afficher le nombre de mots et de caractères
 
-										})
+											})
 
-					});
+						});
 
-	// Init le nombre de caraterces	
-	var nombreCaractere = $('#description').val().length;
-	var msg = nombreCaractere + "/"
-			+
-<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
-	;
-	$('#nbr').text(msg);
-	
+		// Init le nombre de caraterces	
+		var nombreCaractere = $('#description').val().length;
+		var msg = nombreCaractere + "/"
+				+
+	<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
+		;
+		$('#nbr').text(msg);
 	</script>
 </body>
 </html>

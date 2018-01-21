@@ -23,12 +23,15 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 
-			
-				
-					
-				<%=MenuMembre.get_LI_MON_COMPTE((Profil)session.getAttribute("profil")) %>	
-			
-				<%=MenuMembre.get_LI_GERER((Profil)session.getAttribute("profil")) %>
+
+
+
+				<%=MenuMembre.get_LI_MON_COMPTE((Profil) session
+					.getAttribute("profil"))%>
+
+				<%=MenuMembre.get_LI_GERER((Profil) session
+					.getAttribute("profil"))%>
+
 
 				<li><a
 					href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE%>">Proposer
@@ -40,8 +43,10 @@
 					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_PLANING_GESTIONNAIRE%>">Planning
 				</a></li>
 
+				<%=MenuMembre.get_LI_ENVELOPPE((Profil) session
+					.getAttribute("profil"))%>
 
-				
+
 
 
 			</ul>
@@ -49,9 +54,10 @@
 
 			<ul class="nav navbar-nav navbar-right">
 
-				<%=MenuMembre.get_LI_CONNEXION((Profil)session.getAttribute("profil")) %>
+				<%=MenuMembre.get_LI_CONNEXION((Profil) session
+					.getAttribute("profil"))%>
 
-				
+
 			</ul>
 		</div>
 	</div>
