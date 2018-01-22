@@ -12,13 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
 import outils.Outils;
 import pager.PagerActivite;
 import parametre.ActionPage;
@@ -30,7 +28,6 @@ import bean.AdapterAgenda;
 import bean.MessageAction;
 import bean.Profil;
 import dao.ActiviteDAO;
-import dao.MembreDAO;
 import dao.SiteDAO;
 
 /**
@@ -100,6 +97,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			MessageAction modifierActiviteMembre = modifierActiviteMembre(
 					request, profil);
 
+			
 			response.sendRedirect("gestionnaire/mesactivites.jsp");
 
 			break;
@@ -501,7 +499,6 @@ public class FrontalGestionnaire extends HttpServlet {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 
 			return new MessageAction(false, e.getMessage());

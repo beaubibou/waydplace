@@ -137,7 +137,7 @@
 	
 		$(document).ready(function(e) {
 
-			$('#description').keyup(function() {
+			$('#message').keyup(function() {
 
 				var nombreCaractere = $(this).val().length;
 				//alert(nombreCaractere);

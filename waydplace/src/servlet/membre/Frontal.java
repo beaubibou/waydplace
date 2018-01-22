@@ -91,6 +91,15 @@ public class Frontal extends HttpServlet {
 
 			break;
 
+			
+		case ActionPage.REDIRECTION_MESSAGES_MEMBRE:
+
+			
+			response.sendRedirect("membre/mesmessages.jsp");
+			
+
+			break;
+
 		case ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
 
 			MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
@@ -252,11 +261,6 @@ public class Frontal extends HttpServlet {
 				}
 				
 				break;	
-				
-				
-			
-			
-		
 		
 		}
 
@@ -271,7 +275,7 @@ public class Frontal extends HttpServlet {
 		
 		int idActivite = Integer.parseInt(idactiviteStr);
 		
-		MessageDAO.ajouteMessage(uidEmetteur, uidDestinataire, message);
+		MessageDAO.ajouteMessage(uidEmetteur, uidDestinataire, message,idActivite);
 		return new MessageAction(true, "");
 	}
 

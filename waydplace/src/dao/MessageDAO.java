@@ -12,24 +12,173 @@ import javax.naming.NamingException;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 
-import parametre.Parametres;
 import poolconnexion.CxoPool;
-
-import bean.Activite;
-import bean.ActiviteAgenda;
+import bean.Discussion;
 import bean.MessageAction;
 import bean.MessageActivite;
-import critere.CritereEtatActivite;
-import critere.CritereTypeActivite;
-import critere.CritereTypeOrganisateur;
-import critere.FiltreRecherche;
 
 public class MessageDAO {
 	private static final Logger LOG = Logger.getLogger(MessageDAO.class);
 
-	public static MessageAction ajouteMessage(String uidEmetteur,String uidDestinataire,String message) {
+	
+	public static ArrayList<Discussion> getDiscussions(String uidDestinataire){
+		
+		
+		ArrayList<Discussion> retour = new ArrayList<Discussion>();
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+
+		Connection connexion = null;
+		try {
+			connexion = CxoPool.getConnection();
+		
+			String requete ="SELECT distinct discussion.idactivite,activite.titre"
+					+ "  FROM (select idactivite from boitereception where uiddestinataire=? union select idactivite from boiteemission"
+					+ " where uidemetteur=? )"
+					+ " as discussion,activite where  discussion.idactivite=activite.id" ;
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setString(1, uidDestinataire);
+				preparedStatement.setString(2, uidDestinataire);
+				rs = preparedStatement.executeQuery();
+
+				while (rs.next()) {
+
+				String libelle = rs.getString("titre");
+				int  idActivite = rs.getInt("idactivite");
+				Discussion discussion = new Discussion(idActivite,libelle);
+				retour.add(discussion);
+
+			}
+
+		
+
+		} catch (NamingException | SQLException e) {
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return retour;
+		} finally 
+		{
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+
+		return retour;
+
+	
+	
+	}
+	
+	
+	public static ArrayList<MessageActivite> getListMessageDiscussion(int idActivite,String uidDestinataire ) {
+		long debut = System.currentTimeMillis();
+
+		MessageActivite messageActivite = null;
+		ArrayList<MessageActivite> retour = new ArrayList<MessageActivite>();
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+
+		Connection connexion = null;
+		try {
+			connexion = CxoPool.getConnection();
+		
+			String requete ="SELECT * FROM  (select id,uidemetteur,uiddestinataire,lu,idactivite,message,date_creation from boitereception where uiddestinataire=?"
+					+ " and idactivite=? union select id,uidemetteur,uiddestinataire,lu,idactivite,message,date_creation from boiteemission where uidemetteur=? and idactivite=?) as toto ";
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setString(1, uidDestinataire);
+				preparedStatement.setInt(2, idActivite);
+				preparedStatement.setString(3, uidDestinataire);
+				preparedStatement.setInt(4, idActivite);
+				
+				
+				rs = preparedStatement.executeQuery();
+
+	
+			while (rs.next()) {
+
+				int id = rs.getInt("id");
+				String uidEmetteur = rs.getString("uidemetteur");
+				String message = rs.getString("message");
+				Date dateCreation = rs.getTimestamp("date_creation");
+				boolean lu=rs.getBoolean("lu");
+				messageActivite = new MessageActivite(id, idActivite, uidEmetteur, uidDestinataire, message, dateCreation, lu);
+				retour.add(messageActivite);
+
+			}
+
+		
+
+		} catch (NamingException | SQLException e) {
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return retour;
+		} finally 
+		{
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+
+		return retour;
+
+	}
+	
+	
+	
+	
+	public static ArrayList<MessageActivite> getMessages(String uid) {
+		long debut = System.currentTimeMillis();
+
+		MessageActivite messageActivite = null;
+		ArrayList<MessageActivite> retour = new ArrayList<MessageActivite>();
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+
+		Connection connexion = null;
+		try {
+			connexion = CxoPool.getConnection();
+			String requete ="SELECT uidemetteur, uiddestinataire, message, idactivite, date_creation,lu, id FROM boitereception "
+					+ "where  uiddestinataire=?";
+
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setString(1, uid);
+				rs = preparedStatement.executeQuery();
+
+		
+
+			while (rs.next()) {
+
+				int id = rs.getInt("id");
+				int idActivite = rs.getInt("idactivite");
+				String uidEmetteur = rs.getString("uidemetteur");
+				String uidDestinataire = rs.getString("uiddestinataire");
+				String message = rs.getString("message");
+				Date dateCreation = rs.getTimestamp("date_creation");
+				boolean lu=rs.getBoolean("lu");
+				messageActivite = new MessageActivite(id, idActivite, uidEmetteur, uidDestinataire, message, dateCreation, lu);
+				retour.add(messageActivite);
+
+			}
+
+		
+
+		} catch (NamingException | SQLException e) {
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return retour;
+		} finally 
+		{
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+
+		return retour;
+
+	}
+	
+	
+	
+	
+	public static MessageAction ajouteMessage(String uidEmetteur,String uidDestinataire,String message,int idActivite) {
 		long debut = System.currentTimeMillis();
 
 		Connection connexion = null;
@@ -38,30 +187,30 @@ public class MessageDAO {
 		try {
 			connexion = CxoPool.getConnection();
 			connexion.setAutoCommit(false);
-			String requete = "INSERT INTO boiteemission(uidemetteur,uiddestinataire,message)"
-					+ "	values (?,?,?)";
+			String requete = "INSERT INTO boiteemission(uidemetteur,uiddestinataire,message,idactivite )"
+					+ "	values (?,?,?,?)";
 		
 			preparedStatement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, uidEmetteur);
 			preparedStatement.setString(2, uidDestinataire);
 			preparedStatement.setString(3, message);
+			preparedStatement.setInt(4, idActivite);
 			preparedStatement.execute();
 			
-			requete = "INSERT INTO boitereception(uidemetteur,uiddestinataire,message)"
-					+ "	values (?,?,?)";
+			requete = "INSERT INTO boitereception(uidemetteur,uiddestinataire,message,idactivite )"
+					+ "	values (?,?,?,?)";
 		
 			preparedStatement.close();
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uidEmetteur);
 			preparedStatement.setString(2, uidDestinataire);
 			preparedStatement.setString(3, message);
+			preparedStatement.setInt(4, idActivite);
 			preparedStatement.execute();
-			
 			connexion.commit();
 
 		} catch (NamingException | SQLException e) {
-			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 		} finally {
 
@@ -96,12 +245,10 @@ public class MessageDAO {
 			}
 			
 		
-			return new Integer(nbrmessagenonlu).toString();
+			return Integer.toString(nbrmessagenonlu);
 
 		} catch (NamingException | SQLException e) {
-			// TODO Auto-generated catch block
 
-			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			
 		} finally {
@@ -110,11 +257,11 @@ public class MessageDAO {
 
 		}
 
-		return new Integer(nbrmessagenonlu).toString();
+		return  Integer.toString(nbrmessagenonlu);
 
 
 	}
-
 	
+		
 	
 	}
