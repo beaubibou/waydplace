@@ -99,6 +99,16 @@ public class Frontal extends HttpServlet {
 			
 
 			break;
+			
+			case ActionPage.REDIRECTION_PLANING_MEMBRE:
+
+			
+			response.sendRedirect("membre/planing.jsp");
+			
+
+			break;
+			
+			
 
 		case ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
 
@@ -192,6 +202,16 @@ public class Frontal extends HttpServlet {
 			MessageAction modifierActiviteMembre = modifierActiviteMembre(
 					request, profil);
 
+			if (modifierActiviteMembre.isOk()) {
+
+				
+				response.sendRedirect("membre/mesactivites.jsp");
+
+			} else {
+
+				redirectionErreur(modifierActiviteMembre);
+			}
+			
 			break;
 
 		case ActionPage.MODIFIER_COMPTE_MEMBRE:

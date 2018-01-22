@@ -21,6 +21,8 @@ public class ActionPage {
 	public static final String MODIFIER_ACTIVITE_MEMBRE = "modifierActiviteMembre";
 	public static final String MODIFIER_COMPTE_MEMBRE = "modifiercompteMembre";
 	public static final String ENVOI_MESSAGE_MEMBRE = "envoiMessageMembre";
+	public static final String REDIRECTION_PLANING_MEMBRE = "redirectionPlaningMembre";
+	
 	
 	
 	public static final String DECONNEXION_MEMBRE = "deconnexionMembre";

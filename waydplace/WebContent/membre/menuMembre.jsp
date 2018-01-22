@@ -40,7 +40,7 @@
 					href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>">Rechercher
 				</a></li>
 				<li><a
-					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_PLANING_GESTIONNAIRE%>">Planning
+					href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_PLANING_MEMBRE%>">Planning
 				</a></li>
 
 				<%=MenuMembre.get_LI_ENVELOPPE((Profil) session
