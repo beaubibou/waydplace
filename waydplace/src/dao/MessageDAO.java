@@ -16,6 +16,7 @@ import org.joda.time.DateTime;
 
 import parametre.Parametres;
 import poolconnexion.CxoPool;
+
 import bean.Activite;
 import bean.ActiviteAgenda;
 import bean.MessageAction;
@@ -73,6 +74,46 @@ public class MessageDAO {
 
 	}
 	
+	public static String getNbrMessageNonLu(String uid) {
+
+		long debut = System.currentTimeMillis();
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		int nbrmessagenonlu = 0;
+		try {
+			connexion = CxoPool.getConnection();
+
+			String requete = "select  count(id) as nbrmessagenonlu from boitereception"
+					+ " where (uiddestinataire=? and lu=false);";
+
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setString(1, uid);
+			rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				nbrmessagenonlu = rs.getInt("nbrmessagenonlu");
+			}
+			
+		
+			return new Integer(nbrmessagenonlu).toString();
+
+		} catch (NamingException | SQLException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+
+		}
+
+		return new Integer(nbrmessagenonlu).toString();
+
+
+	}
 
 	
 	

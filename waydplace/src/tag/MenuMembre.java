@@ -1,5 +1,6 @@
 package tag;
 
+import dao.MessageDAO;
 import bean.Profil;
 import parametre.ActionPage;
 import parametre.Parametres;
@@ -104,6 +105,38 @@ public class MenuMembre {
 
 		case Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR:
 
+		
+			break;
+
+		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+
+			break;
+		}
+
+		return lien;
+
+	}
+	
+	public static String get_LI_BADGE(Profil profil) {
+		String lien = "";
+
+		if (profil == null) {
+
+			return LIEN_CONNEXION;
+		}
+
+		String nbrMessage=MessageDAO.getNbrMessageNonLu(profil.getUID());
+		
+		switch (profil.getTypeOrganisteur()) {
+
+		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+			System.out.println(LIEN_DECONNEXION);
+			lien ="<li><a href=''> <span class='badge'>"+nbrMessage+"</span></a><br></li>";
+
+			break;
+
+		case Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR:
+
 			
 
 			break;
@@ -117,6 +150,8 @@ public class MenuMembre {
 
 	}
 	
+	
+
 
 	public static String getLi(String action, String texte) {
 
