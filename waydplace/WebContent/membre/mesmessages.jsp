@@ -90,13 +90,7 @@
 
 										</tbody>
 									</table>
-										<div class="form-group">
-											<label for="message">Réponse</label>
-											<textarea placeholder="Réponse" maxlength='40'
-												class="form-control" rows="5" id="message" name="message"></textarea>
-										</div>
 									
-								
 								</div>
 
 							</div>
