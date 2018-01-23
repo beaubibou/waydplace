@@ -83,8 +83,11 @@ public class MessageDAO {
 		try {
 			connexion = CxoPool.getConnection();
 		
-			String requete ="SELECT * FROM  (select id,uidemetteur,uiddestinataire,lu,idactivite,message,date_creation from boitereception where uiddestinataire=?"
-					+ " and idactivite=? union select id,uidemetteur,uiddestinataire,lu,idactivite,message,date_creation from boiteemission where uidemetteur=? and idactivite=?) as toto ";
+			String requete ="SELECT * FROM "
+					+ " (select id,uidemetteur,uiddestinataire,lu,idactivite,message,date_creation from boitereception where uiddestinataire=? "
+					+ "and idactivite=? union "
+					+ "select id,uidemetteur,uiddestinataire,lu,idactivite,message,date_creation from boiteemission where uidemetteur=? and idactivite=?) as toto "
+					+ "order by date_creation  desc ";
 
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setString(1, uidDestinataire);

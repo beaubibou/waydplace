@@ -1,5 +1,6 @@
 package bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import parametre.ActionPage;
@@ -64,13 +65,24 @@ public class MessageActivite {
 
 	public String getMessageHtlm(Profil profil) {
 
-				return "<td><textarea  align='left' class='form-control'  row='4'>"+message+"</textarea></td>";
+				return 
+						
+						"<td>"
+						+"<p>moi</p>"+
+						"<textarea  id='message' align='left' class='form-control'  row='4'>"+message+"</textarea>"+
+						"<p align='right' >"+getDateCreationStr()+"</p> </td>";
 		
 		
 		
 		
 	}
 	
+	public  String getDateCreationStr() {
+		
+		SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yy HH:mm");
+		return  formater.format(dateCreation);
+		
+	}
 	
 	public void setMessage(String message) {
 		this.message = message;
