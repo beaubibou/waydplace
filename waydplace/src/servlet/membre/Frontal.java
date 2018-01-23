@@ -282,9 +282,41 @@ public class Frontal extends HttpServlet {
 				
 				break;	
 		
-		}
+	
+			case ActionPage.ENVOI_REPONSE_MEMBRE:
 
-	}
+			vpEnvoiMessage=vpEnvoiMessage(request, profil);
+				
+			if (vpEnvoiMessage.isOk()){
+				
+					MessageAction vpEnvoiMessageDAO=vpEnvoiMessageDAO(request, profil);
+					if (vpEnvoiMessageDAO.isOk()){
+					
+						page = 0;
+						pager = new PagerActivite(profil.getFiltre(), page);
+						request.setAttribute("pager", pager);
+						request.getRequestDispatcher("membre/mesmessages.jsp")
+								.forward(request, response);
+						
+					}
+					else{
+						
+					redirectionErreur(vpEnvoiMessageDAO);
+					}
+				
+				}
+				else{
+					redirectionErreur(vpEnvoiMessage);
+				}
+				
+				break;	
+		
+		}
+		}
+		
+			
+
+	
 
 	private MessageAction vpEnvoiMessageDAO(HttpServletRequest request,
 			Profil profil) {

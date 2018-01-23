@@ -51,7 +51,8 @@ public class MessageDAO {
 				retour.add(discussion);
 
 			}
-
+			
+				
 		
 
 		} catch (NamingException | SQLException e) {

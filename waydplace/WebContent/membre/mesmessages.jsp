@@ -46,11 +46,10 @@
 <body>
 
 	<%
-			Profil profil = (Profil) request.getSession().getAttribute("profil");
-		
-				ArrayList<Discussion> listMesDiscussion=MessageDAO.getDiscussions(profil.getUID());
-	
-	
+		Profil profil = (Profil) request.getSession()
+				.getAttribute("profil");
+		ArrayList<Discussion> listMesDiscussion = MessageDAO
+				.getDiscussions(profil.getUID());
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -61,46 +60,55 @@
 		<table class="table">
 
 			<tbody>
-			
-			<%for (Discussion discussion:listMesDiscussion){ %> 
+
+				<%
+					for (Discussion discussion : listMesDiscussion) {
+				%>
 				<tr>
 					<td><div class="container">
 
 							<button type="button" class="btn btn-info" data-toggle="collapse"
-								data-target="#<%=discussion.getIdActivite()%>"><%=discussion.getTitre() %></button>
+								data-target="#<%=discussion.getIdActivite()%>"><%=discussion.getTitre()%></button>
 							<div id="<%=discussion.getIdActivite()%>" class="collapse">
 								<div class="container">
 									<table class="table">
-										<%for (MessageActivite messageActivite:MessageDAO.getListMessageDiscussion(discussion.getIdActivite(), profil.getUID())){ %>
+										<%
+											for (MessageActivite messageActivite : MessageDAO
+														.getListMessageDiscussion(discussion.getIdActivite(),
+																profil.getUID())) {
+										%>
 										<tbody>
 											<tr>
-												<td><%=messageActivite.getMessage() %></td>
-												
-											</tr>
-											<%} %>
 											
+											<%=messageActivite.getMessageHtlm(profil)%>
+											<td><%=MessageActivite.getLienReponse(profil,messageActivite.getIdActivite(),messageActivite.getUidEmetteur()) %>
+											</td>
+											</tr>
+											<%
+												}
+											%>
+
 										</tbody>
 									</table>
-								<div class="form-group">
-							<label for="message">Réponse</label>
-							<textarea 
-								placeholder="Réponse"
-								maxlength='40'
-								class="form-control" rows="5" id="message" name="message"></textarea>
-							</div>	
+										<div class="form-group">
+											<label for="message">Réponse</label>
+											<textarea placeholder="Réponse" maxlength='40'
+												class="form-control" rows="5" id="message" name="message"></textarea>
+										</div>
+									
+								
 								</div>
 
 							</div>
-							
-						</div>
-						
-						
-						</td>
-				</tr>
-				
 
-			<%} %>
-				
+						</div></td>
+				</tr>
+
+
+				<%
+					}
+				%>
+
 			</tbody>
 		</table>
 	</div>
