@@ -61,16 +61,18 @@
 
 					<div class="form-group">
 						<div class="row">
-							<div class="col-sm-4">
-								<img height="300" width="200"
-									src=<%=profil.getPhotostr()%>
-									class="img-thumbnail" />
-							</div>
+							
 							<div class="col-sm-8">
 								<form action="/wayd/ChargePhotoPro" method="post"
 									enctype="multipart/form-data" onsubmit="return valideFichier()">
+								
+								<div class='clearfix'><a href=''><img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 40%;'></a>
+								
+								<h2 style='margin-top: 0px'>titre </h2>
+								<h4 >libelle</h4></div>
+								<h6 align='right'>getHoraireLigne</h6>;
+								
 									<input type="file" name="file" size="50" id="file" /> <br>
-
 									<input type="submit" value="Envoyer la photo" class="btn btnwayd btn-sm" />
 
 
