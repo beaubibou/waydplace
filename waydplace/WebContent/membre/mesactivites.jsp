@@ -45,8 +45,8 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-		FiltreRecherche filtre=profil.getFiltre();
-		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
+			FiltreRecherche filtre=profil.getFiltre();
+			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -98,26 +98,23 @@
 			</div>
 
 		</div>
-		<table class="table table-responsive " id="matable">
-			<thead >
-			
-			<tbody
-				style="background-color: #FFFFFF; vertical-align: middle;">
+		<table class="table table-striped table-responsive " id="matable">
+
+			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 
 				<%
 					if (listMesActivite!=null)
-							for (Activite activite : listMesActivite)
-							{
-							String lienEffaceActivite = "/waydplace/Frontal?action="+ActionPage.EFFACE_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
-							String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-							String lienModifierActivite = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
+									for (Activite activite : listMesActivite)
+									{
 				%>
 
 
 				<tr>
-				
-				<%=activite.getAdpaterListHtml() %>
-				
+
+					<td><%=activite.getAdpaterListHtml()%> 
+					<%=activite.getPanelActionGestionHtml()%>
+					</td>
+
 
 				</tr>
 				<%

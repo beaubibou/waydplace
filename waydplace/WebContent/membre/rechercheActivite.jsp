@@ -46,21 +46,21 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-			FiltreRecherche filtre=profil.getFiltre();
-		
-			ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
-			ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
-			ArrayList<CritereTypeOrganisateur> listCritereTypeOrganisateur=CacheDAO.getListCritereTypeOrganisateurs();
-		
-			PagerActivite pager=(PagerActivite) request.getAttribute("pager");
-			ArrayList<Activite> listActivite = pager.getListActivite();
+		FiltreRecherche filtre=profil.getFiltre();
+			
+		ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
+		ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
+		ArrayList<CritereTypeOrganisateur> listCritereTypeOrganisateur=CacheDAO.getListCritereTypeOrganisateurs();
+			
+		PagerActivite pager=(PagerActivite) request.getAttribute("pager");
+		ArrayList<Activite> listActivite = pager.getListActivite();
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
 
-	<div class="container" style="width: 90%; margin-top: 120px">
-		<div class="panel panel-primary">
-			<div class="panel-body" style="background: #99ccff;">
+	<div class="container margedebut ">
+		<div class="panel barrerecherche">
+			<div class="panel-heading">
 
 				<form class="form-inline" id="formulaire" method="post"
 					action="/waydplace/Frontal">
@@ -129,7 +129,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="iddatedebut">Date debut</label>
+						<label for="iddatedebut">Début</label>
 						<div class='input-group date' id='datedebut'>
 							<input type='text' class="form-control" id="iddatedebut"
 								name="debut" /> <span class="input-group-addon"> <span
@@ -141,7 +141,7 @@
 
 
 					<div class="form-group">
-						<label for="iddatefin">Date fin</label>
+						<label for="iddatefin">Fin</label>
 						<div class='input-group date' id="datefin">
 							<input type='text' class="form-control" id="iddatefin" name="fin" />
 							<span class="input-group-addon"> <span
@@ -149,34 +149,36 @@
 							</span>
 						</div>
 					</div>
-					<button id="go" type="submit" class="btn btn-info"
-						name="rechercheactivite">Rechercher</button>
 
+					<div class="form-group">
 
+						<button id="go" type="submit" class="btn btn-info"
+							name="rechercheactivite">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+
+					</div>
 				</form>
 
 			</div>
 
 		</div>
-	</div>
 
 
-	<div class="container" style="width: 90%;">
+		<table class="table table-responsive " id="matable">
 
-		<table class="table table-striped">
-			
-			<tbody
-				style="background-color: #FFFFFF; vertical-align: middle;">
+			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 				<%
 					if (listActivite!=null)
-																						for (Activite activite : listActivite) {
-					String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-					String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();
+			for (Activite activite : listActivite) {
+							String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
+							String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();
 				%>
 
 				<tr>
-					<%=activite.getAdpaterListHtml() %>
-
+					<td><%=activite.getAdpaterListHtml()%> 
+					<%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
+					</td>
 
 				</tr>
 

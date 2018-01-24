@@ -64,20 +64,53 @@ public class Activite {
 		return "<p><a href='/waydplace/Frontal?action="+ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE+"&uid_emetteur="+profil.getUID()+
 				"&idactivite="+idActivite+"&uid_destinataire="+uidEmetteur+
 				 "'<span style='color: blue;'	class='glyphicon glyphicon-envelope'></span></a></p>";
-
-		
-		
-		
-		
+	
 		
 	}
 	
+	
+	
+	public String getPanelActionGestionHtml(){
+		
+		if (isTerminee())
+		return "";
+		String lienEffaceActivite = "/waydplace/Frontal?action="+ActionPage.EFFACE_ACTIVITE_MEMBRE+"&idactivite=" + id;
+	//	String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + id	+"&from=listActivite.jsp";
+		String lienModifierActivite = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE+"&idactivite=" + id;
+	
+		
+		return "<p align='right'><a href='"+lienModifierActivite+"' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-edit'></span></a>"+
+		"<a href='"+lienEffaceActivite+"' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-remove'></span></a></p>";
+	}
+	
+public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
+		
+	if (profil.isAnonyme())
+		return "";
+	
+	if (isOrganistateur(profil.getUID()))
+		return "";
+	
+	
+	String lienEnvoiMessage ="/waydplace/Frontal?action="+ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE+"&uid_emetteur="+profil.getUID()+
+			"&idactivite="+id+"&uid_destinataire="+uidEmetteur;
+	
+	return "<p align='right'><a href='"+lienEnvoiMessage+"' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-envelope'></span></a></p>";
+
+	
+	
+	
+	
+
+	}
+	
+	
 	public  String getAdpaterListHtml(){
 		
-		return 	"<td><div class='clearfix'>	<img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 10%;'>"+
+		return 	"<div class='clearfix'>	<img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 10%;'>"+
 	"<h2 style='margin-top: 0px'>"+titre +"</h2>"+
 	"<h4 >"+libelle+"</h4></div>"+
-	"<h6 align='right'>"+getHoraireLigne()+"</h6></td>";
+	"<h6 align='right'>"+getHoraireLigne()+"</h6>";
 		
 		
 	}
