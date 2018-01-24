@@ -45,8 +45,8 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-		FiltreRecherche filtre=profil.getFiltre();
-		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
+			FiltreRecherche filtre=profil.getFiltre();
+			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -99,25 +99,54 @@
 
 		</div>
 		<table class="table table-responsive " id="matable">
-			<thead >
-			
+			<thead class="entetetable">
+				<tr>
+					<th style="width: 10%;" class="text-center">Etat</th>
+					<th class="text-center">Titre</th>
+					<th class="text-center">Détail</th>
+					<th style="width: 20%;" class="text-center">Date</th>
+
+				</tr>
+			</thead>
 			<tbody
-				style="background-color: #FFFFFF; vertical-align: middle;">
+				style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
 
 				<%
 					if (listMesActivite!=null)
-							for (Activite activite : listMesActivite)
-							{
-							String lienEffaceActivite = "/waydplace/Frontal?action="+ActionPage.EFFACE_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
-							String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-							String lienModifierActivite = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
+					for (Activite activite : listMesActivite)
+					{
+					String lienEffaceActivite = "/waydplace/Frontal?action="+ActionPage.EFFACE_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
+					String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
+					String lienModifierActivite = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE+"&idactivite=" + activite.getId();
 				%>
 
 
 				<tr>
-				
-				<%=activite.getAdpaterListHtml() %>
-				
+					<td><%=activite.getEtatHtml()%></td>
+					<td class="idActivite" id=<%=activite.getId()%>
+						style="vertical-align: middle;"><%=activite.getTitre()%></td>
+					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
+					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
+					<td style="vertical-align: middle;"><a title="Détail"
+						href="<%=lienDetail%>">
+							<button type="button" class="btnwayd btn-sm">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+					</a> <%
+ 	if (!activite.isTerminee()){
+ %> <a title="Modifier" href="<%=lienModifierActivite%>">
+							<button title="Modifier" type="button" class="btnwayd btn-sm">
+								<span class="glyphicon glyphicon-edit"></span>
+							</button>
+					</a> <a title="Supprimer" href="<%=lienEffaceActivite%>">
+							<button title="Supprimer" name="supprimer" type="button"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+					</a> <%
+ 	}
+ %></td>
+
 
 				</tr>
 				<%

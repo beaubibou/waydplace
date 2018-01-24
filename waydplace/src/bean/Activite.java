@@ -47,25 +47,37 @@ public class Activite {
 	
 	public boolean isOrganistateur(String uid){
 		
-		if (uid_membre.equals(uid))return true;
+		if (uid_membre.equals(uid))
+			return true;
 		return false;
 	}
 	public String getLienMessage(Profil profil,int idActivite,String uidEmetteur){
 		
-		LOG.info("lienmessage");
-		if (profil.isAnonyme())return "";
+	
+		if (profil.isAnonyme())
+			return "";
 		
-		if (isOrganistateur(profil.getUID())) return "";
+		if (isOrganistateur(profil.getUID()))
+			return "";
 		
 		
-		String lien ="<p><a href='/waydplace/Frontal?action="+ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE+"&uid_emetteur="+profil.getUID()+
+		return "<p><a href='/waydplace/Frontal?action="+ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE+"&uid_emetteur="+profil.getUID()+
 				"&idactivite="+idActivite+"&uid_destinataire="+uidEmetteur+
 				 "'<span style='color: blue;'	class='glyphicon glyphicon-envelope'></span></a></p>";
 
 		
 		
-		return lien; 
 		
+		
+		
+	}
+	
+	public  String getAdpaterListHtml(){
+		
+		return 	"<td><div class='clearfix'>	<img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 10%;'>"+
+	"<h2 style='margin-top: 0px'>"+titre +"</h2>"+
+	"<h4 >"+libelle+"</h4></div>"+
+	"<h6 align='right'>"+getHoraireLigne()+"</h6></td>";
 		
 		
 	}
@@ -127,6 +139,18 @@ public class Activite {
 		String heurefinstr = formatHeure.format(datefin);
 
 		return "Le " + datestrdebut + " </br> de " + heuredebutstr + " à "
+				+ heurefinstr;
+	}
+	
+	public String getHoraireLigne() {
+
+		SimpleDateFormat jour = new SimpleDateFormat("dd-MM-yyyy");
+		String datestrdebut = jour.format(datedebut);
+		SimpleDateFormat formatHeure = new SimpleDateFormat("HH:mm");
+		String heuredebutstr = formatHeure.format(datedebut);
+		String heurefinstr = formatHeure.format(datefin);
+
+		return "Le " + datestrdebut + " de " + heuredebutstr + " à "
 				+ heurefinstr;
 	}
 	public boolean isEnCours() {

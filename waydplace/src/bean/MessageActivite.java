@@ -13,10 +13,12 @@ public class MessageActivite {
 	String message;
 	Date dateCreation;
 	boolean lu;
+	String pseudoEmetteur;
+	String pseudoDestinataire;
 
 	public MessageActivite(int id, int idActivite, String uidEmetteur,
 			String uidDestinataire, String message, Date dateCreation,
-			boolean lu) {
+			boolean lu,String pseudoEmetteur,String pseudoDestinataire) {
 		super();
 		this.id = id;
 		this.idActivite = idActivite;
@@ -25,6 +27,8 @@ public class MessageActivite {
 		this.message = message;
 		this.dateCreation = dateCreation;
 		this.lu = lu;
+		this.pseudoDestinataire=pseudoDestinataire;
+		this.pseudoEmetteur=pseudoEmetteur;
 	}
 
 	public int getId() {
@@ -41,6 +45,22 @@ public class MessageActivite {
 
 	public void setIdActivite(int idActivite) {
 		this.idActivite = idActivite;
+	}
+
+	public String getPseudoEmetteur() {
+		return pseudoEmetteur;
+	}
+
+	public void setPseudoEmetteur(String pseudoEmetteur) {
+		this.pseudoEmetteur = pseudoEmetteur;
+	}
+
+	public String getPseudoDestinataire() {
+		return pseudoDestinataire;
+	}
+
+	public void setPseudoDestinataire(String pseudoDestinataire) {
+		this.pseudoDestinataire = pseudoDestinataire;
 	}
 
 	public String getUidEmetteur() {
@@ -63,16 +83,15 @@ public class MessageActivite {
 		return message;
 	}
 
-	public String getMessageHtlm(Profil profil) {
-
-				return 
+	public String getMessageHtlm(Profil profil,String photo) {
+			
+		return 
 						
 						"<td>"
-						+"<p>moi</p>"+
+						+"<p>"+photo+"</p>"
+						+"<p>"+pseudoEmetteur+"</p>"+
 						"<textarea  id='message' align='left' class='form-control'  row='4'>"+message+"</textarea>"+
 						"<p align='right' >"+getDateCreationStr()+"</p> </td>";
-		
-		
 		
 		
 	}

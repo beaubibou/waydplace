@@ -164,9 +164,17 @@
 	<div class="container" style="width: 90%;">
 
 		<table class="table table-striped">
-			
+			<thead>
+				<tr>
+					<th style="width: 10%;" class="text-center">Etat</th>
+					<th style="width: 5%;" class="text-center">Titre</th>
+					<th style="width: 30%;" class="text-center">User</th>
+					<th style="width: 10%;" class="text-center">Le</th>
+
+				</tr>
+			</thead>
 			<tbody
-				style="background-color: #FFFFFF; vertical-align: middle;">
+				style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
 				<%
 					if (listActivite!=null)
 																						for (Activite activite : listActivite) {
@@ -175,7 +183,26 @@
 				%>
 
 				<tr>
-					<%=activite.getAdpaterListHtml() %>
+					<td>
+
+						<div class="clearfix">
+							<img height="100" width="100" src=<%=activite.getUrlPhoto()%>
+								class="img-thumbnail pull-left ">
+
+							<p>
+
+								<%=activite.getTypeUserLienHTML(lienDetailParticipant)%></p>
+
+							<p><%=activite.getEtatHtml()%></p>
+
+							<%=activite.getLienMessage(profil,activite.getId(),activite.getUid_membre())%>
+						</div>
+					</td>
+
+					<td><a href=<%=lien%>> <%=activite.getTitre()%></a></td>
+					<td><a href=<%=lienDetailParticipant%>><%=activite.getPseudoOrganisateur()%></a></td>
+					<td><%=activite.getHoraireLeA()%></td>
+					<td><%=activite.getLibelle()%></td>
 
 
 				</tr>

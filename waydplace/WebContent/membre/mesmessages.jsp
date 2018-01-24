@@ -1,5 +1,6 @@
 
 
+<%@page import="java.util.HashMap"%>
 <%@page import="bean.Discussion"%>
 <%@page import="dao.MessageDAO"%>
 <%@page import="bean.MessageActivite"%>
@@ -50,6 +51,10 @@
 				.getAttribute("profil");
 		ArrayList<Discussion> listMesDiscussion = MessageDAO
 				.getDiscussions(profil.getUID());
+		
+	HashMap<String,String> photo=	MessageDAO.getPhotoMessages(profil.getUID());
+		
+		
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -80,7 +85,7 @@
 										<tbody>
 											<tr>
 											
-											<%=messageActivite.getMessageHtlm(profil)%>
+											<%=messageActivite.getMessageHtlm(profil,photo.get(messageActivite.getUidEmetteur()))%>
 											<td><%=MessageActivite.getLienReponse(profil,messageActivite.getIdActivite(),messageActivite.getUidEmetteur()) %>
 											</td>
 											</tr>
