@@ -164,6 +164,15 @@ public class Frontal extends HttpServlet {
 			
 			break;	
 
+		case ActionPage.REDIRECTION_DETAIL_ACTIVITE_MEMBRE:
+
+			Activite activite1 = getActivite(request);
+
+			request.setAttribute("activite", activite1);
+			request.getRequestDispatcher("commun/detailActivite.jsp").forward(
+					request, response);
+
+			break;
 		case ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
 
 			Activite activite = getActivite(request, profil);
@@ -512,14 +521,39 @@ public class Frontal extends HttpServlet {
 
 	}
 
+	private Activite getActivite(HttpServletRequest request) {
+
+		Activite retour = null;
+		int idActivite = 0;
+		
+		try {
+
+			idActivite = Integer.parseInt(request.getParameter("idactivite"));
+			LOG.info("idacti"+idActivite);
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+
+			return retour;
+
+		}
+		String uidMembre=request.getParameter("idmembre");
+		retour = ActiviteDAO.getActivite(idActivite,uidMembre);
+
+		return retour;
+	}
+	
+	
 	private Activite getActivite(HttpServletRequest request, Profil profil) {
 
 		Activite retour = null;
 		int idActivite = 0;
+		
 		try {
 
 			idActivite = Integer.parseInt(request.getParameter("idactivite"));
-
+			LOG.info("idacti"+idActivite);
 		}
 
 		catch (Exception e) {

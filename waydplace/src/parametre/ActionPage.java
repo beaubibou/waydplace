@@ -10,6 +10,8 @@ public class ActionPage {
 	public static final String REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE = "rechercherActivite";
 	public static final String REDIRECTION_ENVOYER_MESSAGE_MEMBRE ="rediEnvoyerMessageMembre" ;
 	public static final String REDIRECTION_MESSAGES_MEMBRE = "redireMessageMembre";
+	public static final String REDIRECTION_PLANING_MEMBRE = "redirectionPlaningMembre";
+	public static final String REDIRECTION_DETAIL_ACTIVITE_MEMBRE = "rediDetailActiviteMembre";
 	
 	public static final String AJOUTER_ACTIVITE_MEMBRE = "ajouteActiviteMembre";
 	public static final String REFRESH_MES_ACTIVITE_MEMBRES = "refreshmesactivitemembres";
@@ -21,7 +23,6 @@ public class ActionPage {
 	public static final String MODIFIER_ACTIVITE_MEMBRE = "modifierActiviteMembre";
 	public static final String MODIFIER_COMPTE_MEMBRE = "modifiercompteMembre";
 	public static final String ENVOI_MESSAGE_MEMBRE = "envoiMessageMembre";
-	public static final String REDIRECTION_PLANING_MEMBRE = "redirectionPlaningMembre";
 	public static final String ENVOI_REPONSE_MEMBRE = "envoirReponseMembre";
 	
 	

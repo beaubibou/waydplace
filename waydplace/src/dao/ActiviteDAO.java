@@ -636,6 +636,7 @@ public class ActiviteDAO {
 						id_ref_type_organisateur, uid_membre, datefin,
 						datedebut, id_ref_type_activite);
 
+				LOG.info("actiippppppppppppppppppppppppp"+activite);
 			}
 
 		} catch (SQLException | NamingException e) {
@@ -646,7 +647,7 @@ public class ActiviteDAO {
 
 			CxoPool.close(connexion, preparedStatement, rs);
 		}
-
+		LOG.info("actiippppppppppppppppppppppppp"+activite);
 		return activite;
 
 	}
