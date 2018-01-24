@@ -62,50 +62,39 @@
 
 	<%@ include file="menuMembre.jsp"%>
 
-	<div class="container">
-		<div id="loginbox" style="margin-top: 50px;"
+	<div class="container margedebut ">
+
+		<div id="loginbox""
 			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
 
-					<div class="panel-title">Profil </div>
+					<div class="panel-title">Profil</div>
 
 				</div>
 
 				<div style="padding-top: 30px" class="panel-body">
 
-					<div class="form-group">
-						<div class="btn-group">
-							<a class="btn btn-danger" href="SignalerProfil?idProfil=<%=membre.getUid()%>" role="button">Signaler</a>
-
-						</div>
-					</div>
-
+					
 					<div class="form-group">
 
-						<div class="row vertical-align">
-							<div class='col-sm-4'>
+						<div class="row">
+							<div class='col-sm-12'>
 
-								<img height="300" width="300"
-									src=<%=membre.getUrlPhoto()%>
-									class="img-thumbnail  " class="text-center" />
+									<%=membre.getDetailEnteteMembreHtml() %>
+
+					
 
 							</div>
 
-							<div class='col-sm-6' class="text-center">
-
-								<h4 style="padding-left: 15px"><%=membre.getPseudo()%></h4>
-
-								
-							
-							</div>
+						
 
 						</div>
 
 					</div>
 					<div class="form-group">
 						<label for="description">Description:</label>
-						<textarea disabled class="form-control" rows="5" id="description"
+						<textarea disabled class="form-control" rows="10" id="description"
 							name="description"><%=membre.getDescription()%></textarea>
 					</div>
 

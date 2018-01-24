@@ -5,6 +5,7 @@ import java.util.Date;
 import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
 
+import parametre.ActionPage;
 import parametre.Parametres;
 
 public class Membre {
@@ -58,12 +59,25 @@ public class Membre {
 	}
 
 
-
 	public void setDate_naissance(Date date_naissance) {
 		this.date_naissance = date_naissance;
 	}
 
 
+	public String getDetailEnteteMembreHtml(){
+		
+		
+		return 	"<div class='clearfix'><img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 20%;'>"+
+	"<h2 style='margin-top: 0px'>"+pseudo +"</h2>"+
+	"<h4 >"+getAge()+"</h4>"+
+	"<h5 >"+getSexe()+"</h5></div>";
+		
+	}
+
+	private String getSexe() {
+		// TODO Auto-generated method stub
+		return "Masculin";
+	}
 
 	public void setDescription(String description) {
 		this.description = description;
