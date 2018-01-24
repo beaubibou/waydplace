@@ -96,9 +96,6 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 			"&idactivite="+id+"&uid_destinataire="+uidEmetteur;
 	
 	return "<p align='right'><a href='"+lienEnvoiMessage+"' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-envelope'></span></a></p>";
-
-	
-	
 	
 	
 
@@ -106,8 +103,10 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 	
 	
 	public  String getAdpaterListHtml(){
+	
+		String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +getUid_membre();
 		
-		return 	"<div class='clearfix'>	<img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 10%;'>"+
+		return 	"<div class='clearfix'><a href='"+lienDetailParticipant+"'>	<img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 10%;'></a>"+
 	"<h2 style='margin-top: 0px'>"+titre +"</h2>"+
 	"<h4 >"+libelle+"</h4></div>"+
 	"<h6 align='right'>"+getHoraireLigne()+"</h6>";
