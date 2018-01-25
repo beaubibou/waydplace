@@ -106,7 +106,7 @@ public class Activite {
 
 		LOG.info("type orga"+id_ref_type_organisateur);
 	
-		if (id_ref_type_organisateur==Parametres.TYPE_ORGANISATEUR_MEMBRE)
+		if (id_ref_type_organisateur==Parametres.TYPE_ORGANISATEUR_SITE)
 			return "";
 	
 		String lienEnvoiMessage = "/waydplace/Frontal?action="
@@ -132,7 +132,7 @@ public class Activite {
 
 			return "<div class='clearfix'><a href='" + lienDetailParticipant
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite' style='width: 10%;'></a>"
+					+ "'  class='pull-left marge-droite' style='width: 10%;' ></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
 					+ libelle + "</h4></div>" + "<h6 align='right'>"
 					+ getHoraireLigne() + "</h6>";
