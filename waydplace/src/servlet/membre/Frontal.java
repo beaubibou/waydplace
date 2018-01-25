@@ -416,7 +416,7 @@ public class Frontal extends HttpServlet {
 			imageString = encoder.encode(imageBytes);
 			bos.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 			LOG.error(ExceptionUtils.getStackTrace(e));
 		}
 		return imageString;
@@ -502,7 +502,6 @@ public class Frontal extends HttpServlet {
 
 	private MessageAction vpModifieCompte(String pseudo, String description,
 			Object u) {
-		// TODO Auto-generated method stub
 		return new MessageAction(true, "");
 	}
 

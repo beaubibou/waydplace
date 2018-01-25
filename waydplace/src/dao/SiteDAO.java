@@ -77,7 +77,8 @@ public class SiteDAO {
 				int idEnseigne = rs.getInt("id_enseigne");
 				Date dateCreation = rs.getTimestamp("date_creation");
 				String description= rs.getString("description");
-				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton,description)	;		
+				String photo= rs.getString("photo");
+				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton,description,photo)	;		
 			}
 
 		} catch (SQLException | NamingException e) {
@@ -124,6 +125,38 @@ LOG.info("met a jour site");
 			CxoPool.close(connexion, preparedStatement);
 		}
 		return new MessageAction(false, "");
+	}
+
+	public static MessageAction updatePhoto(String stringPhoto, int id) {
+	
+		long debut = System.currentTimeMillis();
+		Connection connexion = null;
+		PreparedStatement preparedStatement=null;
+		try {
+			connexion = CxoPool.getConnection();
+			connexion.setAutoCommit(false);
+			String requete = "UPDATE  site set photo=?"
+					+ " WHERE id=?";
+		    preparedStatement = connexion
+					.prepareStatement(requete);
+			preparedStatement.setString(1, stringPhoto);
+			preparedStatement.setInt(2, id);
+			preparedStatement.execute();
+			preparedStatement.close();
+			connexion.commit();
+
+		} catch (NamingException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LOG.error( ExceptionUtils.getStackTrace(e));
+			CxoPool.rollBack(connexion);
+			return new MessageAction(false, e.getMessage());
+
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement);
+		}
+		return new MessageAction(true,"");
 	}
 
 }

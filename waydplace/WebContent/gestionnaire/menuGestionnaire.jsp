@@ -23,7 +23,7 @@
 			<ul class="nav navbar-nav">
 		
 					<li ><a
-					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_SITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.MON_COMPTE%></a></li>
+					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_SITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.SITE%></a></li>
 				<li>
 					<a
 					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.GERER%> </a></li>

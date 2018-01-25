@@ -55,23 +55,29 @@
 
 					<div class="form-group">
 						<div class="row">
+
 							<div class="col-sm-8">
 								<a href="#" class="btn btn-danger btn-sm"> <span
 									class="glyphicon glyphicon-remove"></span>
 								</a>
 								<%=profil.getMembre().getDetailEnteteMembreHtml()%>
 
-								<form action="/waydplace/Frontal?action=<%=ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE %>" method="post"
-									enctype="multipart/form-data" onsubmit="return valideFichier()">
+								<form
+									action="/waydplace/Frontal?action=<%=ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE%>"
+									method="post" enctype="multipart/form-data"
+									onsubmit="return valideFichier()">
 
-									<input type="file" name="file" size="50" id="file" />
-
+							</br>
 									<div class="container">
 										<div class="btn-group">
+										<label
+												class="btn btn-default btn-file btn-primary btn-sm"> .. <input
+												name="file" size="50" type="file" style="display: none;">
+											</label>
 											<input type="submit" value="Envoyer la photo"
-												class="btn btn-primary " /> <a href="#"
-												class="btn btn-primary">Mot de passe </a>
-
+												class="btn btn-primary btn-sm  " /> <a href="#"
+												class="btn btn-primary btn-sm">Mot de passe </a> 
+												
 										</div>
 									</div>
 
@@ -190,8 +196,7 @@
 				//alert(nombreCaractere);
 
 				var msg = nombreCaractere +
-				'/ <%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-			';
+				'/ <%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>';
 													$('#nbr').text(msg);
 													// Le script qui devra calculer et afficher le nombre de mots et de caractères
 

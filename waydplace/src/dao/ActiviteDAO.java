@@ -94,7 +94,7 @@ public class ActiviteDAO {
 			{
 			case CritereEtatActivite.ENCOURS:
 
-				requete = "SELECT activite.id as idactivite,"
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut,"
@@ -107,11 +107,11 @@ public class ActiviteDAO {
 						+ "membre.photo as photoOrganisateur,"
 						+ "membre.pseudo "
 						+ "from "
-						+ "activite,membre "
+						+ "activite,membre,site "
 						+ "WHERE "
 						+ "membre.uid = activite.uid_membre "
 						+ "and activite.id_ref_type_organisateur=? and activite.id_site=? "
-						+ "and ?  between date_debut and date_fin "
+						+ "and ?  between date_debut and date_fin and site.id=membre.id_site "
 						+ "ORDER BY date_debut DESC";
 
 				preparedStatement = connexion.prepareStatement(requete);
@@ -126,7 +126,7 @@ public class ActiviteDAO {
 				break;
 			case CritereEtatActivite.TERMINEE:
 
-				requete = "SELECT activite.id as idactivite,"
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut,"
@@ -139,10 +139,10 @@ public class ActiviteDAO {
 						+ "membre.photo as photoOrganisateur,"
 						+ "membre.pseudo "
 						+ "from "
-						+ "activite,membre "
+						+ "activite,membre,site "
 						+ "WHERE "
 						+ "membre.uid = activite.uid_membre "
-						+ "and  activite.id_ref_type_organisateur=? and activite.id_site=? "
+						+ "and  activite.id_ref_type_organisateur=? and activite.id_site=? and site.id=membre.id_site "
 						+ "and date_fin<? " + "ORDER BY date_debut DESC";
 
 				preparedStatement = connexion.prepareStatement(requete);
@@ -158,7 +158,7 @@ public class ActiviteDAO {
 
 			case CritereEtatActivite.TOUTES:
 
-				requete = " SELECT activite.id as idactivite,"
+				requete = " SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut,"
@@ -171,10 +171,10 @@ public class ActiviteDAO {
 						+ "membre.photo as photoOrganisateur,"
 						+ "membre.pseudo "
 						+ "from "
-						+ "activite,membre "
+						+ "activite,membre,site "
 						+ "WHERE "
 						+ "membre.uid = activite.uid_membre "
-						+ "and  activite.id_ref_type_organisateur=? and activite.id_site=? "
+						+ "and  activite.id_ref_type_organisateur=? and activite.id_site=? and site.id=membre.id_site "
 						+ "ORDER BY date_debut DESC";
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setInt(1,
@@ -185,7 +185,7 @@ public class ActiviteDAO {
 				break;
 
 			case CritereEtatActivite.PLANIFIEE:
-				requete = "SELECT activite.id as idactivite,"
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut,"
@@ -198,11 +198,11 @@ public class ActiviteDAO {
 						+ "membre.photo as photoOrganisateur,"
 						+ "membre.pseudo "
 						+ "from "
-						+ "activite,membre "
+						+ "activite,membre,site "
 						+ "WHERE "
 						+ "membre.uid = activite.uid_membre "
 						+ "and activite.id_ref_type_organisateur=? and activite.id_site=? "
-						+ "and date_debut>? " + "ORDER BY date_debut DESC";
+						+ "and date_debut>?  and site.id=membre.id_site " + "ORDER BY date_debut DESC";
 
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setInt(1,
@@ -227,14 +227,17 @@ public class ActiviteDAO {
 				int id_ref_type_organisateur = rs
 						.getInt("id_ref_type_organisateur");
 				String photoOrganisateur = rs.getString("photoOrganisateur");
+				String photoSite= rs.getString("photoSite");
 				Date datedebut = rs.getTimestamp("date_debut");
 				Date datefin = rs.getTimestamp("date_fin");
 				String pseudoOrganisateur = rs.getString("pseudo");
+				String nomSite = rs.getString("nomSite");
 
+				
 				activite = new Activite(titre, libelle, id, idSite,
 						photoOrganisateur, pseudoOrganisateur,
 						id_ref_type_organisateur, uid, datefin, datedebut,
-						id_ref_type_activite);
+						id_ref_type_activite,photoSite,nomSite);
 				retour.add(activite);
 
 			}
@@ -273,7 +276,7 @@ public class ActiviteDAO {
 			{
 			case CritereEtatActivite.ENCOURS:
 
-				requete = "SELECT activite.id as idactivite,"
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut," + "activite.date_fin,"
@@ -282,10 +285,10 @@ public class ActiviteDAO {
 						+ "activite.id_ref_type_activite,"
 						+ "activite.uid_membre,"
 						+ "membre.photo as photoOrganisateur,"
-						+ "membre.pseudo " + "from " + "activite,membre "
+						+ "membre.pseudo " + "from " + "activite,membre,site "
 						+ "WHERE " + "membre.uid = activite.uid_membre "
 						+ "and activite.uid_membre=? "
-						+ "and ?  between date_debut and date_fin "
+						+ "and ?  between date_debut and date_fin and site.id=membre.id_site "
 						+ "ORDER BY date_debut DESC";
 
 				preparedStatement = connexion.prepareStatement(requete);
@@ -298,7 +301,7 @@ public class ActiviteDAO {
 				break;
 			case CritereEtatActivite.TERMINEE:
 
-				requete = "SELECT activite.id as idactivite,"
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut," + "activite.date_fin,"
@@ -307,9 +310,9 @@ public class ActiviteDAO {
 						+ "activite.id_ref_type_activite,"
 						+ "activite.uid_membre,"
 						+ "membre.photo as photoOrganisateur,"
-						+ "membre.pseudo " + "from " + "activite,membre "
+						+ "membre.pseudo " + "from " + "activite,membre,site "
 						+ "WHERE " + "membre.uid = activite.uid_membre "
-						+ "and activite.uid_membre=? " + "and date_fin<? "
+						+ "and activite.uid_membre=? " + "and date_fin<? and site.id=membre.id_site "
 						+ "ORDER BY date_debut DESC";
 
 				preparedStatement = connexion.prepareStatement(requete);
@@ -322,7 +325,7 @@ public class ActiviteDAO {
 
 			case CritereEtatActivite.TOUTES:
 
-				requete = " SELECT activite.id as idactivite,"
+				requete = " SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut," + "activite.date_fin,"
@@ -331,9 +334,9 @@ public class ActiviteDAO {
 						+ "activite.id_ref_type_activite,"
 						+ "activite.uid_membre,"
 						+ "membre.photo as photoOrganisateur,"
-						+ "membre.pseudo " + "from " + "activite,membre "
+						+ "membre.pseudo " + "from " + "activite,membre,site "
 						+ "WHERE " + "membre.uid = activite.uid_membre "
-						+ "and activite.uid_membre=? "
+						+ "and activite.uid_membre=? and site.id=membre.id_site "
 						+ "ORDER BY date_debut DESC";
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setString(1, uid);
@@ -341,18 +344,18 @@ public class ActiviteDAO {
 				break;
 
 			case CritereEtatActivite.PLANIFIEE:
-				requete = "SELECT activite.id as idactivite,"
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 						+ "activite.id_site,"
 						+ "activite.id_ref_type_organisateur,"
 						+ "activite.date_debut," + "activite.date_fin,"
 						+ "activite.titre," + "activite.libelle,"
 						+ "activite.date_creation,"
 						+ "activite.id_ref_type_activite,"
-						+ "activite.uid_membre,"
+						+ "activite.uid_membre,site"
 						+ "membre.photo as photoOrganisateur,"
 						+ "membre.pseudo " + "from " + "activite,membre "
 						+ "WHERE " + "membre.uid = activite.uid_membre "
-						+ "and activite.uid_membre=? " + "and date_debut>? "
+						+ "and activite.uid_membre=? " + "and date_debut>? and site.id=membre.id_site "
 						+ "ORDER BY date_debut DESC";
 
 				preparedStatement = connexion.prepareStatement(requete);
@@ -378,11 +381,14 @@ public class ActiviteDAO {
 				Date datedebut = rs.getTimestamp("date_debut");
 				Date datefin = rs.getTimestamp("date_fin");
 				String pseudoOrganisateur = rs.getString("pseudo");
+				String photoSite = rs.getString("photoSite");
+				String nomSite = rs.getString("nomSite");
 
 				activite = new Activite(titre, libelle, id, idSite,
 						photoOrganisateur, pseudoOrganisateur,
 						id_ref_type_organisateur, uid, datefin, datedebut,
-						id_ref_type_activite);
+						id_ref_type_activite,photoSite,nomSite);
+			
 				retour.add(activite);
 
 			}
@@ -403,6 +409,8 @@ public class ActiviteDAO {
 
 	}
 
+	
+	
 	public static MessageAction AjouteActivite(int idSite,
 			int id_ref_type_organisateur, Date datedebut, Date datefin,
 			String titre, String libelle, String uid, int id_ref_type_activite) {
@@ -474,7 +482,7 @@ public class ActiviteDAO {
 		try {
 
 			connexion = CxoPool.getConnection();
-			String requete = "SELECT activite.id as idactivite,"
+			String requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 					+ "activite.id_site,"
 					+ "activite.id_ref_type_organisateur,"
 					+ "activite.date_debut," + "activite.date_fin,"
@@ -482,8 +490,8 @@ public class ActiviteDAO {
 					+ "activite.date_creation,"
 					+ "activite.id_ref_type_activite," + "activite.uid_membre,"
 					+ "membre.photo as photoOrganisateur," + "membre.pseudo "
-					+ "from " + "activite,membre " +
-					"WHERE membre.uid=activite.uid_membre ";
+					+ "from " + "activite,membre,site " +
+					"WHERE membre.uid=activite.uid_membre and site.id=membre.id_site ";
 
 			requete = requete
 					+ " and to_date(to_char (date_debut,'dd/MM/yyyy'),'dd/MM/yyyy') between to_date(?,'dd/MM/yyyy') and to_date(?,'dd/MM/yyyy') ";
@@ -564,11 +572,14 @@ public class ActiviteDAO {
 				Date datedebut = rs.getTimestamp("date_debut");
 				Date datefin = rs.getTimestamp("date_fin");
 				String pseudoOrganisateur = rs.getString("pseudo");
+				String photoSite = rs.getString("photoSite");
+				String nomSite = rs.getString("nomSite");
 
+				LOG.info("photo site"+photoSite);
 				activite = new Activite(titre, libelle, id, id_site,
 						photoOrganisateur, pseudoOrganisateur,
 						id_ref_type_organisateur, uid_membre, datefin,
-						datedebut, id_ref_type_activite);
+						datedebut, id_ref_type_activite,photoSite,nomSite);
 
 				retour.add(activite);
 
@@ -600,7 +611,7 @@ public class ActiviteDAO {
 		try {
 
 			connexion = CxoPool.getConnection();
-			String requete = "SELECT activite.id as idactivite,"
+			String requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
 					+ "activite.id_site,"
 					+ "activite.id_ref_type_organisateur,"
 					+ "activite.date_debut," + "activite.date_fin,"
@@ -608,8 +619,8 @@ public class ActiviteDAO {
 					+ "activite.date_creation,"
 					+ "activite.id_ref_type_activite," + "activite.uid_membre,"
 					+ "membre.photo as photoOrganisateur," + "membre.pseudo "
-					+ "from " + "activite,membre "
-					+ "WHERE activite.id=? and uid_membre=?";
+					+ "from " + "activite,membre,site "
+					+ "WHERE activite.id=? and uid_membre=? and site.id=membre.id_site";
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setInt(1, idActivite);
@@ -630,13 +641,15 @@ public class ActiviteDAO {
 				Date datedebut = rs.getTimestamp("date_debut");
 				Date datefin = rs.getTimestamp("date_fin");
 				String pseudoOrganisateur = rs.getString("pseudo");
-
+				String photoSite = rs.getString("photoSite");
+				String nomSite = rs.getString("nomSite");
+			
 				activite = new Activite(titre, libelle, id, id_site,
 						photoOrganisateur, pseudoOrganisateur,
 						id_ref_type_organisateur, uid_membre, datefin,
-						datedebut, id_ref_type_activite);
+						datedebut, id_ref_type_activite,photoSite,nomSite);
 
-				LOG.info("actiippppppppppppppppppppppppp"+activite);
+			
 			}
 
 		} catch (SQLException | NamingException e) {
@@ -647,7 +660,6 @@ public class ActiviteDAO {
 
 			CxoPool.close(connexion, preparedStatement, rs);
 		}
-		LOG.info("actiippppppppppppppppppppppppp"+activite);
 		return activite;
 
 	}

@@ -1,33 +1,48 @@
 package servlet.membre;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.coobird.thumbnailator.Thumbnails;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
 import outils.Outils;
 import pager.PagerActivite;
 import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
+import sun.misc.BASE64Encoder;
 import bean.Activite;
 import bean.ActiviteAgenda;
 import bean.AdapterAgenda;
 import bean.MessageAction;
 import bean.Profil;
 import dao.ActiviteDAO;
+import dao.MembreDAO;
 import dao.SiteDAO;
 
 /**
@@ -97,7 +112,6 @@ public class FrontalGestionnaire extends HttpServlet {
 			MessageAction modifierActiviteMembre = modifierActiviteMembre(
 					request, profil);
 
-			
 			response.sendRedirect("gestionnaire/mesactivites.jsp");
 
 			break;
@@ -108,7 +122,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			if (modifierSite.isOk()) {
 
 				LOG.info(modifierSite.getMessage());
-				response.sendRedirect("membre/mesactivites.jsp");
+				response.sendRedirect("gestionnaire/site.jsp");
 			} else {
 				LOG.info(modifierSite.getMessage());
 				redirectionErreur(modifierSite, request, response);
@@ -136,16 +150,15 @@ public class FrontalGestionnaire extends HttpServlet {
 					.forward(request, response);
 
 			break;
-			
+
 		case ActionPage.DECONNEXION_GESTIONNAIRE:
 
-			
 			session.invalidate();
-			
+
 			request.getRequestDispatcher("index.jsp")
 					.forward(request, response);
 
-			break;	
+			break;
 
 		case ActionPage.REDIRECTION_PLANING_GESTIONNAIRE:
 
@@ -204,7 +217,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			} else {
 
 			}
-		
+
 			break;
 
 		case ActionPage.AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
@@ -219,7 +232,8 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			} else {
 
-			}
+			}	LOG.info("modifie DAO" + profil.getIdSite());
+			
 
 			break;
 
@@ -238,10 +252,93 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			break;
 
+		case ActionPage.CHARGE_PHOTO_SITE_GESTIONNAIRE:
+
+			MessageAction chargePhotoMembre = chargePhotoSite(request, profil);
+
+			break;
+
 		default:
 
 		}
 
+	}
+
+	private MessageAction chargePhotoSite(HttpServletRequest request,
+			Profil profil) {
+		File file;
+		int maxFileSize = 6000 * 1024;
+		int maxMemSize = 6000 * 1024;
+		// String filePath = "c:/apache-tomcat/webapps/data/";
+
+		String contentType = request.getContentType();
+		if ((contentType.indexOf("multipart/form-data") >= 0)) {
+
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			factory.setSizeThreshold(maxMemSize);
+			factory.setRepository(new File("c:\\temp"));
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setSizeMax(maxFileSize);
+			try {
+				List fileItems = upload.parseRequest(request);
+				Iterator i = fileItems.iterator();
+
+				while (i.hasNext()) {
+					FileItem fi = (FileItem) i.next();
+					if (!fi.isFormField()) {
+
+						BufferedImage tmp = ImageIO.read(fi.getInputStream());
+
+						BufferedImage imBuff = resize(tmp, 300, 200);
+
+						String stringPhoto = encodeToString(imBuff, "jpeg");
+
+						MessageAction updatePhoto = SiteDAO.updatePhoto(
+								stringPhoto, profil.getIdSite());
+
+						if (updatePhoto.isOk()) {
+							profil.setPhotostr(stringPhoto);
+							return new MessageAction(true, "");
+						} else {
+
+							return new MessageAction(false,
+									updatePhoto.getMessage());
+
+						}
+
+					}
+				}
+
+			} catch (Exception ex) {
+				LOG.error(ExceptionUtils.getStackTrace(ex));
+				return new MessageAction(false, ex.getMessage());
+			}
+
+		}
+
+		return new MessageAction(false, "erreur inconnue");
+	}
+	
+	public static BufferedImage resize(BufferedImage img, int newW, int newH) throws IOException {
+		  return Thumbnails.of(img).forceSize(newW, newH).outputQuality(1).asBufferedImage();
+		 
+		}
+
+	public static String encodeToString(BufferedImage image, String type) {
+		String imageString = null;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+		try {
+			ImageIO.write(image, type, bos);
+			byte[] imageBytes = bos.toByteArray();
+			BASE64Encoder encoder = new BASE64Encoder();
+			imageString = encoder.encode(imageBytes);
+			bos.close();
+		} catch (IOException e) {
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+		}
+		return imageString;
 	}
 
 	private MessageAction modifierSite(HttpServletRequest request, Profil profil) {
@@ -250,18 +347,18 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		MessageAction vpModifieSite = vpModifieSite(nom, description, profil);
 
-		
 		if (vpModifieSite.isOk()) {
-				LOG.info("modifie DAO"+ profil.getIdSite());
-			MessageAction modifieSiteDAO = SiteDAO.modifieSite(nom,
-					description,  profil.getIdSite());
-			
+
+				MessageAction modifieSiteDAO = SiteDAO.modifieSite(nom,
+					description, profil.getIdSite());
+
 			if (modifieSiteDAO.isOk()) {
 				profil.setNomSite(nom);
 				profil.setDescriptionSite(description);
 				return new MessageAction(true, "");
+		
 			} else
-				
+
 				return modifieSiteDAO;
 
 		}
@@ -271,13 +368,11 @@ public class FrontalGestionnaire extends HttpServlet {
 
 	private MessageAction vpModifieSite(String nom, String description,
 			Profil profil) {
-		// TODO Auto-generated method stub
 		return new MessageAction(true, "");
 	}
 
 	private void redirectionErreur(MessageAction modifierSite,
 			HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 
 	}
 

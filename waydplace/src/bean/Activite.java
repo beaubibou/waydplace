@@ -2,11 +2,13 @@ package bean;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
+
+import outils.Outils;
 import parametre.ActionPage;
 import parametre.Parametres;
-
 
 public class Activite {
 	private static final Logger LOG = Logger.getLogger(Activite.class);
@@ -16,17 +18,17 @@ public class Activite {
 	String libelle;
 
 	int id;
-	
+
 	int id_site;
 	String photoOrganisateur;
-	
 	private String pseudoOrganisateur;
- 
+
+	private String nomSite;
 	private int id_ref_type_organisateur;
 	private int id_ref_type_activite;
-	
-	private String  uid_membre;
-	
+
+	private String uid_membre;
+
 	public int getId_ref_type_activite() {
 		return id_ref_type_activite;
 	}
@@ -35,85 +37,131 @@ public class Activite {
 		this.id_ref_type_activite = id_ref_type_activite;
 	}
 
-	Date datefin,datedebut;
-	
+	Date datefin, datedebut;
+
+	private String photoSite;
+
 	public boolean isTerminee() {
-		
+
 		if (datefin.before(new Date()))
 			return true;
 
 		return false;
 	}
-	
-	public boolean isOrganistateur(String uid){
-		
+
+	public boolean isOrganistateur(String uid) {
+
 		if (uid_membre.equals(uid))
 			return true;
 		return false;
 	}
-	public String getLienMessage(Profil profil,int idActivite,String uidEmetteur){
-		
-	
+
+	public String getLienMessage(Profil profil, int idActivite,
+			String uidEmetteur) {
+
 		if (profil.isAnonyme())
 			return "";
-		
+
 		if (isOrganistateur(profil.getUID()))
 			return "";
-		
-		
-		return "<p><a href='/waydplace/Frontal?action="+ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE+"&uid_emetteur="+profil.getUID()+
-				"&idactivite="+idActivite+"&uid_destinataire="+uidEmetteur+
-				 "'<span style='color: blue;'	class='glyphicon glyphicon-envelope'></span></a></p>";
-	
-		
-	}
-	
-	
-	
-	public String getPanelActionGestionHtml(){
-		
-		if (isTerminee())
-		return "";
-		String lienEffaceActivite = "/waydplace/Frontal?action="+ActionPage.EFFACE_ACTIVITE_MEMBRE+"&idactivite=" + id;
-	//	String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + id	+"&from=listActivite.jsp";
-		String lienModifierActivite = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE+"&idactivite=" + id;
-	
-		
-		return "<p align='right'><a href='"+lienModifierActivite+"' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-edit'></span></a>"+
-		"<a href='"+lienEffaceActivite+"' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-remove'></span></a></p>";
-	}
-	
-public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
-		
-	if (profil.isAnonyme())
-		return "";
-	
-	if (isOrganistateur(profil.getUID()))
-		return "";
-	
-	
-	String lienEnvoiMessage ="/waydplace/Frontal?action="+ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE+"&uid_emetteur="+profil.getUID()+
-			"&idactivite="+id+"&uid_destinataire="+uidEmetteur;
-	
-	return "<p align='right'><a href='"+lienEnvoiMessage+"' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-envelope'></span></a></p>";
-	
-	
+
+		return "<p><a href='/waydplace/Frontal?action="
+				+ ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE
+				+ "&uid_emetteur="
+				+ profil.getUID()
+				+ "&idactivite="
+				+ idActivite
+				+ "&uid_destinataire="
+				+ uidEmetteur
+				+ "'<span style='color: blue;'	class='glyphicon glyphicon-envelope'></span></a></p>";
 
 	}
-	
-	
-	public  String getAdpaterListHtml(){
-	
-		String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +getUid_membre();
-		
-		return 	"<div class='clearfix'><a href='"+lienDetailParticipant+"'>	<img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 10%;'></a>"+
-	"<h2 style='margin-top: 0px'>"+titre +"</h2>"+
-	"<h4 >"+libelle+"</h4></div>"+
-	"<h6 align='right'>"+getHoraireLigne()+"</h6>";
-		
-		
+
+	public String getPanelActionGestionHtml() {
+
+		if (isTerminee())
+			return "";
+		String lienEffaceActivite = "/waydplace/Frontal?action="
+				+ ActionPage.EFFACE_ACTIVITE_MEMBRE + "&idactivite=" + id;
+		String lienModifierActivite = "/waydplace/Frontal?action="
+				+ ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE
+				+ "&idactivite=" + id;
+
+		return "<p align='right'><a href='"
+				+ lienModifierActivite
+				+ "' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-edit'></span></a>"
+				+ "<a href='"
+				+ lienEffaceActivite
+				+ "' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-remove'></span></a></p>";
 	}
+
+	public String getPanelActionParticipationHtml(Profil profil,
+			String uidEmetteur) {
+
+		if (profil.isAnonyme())
+			return "";
+
+		if (isOrganistateur(profil.getUID()))
+			return "";
+
+		LOG.info("type orga"+id_ref_type_organisateur);
 	
+		if (id_ref_type_organisateur==Parametres.TYPE_ORGANISATEUR_MEMBRE)
+			return "";
+	
+		String lienEnvoiMessage = "/waydplace/Frontal?action="
+				+ ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE
+				+ "&uid_emetteur=" + profil.getUID() + "&idactivite=" + id
+				+ "&uid_destinataire=" + uidEmetteur;
+
+		return "<p align='right'><a href='"
+				+ lienEnvoiMessage
+				+ "' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-envelope'></span></a></p>";
+
+	}
+
+	public String getAdpaterListHtml() {
+
+		switch (id_ref_type_organisateur) {
+		
+		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		
+			String lienDetailParticipant = "/waydplace/Frontal?action="
+					+ ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE
+					+ "&idmembre=" + getUid_membre();
+
+			return "<div class='clearfix'><a href='" + lienDetailParticipant
+					+ "'>	<img src='" + getURLPhoto()
+					+ "'  class='pull-left marge-droite' style='width: 10%;'></a>"
+					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
+					+ libelle + "</h4></div>" + "<h6 align='right'>"
+					+ getHoraireLigne() + "</h6>";
+
+		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+			
+			LOG.info("recheche dans site");
+			String lienDetailSite = "/waydplace/Frontal?action="
+					+ ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE
+					+ "&idmembre=" + getUid_membre();
+
+			return "<div class='clearfix'><a href='" + lienDetailSite
+					+ "'>	<img src='" + getURLPhoto()
+					+ "'  class='pull-left marge-droite' style='width: 10%;'></a>"
+					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
+					+ libelle + "</h4></div>" + "<h6 align='right'>"
+					+ getHoraireLigne() + "</h6>";
+
+	
+		}
+		return"";
+		
+		
+		
+		
+		
+
+	}
+
 	public String getTypeUserLienHTML(String lien) {
 
 		if (id_ref_type_organisateur == Parametres.TYPE_ORGANISATEUR_SITE)
@@ -132,21 +180,35 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 
 	}
 
-	public String getUrlPhoto() {
+	public String getURLPhoto() {
 
-		if (photoOrganisateur == null)
-			return "";
 		
-		byte[] bytes = Base64.decode(photoOrganisateur);
 		
-		String urlPhoto = "data:image/jpeg;base64," + Base64.encode(bytes);
-		return urlPhoto;
-	}
+		switch (id_ref_type_organisateur) {
 	
+		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		if (photoOrganisateur == null)
+				return "/waydplace/img/inconnu.jpg";
+			else
+				return Outils.getUrlPhoto(photoOrganisateur);
+
+		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+			
+			if (photoSite == null)
+				return "/waydplace/img/inconnu.jpg";
+			else
+				return Outils.getUrlPhoto(photoSite);
+
+		default:
+			return "/waydplace/img/inconnu.jpg";
+		}
+
+	}
+
 	public Activite(String titre, String libelle, int id, int id_site,
 			String photoOrganisateur, String pseudoOrganisateur,
 			int id_ref_type_organisateur, String uid_membre, Date datefin,
-			Date datedebut,int id_ref_type_activite) {
+			Date datedebut, int id_ref_type_activite, String photoSite,String nomSite) {
 		super();
 		this.titre = titre;
 		this.libelle = libelle;
@@ -158,9 +220,11 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 		this.uid_membre = uid_membre;
 		this.datefin = datefin;
 		this.datedebut = datedebut;
-		this.id_ref_type_activite=id_ref_type_activite;
+		this.id_ref_type_activite = id_ref_type_activite;
+		this.photoSite = photoSite;
+		this.nomSite=nomSite;
 	}
-
+	
 
 	public String getHoraireLeA() {
 
@@ -173,7 +237,7 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 		return "Le " + datestrdebut + " </br> de " + heuredebutstr + " à "
 				+ heurefinstr;
 	}
-	
+
 	public String getHoraireLigne() {
 
 		SimpleDateFormat jour = new SimpleDateFormat("dd-MM-yyyy");
@@ -185,6 +249,7 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 		return "Le " + datestrdebut + " de " + heuredebutstr + " à "
 				+ heurefinstr;
 	}
+
 	public boolean isEnCours() {
 
 		Date maintenant = new Date();
@@ -193,7 +258,7 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 		return false;
 
 	}
-	
+
 	public boolean isPlanifie() {
 		Date maintenant = new Date();
 		if (datedebut.after(maintenant))
@@ -215,6 +280,7 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 			return "<span style='color: blue;'	 title='Planifiée' class='glyphicon glyphicon-time'></span>";
 		return "lmk";
 	}
+
 	public String getTitre() {
 		return titre;
 	}
@@ -295,8 +361,4 @@ public String getPanelActionParticipationHtml(Profil profil,String uidEmetteur){
 		this.datedebut = datedebut;
 	}
 
-	
-	
-	
-	
 }

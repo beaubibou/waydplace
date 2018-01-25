@@ -2,6 +2,8 @@ package bean;
 
 import java.util.Date;
 
+import outils.Outils;
+
 public class Site {
 	String nom;
 	String adresse;
@@ -10,6 +12,7 @@ public class Site {
 	Date date_creation;
 	String jeton;
 	String description;
+	String photo;
 	
 	
 	public String getDescription() {
@@ -19,7 +22,7 @@ public class Site {
 		this.description = description;
 	}
 	public Site(String nom, String adresse, int id, int id_enseigne,
-			Date date_creation, String jeton,String description) {
+			Date date_creation, String jeton,String description,String photo) {
 		super();
 		this.nom = nom;
 		this.adresse = adresse;
@@ -28,6 +31,14 @@ public class Site {
 		this.date_creation = date_creation;
 		this.jeton = jeton;
 		this.description=description;
+		this.photo=photo;
+	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	public String getNom() {
 		return nom;
@@ -66,5 +77,20 @@ public class Site {
 		this.jeton = jeton;
 	}
 	
+private String getURLPhoto() {
+		
+		if (photo==null)
+			return "/waydplace/img/inconnu.jpg";
+		else
+			return Outils.getUrlPhoto(photo);
+				
+	}
+
+	public String getDetailEnteteSiteHtml(){
+				
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"' class='pull-left marge-droite' style='width: 40%;'>"+
+	"<h2 style='margin-top: 0px'>"+nom +"</h2></div>";
+		
+	}
 	
 }

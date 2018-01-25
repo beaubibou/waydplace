@@ -55,62 +55,52 @@
 				</div>
 				<div style="padding-top: 30px" class="panel-body">
 
-					<div style="border-bottom: 1px solid #888;">
-
-						<p class="text-tuto"><%=SiteText.MESSAGE_JUMBO_L1%></p>
-						<p class="text-tuto"><%=SiteText.MESSAGE_JUMBO_L2%></p>
-
-					</div>
-					<br> <br>
 
 
 					<div class="form-group">
 						<div class="row">
-							<div class="col-sm-4">
-								<img height="300" width="200" src=<%=profil.getPhotostr()%>
-									class="img-thumbnail" />
-							</div>
+
 							<div class="col-sm-8">
-								<form action="/wayd/ChargePhotoPro" method="post"
-									enctype="multipart/form-data" onsubmit="return valideFichier()">
-									<input type="file" name="file" size="50" id="file" /> <br>
+								<a href="#" class="btn btn-danger btn-sm"> <span
+									class="glyphicon glyphicon-remove"></span>
+								</a>
+								<%=profil.getSite().getDetailEnteteSiteHtml()%>
 
-									<input type="submit" value="Envoyer la photo"
-										class="btn btnwayd btn-sm" />
+								<form
+									action="/waydplace/FrontalGestionnaire?action=<%=ActionPage.CHARGE_PHOTO_SITE_GESTIONNAIRE%>"
+									method="post" enctype="multipart/form-data"
+									onsubmit="return valideFichier()">
 
+									</br>
+									<div class="container">
+										<div class="btn-group">
+											<label class="btn btn-default btn-file btn-primary btn-sm">
+												.. <input name="file" size="50" type="file"
+												style="display: none;">
+											</label> <input type="submit" value="Envoyer la photo"
+												class="btn btn-primary btn-sm  " />
+										</div>
+									</div>
 
 								</form>
-								<br> <a title="Supprimer photo"
-									href="/wayd/ComptePro?action=supprimerPhoto">
-									<button type="button" class="btn btn-danger btn-sm">
-										<span class="glyphicon glyphicon-trash"> Supprimer la
-											photo</span>
-									</button>
-								</a> <br> <br> <a title="Mot de passe"
-									href="/wayd/auth/changementmotdepasse.jsp">
-									<button type="button" class="btn btnwayd  btn-sm">
-										<span class="glyphicon glyphicon-lock">Changer mot de
-											passe</span>
-									</button>
-								</a>
-							</div>
 
+
+							</div>
 						</div>
 
 					</div>
 
-
 					<form action="/waydplace/FrontalGestionnaire" method="post"
 						onsubmit="return valideFormulaire()">
 
-						<input name="action" type="text"
+						<input name="action" type="hidden"
 							value=<%=ActionPage.MODIFIER_SITE_GESTIONNAIRE%>>
 
 						<div class="form-group">
 
 							<div class="row">
 
-								
+
 								<div class="col-sm-8 ">
 
 									<div class="form-group">
@@ -120,48 +110,67 @@
 											maxlength="<%=SiteText.TAILLE_NOM_SITE_MAX%>" name="nom"
 											required value="<%=site.getNom()%>">
 									</div>
-								
+
+
+								</div>
 
 							</div>
-								
+							<div class="form-group">
+
+								<div class="row">
+									<div class="col-sm-8">
+										<div class="form-group">
+											<label for="jeton"><%=SiteText.LABEL_JETON%></label> <input
+												type="text" class="form-control" id="jeton"
+												placeholder="<%=SiteText.HINT_DESCRIPTION_JETON%>"
+												maxlength="<%=SiteText.TAILLE_JETON_MAX%>" name="jetonSite"
+												required value="<%=site.getJeton()%>">
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+							<div class="form-group">
+
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label for="jeton"><%=SiteText.LABEL_TELEPHONE%></label> <input
+												type="text" class="form-control" id="jeton"
+												placeholder="<%=SiteText.HINT_TELEPHONE%>"
+												maxlength="<%=SiteText.TAILLE_TELEPHONNE_MAX%>"
+												name="jetonSite" required value="<%=site.getJeton()%>">
+										</div>
+									</div>
+
+
+								</div>
+							</div>
 						</div>
 						<div class="form-group">
-					
-							<div class="row">
-								<div class="col-sm-8">
-									<div class="form-group">
-										<label for="jeton"><%=SiteText.LABEL_JETON%></label> <input
-											type="text" class="form-control" id="jeton"
-											placeholder="<%=SiteText.HINT_DESCRIPTION_JETON%>"
-											maxlength="<%=SiteText.TAILLE_JETON_MAX%>" name="jetonSite"
-											required value="<%=site.getJeton()%>">
-									</div>
-								</div>
-								<div class="col-sm-4">
-									<div class="form-group">
-										<label for="typro"><%=SiteText.TYPE_COMPTE%></label> <input
-											type="text" class="form-control" disabled id="typepro"
-											value="Site">
-									</div>
-								</div>
 
-							</div>
+							<label for="adresse"><%=SiteText.LABEL_ADRESSE%></label>
+							<textarea class="form-control" rows="5" id="adresse"
+								name="adresse" placeholder="<%=SiteText.HINT_ADRESSE%>"
+								maxlength="<%=SiteText.TAILLE_ADRESSE_MAX%>"><%=site.getAdresse()%></textarea>
 						</div>
-		</div>
+						<div class="form-group">
+
 							<label for="description"><%=SiteText.LABEL_DESCRIPTION_PROFIL%></label>
 							<textarea class="form-control" rows="5" id="description"
 								name="description"
 								placeholder="<%=SiteText.getHintDescriptionProfil()%>"
 								maxlength="<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=site.getDescription()%></textarea>
-					
+
+
+						</div>
+
 						<h5 class="nbrcaracteremax" id="nbr">
 							0 Caractére
 							<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
 						</h5>
-				<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
-
-
-
+						<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
 
 					</form>
 
@@ -199,7 +208,7 @@
 			var nombreCaractere = $(this).val().length;
 			//alert(nombreCaractere);
 
-			var msg = nombreCaractere + '/ <%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>';
+			var msg = nombreCaractere + '/'+<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>;
 
 												$('#nbr').text(msg);
 												// Le script qui devra calculer et afficher le nombre de mots et de caractères

@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.axis.encoding.Base64;
+
 public class Outils {
 
 	public static Date getDateFromString(String datestr) throws ParseException {
@@ -17,6 +19,15 @@ public class Outils {
 		return caldate.getTime();
 	}
 	
+	public static String getUrlPhoto(String photo) {
+
+		if (photo == null)
+			photo = "";
+		byte[] bytes = Base64.decode(photo);
+		String urlPhoto = "data:image/jpeg;base64," + Base64.encode(bytes);
+
+		return urlPhoto;
+	}
 	public static Date getDateFromString(String datestr, String heurestr)
 			throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

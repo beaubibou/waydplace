@@ -9,5 +9,6 @@ public class MenuGestionnaireText {
 	public static String A_PROPOS="A propos";
 	public static String CONTACT="Contact";
 	public static String MON_COMPTE="Mon compte";
+	public static String SITE="Site";
 	public static String CARTE="Carte";
 }

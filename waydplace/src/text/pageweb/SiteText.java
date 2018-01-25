@@ -9,7 +9,7 @@ public class SiteText {
 		public static int TAILLE_JETON_MAX=20;
 		public static String TYPE_COMPTE="Type de compte";
 		
-		public static String LABEL_JETON="Jeton";
+		public static String LABEL_JETON="Jeton *";
 		public static int TAILLE_NOM_SITE_MAX = 50;
 		public static int TAILLE_SITE_WEB_MAX = CommunText.TAILLE_SITE_WEB_MAX;
 		public static int TAILLE_TELEPHONNE_MAX = CommunText.TAILLE_TELEPHONNE_MAX;
