@@ -1,15 +1,26 @@
 package servlet.membre;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.coobird.thumbnailator.Thumbnails;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -21,6 +32,7 @@ import pager.PagerActivite;
 import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
+import sun.misc.BASE64Encoder;
 import bean.Activite;
 import bean.Membre;
 import bean.MessageAction;
@@ -205,6 +217,12 @@ public class Frontal extends HttpServlet {
 			}
 
 			break;
+			
+		case ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE:
+
+			MessageAction chargePhotoMembre=chargePhotoMembre(request,profil);
+
+			break;
 
 		case ActionPage.MODIFIER_ACTIVITE_MEMBRE:
 
@@ -327,6 +345,87 @@ public class Frontal extends HttpServlet {
 
 	
 
+
+
+	private MessageAction chargePhotoMembre(HttpServletRequest request,Profil profil) {
+		File file;
+		int maxFileSize = 6000 * 1024;
+		int maxMemSize = 6000 * 1024;
+		// String filePath = "c:/apache-tomcat/webapps/data/";
+
+		String contentType = request.getContentType();
+		if ((contentType.indexOf("multipart/form-data") >= 0)) {
+
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			factory.setSizeThreshold(maxMemSize);
+			factory.setRepository(new File("c:\\temp"));
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setSizeMax(maxFileSize);
+			try {
+				List fileItems = upload.parseRequest(request);
+				Iterator i = fileItems.iterator();
+
+				while (i.hasNext()) {
+					FileItem fi = (FileItem) i.next();
+					if (!fi.isFormField()) {
+//						String fieldName = fi.getFieldName();
+//						String fileName = fi.getName();
+//						boolean isInMemory = fi.isInMemory();
+//						long sizeInBytes = fi.getSize();
+						BufferedImage tmp = ImageIO
+								.read(fi.getInputStream());
+
+						BufferedImage imBuff=resize(tmp,300,200);
+						
+						String stringPhoto = encodeToString(imBuff,
+								"jpeg");
+					
+						MessageAction updatePhoto=MembreDAO.updatePhoto(stringPhoto, profil.getUID());
+					
+						if (updatePhoto.isOk()){
+						profil.setPhotostr(stringPhoto);
+						return new MessageAction(true, "");
+					}
+					else{
+						
+						return new MessageAction(false, updatePhoto.getMessage());
+						
+					}
+						
+					}
+				}
+
+			} catch (Exception ex) {
+				LOG.error(ExceptionUtils.getStackTrace(ex));
+				return new MessageAction(false, ex.getMessage());
+			}
+			
+			
+		}
+	
+		return new MessageAction(false,"erreur inconnue");
+	}
+	public static String encodeToString(BufferedImage image, String type) {
+		String imageString = null;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+		try {
+			ImageIO.write(image, type, bos);
+			byte[] imageBytes = bos.toByteArray();
+			BASE64Encoder encoder = new BASE64Encoder();
+			imageString = encoder.encode(imageBytes);
+			bos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
+		}
+		return imageString;
+	}
+
+	public static BufferedImage resize(BufferedImage img, int newW, int newH) throws IOException {
+		  return Thumbnails.of(img).forceSize(newW, newH).outputQuality(1).asBufferedImage();
+		 
+		}
 	private MessageAction vpEnvoiMessageDAO(HttpServletRequest request,
 			Profil profil) {
 		String  idactiviteStr = request.getParameter("idactivite");

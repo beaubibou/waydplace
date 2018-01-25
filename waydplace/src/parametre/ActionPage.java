@@ -24,6 +24,9 @@ public class ActionPage {
 	public static final String MODIFIER_COMPTE_MEMBRE = "modifiercompteMembre";
 	public static final String ENVOI_MESSAGE_MEMBRE = "envoiMessageMembre";
 	public static final String ENVOI_REPONSE_MEMBRE = "envoirReponseMembre";
+	public static final String CHARGE_PHOTO_PROFIL_MEMBRE = "chargephotoProfilMembre";
+	
+	
 	
 	
 	

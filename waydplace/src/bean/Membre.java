@@ -67,7 +67,7 @@ public class Membre {
 	public String getDetailEnteteMembreHtml(){
 		
 		
-		return 	"<div class='clearfix'><img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 20%;'>"+
+		return 	"<div class='clearfix'><img src='/waydplace/img/inconnu.jpg'  class='pull-left marge-droite' style='width: 40%;'>"+
 	"<h2 style='margin-top: 0px'>"+pseudo +"</h2>"+
 	"<h4 >"+getAge()+"</h4>"+
 	"<h5 >"+getSexe()+"</h5></div>";

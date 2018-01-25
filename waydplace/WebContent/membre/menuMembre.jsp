@@ -24,8 +24,6 @@
 			<ul class="nav navbar-nav">
 
 
-
-
 				<%=MenuMembre.get_LI_MON_COMPTE((Profil) session
 					.getAttribute("profil"))%>
 
@@ -48,9 +46,6 @@
 
 				<%=MenuMembre.get_LI_BADGE((Profil) session
 					.getAttribute("profil"))%>
-
-
-
 
 
 			</ul>

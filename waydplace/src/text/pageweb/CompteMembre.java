@@ -7,6 +7,8 @@ public class CompteMembre {
 	public static String HINT_ADRESSE="Saissisez l'adresse de la structure.";
 	public static String HINT_TELEPHONE=CommunText.HINT_TELEPHONE;
 	public static String AUCUN_FICHIER_SELECTIONNE="Aucune image selectionnée";
+	public static String DATE_NAISSANCE="D.Naissance";
+	public static String GENRE="Genre";
 	
 	public static String TYPE_COMPTE="Type de compte";
 	

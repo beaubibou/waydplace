@@ -91,5 +91,9 @@ public class Profil {
 		// TODO Auto-generated method stub
 		return membre.getId_ref_type_organisateur();
 	}
+	public void setPhotostr(String stringPhoto) {
+	membre.setPhoto(stringPhoto);
+		
+	}
 	
 }
