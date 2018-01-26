@@ -20,14 +20,34 @@ public class MenuMembre {
 		String lien = "";
 		switch (profil.getTypeOrganisteur()) {
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 
 			lien = getLi(ActionPage.REDIRECTION_MES_ACTIVITES_MEMBRE,
 					MenuGestionnaireText.GERER);
 
 			break;
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+		case Parametres.TYPE_ORGANISATEUR_SITE:
+
+			break;
+		}
+
+		return lien;
+
+	}
+	
+	public static String get_LI_PROPOSE(Profil profil) {
+		String lien = "";
+		switch (profil.getTypeOrganisteur()) {
+
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+			
+			lien = getLi(ActionPage.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE,
+					MenuGestionnaireText.PROPOSER);
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_SITE:
 
 			break;
 		}
@@ -40,14 +60,14 @@ public class MenuMembre {
 		String lien = "";
 		switch (profil.getTypeOrganisteur()) {
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 
 			lien = getLi(ActionPage.REDIRECTION_COMPTE_MEMBRE,
 					MenuGestionnaireText.MON_COMPTE);
 
 			break;
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+		case Parametres.TYPE_ORGANISATEUR_SITE:
 
 			break;
 		}
@@ -66,19 +86,19 @@ public class MenuMembre {
 
 		switch (profil.getTypeOrganisteur()) {
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 			System.out.println(LIEN_DECONNEXION);
 			lien = LIEN_DECONNEXION;
 
 			break;
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR:
+		case Parametres.TYPE_ORGANISATEUR_VISITEUR:
 
 			lien = LIEN_CONNEXION;
 
 			break;
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+		case Parametres.TYPE_ORGANISATEUR_SITE:
 
 			break;
 		}
@@ -97,18 +117,18 @@ public class MenuMembre {
 
 		switch (profil.getTypeOrganisteur()) {
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 			System.out.println(LIEN_DECONNEXION);
 			lien = LIEN_ENVELLOPPE;
 
 			break;
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR:
+		case Parametres.TYPE_ORGANISATEUR_VISITEUR:
 
 		
 			break;
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+		case Parametres.TYPE_ORGANISATEUR_SITE:
 
 			break;
 		}
@@ -129,19 +149,19 @@ public class MenuMembre {
 		
 		switch (profil.getTypeOrganisteur()) {
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 			System.out.println(LIEN_DECONNEXION);
 			lien ="<li><a href=''> <span class='badge'>"+nbrMessage+"</span></a><br></li>";
 
 			break;
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR:
+		case Parametres.TYPE_ORGANISATEUR_VISITEUR:
 
 			
 
 			break;
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+		case Parametres.TYPE_ORGANISATEUR_SITE:
 
 			break;
 		}

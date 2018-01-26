@@ -186,7 +186,7 @@
 					<td>
 
 						<div class="clearfix">
-							<img height="100" width="100" src=<%=activite.getUrlPhoto()%>
+							<img height="100" width="100" src=<%=activite.getURLPhoto()%>
 								class="img-thumbnail pull-left ">
 
 							<p>

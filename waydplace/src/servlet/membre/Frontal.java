@@ -38,6 +38,7 @@ import bean.Membre;
 import bean.MessageAction;
 import bean.Profil;
 import dao.ActiviteDAO;
+import dao.DiscussionDAO;
 import dao.MembreDAO;
 import dao.MessageDAO;
 
@@ -103,24 +104,17 @@ public class Frontal extends HttpServlet {
 
 			break;
 
-			
 		case ActionPage.REDIRECTION_MESSAGES_MEMBRE:
 
-			
 			response.sendRedirect("membre/mesmessages.jsp");
-			
 
 			break;
-			
-			case ActionPage.REDIRECTION_PLANING_MEMBRE:
 
-			
+		case ActionPage.REDIRECTION_PLANING_MEMBRE:
+
 			response.sendRedirect("membre/planing.jsp");
-			
 
 			break;
-			
-			
 
 		case ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
 
@@ -153,28 +147,27 @@ public class Frontal extends HttpServlet {
 			Membre membre = getMembre(request, profil);
 
 			request.setAttribute("membre", membre);
-			request.getRequestDispatcher("membre/detailMembre.jsp").forward(
+			request.getRequestDispatcher("commun/detailMembre.jsp").forward(
 					request, response);
 			break;
 
 		case ActionPage.REDIRECTION_COMPTE_MEMBRE:
 			response.sendRedirect("membre/compteMembre.jsp");
 			break;
-			
+
 		case ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE:
-		
-			MessageAction vpRedirectionEnvoiMessage=vpRedirectionEnvoiMessage(
+
+			MessageAction vpRedirectionEnvoiMessage = vpRedirectionEnvoiMessage(
 					request, profil);
-			
-			if (vpRedirectionEnvoiMessage.isOk()){
-			request.getRequestDispatcher("membre/envoiMessage.jsp").forward(
-					request, response);
+
+			if (vpRedirectionEnvoiMessage.isOk()) {
+				request.getRequestDispatcher("membre/envoiMessage.jsp")
+						.forward(request, response);
+			} else {
+
 			}
-			else{
-				
-			}
-			
-			break;	
+
+			break;
 
 		case ActionPage.REDIRECTION_DETAIL_ACTIVITE_MEMBRE:
 
@@ -209,7 +202,6 @@ public class Frontal extends HttpServlet {
 
 			if (effaceActivite.isOk()) {
 
-				LOG.info(effaceActivite.getMessage());
 				response.sendRedirect("membre/mesactivites.jsp");
 
 			} else {
@@ -217,11 +209,32 @@ public class Frontal extends HttpServlet {
 			}
 
 			break;
-			
+
 		case ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE:
 
-			MessageAction chargePhotoMembre=chargePhotoMembre(request,profil);
+			MessageAction chargePhotoMembre = chargePhotoMembre(request, profil);
 
+			if (chargePhotoMembre.isOk()) {
+
+				response.sendRedirect("membre/compteMembre.jsp");
+
+			} else {
+
+				redirectionErreur(chargePhotoMembre);
+			}
+			break;
+
+		case ActionPage.SUPPRIMER_PHOTO_MEMBRE:
+			MessageAction supprimePhotoMembre = supprimePhotoMembre(request, profil);
+
+			if (supprimePhotoMembre.isOk()) {
+					profil.setPhoto(null);
+				response.sendRedirect("membre/compteMembre.jsp");
+
+			} else {
+
+				redirectionErreur(supprimePhotoMembre);
+			}
 			break;
 
 		case ActionPage.MODIFIER_ACTIVITE_MEMBRE:
@@ -231,28 +244,24 @@ public class Frontal extends HttpServlet {
 
 			if (modifierActiviteMembre.isOk()) {
 
-				
 				response.sendRedirect("membre/mesactivites.jsp");
 
 			} else {
 
 				redirectionErreur(modifierActiviteMembre);
 			}
-			
+
 			break;
 
 		case ActionPage.MODIFIER_COMPTE_MEMBRE:
 
-			
 			MessageAction modifierCompteMembre = modifierCompteMembre(request,
 					profil);
-		
+
 			if (modifierCompteMembre.isOk()) {
 
-				LOG.info(modifierCompteMembre.getMessage());
 				response.sendRedirect("membre/mesactivites.jsp");
 			} else {
-				LOG.info(modifierCompteMembre.getMessage());
 				redirectionErreur(modifierCompteMembre);
 			}
 			break;
@@ -272,7 +281,6 @@ public class Frontal extends HttpServlet {
 
 			if (ajouteActiviteMembre.isOk()) {
 
-				LOG.info(ajouteActiviteMembre.getMessage());
 				response.sendRedirect("membre/mesactivites.jsp");
 
 			} else {
@@ -280,74 +288,81 @@ public class Frontal extends HttpServlet {
 			}
 
 			break;
-	
-			case ActionPage.ENVOI_MESSAGE_MEMBRE:
 
-				MessageAction vpEnvoiMessage=vpEnvoiMessage(request, profil);
-				
-			if (vpEnvoiMessage.isOk()){
-				
-					MessageAction vpEnvoiMessageDAO=vpEnvoiMessageDAO(request, profil);
-					if (vpEnvoiMessageDAO.isOk()){
-					
-						page = 0;
-						pager = new PagerActivite(profil.getFiltre(), page);
-						request.setAttribute("pager", pager);
-						request.getRequestDispatcher("membre/rechercheActivite.jsp")
-								.forward(request, response);
-						
-					}
-					else{
-						
-					redirectionErreur(vpEnvoiMessageDAO);
-					}
-				
-				}
-				else{
-					redirectionErreur(vpEnvoiMessage);
-				}
-				
-				break;	
-		
-	
-			case ActionPage.ENVOI_REPONSE_MEMBRE:
+		case ActionPage.ENVOI_MESSAGE_MEMBRE:
 
-			vpEnvoiMessage=vpEnvoiMessage(request, profil);
-				
-			if (vpEnvoiMessage.isOk()){
-				
-					MessageAction vpEnvoiMessageDAO=vpEnvoiMessageDAO(request, profil);
-					if (vpEnvoiMessageDAO.isOk()){
-					
-						page = 0;
-						pager = new PagerActivite(profil.getFiltre(), page);
-						request.setAttribute("pager", pager);
-						request.getRequestDispatcher("membre/mesmessages.jsp")
-								.forward(request, response);
-						
-					}
-					else{
-						
+			MessageAction vpEnvoiMessage = vpEnvoiMessage(request, profil);
+
+			if (vpEnvoiMessage.isOk()) {
+
+				MessageAction vpEnvoiMessageDAO = vpEnvoiMessageDAO(request,
+						profil);
+				if (vpEnvoiMessageDAO.isOk()) {
+
+					page = 0;
+					pager = new PagerActivite(profil.getFiltre(), page);
+					request.setAttribute("pager", pager);
+					request.getRequestDispatcher("membre/rechercheActivite.jsp")
+							.forward(request, response);
+
+				} else {
+
 					redirectionErreur(vpEnvoiMessageDAO);
-					}
-				
 				}
-				else{
-					redirectionErreur(vpEnvoiMessage);
+
+			} else {
+				redirectionErreur(vpEnvoiMessage);
+			}
+
+			break;
+
+		case ActionPage.ENVOI_REPONSE_MEMBRE:
+
+			vpEnvoiMessage = vpEnvoiMessage(request, profil);
+
+			if (vpEnvoiMessage.isOk()) {
+
+				MessageAction vpEnvoiMessageDAO = vpEnvoiMessageDAO(request,
+						profil);
+				if (vpEnvoiMessageDAO.isOk()) {
+
+					page = 0;
+					pager = new PagerActivite(profil.getFiltre(), page);
+					request.setAttribute("pager", pager);
+					request.getRequestDispatcher("membre/mesmessages.jsp")
+							.forward(request, response);
+
+				} else {
+
+					redirectionErreur(vpEnvoiMessageDAO);
 				}
-				
-				break;	
-		
+
+			} else {
+				redirectionErreur(vpEnvoiMessage);
+			}
+
+			break;
+
 		}
-		}
+	}
+
+	private MessageAction supprimePhotoMembre(HttpServletRequest request,
+			Profil profil) {
 		
+		MessageAction updatePhoto = MembreDAO.updatePhoto(null, profil.getUID());
+		
+		if (updatePhoto.isOk()){
 			
+			return new MessageAction(true, "");
+			
+		}
+		else
+			return new MessageAction(false, updatePhoto.getMessage());
 
-	
+	}
 
-
-
-	private MessageAction chargePhotoMembre(HttpServletRequest request,Profil profil) {
+	private MessageAction chargePhotoMembre(HttpServletRequest request,
+			Profil profil) {
 		File file;
 		int maxFileSize = 6000 * 1024;
 		int maxMemSize = 6000 * 1024;
@@ -368,30 +383,29 @@ public class Frontal extends HttpServlet {
 				while (i.hasNext()) {
 					FileItem fi = (FileItem) i.next();
 					if (!fi.isFormField()) {
-//						String fieldName = fi.getFieldName();
-//						String fileName = fi.getName();
-//						boolean isInMemory = fi.isInMemory();
-//						long sizeInBytes = fi.getSize();
-						BufferedImage tmp = ImageIO
-								.read(fi.getInputStream());
+						// String fieldName = fi.getFieldName();
+						// String fileName = fi.getName();
+						// boolean isInMemory = fi.isInMemory();
+						// long sizeInBytes = fi.getSize();
+						BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
-						BufferedImage imBuff=resize(tmp,300,200);
-						
-						String stringPhoto = encodeToString(imBuff,
-								"jpeg");
-					
-						MessageAction updatePhoto=MembreDAO.updatePhoto(stringPhoto, profil.getUID());
-					
-						if (updatePhoto.isOk()){
-						profil.setPhotostr(stringPhoto);
-						return new MessageAction(true, "");
-					}
-					else{
-						
-						return new MessageAction(false, updatePhoto.getMessage());
-						
-					}
-						
+						BufferedImage imBuff = resize(tmp, 300, 200);
+
+						String stringPhoto = encodeToString(imBuff, "jpeg");
+
+						MessageAction updatePhoto = MembreDAO.updatePhoto(
+								stringPhoto, profil.getUID());
+
+						if (updatePhoto.isOk()) {
+							profil.setMembrePhotostr(stringPhoto);
+							return new MessageAction(true, "");
+						} else {
+
+							return new MessageAction(false,
+									updatePhoto.getMessage());
+
+						}
+
 					}
 				}
 
@@ -399,12 +413,12 @@ public class Frontal extends HttpServlet {
 				LOG.error(ExceptionUtils.getStackTrace(ex));
 				return new MessageAction(false, ex.getMessage());
 			}
-			
-			
+
 		}
-	
-		return new MessageAction(false,"erreur inconnue");
+
+		return new MessageAction(false, "erreur inconnue");
 	}
+
 	public static String encodeToString(BufferedImage image, String type) {
 		String imageString = null;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -416,42 +430,47 @@ public class Frontal extends HttpServlet {
 			imageString = encoder.encode(imageBytes);
 			bos.close();
 		} catch (IOException e) {
-			
+
 			LOG.error(ExceptionUtils.getStackTrace(e));
 		}
 		return imageString;
 	}
 
-	public static BufferedImage resize(BufferedImage img, int newW, int newH) throws IOException {
-		  return Thumbnails.of(img).forceSize(newW, newH).outputQuality(1).asBufferedImage();
-		 
-		}
+	public static BufferedImage resize(BufferedImage img, int newW, int newH)
+			throws IOException {
+		return Thumbnails.of(img).forceSize(newW, newH).outputQuality(1)
+				.asBufferedImage();
+
+	}
+
 	private MessageAction vpEnvoiMessageDAO(HttpServletRequest request,
 			Profil profil) {
-		String  idactiviteStr = request.getParameter("idactivite");
+		String idactiviteStr = request.getParameter("idactivite");
 		String uidEmetteur = request.getParameter("uid_emetteur");
 		String uidDestinataire = request.getParameter("uid_destinataire");
 		String message = request.getParameter("message");
-		
 		int idActivite = Integer.parseInt(idactiviteStr);
-		
-		MessageDAO.ajouteMessage(uidEmetteur, uidDestinataire, message,idActivite);
+		DiscussionDAO
+				.ajouteDiscussion(idActivite, uidEmetteur, uidDestinataire);
+
+		MessageDAO.ajouteMessage(uidEmetteur, uidDestinataire, message,
+				idActivite);
 		return new MessageAction(true, "");
 	}
 
 	private MessageAction vpEnvoiMessage(HttpServletRequest request,
 			Profil profil) {
-	
+
 		return new MessageAction(true, "");
 	}
 
 	private MessageAction vpRedirectionEnvoiMessage(HttpServletRequest request,
 			Profil profil) {
-		int idActivite=0;
-		String  idactiviteStr = request.getParameter("idactivite");
+		int idActivite = 0;
+		String idactiviteStr = request.getParameter("idactivite");
 		String uidEmetteur = request.getParameter("uid_emetteur");
 		String uidDestinataire = request.getParameter("uid_destinataire");
-		
+
 		try {
 			idActivite = Integer.parseInt(idactiviteStr);
 		}
@@ -460,18 +479,16 @@ public class Frontal extends HttpServlet {
 			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 
-			
 			return new MessageAction(false, e.getMessage());
 
 		}
-		
-		
+
 		request.setAttribute("idactivite", idActivite);
 		request.setAttribute("uid_emetteur", uidEmetteur);
 		request.setAttribute("uid_destinataire", uidDestinataire);
-		
-		return new MessageAction(true,"");
-		
+
+		return new MessageAction(true, "");
+
 	}
 
 	private MessageAction modifierCompteMembre(HttpServletRequest request,
@@ -480,16 +497,24 @@ public class Frontal extends HttpServlet {
 		String pseudo = request.getParameter("pseudo");
 		String description = request.getParameter("commentaire");
 		String uid = request.getParameter("uid");
+		String idtypeGenreStr=request.getParameter("typeGenre");
+			
+		
 		MessageAction vpModifieCompte = vpModifieCompte(pseudo, description,
-				uid);
+				uid,idtypeGenreStr);
 
+		int idTypeGenre = Integer.parseInt(idtypeGenreStr);
+		
+		
 		if (vpModifieCompte.isOk()) {
 
 			MessageAction modifieMembreDAO = MembreDAO.modifieCompteMembre(
-					pseudo, description, profil.getUID());
+					pseudo, description, profil.getUID(),idTypeGenre);
 			if (modifieMembreDAO.isOk()) {
 				profil.setPseudo(pseudo);
 				profil.setDescription(description);
+				profil.setIdGenre(idTypeGenre);
+			
 				return new MessageAction(true, "");
 			} else
 				return modifieMembreDAO;
@@ -500,8 +525,10 @@ public class Frontal extends HttpServlet {
 
 	}
 
-	private MessageAction vpModifieCompte(String pseudo, String description,
-			Object u) {
+	private MessageAction vpModifieCompte(String pseudo,String description,
+			String uid,String idtypeGenreStr) {
+		
+			
 		return new MessageAction(true, "");
 	}
 
@@ -623,11 +650,10 @@ public class Frontal extends HttpServlet {
 
 		Activite retour = null;
 		int idActivite = 0;
-		
+
 		try {
 
 			idActivite = Integer.parseInt(request.getParameter("idactivite"));
-			LOG.info("idacti"+idActivite);
 		}
 
 		catch (Exception e) {
@@ -636,22 +662,20 @@ public class Frontal extends HttpServlet {
 			return retour;
 
 		}
-		String uidMembre=request.getParameter("idmembre");
-		retour = ActiviteDAO.getActivite(idActivite,uidMembre);
+		String uidMembre = request.getParameter("idmembre");
+		retour = ActiviteDAO.getActivite(idActivite, uidMembre);
 
 		return retour;
 	}
-	
-	
+
 	private Activite getActivite(HttpServletRequest request, Profil profil) {
 
 		Activite retour = null;
 		int idActivite = 0;
-		
+
 		try {
 
 			idActivite = Integer.parseInt(request.getParameter("idactivite"));
-			LOG.info("idacti"+idActivite);
 		}
 
 		catch (Exception e) {
@@ -783,9 +807,8 @@ public class Frontal extends HttpServlet {
 		if (vpAjouteActivite.isOk()) {// Verification des parametres
 
 			MessageAction ajouteActivite = ActiviteDAO.AjouteActivite(
-					profil.getIdSite(),
-					Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE, dateDebut,
-					dateFin, titre, libelle, profil.getUID(),
+					profil.getIdSite(), Parametres.TYPE_ORGANISATEUR_MEMBRE,
+					dateDebut, dateFin, titre, libelle, profil.getUID(),
 					id_ref_type_activite);
 
 			if (ajouteActivite.isOk()) {// Si l'activité ajouté

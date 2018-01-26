@@ -67,7 +67,7 @@
 
 				<div class="row">
 					<div class="col-sm-3">
-						<form method="post" action="/waydplace/Frontal" id="formulaire"
+						<form method="post" action="/waydplace/FrontalGestionnaire" id="formulaire"
 							class="form-inline">
 							<div class="form-group">
 								<label for="idEtatActivite">Status:</label> <select
@@ -88,7 +88,7 @@
 
 							</div>
 							<input type="hidden" name='action'
-								value='<%=ActionPage.REFRESH_MES_ACTIVITE_MEMBRES%>'>
+								value='<%=ActionPage.REFRESH_MES_ACTIVITE_GESTIONNAIRE%>'>
 						</form>
 					</div>
 

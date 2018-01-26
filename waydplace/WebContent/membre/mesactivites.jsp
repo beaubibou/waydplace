@@ -113,6 +113,7 @@
 
 					<td><%=activite.getAdpaterListHtml()%> 
 					<%=activite.getPanelActionGestionHtml()%>
+					
 					</td>
 
 

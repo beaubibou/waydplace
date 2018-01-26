@@ -1,7 +1,11 @@
 package bean;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
@@ -81,6 +85,7 @@ public class Activite {
 
 		if (isTerminee())
 			return "";
+		
 		String lienEffaceActivite = "/waydplace/Frontal?action="
 				+ ActionPage.EFFACE_ACTIVITE_MEMBRE + "&idactivite=" + id;
 		String lienModifierActivite = "/waydplace/Frontal?action="
@@ -104,7 +109,8 @@ public class Activite {
 		if (isOrganistateur(profil.getUID()))
 			return "";
 
-		LOG.info("type orga"+id_ref_type_organisateur);
+		if (isTerminee())
+			return "";
 	
 		if (id_ref_type_organisateur==Parametres.TYPE_ORGANISATEUR_SITE)
 			return "";
@@ -114,6 +120,7 @@ public class Activite {
 				+ "&uid_emetteur=" + profil.getUID() + "&idactivite=" + id
 				+ "&uid_destinataire=" + uidEmetteur;
 
+	
 		return "<p align='right'><a href='"
 				+ lienEnvoiMessage
 				+ "' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-envelope'></span></a></p>";
@@ -124,7 +131,7 @@ public class Activite {
 
 		switch (id_ref_type_organisateur) {
 		
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 		
 			String lienDetailParticipant = "/waydplace/Frontal?action="
 					+ ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE
@@ -132,21 +139,20 @@ public class Activite {
 
 			return "<div class='clearfix'><a href='" + lienDetailParticipant
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite' style='width: 10%;' ></a>"
+					+ "'  class='pull-left marge-droite' style='width: 20%;' ></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
 					+ libelle + "</h4></div>" + "<h6 align='right'>"
 					+ getHoraireLigne() + "</h6>";
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+		case Parametres.TYPE_ORGANISATEUR_SITE:
 			
-			LOG.info("recheche dans site");
 			String lienDetailSite = "/waydplace/Frontal?action="
 					+ ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE
 					+ "&idmembre=" + getUid_membre();
 
 			return "<div class='clearfix'><a href='" + lienDetailSite
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite' style='width: 10%;'></a>"
+					+ "'  class='pull-left marge-droite' style='width: 20%;'></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
 					+ libelle + "</h4></div>" + "<h6 align='right'>"
 					+ getHoraireLigne() + "</h6>";
@@ -161,6 +167,8 @@ public class Activite {
 		
 
 	}
+
+	
 
 	public String getTypeUserLienHTML(String lien) {
 
@@ -183,16 +191,15 @@ public class Activite {
 	public String getURLPhoto() {
 
 		
-		
 		switch (id_ref_type_organisateur) {
 	
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 		if (photoOrganisateur == null)
 				return "/waydplace/img/inconnu.jpg";
 			else
 				return Outils.getUrlPhoto(photoOrganisateur);
 
-		case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+		case Parametres.TYPE_ORGANISATEUR_SITE:
 			
 			if (photoSite == null)
 				return "/waydplace/img/inconnu.jpg";
@@ -359,6 +366,16 @@ public class Activite {
 
 	public void setDatedebut(Date datedebut) {
 		this.datedebut = datedebut;
+	}
+	
+public String getDetailEnteteMembreHtml(){
+		
+		
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' style='width: 40%;'>"+
+	"<h2 style='margin-top: 0px'>"+titre +"</h2>"+
+	"<h4 >"+getHoraireLigne()+"</h4>"+
+	"<h5 >"+getLibelle()+"</h5></div>";
+		
 	}
 
 }

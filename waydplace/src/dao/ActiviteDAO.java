@@ -44,7 +44,7 @@ public class ActiviteDAO {
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setInt(1,
-					Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+					Parametres.TYPE_ORGANISATEUR_SITE);
 			preparedStatement.setInt(2, idSite);
 			rs = preparedStatement.executeQuery();
 
@@ -116,7 +116,7 @@ public class ActiviteDAO {
 
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setInt(1,
-						Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+						Parametres.TYPE_ORGANISATEUR_SITE);
 				preparedStatement.setInt(2, idSite);
 				preparedStatement.setTimestamp(3, new java.sql.Timestamp(
 						new Date().getTime()));
@@ -147,7 +147,7 @@ public class ActiviteDAO {
 
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setInt(1,
-						Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+						Parametres.TYPE_ORGANISATEUR_SITE);
 				preparedStatement.setInt(2, idSite);
 
 				preparedStatement.setTimestamp(3, new java.sql.Timestamp(
@@ -178,7 +178,7 @@ public class ActiviteDAO {
 						+ "ORDER BY date_debut DESC";
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setInt(1,
-						Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+						Parametres.TYPE_ORGANISATEUR_SITE);
 				preparedStatement.setInt(2, idSite);
 
 				rs = preparedStatement.executeQuery();
@@ -206,7 +206,7 @@ public class ActiviteDAO {
 
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setInt(1,
-						Parametres.ID_REF_TYPE_ORGANISATEUR_SITE);
+						Parametres.TYPE_ORGANISATEUR_SITE);
 				preparedStatement.setInt(2, idSite);
 
 				preparedStatement.setTimestamp(3, new java.sql.Timestamp(
@@ -351,11 +351,13 @@ public class ActiviteDAO {
 						+ "activite.titre," + "activite.libelle,"
 						+ "activite.date_creation,"
 						+ "activite.id_ref_type_activite,"
-						+ "activite.uid_membre,site"
+						+ "activite.uid_membre,site,"
 						+ "membre.photo as photoOrganisateur,"
-						+ "membre.pseudo " + "from " + "activite,membre "
-						+ "WHERE " + "membre.uid = activite.uid_membre "
-						+ "and activite.uid_membre=? " + "and date_debut>? and site.id=membre.id_site "
+						+ "membre.pseudo " + "from activite,membre,site "
+						+ "WHERE membre.uid = activite.uid_membre "
+						+ "and activite.uid_membre=? "
+						+ "and date_debut>? "
+						+ "and site.id=membre.id_site "
 						+ "ORDER BY date_debut DESC";
 
 				preparedStatement = connexion.prepareStatement(requete);

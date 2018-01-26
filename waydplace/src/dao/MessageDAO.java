@@ -181,8 +181,10 @@ public class MessageDAO {
 		return retour;
 
 	}
+	
+	
 
-	public static ArrayList<MessageActivite> getMessages(String uid) {
+	public static ArrayList<MessageActivite> getAllMessages(String uidProprietaire) {
 		long debut = System.currentTimeMillis();
 
 		MessageActivite messageActivite = null;
@@ -194,10 +196,13 @@ public class MessageDAO {
 		try {
 			connexion = CxoPool.getConnection();
 			String requete = "SELECT uidemetteur, uiddestinataire, message, idactivite, date_creation,lu, id FROM boitereception "
-					+ "where  uiddestinataire=?";
+					+ "where  uiddestinataire=? union "
+					+ "SELECT uidemetteur, uiddestinataire, message, idactivite, date_creation,lu, id FROM boiteemission "
+					+ "where  uidemetteur=?";
 
 			preparedStatement = connexion.prepareStatement(requete);
-			preparedStatement.setString(1, uid);
+			preparedStatement.setString(1, uidProprietaire);
+			preparedStatement.setString(2, uidProprietaire);
 			rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -209,8 +214,8 @@ public class MessageDAO {
 				String message = rs.getString("message");
 				Date dateCreation = rs.getTimestamp("date_creation");
 				boolean lu = rs.getBoolean("lu");
-				// messageActivite = new MessageActivite(id, idActivite,
-				// uidEmetteur, uidDestinataire, message, dateCreation, lu);
+				 messageActivite = new MessageActivite(id, idActivite,
+				 uidEmetteur, uidDestinataire, message, dateCreation, lu);
 				retour.add(messageActivite);
 
 			}

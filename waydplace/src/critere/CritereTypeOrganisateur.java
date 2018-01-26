@@ -6,7 +6,7 @@ public class CritereTypeOrganisateur {
 	private static final Logger LOG = Logger.getLogger(CritereTypeOrganisateur.class);
 	   
 
-	public static final String TEXT_TOUS = "TOUS";
+	public static final String TEXT_TOUS = "Tous";
 
 	public static final int TOUS = -1;
 

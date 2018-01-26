@@ -1,31 +1,80 @@
 package bean;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.apache.log4j.Logger;
+
 public class Discussion {
+	private static final Logger LOG = Logger.getLogger(Discussion.class);
 
 	int idActivite;
-	String titre;
+	String titreActivite;
+	int id;
+	HashMap<String, MembreDiscussion> membreDiscussion=new HashMap<String, MembreDiscussion>();
 	
-	public Discussion(int idActivite, String titre) {
+	public Discussion(int idActivite,String titreAString) {
 		super();
 		this.idActivite = idActivite;
-		this.titre = titre;
+		this.titreActivite="a ompemùenter";
 	}
 
+	public void addMembre(String uid,String photo,String pseudo){
+		LOG.info("+++++++++++addmmebre "+uid+" psed"+pseudo);
+		
+		MembreDiscussion membre=new MembreDiscussion(uid,photo,pseudo);
+		membreDiscussion.put(uid, membre);
+	}
+	
 	public int getIdActivite() {
 		return idActivite;
 	}
 
+	
 	public void setIdActivite(int idActivite) {
 		this.idActivite = idActivite;
 	}
 
-	public String getTitre() {
-		return titre;
+	public String getTitreActivite() {
+		return titreActivite;
 	}
 
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public void setTitreActivite(String titreActivite) {
+		this.titreActivite = titreActivite;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public HashMap<String, MembreDiscussion> getMembreDiscussion() {
+		return membreDiscussion;
+	}
+
+	public void setMembreDiscussion(
+			HashMap<String, MembreDiscussion> membreDiscussion) {
+		this.membreDiscussion = membreDiscussion;
+	}
+
+	public String getDestinaireConversation2(String uidEmetteur) {
+		// Valable dans une discussion à 2
+		
+		for (MembreDiscussion membre:new ArrayList<MembreDiscussion>( membreDiscussion.values()))
+			LOG.info("membre disc"+membre.getUid());
+		
+		
+		for (MembreDiscussion membre:new ArrayList<MembreDiscussion>( membreDiscussion.values()))
+			if (!membre.getUid().equals(uidEmetteur))
+				return membre.getUid();
+		
+		return null;
+	}
+
+	
 	
 	
 	

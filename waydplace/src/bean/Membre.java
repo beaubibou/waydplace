@@ -21,15 +21,24 @@ public class Membre {
 	private Date date_naissance;
 	private String description;
 	private int id_ref_type_organisateur;
+	private int id_ref_genre;
 	private boolean anonyme;
 	
 	
+	public int getId_ref_genre() {
+		return id_ref_genre;
+	}
+
+	public void setId_ref_genre(int id_ref_genre) {
+		this.id_ref_genre = id_ref_genre;
+	}
+
 	public void setAnonyme(boolean anonyme) {
 		this.anonyme = anonyme;
 	}
 
 	public Membre(int id, String uid, Date date_creation, String photo,
-			String pseudo,String mail,int id_site,Date date_naissance,String description,int id_ref_type_organisateur) {
+			String pseudo,String mail,int id_site,Date date_naissance,String description,int id_ref_type_organisateur,int id_ref_genre) {
 		super();
 		this.id = id;
 		this.uid = uid;
@@ -41,6 +50,7 @@ public class Membre {
 		this.date_naissance=date_naissance;
 		this.description=description;
 		this.id_ref_type_organisateur=id_ref_type_organisateur;
+		this.id_ref_genre=id_ref_genre;
 	}
 	
 	public int getId_ref_type_organisateur() {
@@ -68,7 +78,7 @@ public class Membre {
 	public String getDetailEnteteMembreHtml(){
 		
 		
-		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite' style='width: 40%;'>"+
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' style='width: 40%;'>"+
 	"<h2 style='margin-top: 0px'>"+pseudo +"</h2>"+
 	"<h4 >"+getAge()+"</h4>"+
 	"<h5 >"+getSexe()+"</h5></div>";
@@ -157,12 +167,16 @@ public class Membre {
 
 	public boolean isAnonyme() {
 		// TODO Auto-generated method stub
-	LOG.info("id ref"+id_ref_type_organisateur);
-		
-		if (id_ref_type_organisateur==Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR)
+
+		if (id_ref_type_organisateur==Parametres.TYPE_ORGANISATEUR_VISITEUR)
 			return true;
 		
 		return false;
+	}
+
+	public int getIdGenre() {
+		// TODO Auto-generated method stub
+		return id_ref_genre;
 	}
 	
 	

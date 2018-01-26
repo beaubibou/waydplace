@@ -1,4 +1,5 @@
 
+<%@page import="parametre.Parametres"%>
 <%@page import="bean.Membre"%>
 <%@page import="bean.Profil"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -33,7 +34,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+	type="text/css">
 
 <script type="text/javascript">
 	var lastIndex = 0;
@@ -56,15 +58,34 @@
 
 	<%
 	
+	Profil profil = (Profil) request.getSession().getAttribute("profil");
+	
 			Membre membre = (Membre) request.getAttribute("membre");
 		
 	%>
 
-	<%@ include file="menuMembre.jsp"%>
+	<%if (profil.getTypeOrganisteur()==Parametres.TYPE_ORGANISATEUR_MEMBRE){ %>
+	
+	<%@ include file="/membre/menuMembre.jsp"%>
+	
+	<%} %>
+	
+	<%if (profil.getTypeOrganisteur()==Parametres.TYPE_ORGANISATEUR_VISITEUR){ %>
+	
+	<%@ include file="/membre/menuMembre.jsp"%>
+	
+	<%} %>
+	
+	
+	<%if (profil.getTypeOrganisteur()==Parametres.TYPE_ORGANISATEUR_SITE){ %>
+	<%@ include file="/membre/menuMembre.jsp"%>
+
+	<%} %>
 
 	<div class="container margedebut ">
 
-		<div id="loginbox""
+		<div id="loginbox"
+			"
 			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
@@ -75,19 +96,19 @@
 
 				<div style="padding-top: 30px" class="panel-body">
 
-					
+
 					<div class="form-group">
 
 						<div class="row">
 							<div class='col-sm-12'>
 
-									<%=membre.getDetailEnteteMembreHtml() %>
+								<%=membre.getDetailEnteteMembreHtml() %>
 
-					
+
 
 							</div>
 
-						
+
 
 						</div>
 
@@ -98,12 +119,12 @@
 							name="description"><%=membre.getDescription()%></textarea>
 					</div>
 
-					
+
 				</div>
 			</div>
 		</div>
 
 	</div>
-	
+
 </body>
 </html>

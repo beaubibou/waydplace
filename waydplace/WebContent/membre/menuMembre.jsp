@@ -30,10 +30,8 @@
 				<%=MenuMembre.get_LI_GERER((Profil) session
 					.getAttribute("profil"))%>
 
-
-				<li><a
-					href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE%>">Proposer
-				</a></li>
+				<%=MenuMembre.get_LI_PROPOSE((Profil) session.getAttribute("profil"))%>
+				
 				<li><a
 					href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>">Rechercher
 				</a></li>

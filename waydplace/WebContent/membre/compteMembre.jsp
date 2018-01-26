@@ -1,4 +1,7 @@
 
+<%@page import="outils.Outils"%>
+<%@page import="bean.RefTypeGenre"%>
+<%@page import="dao.CacheDAO"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="bean.Profil"%>
 <%@page import="text.pageweb.CompteMembre"%>
@@ -55,112 +58,116 @@
 
 					<div class="form-group">
 						<div class="row">
+					
+								<div class="col-sm-8">
+									<%=profil.getMembre().getDetailEnteteMembreHtml()%>
 
-							<div class="col-sm-8">
-								<a href="#" class="btn btn-danger btn-sm"> <span
-									class="glyphicon glyphicon-remove"></span>
-								</a>
-								<%=profil.getMembre().getDetailEnteteMembreHtml()%>
 
-								<form
-									action="/waydplace/Frontal?action=<%=ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE%>"
-									method="post" enctype="multipart/form-data"
-									onsubmit="return valideFichier()">
+									<form
+										action="/waydplace/Frontal?action=<%=ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE%>"
+										method="post" enctype="multipart/form-data"
+										onsubmit="return valideFichier()">
 
-							</br>
-									<div class="container">
-										<div class="btn-group">
-										<label
-												class="btn btn-default btn-file btn-primary btn-sm"> .. <input
-												name="file" size="50" type="file" style="display: none;">
-											</label>
-											<input type="submit" value="Envoyer la photo"
-												class="btn btn-primary btn-sm  " /> <a href="#"
-												class="btn btn-primary btn-sm">Mot de passe </a> 
-												
+										</br>
+										<div class="container">
+											<div class="btn-group">
+												<label class="btn btn-default btn-file btn-primary btn-sm">
+													.. <input name="file" size="50" type="file"
+													style="display: none;">
+												</label> <input type="submit" value="Envoyer la photo"
+													class="btn btn-primary btn-sm  " /> 
+													<a href='/waydplace/Frontal?action=<%=ActionPage.SUPPRIMER_PHOTO_MEMBRE %>' class='btn btn-danger btn-sm'>
+													 <span	class="glyphicon glyphicon-remove"></span></a> 
+													<a href="#"	class="btn btn-info btn-sm"> <span
+													class="glyphicon glyphicon-lock"></span></a> 
+												</a>
+
+											</div>
 										</div>
-									</div>
 
-								</form>
+									</form>
 
 
+								</div>
 							</div>
+
 						</div>
 
+
+						<form action="/waydplace/Frontal" method="post"
+							onsubmit="return valideFormulaire()">
+
+							<input name="action" type="hidden"
+								value=<%=ActionPage.MODIFIER_COMPTE_MEMBRE%>>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6">
+
+										<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
+											type="text" class="form-control" id="nom"
+											placeholder="<%=CompteMembre.getHintNomSociete()%>"
+											maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
+											required value="<%=profil.getPseudo()%>">
+									</div>
+									<div class="col-sm-6">
+
+										<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
+										<div class='input-group date' id='datenaissance'>
+											<input type='text' class="form-control" id="datenaissance"
+												name="datenaissance" /> <span class="input-group-addon">
+												<span class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+
+
+						<div class="form-group">
+						<label for="typeUser">Genre</label> <select
+							data-style="btn-primary" class="form-control" id="typeGenre"
+							name="typeGenre">
+
+							<%
+								for (RefTypeGenre critereGenre:CacheDAO.getListGenre()) {
+							%>
+							<option value="<%=critereGenre.getId()%>"
+								<%=Outils.jspAdapterListSelected(critereGenre.getId(), profil.getIdGenre())%>>
+								<%=critereGenre.getLibelle()%></option>
+							<%
+								}
+							%>
+
+						</select>
 					</div>
 
-
-					<form action="/waydplace/Frontal" method="post"
-						onsubmit="return valideFormulaire()">
-
-						<input name="action" type="hidden"
-							value=<%=ActionPage.MODIFIER_COMPTE_MEMBRE%>>
-
-						<div class="form-group">
-							<div class="row">
-								<div class="col-sm-6">
-
-									<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
-										type="text" class="form-control" id="nom"
-										placeholder="<%=CompteMembre.getHintNomSociete()%>"
-										maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
-										required value="<%=profil.getPseudo()%>">
-								</div>
-								<div class="col-sm-6">
-
-									<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
-									<div class='input-group date' id='datenaissance'>
-										<input type='text' class="form-control" id="datenaissance"
-											name="datenaissance" /> <span class="input-group-addon">
-											<span class="glyphicon glyphicon-calendar"></span>
-										</span>
-									</div>
-
-								</div>
-
-
+							<div class="form-group">
+								<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
+								<textarea class="form-control" rows="5" id="description"
+									name="commentaire"
+									placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
+									maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=profil.getDescription()%></textarea>
 							</div>
-						</div>
 
+							<h5 class="nbrcaracteremax" id="nbr">
+								0 Caractére
+								<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+							</h5>
 
-						<div class="form-group">
-							<div class="row">
-								<div class="col-sm-6">
+							<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
 
-									<label for="nom"><%=CompteMembre.GENRE%></label> <input
-										type="text" class="form-control" id="nom"
-										placeholder="<%=CompteMembre.getHintNomSociete()%>"
-										maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
-										required value="<%=profil.getPseudo()%>">
-								</div>
+						</form>
 
-
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
-							<textarea class="form-control" rows="5" id="description"
-								name="commentaire"
-								placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
-								maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=profil.getDescription()%></textarea>
-						</div>
-
-						<h5 class="nbrcaracteremax" id="nbr">
-							0 Caractére
-							<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-						</h5>
-
-						<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
-
-					</form>
-
+					</div>
 				</div>
 			</div>
-		</div>
 
 
-		<script>
+			<script>
 	
 	function valideFichier(){
 		
@@ -178,7 +185,7 @@
 	
 	</script>
 
-		<script>
+			<script>
 	
 		
 		$('#datenaissance').datetimepicker({
@@ -196,21 +203,21 @@
 				//alert(nombreCaractere);
 
 				var msg = nombreCaractere +
-				'/ <%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>';
-													$('#nbr').text(msg);
-													// Le script qui devra calculer et afficher le nombre de mots et de caractères
+				'/'+<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>;
+														$('#nbr').text(msg);
+														// Le script qui devra calculer et afficher le nombre de mots et de caractères
 
-												})
+													})
 
-							});
+								});
 
-			// Init le nombre de caraterces	
-			var nombreCaractere = $('#description').val().length;
-			var msg = nombreCaractere + "/"
-					+
-		<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-			;
-			$('#nbr').text(msg);
-		</script>
+				// Init le nombre de caraterces	
+				var nombreCaractere = $('#description').val().length;
+				var msg = nombreCaractere + "/"
+						+
+			<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+				;
+				$('#nbr').text(msg);
+			</script>
 </body>
 </html>

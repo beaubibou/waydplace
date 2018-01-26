@@ -121,10 +121,8 @@ public class FrontalGestionnaire extends HttpServlet {
 			MessageAction modifierSite = modifierSite(request, profil);
 			if (modifierSite.isOk()) {
 
-				LOG.info(modifierSite.getMessage());
 				response.sendRedirect("gestionnaire/site.jsp");
 			} else {
-				LOG.info(modifierSite.getMessage());
 				redirectionErreur(modifierSite, request, response);
 			}
 			break;
@@ -203,6 +201,16 @@ public class FrontalGestionnaire extends HttpServlet {
 			}
 
 			break;
+			
+		case ActionPage.REFRESH_MES_ACTIVITE_GESTIONNAIRE:
+
+			MessageAction updateFiltreRecherche = updateFiltreRecherche(
+					request, profil);
+			if (updateFiltreRecherche.isOk()) {
+				response.sendRedirect("gestionnaire/mesactivites.jsp");
+			}
+			break;
+
 
 		case ActionPage.AJOUTER_ACTIVITE_GESTIONNAIRE:
 
@@ -211,7 +219,6 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			if (ajouteActiviteMembre.isOk()) {
 
-				LOG.info(ajouteActiviteMembre.getMessage());
 				response.sendRedirect("gestionnaire/mesactivites.jsp");
 
 			} else {
@@ -227,13 +234,11 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			if (ajoutePlusieursActiviteMembre.isOk()) {
 
-				LOG.info(ajoutePlusieursActiviteMembre.getMessage());
-				response.sendRedirect("gestionnaire/mesactivites.jsp");
+					response.sendRedirect("gestionnaire/mesactivites.jsp");
 
 			} else {
 
-			}	LOG.info("modifie DAO" + profil.getIdSite());
-			
+			}	
 
 			break;
 
@@ -243,7 +248,6 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			if (effaceActivite.isOk()) {
 
-				LOG.info(effaceActivite.getMessage());
 				response.sendRedirect("gestionnaire/mesactivites.jsp");
 
 			} else {
@@ -256,12 +260,27 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			MessageAction chargePhotoMembre = chargePhotoSite(request, profil);
 
+			if (chargePhotoMembre.isOk()){
+				
+				response.sendRedirect("gestionnaire/site.jsp");	
+			}
+			else{
+				
+				redirectionErreur(chargePhotoMembre.getMessage(), request, response);
+			}
+			
 			break;
 
 		default:
 
 		}
 
+	}
+
+	private void redirectionErreur(String message, HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private MessageAction chargePhotoSite(HttpServletRequest request,
@@ -297,7 +316,7 @@ public class FrontalGestionnaire extends HttpServlet {
 								stringPhoto, profil.getIdSite());
 
 						if (updatePhoto.isOk()) {
-							profil.setPhotostr(stringPhoto);
+							profil.setSitePhotostr(stringPhoto);
 							return new MessageAction(true, "");
 						} else {
 
@@ -522,7 +541,7 @@ public class FrontalGestionnaire extends HttpServlet {
 		if (vpAjouteActivite.isOk()) {// Verification des parametres
 
 			ajouteActivites(profil.getIdSite(),
-					Parametres.ID_REF_TYPE_ORGANISATEUR_SITE, dateDebut,
+					Parametres.TYPE_ORGANISATEUR_SITE, dateDebut,
 					dateFin, titre, libelle, profil.getUID(),
 					id_ref_type_activite, joursVoulus, duree);
 
@@ -557,8 +576,7 @@ public class FrontalGestionnaire extends HttpServlet {
 				calFin.setTime(dateDebut);
 				calFin.add(Calendar.MINUTE, duree);
 				calFin.add(Calendar.DAY_OF_MONTH, f);
-				LOG.info(calFin.getTime());
-
+		
 				ActiviteDAO.AjouteActivite(idSite, id_ref_type_organisateur,
 						calDebut.getTime(), calFin.getTime(), titre, libelle,
 						uid, id_ref_type_activite);
@@ -745,7 +763,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			MessageAction ajouteActivite = ActiviteDAO.AjouteActivite(
 					profil.getIdSite(),
-					Parametres.ID_REF_TYPE_ORGANISATEUR_SITE, dateDebut,
+					Parametres.TYPE_ORGANISATEUR_SITE, dateDebut,
 					dateFin, titre, libelle, profil.getUID(),
 					id_ref_type_activite);
 

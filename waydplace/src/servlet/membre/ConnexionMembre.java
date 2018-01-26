@@ -138,8 +138,7 @@ public class ConnexionMembre extends HttpServlet {
 
 		super.init();
 
-		LOG.info("Demarrage serveur");
-
+	
 		if (FirebaseApp.getApps().isEmpty())
 			FirebaseApp.initializeApp(optionFireBase);
 
@@ -182,16 +181,16 @@ public class ConnexionMembre extends HttpServlet {
 				
 			switch (profil.getTypeOrganisteur()) {
 			
-			case Parametres.ID_REF_TYPE_ORGANISATEUR_MEMBRE:
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 				response.sendRedirect("membre/ecranPrincipal.jsp");
 			break;
 
-			case Parametres.ID_REF_TYPE_ORGANISATEUR_SITE:
+			case Parametres.TYPE_ORGANISATEUR_SITE:
 				response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
 				
 				break;
 
-			case Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR:
+			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
 				response.sendRedirect("membre/ecranPrincipal.jsp");
 					break;
 			
@@ -236,12 +235,11 @@ public class ConnexionMembre extends HttpServlet {
 		
 		
 		
-		LOG.info(jetonSite + ":" + tokenFireBase);
-
+	
 		Membre membre;
 		if (tokenFireBase.equals("anonyme")) {
 
-		membre=new Membre(0, "Visiteur", null, null, "Visiteur", null, site.getId(), null, "Visiteur", Parametres.ID_REF_TYPE_ORGANISATEUR_VISITEUR);
+		membre=new Membre(0, "Visiteur", null, null, "Visiteur", null, site.getId(), null, "Visiteur", Parametres.TYPE_ORGANISATEUR_VISITEUR,3);
 			
 		} else {
 

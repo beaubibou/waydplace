@@ -43,7 +43,7 @@
 				<div style="padding-top: 30px" class="panel-body">
 
 					<div class="row">
-						<div class="col-sm-6 col-sm-offset-5">
+						<div class="col-sm-4 col-sm-offset-4">
 
 							<a
 								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE%>"
@@ -55,7 +55,7 @@
 					<br>
 
 					<div class="row">
-						<div class="col-sm-6  col-sm-offset-5 ">
+						<div class="col-sm-4  col-sm-offset-4 ">
 							<a
 								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>"
 								class="btn btn-info" role="button">Rechercher</a>
@@ -66,7 +66,7 @@
 					<br>
 
 					<div class="row">
-						<div class="col-sm-6  col-sm-offset-5 ">
+						<div class="col-sm-4  col-sm-offset-4 ">
 							<a
 								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_MES_ACTIVITES_MEMBRE%>"
 								class="btn btn-info" role="button">Mes activites</a>
@@ -75,12 +75,14 @@
 					</div>
 					
 						<div class="row">
-						<div class="col-sm-6  col-sm-offset-5 ">
+					
+					
+						<div  class="col-sm-4 col-sm-offset-4">
 							<a
 								href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_COMPTE_MEMBRE%>"
 								class="btn btn-info" role="button">Mon profil</a>
 						</div>
-
+				
 					</div>
 
 				</div>

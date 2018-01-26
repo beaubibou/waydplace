@@ -1,5 +1,6 @@
 
 
+<%@page import="bean.BoiteReception"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="bean.Discussion"%>
 <%@page import="dao.MessageDAO"%>
@@ -51,13 +52,15 @@
 				.getAttribute("profil");
 		ArrayList<Discussion> listMesDiscussion = MessageDAO
 				.getDiscussions(profil.getUID());
-		
-	HashMap<String,String> photo=	MessageDAO.getPhotoMessages(profil.getUID());
-		
-		
+
+		HashMap<String, String> photo = MessageDAO.getPhotoMessages(profil
+				.getUID());
+
+		BoiteReception boiteReception = new BoiteReception(profil);
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
+
 
 
 	<div class="container" style='margin-top: 120px;'>
@@ -67,27 +70,28 @@
 			<tbody>
 
 				<%
-					for (Discussion discussion : listMesDiscussion) {
+					for (Discussion discussion : boiteReception.getMesDiscussion()) {
 				%>
 				<tr>
 					<td><div class="container">
 
+							<img src='<%=boiteReception.getPhotoInterlocteur(discussion)%>'>
 							<button type="button" class="btn btn-info" data-toggle="collapse"
-								data-target="#<%=discussion.getIdActivite()%>"><%=discussion.getTitre()%></button>
+								data-target="#<%=discussion.getIdActivite()%>"><%=discussion.getTitreActivite()%></button>
 							<div id="<%=discussion.getIdActivite()%>" class="collapse">
 								<div class="container">
 									<table class="table">
 										<%
-											for (MessageActivite messageActivite : MessageDAO
-														.getListMessageDiscussion(discussion.getIdActivite(),
-																profil.getUID())) {
+											for (MessageActivite messageActivite : boiteReception
+														.getMessageDiscussionEntre2ByActivite(discussion)) {
 										%>
 										<tbody>
 											<tr>
-											
-											<%=messageActivite.getMessageHtlm(profil,photo.get(messageActivite.getUidEmetteur()))%>
-											<td><%=MessageActivite.getLienReponse(profil,messageActivite.getIdActivite(),messageActivite.getUidEmetteur()) %>
-											</td>
+
+												<%=messageActivite.getMessageHtlm()%>
+												<td><%=MessageActivite.getLienReponse(profil,
+							messageActivite.getIdActivite(),
+							messageActivite.getUidEmetteur())%></td>
 											</tr>
 											<%
 												}
@@ -95,7 +99,7 @@
 
 										</tbody>
 									</table>
-									
+
 								</div>
 
 							</div>
@@ -111,8 +115,6 @@
 			</tbody>
 		</table>
 	</div>
-
-
 
 
 </body>
