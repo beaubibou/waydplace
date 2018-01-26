@@ -51,6 +51,8 @@
 			<input id="token" type="hidden" class="form-control" name="tokenFireBase">
 		<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
 		</form>
+		
+		<a href='/waydplace/CreationCompte?action=<%=ActionPage.REDIRECTION_CREATION_COMPTE_PRO %>'><p>Compte Pro</p></a>
 
 		<a id="btn_googl"  onclick="signInGoogle()" class="btn btn-primary">Login
 			with Google</a>
@@ -67,6 +69,8 @@
 			
 			<a id="btn_googl"  onclick="signInTestAnonyme()" class="btn btn-primary">Anonyme
 			</a>
+				
+				
 				
 	</div>
 	

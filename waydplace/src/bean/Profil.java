@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
@@ -109,5 +111,13 @@ public class Profil {
 	}
 	public void setIdGenre(int idGenre){
 		membre.setId_ref_genre(idGenre);
+	}
+	
+	public DateTime getDateNaissance(){
+		return new DateTime(membre.getDate_naissance().getTime());
+	}
+	public void setDateNaissance(Date dateNaissance) {
+		// TODO Auto-generated method stub
+		membre.setDate_naissance(dateNaissance);
 	}
 }

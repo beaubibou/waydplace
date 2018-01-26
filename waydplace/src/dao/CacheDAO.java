@@ -264,4 +264,14 @@ public class CacheDAO {
 
 		return listCritereEtatActivite;
 	}
+
+	public static String getLibelleGenre(int id_ref_genre) {
+		// TODO Auto-generated method stub
+		for (RefTypeGenre genre:listRefGenre){
+			if (genre.getId()==id_ref_genre)
+				return genre.getLibelle();
+			
+		}
+		return "Non communiqué";
+	}
 }

@@ -1,7 +1,5 @@
 package critere;
 
-import java.util.Date;
-
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
@@ -13,12 +11,10 @@ public class FiltreRecherche {
 	int typeActivite=0;
 	private String motCle="";
 	
-	int CritereRechercheEtatMesActivite=CritereEtatActivite.TOUTES;
-	
+	int CritereRechercheEtatMesActivite=CritereEtatActivite.ENCOURS;
 	int CritereRechercheEtatActivite=CritereEtatActivite.TOUTES;
 	int critereTypeActivite=CritereTypeActivite.TOUS;
 	int critereTypeorganisateur=CritereTypeOrganisateur.TOUS;
-
 	private DateTime critereDateFinCreation;
 	private DateTime critereDateDebutCreation;
 	
@@ -107,9 +103,6 @@ public class FiltreRecherche {
 	public DateTime getCritereDateDebutCreation() {
 		return critereDateDebutCreation;
 	}
-
-
-
 
 
 	public void setCritereDateDebutCreation(DateTime critereDateDebutCreation) {

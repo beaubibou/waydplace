@@ -82,12 +82,9 @@
 
 	<%} %>
 
-	<div class="container margedebut ">
-
-		<div id="loginbox"
-			"
-			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+	<div class="container margedebut">
 			<div class="panel panel-default">
+	
 				<div class="panel-heading panel-heading-custom">
 
 					<div class="panel-title">Profil</div>

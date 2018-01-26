@@ -40,7 +40,6 @@
 	%>
 	<%@include file="menuMembre.jsp"%>
 	<div class="container margedebut">
-		<div id="loginbox" class="mainbox col-md-8 col-md-offset-2 col-sm-8">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
 					<div class="panel-title">Mon compte</div>
@@ -102,7 +101,7 @@
 
 							<div class="form-group">
 								<div class="row">
-									<div class="col-sm-6">
+									<div class="col-sm-4">
 
 										<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
 											type="text" class="form-control" id="nom"
@@ -110,7 +109,7 @@
 											maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
 											required value="<%=profil.getPseudo()%>">
 									</div>
-									<div class="col-sm-6">
+									<div class="col-sm-4">
 
 										<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
 										<div class='input-group date' id='datenaissance'>
@@ -121,14 +120,8 @@
 										</div>
 
 									</div>
-
-
-								</div>
-							</div>
-
-
-						<div class="form-group">
-						<label for="typeUser">Genre</label> <select
+									<div class="col-sm-4">
+							<label for="typeUser">Genre</label> <select
 							data-style="btn-primary" class="form-control" id="typeGenre"
 							name="typeGenre">
 
@@ -143,6 +136,17 @@
 							%>
 
 						</select>
+							
+									</div>
+									
+
+
+								</div>
+							</div>
+
+
+						<div class="form-group">
+						
 					</div>
 
 							<div class="form-group">
@@ -169,6 +173,13 @@
 
 			<script>
 	
+			$('#datenaissance').datetimepicker({
+				defaultDate : new Date(<%=profil.getDateNaissance().getYear()%>,<%=profil.getDateNaissance().getMonthOfYear()-1%>,<%=profil.getDateNaissance().getDayOfMonth()%>),
+				format : 'DD/MM/YYYY'
+
+			});
+
+			
 	function valideFichier(){
 		
 		var monfichier;

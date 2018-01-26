@@ -130,7 +130,7 @@ public class MembreDAO {
 	}
 
 	public static MessageAction modifieCompteMembre(String pseudo,
-			String description,String uid,int idTypeGenre) {
+			String description,String uid,int idTypeGenre,Date dateNaissance) {
 		
 
 			long debut = System.currentTimeMillis();
@@ -140,14 +140,14 @@ public class MembreDAO {
 			try {
 				connexion = CxoPool.getConnection();
 				connexion.setAutoCommit(false);
-				String requete = "UPDATE  membre set pseudo=?, description=?,id_ref_genre=? WHERE uid=?";
+				String requete = "UPDATE  membre set pseudo=?, description=?,id_ref_genre=?,date_naissance=? WHERE uid=?";
 				preparedStatement = connexion.prepareStatement(requete);
 				preparedStatement.setString(1, pseudo);
 				preparedStatement.setString(2, description);
 				preparedStatement.setInt(3, idTypeGenre);
-				preparedStatement.setString(4, uid);
-					
-				
+				preparedStatement.setTimestamp(4,new java.sql.Timestamp(
+						dateNaissance.getTime()));
+				preparedStatement.setString(5, uid);
 				preparedStatement.execute();
 				preparedStatement.close();
 				connexion.commit();

@@ -30,9 +30,6 @@ public class ActionPage {
 	
 	
 	
-	
-	
-	
 	public static final String DECONNEXION_MEMBRE = "deconnexionMembre";
 	
 
@@ -57,6 +54,10 @@ public class ActionPage {
 	public static final String MODIFIER_SITE_GESTIONNAIRE = "modifierSiteGetionnaire";
 	public static final String DECONNEXION_GESTIONNAIRE = "deconnexionGetionnaire";
 		
+	public static final String REDIRECTION_CREATION_COMPTE_PRO = "redirectionCreationComptePro";
+	public static final String CREER_COMPTE_PRO = "creerComptePro";
+	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
+
 	
 	
 	

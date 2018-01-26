@@ -18,6 +18,15 @@ public class Outils {
 
 		return caldate.getTime();
 	}
+	public static String convertRequeteToString(Object requetAttribute) {
+
+		if (requetAttribute == null)
+			return "";
+		else
+
+			return ((String) requetAttribute);
+
+	}
 	
 	public static String getUrlPhoto(String photo) {
 

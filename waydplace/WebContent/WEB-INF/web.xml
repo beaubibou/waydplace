@@ -34,4 +34,14 @@
     <servlet-name>FrontalGestionnaire</servlet-name>
     <url-pattern>/FrontalGestionnaire</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreationCompte</display-name>
+    <servlet-name>CreationCompte</servlet-name>
+    <servlet-class>servlet.membre.CreationCompte</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreationCompte</servlet-name>
+    <url-pattern>/CreationCompte</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -5,6 +5,7 @@ import java.util.Date;
 import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
 
+import dao.CacheDAO;
 import outils.Outils;
 import parametre.ActionPage;
 import parametre.Parametres;
@@ -96,7 +97,7 @@ public class Membre {
 
 	private String getSexe() {
 	
-		return "Masculin";
+		return CacheDAO.getLibelleGenre(id_ref_genre);
 	}
 
 	public void setDescription(String description) {

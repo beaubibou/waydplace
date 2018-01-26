@@ -63,10 +63,7 @@
 
 <%@ include file="menuGestionnaire.jsp"%>
 
-
-	<div class="container">
-		<div id="loginbox"
-			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
+<div class="container margedebut">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
 					<div class="panel-title">Modifier</div>
@@ -78,8 +75,8 @@
 					<form action="/waydplace/FrontalGestionnaire"
 						onsubmit="return valideFormulaire()" method="post">
 		
-				<input  name="action" type="text"  value=<%=ActionPage.MODIFIER_ACTIVITE_GESTIONNAIRE %> >
-				<input  name="idactivite" type="text"  value=<%=activite.getId() %> >
+				<input  name="action" type="hidden"  value=<%=ActionPage.MODIFIER_ACTIVITE_GESTIONNAIRE %> >
+				<input  name="idactivite" type="hidden"  value=<%=activite.getId() %> >
 		
 
 						<div class="form-group" style="border-bottom: 1px solid #888;">
@@ -147,11 +144,11 @@
 
 						<div class="form-group">
 							<label for="description"><%=ProposeActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
-							<textarea value="<%=activite.getLibelle()%>"
+							<textarea row='12'
 								placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
 								maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
 								class="form-control" rows="5" id="description"
-								name="description"></textarea>
+								name="description"><%=activite.getLibelle()%></textarea>
 						</div>
 						<h5 class="nbrcaracteremax" id="nbr">
 

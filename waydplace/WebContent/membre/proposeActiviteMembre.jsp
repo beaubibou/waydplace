@@ -58,11 +58,9 @@
 	<%@ include file="menuMembre.jsp"%>
 
 
-	<div class="container" >
-		<div id="loginbox"
-			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
+	<div class="container margedebut">
 			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-custom">
+						<div class="panel-heading panel-heading-custom">
 					<div class="panel-title"><%=ProposeActiviteMembre.TITRE_PANEL%></div>
 				</div>
 

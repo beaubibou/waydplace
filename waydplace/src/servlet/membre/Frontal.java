@@ -260,7 +260,7 @@ public class Frontal extends HttpServlet {
 
 			if (modifierCompteMembre.isOk()) {
 
-				response.sendRedirect("membre/mesactivites.jsp");
+				response.sendRedirect("membre/compteMembre.jsp");
 			} else {
 				redirectionErreur(modifierCompteMembre);
 			}
@@ -499,6 +499,17 @@ public class Frontal extends HttpServlet {
 		String uid = request.getParameter("uid");
 		String idtypeGenreStr=request.getParameter("typeGenre");
 			
+		String datedebut = request.getParameter("datenaissance");
+		DateTime datenaissanceDT=null;
+		try {
+			 datenaissanceDT = getDateFromString(datedebut);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Date dateNaissance=datenaissanceDT.toDate();
+		
 		
 		MessageAction vpModifieCompte = vpModifieCompte(pseudo, description,
 				uid,idtypeGenreStr);
@@ -509,11 +520,12 @@ public class Frontal extends HttpServlet {
 		if (vpModifieCompte.isOk()) {
 
 			MessageAction modifieMembreDAO = MembreDAO.modifieCompteMembre(
-					pseudo, description, profil.getUID(),idTypeGenre);
+					pseudo, description, profil.getUID(),idTypeGenre,dateNaissance);
 			if (modifieMembreDAO.isOk()) {
 				profil.setPseudo(pseudo);
 				profil.setDescription(description);
 				profil.setIdGenre(idTypeGenre);
+				profil.setDateNaissance(dateNaissance);
 			
 				return new MessageAction(true, "");
 			} else

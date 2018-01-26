@@ -622,7 +622,7 @@ public class ActiviteDAO {
 					+ "activite.id_ref_type_activite," + "activite.uid_membre,"
 					+ "membre.photo as photoOrganisateur," + "membre.pseudo "
 					+ "from " + "activite,membre,site "
-					+ "WHERE activite.id=? and uid_membre=? and site.id=membre.id_site";
+					+ "WHERE activite.id=? and uid_membre=? and site.id=membre.id_site and activite.uid_membre=membre.uid ";
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setInt(1, idActivite);
@@ -645,7 +645,7 @@ public class ActiviteDAO {
 				String pseudoOrganisateur = rs.getString("pseudo");
 				String photoSite = rs.getString("photoSite");
 				String nomSite = rs.getString("nomSite");
-			
+					LOG.info("liiiiiii"+libelle);
 				activite = new Activite(titre, libelle, id, id_site,
 						photoOrganisateur, pseudoOrganisateur,
 						id_ref_type_organisateur, uid_membre, datefin,

@@ -139,7 +139,7 @@ public class Activite {
 
 			return "<div class='clearfix'><a href='" + lienDetailParticipant
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite' style='width: 20%;' ></a>"
+					+ "'  class='pull-left marge-droite' style='width: 10%;' ></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
 					+ libelle + "</h4></div>" + "<h6 align='right'>"
 					+ getHoraireLigne() + "</h6>";

@@ -19,12 +19,14 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-
+import com.google.firebase.auth.UserRecord;
+import com.google.firebase.auth.UserRecord.CreateRequest;
 import dao.MembreDAO;
 import dao.SiteDAO;
 import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
+import text.pageweb.Erreur_HTML;
 import bean.Membre;
 import bean.MessageAction;
 import bean.Profil;
@@ -206,20 +208,28 @@ public class ConnexionMembre extends HttpServlet {
 			}
 
 			break;
+			
+			
+		case ActionPage.REDIRECTION_CREATION_COMPTE_PRO:
+			response.sendRedirect("compte/CreationComptePro.jsp");
+			break;
+			
+		case ActionPage.CREER_COMPTE_PRO:
+		
+			MessageAction creerComptePro = creerComptePro(
+					request);
+
+			if (creerComptePro.isOk()) {
+			
+			
+			}
+			else{
+				
+			}
+
+			break;
 		}
-		// case ActionPage.CONNEXION_SITE_ADMIN:
-		//
-		// tokenFireBase = request.getParameter("tokenFireBase");
-		// jetonSite = request.getParameter("jetonSite");
-		// // connexionSite(tokenFireBase, jetonSite, request, response);
-		// connexionSite("ucpagestionnaire", jetonSite,
-		// request, response);
-		//
-		//
-		// response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
-		//
-		// break;
-		// }
+		
 	}
 
 	private MessageAction connexionSite(String tokenFireBase, String jetonSite,
@@ -231,10 +241,6 @@ public class ConnexionMembre extends HttpServlet {
 
 		if (site == null)
 			return new MessageAction(false, MessageText.JETON_SITE_INVALIDE);
-		
-		
-		
-		
 	
 		Membre membre;
 		if (tokenFireBase.equals("anonyme")) {
@@ -254,11 +260,7 @@ public class ConnexionMembre extends HttpServlet {
 			
 			return new MessageAction(true, "",profil);
 		}
-		
-		
-		
-		
-
+			
 		try {
 			
 			FirebaseToken token = FirebaseAuth.getInstance()
@@ -302,6 +304,59 @@ public class ConnexionMembre extends HttpServlet {
 		}
 
 		return new MessageAction(false, "Erreur_inconnue");
+
+	}
+	
+	private MessageAction creerComptePro(HttpServletRequest request) {
+	
+	
+		String pwd = request.getParameter("pwd");
+		String pwd1 = request.getParameter("pwd1");
+		String email = request.getParameter("email");
+		String pseudo = request.getParameter("nom");
+		String siret = request.getParameter("siret");
+		String telephone = request.getParameter("telephone");
+		String adresse = request.getParameter("adresse");
+		String commentaire = request.getParameter("commentaire");
+		String siteweb = request.getParameter("siteweb");
+	
+		MessageAction creerUserFireBase = creerUtilisateurFireBase(email,
+				pwd, pseudo);
+		
+		
+		return new MessageAction(true, "");
+		
+	}
+
+	private MessageAction creerUtilisateurFireBase(String email, String pwd,
+			String pseudo) {
+	
+		if (FirebaseApp.getApps().isEmpty())
+			FirebaseApp.initializeApp(optionFireBase);
+
+		CreateRequest nouveauUser = new CreateRequest().setEmail(email)
+				.setEmailVerified(false).setPassword(pwd).setDisabled(false)
+				.setDisplayName(pseudo);
+
+		try {
+
+			UserRecord userRecord = FirebaseAuth.getInstance()
+					.createUserAsync(nouveauUser).get();
+
+			return new MessageAction(true, userRecord.getUid());
+
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+
+			String s = ExceptionUtils.getStackTrace(e);
+			String erreur = "Erreur inconnue";
+
+			if (s.contains("EMAIL_EXISTS"))
+				erreur = Erreur_HTML.MAIL_EXISTE_DEJA;
+
+			return new MessageAction(false, erreur);
+
+		}
 
 	}
 }
