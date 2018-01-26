@@ -15,7 +15,8 @@ public class CreationCompteProText {
 	public static String HINT_MOT_DE_PASSE_BIS =CommunText.HINT_MOT_DE_PASSE_BIS ;
 	public static String HINT_SIRET=CommunText.HINT_SIRET;
 	public static String HINT_TELEPHONE=CommunText.HINT_TELEPHONE;
-		
+	public static String HINT_PSEUDO="Nom du gestionnaire";
+	
 	public static String TITRE_JUMBO = "Bienvenue dans l'interface WAYD";
 	public static String MESSAGE_JUMBO_LIGNE1 = "Proposez vos activités gratuites à la communauté. Une activité ne peut pas exéder 8 heures.";
 	public static String MESSAGE_JUMBO_LIGNE2 = "Vous pouvez planifier jusqu à 5 activités simultanément.";
@@ -23,7 +24,8 @@ public class CreationCompteProText {
 	public static String TITRE_PANEL = "Création du compte";
 	public static String TITRE_ONGLET = "Ajoutez une activité";
 
-	public static String LABEL_NOM = CommunText.LABEL_NOM;
+	public static String LABEL_NOM_SITE = "Nom du site";
+	public static String LABEL_NOM_GESTIONNAIRE= "Nom du gestionaire";
 	public static String LABEL_SITE_WEB = "Site Web";
 	public static String LABEL_NUMERO_SIRET = "Numéro SIRET *";
 	public static String LABEL_ADRESSE = "Adresse *";

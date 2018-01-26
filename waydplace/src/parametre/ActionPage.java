@@ -42,9 +42,6 @@ public class ActionPage {
 	public static final String REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE = "redirechercheractivite";
 	public static final String REDIRECTION_PLANING_GESTIONNAIRE = "planingGestionnaire";
 	public static final String CHARGE_PHOTO_SITE_GESTIONNAIRE = "chargePgotoSiteGestionnaire";
-
-	
-	
 	
 	public static final String AJOUTER_ACTIVITE_GESTIONNAIRE = "ajouterActiviteGesionnaire";
 	public static final String EFFACE_ACTIVITE_GESTIONNAIRE = "effaceActiviteGestionnaire";
@@ -53,7 +50,7 @@ public class ActionPage {
 	public static final String REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE = "refreshrechercheactivitegestionnaire";
 	public static final String MODIFIER_SITE_GESTIONNAIRE = "modifierSiteGetionnaire";
 	public static final String DECONNEXION_GESTIONNAIRE = "deconnexionGetionnaire";
-		
+	
 	public static final String REDIRECTION_CREATION_COMPTE_PRO = "redirectionCreationComptePro";
 	public static final String CREER_COMPTE_PRO = "creerComptePro";
 	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";

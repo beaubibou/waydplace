@@ -196,7 +196,6 @@ public class ConnexionMembre extends HttpServlet {
 				response.sendRedirect("membre/ecranPrincipal.jsp");
 					break;
 			
-			
 			default:
 				response.sendRedirect("erreur");
 				break;

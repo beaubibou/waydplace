@@ -1,4 +1,5 @@
 
+<%@page import="parametre.ActionPage"%>
 <%@page import="outils.Outils"%>
 <%@page import="text.pageweb.CreationCompteProText"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -66,7 +67,7 @@
 
 				<div style="padding-top: 30px" class="panel-body">
 
-					<form action="/waydplace/CreationCompte" method="post"
+					<form action="/waydplace/ConnexionMembre" method="post"
 						onsubmit="return valideFormulaire()">
 						<input  name="action" type="hidden"  value=<%=ActionPage.CREER_COMPTE_PRO %> >
 			
@@ -107,13 +108,20 @@
 							</div>
 
 							<div class="form-group">
-								<label for="nom"><%=CreationCompteProText.LABEL_NOM%></label> <input
+								<label for="nom"><%=CreationCompteProText.LABEL_NOM_GESTIONNAIRE%></label> <input
 									type="text"
 									maxlength="<%=CreationCompteProText.TAILLE_PSEUDO_MAX%>"
 									value="<%=pseudo%>" class="form-control" id="nom"
-									placeholder="<%=CreationCompteProText.getHintNomSociete()%>" name="nom" required>
+									placeholder="<%=CreationCompteProText.HINT_PSEUDO%>" name="nom" required>
 							</div>
 
+							<div class="form-group">
+								<label for="nom"><%=CreationCompteProText.LABEL_NOM_SITE%></label> <input
+									type="text"
+									maxlength="<%=CreationCompteProText.TAILLE_PSEUDO_MAX%>"
+									value="<%=nomSite%>" class="form-control" id="nomSite"
+									placeholder="<%=CreationCompteProText.getHintNomSociete()%>" name="nom" required>
+							</div>
 
 							<div class="form-group">
 								<label for="nom"><%=CreationCompteProText.LABEL_NUMERO_SIRET%></label>

@@ -81,7 +81,7 @@ public class CommunText {
 	
 	public static String getHintNomSociete() {
 
-		return "Pseudo de la structure " + TAILLE_PSEUDO_MAX
+		return "Nom du site " + TAILLE_PSEUDO_MAX
 				+ " caractères maximum";
 	}
 }
