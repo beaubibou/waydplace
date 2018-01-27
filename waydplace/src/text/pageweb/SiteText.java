@@ -27,7 +27,7 @@ public class SiteText {
 		
 		public static String HINT_DESCRIPTION_JETON="Créer le jeton qui sert à identifier le site";
 		
-		public static String LABEL_NOM = CommunText.LABEL_NOM;
+		public static String LABEL_NOM = "Nom du site";
 		
 		public static String LABEL_SITE_WEB = CommunText.LABEL_SITE_WEB;
 		public static String LABEL_NUMERO_SIRET = CommunText.LABEL_NUMERO_SIRET;

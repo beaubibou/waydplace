@@ -2,7 +2,7 @@ package parametre;
 
 public class ActionPage {
 
-	public static final String CONNEXION_SITE_MEMBRE="connexionsite";
+	public static final String CONNEXION_SITE_MEMBRE="connexionsitemembre";
 	public static final String CONNEXION_SITE_ADMIN="connexionadmin";
 
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_MEMBRE="proposerActiviteMembre";
@@ -54,6 +54,8 @@ public class ActionPage {
 	public static final String REDIRECTION_CREATION_COMPTE_PRO = "redirectionCreationComptePro";
 	public static final String CREER_COMPTE_PRO = "creerComptePro";
 	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
+	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
+	public static final String CONNEXION_SITE_MEMBRE_TEST = "connexionSiteTest";
 
 	
 	

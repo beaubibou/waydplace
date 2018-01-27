@@ -116,11 +116,11 @@
 							</div>
 
 							<div class="form-group">
-								<label for="nom"><%=CreationCompteProText.LABEL_NOM_SITE%></label> <input
+								<label for="nomSite"><%=CreationCompteProText.LABEL_NOM_SITE%></label> <input
 									type="text"
 									maxlength="<%=CreationCompteProText.TAILLE_PSEUDO_MAX%>"
 									value="<%=nomSite%>" class="form-control" id="nomSite"
-									placeholder="<%=CreationCompteProText.getHintNomSociete()%>" name="nom" required>
+									placeholder="<%=CreationCompteProText.getHintNomSociete()%>" name="nomSite" required>
 							</div>
 
 							<div class="form-group">
