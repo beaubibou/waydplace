@@ -109,6 +109,10 @@ public class PagerActivite {
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
 				break;
+				
+			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				break;
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
 				lien="/waydplace/FrontalGestionnaire?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
@@ -142,6 +146,10 @@ public class PagerActivite {
 			switch (profil.getTypeOrganisteur()) {
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				break;
+				
+			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
 				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
 				break;
 
