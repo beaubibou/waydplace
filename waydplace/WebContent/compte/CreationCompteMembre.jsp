@@ -105,11 +105,7 @@
 									placeholder="<%=CreationCompteProText.HINT_PSEUDO%>" name="nom" required>
 							</div>
 
-								
-
-							<h5 class="nbrcaracteremax" id="nbr">
-								0 Caractére sur <%=CreationCompteProText.TAILLE_DESCRIPTION_PROFIL_MAX%>
-							</h5>
+							
 							<div class="form-group">
 
 								<input type="hidden" class="form-control" id="latitude"

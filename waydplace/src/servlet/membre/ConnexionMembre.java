@@ -1,8 +1,12 @@
 package servlet.membre;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.servlet.ServletException;
@@ -12,6 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
 import com.google.auth.oauth2.GoogleCredentials;
@@ -28,6 +38,7 @@ import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
 import text.pageweb.Erreur_HTML;
+
 import bean.Membre;
 import bean.MessageAction;
 import bean.Profil;
@@ -44,6 +55,7 @@ public class ConnexionMembre extends HttpServlet {
 	public final static String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
 	public final static String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
 	public final static String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
+	private final String CLE_CAPTCHA="6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
 	static {
 		boolean chargement = false;
@@ -87,7 +99,6 @@ public class ConnexionMembre extends HttpServlet {
 											.fromStream(serviceAccount))
 							.setDatabaseUrl("https://waydplace.firebaseio.com")
 							.build();
-
 					chargement = true;
 
 				}
@@ -128,6 +139,7 @@ public class ConnexionMembre extends HttpServlet {
 		}
 	}
 
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -176,9 +188,7 @@ public class ConnexionMembre extends HttpServlet {
 		case ActionPage.CONNEXION_SITE_ADMIN:
 			
 			 tokenFireBase = request.getParameter("token");
-			 
 			
-			 LOG.info("tkfv"+tokenFireBase);
 				
 			 MessageAction connexionSiteGestionnaire = connexionSiteGestionnaire(tokenFireBase,	request, response);
 		
@@ -187,7 +197,8 @@ public class ConnexionMembre extends HttpServlet {
 				 response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
 			 }else{
 				 
-				LOG.info("***************errrrrrrrrr");
+				System.out.println(connexionSiteGestionnaire.getMessage());
+		
 			 }
 			break;
 		
@@ -293,9 +304,12 @@ public class ConnexionMembre extends HttpServlet {
 				MessageAction creerCompteMembre = creerCompteMembre(request);
 
 				if (creerCompteMembre.isOk()) {
-
-				} else {
-
+					response.sendRedirect("index.jsp");
+				
+				} 
+				else 
+				{
+				System.out.println(creerCompteMembre.getMessage());
 				}
 
 				break;
@@ -309,6 +323,14 @@ public class ConnexionMembre extends HttpServlet {
 		String pwd1 = request.getParameter("pwd1");
 		String email = request.getParameter("email");
 		String pseudo = request.getParameter("nom");
+		String reponseCaptcha = request.getParameter("g-recaptcha-response");
+
+		MessageAction iscaptcha=isCaptcha(reponseCaptcha);
+		
+		if (!iscaptcha.isOk()) {
+		return new MessageAction(false, iscaptcha.getMessage());
+		}
+
 		
 
 		MessageAction creerUserFireBase = creerUtilisateurFireBase(email, pwd,
@@ -570,8 +592,15 @@ public class ConnexionMembre extends HttpServlet {
 		String siteweb = request.getParameter("siteweb");
 		String nomSite = request.getParameter("nomSite");
 
-		System.out.println("prinln" + nomSite);
+		String reponseCaptcha = request.getParameter("g-recaptcha-response");
 
+		MessageAction iscaptcha=isCaptcha(reponseCaptcha);
+		
+		if (!iscaptcha.isOk()) {
+				return new MessageAction(false, iscaptcha.getMessage());
+		}
+		
+		
 		MessageAction creerUserFireBase = creerUtilisateurFireBase(email, pwd,
 				pseudoGestionnaire);
 
@@ -625,4 +654,52 @@ public class ConnexionMembre extends HttpServlet {
 		}
 
 	}
+	
+	private MessageAction isCaptcha(String reponseCaptcha) {
+
+		String url = "https://www.google.com/recaptcha/api/siteverify";
+
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(url);
+
+		// add header
+
+		List<BasicNameValuePair> urlParameters = new ArrayList<BasicNameValuePair>();
+
+		urlParameters.add(new BasicNameValuePair("secret",CLE_CAPTCHA));
+		urlParameters.add(new BasicNameValuePair("response", reponseCaptcha));
+
+		try {
+			post.setEntity(new UrlEncodedFormEntity(urlParameters));
+			HttpResponse response = client.execute(post);
+
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+
+			StringBuffer result = new StringBuffer();
+			String line = "";
+			while ((line = rd.readLine()) != null) {
+				result.append(line);
+
+			}
+
+			if (result.toString().contains("\"success\": true")) {
+				LOG.debug("Captch OK");
+				return new MessageAction(true, "ok");
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return new MessageAction(false,ExceptionUtils.getStackTrace(e));
+	
+		
+		}
+
+		
+		 return new MessageAction(false,"Cochez je ne suis pas un robot");
+
+	}
+
 }
