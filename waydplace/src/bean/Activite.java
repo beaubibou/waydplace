@@ -74,7 +74,7 @@ public class Activite {
 
 	}
 
-	public String getPanelActionGestionHtml() {
+	public String getPanelActionGestionHtmlMembre() {
 
 		if (isTerminee())
 			return "";
@@ -85,13 +85,36 @@ public class Activite {
 				+ ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE
 				+ "&idactivite=" + id;
 
-		return "<p align='right'><a href='"
+		return "<p ><a href='"
 				+ lienModifierActivite
 				+ "' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-edit'></span></a>"
 				+ "<a href='"
 				+ lienEffaceActivite
 				+ "' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-remove'></span></a></p>";
 	}
+	
+	public String getPanelActionGestionHtmlGestionaire() {
+
+		if (isTerminee())
+			return "";
+		
+		String lienEffaceActivite = "/waydplace/FrontalGestionnaire?action="
+				+ ActionPage.EFFACE_ACTIVITE_GESTIONNAIRE + "&idactivite=" + id;
+		String lienModifierActivite = "/waydplace/FrontalGestionnaire?action="
+				+ ActionPage.REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE
+				+ "&idactivite=" + id;
+
+		return "<p><a href='"
+				+ lienModifierActivite
+				+ "' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-edit'></span></a>"
+				+ "<a href='"
+				+ lienEffaceActivite
+				+ "' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-remove'></span></a></p>";
+	}
+	
+	
+
+	
 
 	public String getPanelActionParticipationHtml(Profil profil,
 			String uidEmetteur) {

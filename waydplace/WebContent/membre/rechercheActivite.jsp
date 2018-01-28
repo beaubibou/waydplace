@@ -199,10 +199,10 @@
 	<ul class="pager">
 
 		<li <%=pager.isPreviousHtml()%>><a
-			href="<%=pager.getLienPrevioustHtml()%>">Previous</a></li>
+			href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
 		<li>Page N° <%=pager.getPageEnCours()%></li>
 		<li <%=pager.isNextHtml()%>><a
-			href="<%=pager.getLienNextHtml()%>">Next</a></li>
+			href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
 
 
 	</ul>

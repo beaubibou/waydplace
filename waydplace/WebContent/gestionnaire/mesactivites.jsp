@@ -99,53 +99,36 @@
 
 		</div>
 		<table class="table table-responsive " id="matable">
-			<thead class="entetetable">
+			<thead class="entetetable" align="center" >
 				<tr>
 					<th style="width: 10%;" class="text-center">Etat</th>
 					<th class="text-center">Titre</th>
 					<th class="text-center">Détail</th>
 					<th style="width: 20%;" class="text-center">Date</th>
+					<th style="width: 20%;" class="text-center">Action</th>
 
 				</tr>
 			</thead>
-			<tbody
-				style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
+			<tbody	style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
 
 				<%
 					if (listMesActivite!=null)
 					for (Activite activite : listMesActivite)
 					{
-					String lienEffaceActivite = "/waydplace/FrontalGestionnaire?action="+ActionPage.EFFACE_ACTIVITE_GESTIONNAIRE+"&idactivite=" + activite.getId();
-					String lienDetail = "/wayd/DetailActiviteSite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-					String lienModifierActivite = "/waydplace/FrontalGestionnaire?action="+ActionPage.REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE+"&idactivite=" + activite.getId();
-				%>
+				String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+						
+					%>
 
 
-				<tr>
+				<tr onclick="document.location='<%=lienDetailActivite%>'">
 					<td><%=activite.getEtatHtml()%></td>
 					<td class="idActivite" id=<%=activite.getId()%>
 						style="vertical-align: middle;"><%=activite.getTitre()%></td>
+						<td style="vertical-align: middle;"><%=activite.getLibelle()%></td>
 					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
-					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
-					<td style="vertical-align: middle;"><a title="Détail"
-						href="<%=lienDetail%>">
-							<button type="button" class="btnwayd btn-sm">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-					</a> <%
- 	if (!activite.isTerminee()){
- %> <a title="Modifier" href="<%=lienModifierActivite%>">
-							<button title="Modifier" type="button" class="btnwayd btn-sm">
-								<span class="glyphicon glyphicon-edit"></span>
-							</button>
-					</a> <a title="Supprimer" href="<%=lienEffaceActivite%>">
-							<button title="Supprimer" name="supprimer" type="button"
-								class="btn btn-danger btn-sm">
-								<span class="glyphicon glyphicon-trash"></span>
-							</button>
-					</a> <%
- 	}
- %></td>
+					<td style="vertical-align: middle;"><a title="Détail"></a>
+					<%=activite.getPanelActionGestionHtmlGestionaire() %>
+ </td>
 
 
 				</tr>

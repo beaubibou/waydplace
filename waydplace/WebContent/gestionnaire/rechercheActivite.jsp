@@ -167,13 +167,12 @@
 				<%
 					if (listActivite!=null)
 								for (Activite activite : listActivite) {
-							String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
-							String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();
-				%>
+									String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+									
+									%>
 
-				<tr>
+				<tr  onclick="document.location='<%=lienDetailActivite%>'">
 					<td>
-
 					<%=activite.getAdpaterListHtml() %>
 					</td>
 

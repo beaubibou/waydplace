@@ -104,21 +104,31 @@
 		</div>
 		<table class="table table-striped table-responsive " style='border: 5px solid #fff;' id="matable">
 
+<thead class="entetetable" align="center" >
+				<tr>
+					<th style="width: 80%;"   class="text-center"></th>
+					<th style="width: 20%;" class="text-center">Action</th>
+
+				</tr>
+			</thead>
+
 			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 
 				<%
 					if (listMesActivite!=null)
 											for (Activite activite : listMesActivite)
 											{
+												String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+												
 				%>
 
-				<tr>
+				<tr onclick="document.location='<%=lienDetailActivite%>'">
 
-					<td><%=activite.getAdpaterListHtml()%>
+					<td ><%=activite.getAdpaterListHtml()%>
 				
 					</td>
-		<td>
-		<%=activite.getPanelActionGestionHtml()%>
+		<td style="vertical-align: middle;text-align: center;">
+		<%=activite.getPanelActionGestionHtmlMembre()%>
 
 		</td>
 

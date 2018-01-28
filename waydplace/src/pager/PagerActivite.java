@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
+import parametre.ActionPage;
+import parametre.Parametres;
 import bean.Activite;
+import bean.Profil;
 import critere.FiltreRecherche;
 import dao.ActiviteDAO;
-
-
 
 public class PagerActivite {
 
 	private static final Logger LOG = Logger.getLogger(PagerActivite.class);
-	   
+
 	private ArrayList<Activite> listActivite;
 	private int pageEnCours = 0;
 	private final int maxResult = 35;
@@ -25,14 +26,15 @@ public class PagerActivite {
 	public PagerActivite(FiltreRecherche filtre, int pageEnCours) {
 
 		this.pageEnCours = pageEnCours;
-		this.filtre=filtre;
+		this.filtre = filtre;
 
 		// On recherhce les maxresult+1 si on
-		listActivite =ActiviteDAO.getListActivite(filtre,pageEnCours, maxResult );
+		listActivite = ActiviteDAO.getListActivite(filtre, pageEnCours,
+				maxResult);
 
-		if (listActivite.size()==maxResult) {
+		if (listActivite.size() == maxResult) {
 			hasNext = true;
-			
+
 		} else
 			hasNext = false;
 
@@ -43,38 +45,21 @@ public class PagerActivite {
 
 	}
 
-
 	public FiltreRecherche getFiltre() {
 		return filtre;
 	}
-
-
-
-
 
 	public void setFiltre(FiltreRecherche filtre) {
 		this.filtre = filtre;
 	}
 
-
-
-
-
 	public ArrayList<Activite> getListActivite() {
 		return listActivite;
 	}
 
-
-
-
-
 	public void setListActivite(ArrayList<Activite> listActivite) {
 		this.listActivite = listActivite;
 	}
-
-
-
-
 
 	public int getPageEnCours() {
 		return pageEnCours;
@@ -106,12 +91,37 @@ public class PagerActivite {
 
 	public String getLienNextHtml() {
 
-	
 		if (hasNext) {
 			int suivant = pageEnCours + 1;
 			return "ListActivite?page=" + suivant;
 		} else
 			return "#";
+	}
+
+	public String getLienNextHtml(Profil profil) {
+
+		String lien = "#";
+		if (hasNext) {
+			int suivant = pageEnCours + 1;
+
+			switch (profil.getTypeOrganisteur()) {
+
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+				lien="/waydplace/FrontalGestionnaire?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				
+				break;
+
+			default:
+
+				break;
+			}
+
+		}
+		return lien;
 	}
 
 	public String getLienPrevioustHtml() {
@@ -122,6 +132,37 @@ public class PagerActivite {
 			return "#";
 	}
 
+	
+	public String getLienPrevioustHtml(Profil profil) {
+
+		String lien = "#";
+		if (hasPrevious) {
+			int suivant = pageEnCours- 1;
+
+			switch (profil.getTypeOrganisteur()) {
+
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+				lien="/waydplace/FrontalGestionnaire?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				
+				break;
+
+			default:
+
+				break;
+			}
+
+		}
+		return lien;
+	}
+
+	
+	
+	
+	
 	public String isNextHtml() {
 
 		if (!hasNext)
