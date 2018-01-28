@@ -1,4 +1,5 @@
 
+<%@page import="outils.AlertDialog"%>
 <%@page import="outils.Outils"%>
 <%@page import="bean.RefTypeGenre"%>
 <%@page import="dao.CacheDAO"%>
@@ -31,147 +32,152 @@
 	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
 	media="all" type="text/css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/css/bootstrap-dialog.min.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+
+<script src="js/alertdialog.js"></script>
 
 </head>
 <body>
 	<%
 		Profil profil = (Profil) request.getSession()
-				.getAttribute("profil");
+			.getAttribute("profil");
 	%>
+	<%=AlertDialog.getAlertDialog(profil)%>
 	<%@include file="menuMembre.jsp"%>
 	<div class="container margedebut">
-			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title">Mon compte</div>
+		<div class="panel panel-default">
+			<div class="panel-heading panel-heading-custom">
+				<div class="panel-title">Mon compte</div>
+			</div>
+			<div style="padding-top: 30px" class="panel-body">
+
+				<div style="border-bottom: 1px solid #888;">
+
+					<p class="text-tuto"><%=CompteMembre.MESSAGE_JUMBO_L1%></p>
+
 				</div>
-				<div style="padding-top: 30px" class="panel-body">
+				<br> <br>
 
-					<div style="border-bottom: 1px solid #888;">
 
-						<p class="text-tuto"><%=CompteMembre.MESSAGE_JUMBO_L1%></p>
-						<p class="text-tuto"><%=CompteMembre.MESSAGE_JUMBO_L2%></p>
+				<div class="form-group">
+					<div class="row">
 
+						<div class="col-sm-8">
+							<%=profil.getMembre().getDetailEnteteMembreHtml()%>
+
+
+							<form
+								action="/waydplace/Frontal?action=<%=ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE%>"
+								method="post" enctype="multipart/form-data"
+								onsubmit="return valideFichier()">
+
+								</br>
+								<div class="container">
+									<div class="btn-group">
+										<label class="btn btn-default btn-file btn-primary btn-sm">
+											.. <input name="file" size="50" type="file"
+											style="display: none;">
+										</label> <input type="submit" value="Envoyer la photo"
+											class="btn btn-primary btn-sm  " /> <a
+											href='/waydplace/Frontal?action=<%=ActionPage.SUPPRIMER_PHOTO_MEMBRE%>'
+											class='btn btn-danger btn-sm'> <span
+											class="glyphicon glyphicon-remove"></span></a> <a href="#"
+											class="btn btn-info btn-sm"> <span
+											class="glyphicon glyphicon-lock"></span></a> </a>
+
+									</div>
+								</div>
+
+							</form>
+
+
+						</div>
 					</div>
-					<br> <br>
 
+				</div>
+
+
+				<form action="/waydplace/Frontal" method="post"
+					onsubmit="return valideFormulaire()">
+
+					<input name="action" type="hidden"
+						value=<%=ActionPage.MODIFIER_COMPTE_MEMBRE%>>
 
 					<div class="form-group">
 						<div class="row">
-					
-								<div class="col-sm-8">
-									<%=profil.getMembre().getDetailEnteteMembreHtml()%>
+							<div class="col-sm-4">
 
-
-									<form
-										action="/waydplace/Frontal?action=<%=ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE%>"
-										method="post" enctype="multipart/form-data"
-										onsubmit="return valideFichier()">
-
-										</br>
-										<div class="container">
-											<div class="btn-group">
-												<label class="btn btn-default btn-file btn-primary btn-sm">
-													.. <input name="file" size="50" type="file"
-													style="display: none;">
-												</label> <input type="submit" value="Envoyer la photo"
-													class="btn btn-primary btn-sm  " /> 
-													<a href='/waydplace/Frontal?action=<%=ActionPage.SUPPRIMER_PHOTO_MEMBRE %>' class='btn btn-danger btn-sm'>
-													 <span	class="glyphicon glyphicon-remove"></span></a> 
-													<a href="#"	class="btn btn-info btn-sm"> <span
-													class="glyphicon glyphicon-lock"></span></a> 
-												</a>
-
-											</div>
-										</div>
-
-									</form>
-
-
-								</div>
+								<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
+									type="text" class="form-control" id="nom"
+									placeholder="<%=CompteMembre.getHintNomSociete()%>"
+									maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
+									required value="<%=profil.getPseudo()%>">
 							</div>
+							<div class="col-sm-4">
+
+								<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
+								<div class='input-group date' id='datenaissance'>
+									<input type='text' class="form-control" id="datenaissance"
+										name="datenaissance" /> <span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+
+							</div>
+							<div class="col-sm-4">
+								<label for="typeUser">Genre</label> <select
+									data-style="btn-primary" class="form-control" id="typeGenre"
+									name="typeGenre">
+
+									<%
+										for (RefTypeGenre critereGenre:CacheDAO.getListGenre()) {
+									%>
+									<option value="<%=critereGenre.getId()%>"
+										<%=Outils.jspAdapterListSelected(critereGenre.getId(), profil.getIdGenre())%>>
+										<%=critereGenre.getLibelle()%></option>
+									<%
+										}
+									%>
+
+								</select>
+
+							</div>
+
+
 
 						</div>
-
-
-						<form action="/waydplace/Frontal" method="post"
-							onsubmit="return valideFormulaire()">
-
-							<input name="action" type="hidden"
-								value=<%=ActionPage.MODIFIER_COMPTE_MEMBRE%>>
-
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-4">
-
-										<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
-											type="text" class="form-control" id="nom"
-											placeholder="<%=CompteMembre.getHintNomSociete()%>"
-											maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
-											required value="<%=profil.getPseudo()%>">
-									</div>
-									<div class="col-sm-4">
-
-										<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
-										<div class='input-group date' id='datenaissance'>
-											<input type='text' class="form-control" id="datenaissance"
-												name="datenaissance" /> <span class="input-group-addon">
-												<span class="glyphicon glyphicon-calendar"></span>
-											</span>
-										</div>
-
-									</div>
-									<div class="col-sm-4">
-							<label for="typeUser">Genre</label> <select
-							data-style="btn-primary" class="form-control" id="typeGenre"
-							name="typeGenre">
-
-							<%
-								for (RefTypeGenre critereGenre:CacheDAO.getListGenre()) {
-							%>
-							<option value="<%=critereGenre.getId()%>"
-								<%=Outils.jspAdapterListSelected(critereGenre.getId(), profil.getIdGenre())%>>
-								<%=critereGenre.getLibelle()%></option>
-							<%
-								}
-							%>
-
-						</select>
-							
-									</div>
-									
-
-
-								</div>
-							</div>
-
-
-						<div class="form-group">
-						
 					</div>
 
-							<div class="form-group">
-								<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
-								<textarea class="form-control" rows="5" id="description"
-									name="commentaire"
-									placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
-									maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=profil.getDescription()%></textarea>
-							</div>
 
-							<h5 class="nbrcaracteremax" id="nbr">
-								0 Caractére
-								<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-							</h5>
+					<div class="form-group"></div>
 
-							<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
-
-						</form>
-
+					<div class="form-group">
+						<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
+						<textarea class="form-control" rows="5" id="description"
+							name="commentaire"
+							placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
+							maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=profil.getDescription()%></textarea>
 					</div>
-				</div>
+
+					<h5 class="nbrcaracteremax" id="nbr">
+						0 Caractére
+						<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+					</h5>
+
+					<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
+
+				</form>
+
 			</div>
+		</div>
+	</div>
 
 
-			<script>
+	<script>
 	
 			$('#datenaissance').datetimepicker({
 				defaultDate : new Date(<%=profil.getDateNaissance().getYear()%>,<%=profil.getDateNaissance().getMonthOfYear()-1%>,<%=profil.getDateNaissance().getDayOfMonth()%>),
@@ -188,47 +194,52 @@
 	if (monfichier==''){
 		BootstrapDialog
 		.alert("<%=CompteMembre.AUCUN_FICHIER_SELECTIONNE%>");
-	return false;
-	}
-			
-	
-	}
-	
+				return false;
+			}
+
+		}
 	</script>
 
-			<script>
-	
-		
+	<script>
 		$('#datenaissance').datetimepicker({
-			defaultDate : new Date(2010,10,10),
+			defaultDate : new Date(2010, 10, 10),
 			format : 'DD/MM/YYYY'
 
-		}).on('dp.change', function (e) {document.getElementById("formulaire").submit(); });
+		}).on('dp.change', function(e) {
+			document.getElementById("formulaire").submit();
+		});
 
+		$(document)
+				.ready(
+						function(e) {
 
-		$(document).ready(function(e) {
+							$('#description')
+									.keyup(
+											function() {
 
-			$('#description').keyup(function() {
+												var nombreCaractere = $(this)
+														.val().length;
+												//alert(nombreCaractere);
 
-				var nombreCaractere = $(this).val().length;
-				//alert(nombreCaractere);
+												var msg = nombreCaractere
+														+ '/'
+														+
+	<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+		;
+												$('#nbr').text(msg);
+												// Le script qui devra calculer et afficher le nombre de mots et de caractères
 
-				var msg = nombreCaractere +
-				'/'+<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>;
-														$('#nbr').text(msg);
-														// Le script qui devra calculer et afficher le nombre de mots et de caractères
+											})
 
-													})
+						});
 
-								});
-
-				// Init le nombre de caraterces	
-				var nombreCaractere = $('#description').val().length;
-				var msg = nombreCaractere + "/"
-						+
-			<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-				;
-				$('#nbr').text(msg);
-			</script>
+		// Init le nombre de caraterces	
+		var nombreCaractere = $('#description').val().length;
+		var msg = nombreCaractere + "/"
+				+
+	<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+		;
+		$('#nbr').text(msg);
+	</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 
 
+<%@page import="outils.AlertDialog"%>
 <%@page import="dao.ActiviteDAO"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="critere.FiltreRecherche"%>
@@ -45,9 +46,12 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-			FiltreRecherche filtre=profil.getFiltre();
-			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
+		FiltreRecherche filtre=profil.getFiltre();
+		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
+		String afficheMessage=(String)request.getAttribute("alertMessage");
 	%>
+
+	<%=AlertDialog.getAlertDialog(profil)%>
 
 	<%@ include file="menuMembre.jsp"%>
 	<script type="text/javascript">
@@ -104,16 +108,15 @@
 
 				<%
 					if (listMesActivite!=null)
-									for (Activite activite : listMesActivite)
-									{
+											for (Activite activite : listMesActivite)
+											{
 				%>
 
 
 				<tr>
 
-					<td><%=activite.getAdpaterListHtml()%> 
-					<%=activite.getPanelActionGestionHtml()%>
-					
+					<td><%=activite.getAdpaterListHtml()%> <%=activite.getPanelActionGestionHtml()%>
+
 					</td>
 
 

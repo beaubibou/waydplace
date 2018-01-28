@@ -13,6 +13,7 @@ public class Profil {
 	Site site;
 	Membre membre;
 	FiltreRecherche filtre;
+	String messageDialog;
 	public Profil(Site site, Membre membre) {
 		super();
 		this.site = site;
@@ -30,6 +31,24 @@ public class Profil {
 	}
 	public void setFiltre(FiltreRecherche filtre) {
 		this.filtre = filtre;
+	}
+	
+	public String getMessageDialog() {
+		String retour=new String(messageDialog);
+		messageDialog=null;
+		return retour;
+	}
+	public void setMessageDialog(String messageDialog) {
+		this.messageDialog = messageDialog;
+		
+	}
+	public boolean isMessageDialog(){
+	
+		if (messageDialog!=null)
+			return true;
+		
+		return false;
+		
 	}
 	
 	public String getPhotostr(){
@@ -114,6 +133,7 @@ public class Profil {
 	}
 	
 	public DateTime getDateNaissance(){
+		
 		return new DateTime(membre.getDate_naissance().getTime());
 	}
 	public void setDateNaissance(Date dateNaissance) {

@@ -26,6 +26,7 @@ public class ActionPage {
 	public static final String ENVOI_REPONSE_MEMBRE = "envoirReponseMembre";
 	public static final String CHARGE_PHOTO_PROFIL_MEMBRE = "chargephotoProfilMembre";
 	public static final String SUPPRIMER_PHOTO_MEMBRE = "supprimerPhotoMembre";
+	public static final String REDIRECTION_DETAIL_ACTIVITE_ALL = "redirectionDetailActiviteALL";
 	
 	
 	
@@ -56,8 +57,9 @@ public class ActionPage {
 	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
 	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
 	public static final String CONNEXION_SITE_MEMBRE_TEST = "connexionSiteTest";
-
 	
+	public static final String REDIRECTION_CREATION_COMPTE_MEMBRE = "redirectionCreationCompteMembre";
+
 	
 	
 }

@@ -28,8 +28,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
+<link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
 	type="text/css">
 <script src="/waydplace/js/moment.js"></script>
 <link
@@ -37,35 +36,38 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+	type="text/css">
+<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
+	media="all" type="text/css">
 </head>
 
 <body>
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-			FiltreRecherche filtre=profil.getFiltre();
-			ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
-			ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
-			ArrayList<CritereTypeOrganisateur> listCritereTypeOrganisateur=CacheDAO.getListCritereTypeOrganisateurs();
-			PagerActivite pager=(PagerActivite) request.getAttribute("pager");
-			ArrayList<Activite> listActivite = pager.getListActivite();
+		FiltreRecherche filtre=profil.getFiltre();
+			
+		ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
+		ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
+		ArrayList<CritereTypeOrganisateur> listCritereTypeOrganisateur=CacheDAO.getListCritereTypeOrganisateurs();
+			
+		PagerActivite pager=(PagerActivite) request.getAttribute("pager");
+		ArrayList<Activite> listActivite = pager.getListActivite();
 	%>
 
+	<%@ include file="menuMembre.jsp"%>
 
-	<%@ include file="menuGestionnaire.jsp"%>
-
-
-	<div class="container" style="width: 90%; margin-top: 120px;">
-
-		<div class="panel panel-primary">
-			<div class="panel-body" style="background: #99ccff;">
+	<div class="container margedebut ">
+		<div class="panel barrerecherche">
+			<div class="panel-heading">
 
 				<form class="form-inline" id="formulaire" method="post"
-					action="/waydplace/FrontalGestionnaire">
+					action="/waydplace/Frontal">
 
 					<input type="hidden" name='action'
-						value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE%>'>
+						value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES%>'>
+
 
 
 					<div class="form-group">
@@ -127,7 +129,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="iddatedebut">Date debut</label>
+						<label for="iddatedebut">Début</label>
 						<div class='input-group date' id='datedebut'>
 							<input type='text' class="form-control" id="iddatedebut"
 								name="debut" /> <span class="input-group-addon"> <span
@@ -139,7 +141,7 @@
 
 
 					<div class="form-group">
-						<label for="iddatefin">Date fin</label>
+						<label for="iddatefin">Fin</label>
 						<div class='input-group date' id="datefin">
 							<input type='text' class="form-control" id="iddatefin" name="fin" />
 							<span class="input-group-addon"> <span
@@ -147,55 +149,36 @@
 							</span>
 						</div>
 					</div>
-					<button id="go" type="submit" class="btn btn-info"
-						name="rechercheactivite">Rechercher</button>
 
+					<div class="form-group">
 
+						<button id="go" type="submit" class="btn btn-info"
+							name="rechercheactivite">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+
+					</div>
 				</form>
 
 			</div>
 
 		</div>
-	</div>
 
 
-	<div class="container" style="width: 90%;">
+		<table class="table table-responsive " id="matable">
 
-		<table class="table table-striped table-responsive">
-			<thead>
-				<tr>
-					<th style="width: 100%;" class="text-center">Etat</th>
-
-
-				</tr>
-			</thead>
-			<tbody style="background-color: #FFFFFF;">
+			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 				<%
 					if (listActivite!=null)
-								for (Activite activite : listActivite) {
-							String lien = "DetailActivite?idactivite=" + activite.getId()+"&from=listActivite.jsp";
+			for (Activite activite : listActivite) {
+							String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_MEMBRE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
 							String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();
-				%>
+							%>
 
-				<tr>
-					<td>
-
-						<div class='clearfix'>
-							<img src='<%=activite.getURLPhoto()%>'
-							class='pull-left marge-droite img-thumbnail' width='200'
-								height='200'>
-							<h1>test</h1>
-							<p>Bootstrap is the most popular HTML, CSS, and JS framework
-								for developing responsive, mobile-first projects on the web.</p>
-						</div>
-
-
-
-
-						</div>
+				<tr onclick="document.location='<%=lienDetailActivite%>'">
+					<td><%=activite.getAdpaterListHtml()%> 
+					<%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
 					</td>
-
-
 
 				</tr>
 

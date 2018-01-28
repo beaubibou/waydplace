@@ -64,7 +64,7 @@ public class MembreDAO {
 	}
 
 	public static MessageAction ajouteMembre(String uid, String pseudo,
-			String mail, String photo, int idSite) {
+			String mail, String photo, int idSite,int idTypeOrganisateur) {
 		long debut = System.currentTimeMillis();
 
 		Connection connexion = null;
@@ -73,13 +73,14 @@ public class MembreDAO {
 		try {
 			connexion = CxoPool.getConnection();
 			connexion.setAutoCommit(false);
-			String requete = "INSERT INTO MEMBRE(UID, PSEUDO,MAIL,PHOTO,ID_SITE)	VALUES (?,?,?,?,?)";
+			String requete = "INSERT INTO MEMBRE(UID, PSEUDO,MAIL,PHOTO,ID_SITE,id_ref_type_organisateur)	VALUES (?,?,?,?,?,?)";
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uid);
 			preparedStatement.setString(2, pseudo);
 			preparedStatement.setString(3, mail);
 			preparedStatement.setString(4, photo);
 			preparedStatement.setInt(5, idSite);
+			preparedStatement.setInt(6, idTypeOrganisateur);
 			preparedStatement.execute();
 			connexion.commit();
 			preparedStatement.close();

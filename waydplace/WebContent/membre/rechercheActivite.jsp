@@ -46,14 +46,14 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-		FiltreRecherche filtre=profil.getFiltre();
-			
-		ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
-		ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
-		ArrayList<CritereTypeOrganisateur> listCritereTypeOrganisateur=CacheDAO.getListCritereTypeOrganisateurs();
-			
-		PagerActivite pager=(PagerActivite) request.getAttribute("pager");
-		ArrayList<Activite> listActivite = pager.getListActivite();
+			FiltreRecherche filtre=profil.getFiltre();
+		
+			ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
+			ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
+			ArrayList<CritereTypeOrganisateur> listCritereTypeOrganisateur=CacheDAO.getListCritereTypeOrganisateurs();
+		
+			PagerActivite pager=(PagerActivite) request.getAttribute("pager");
+			ArrayList<Activite> listActivite = pager.getListActivite();
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -170,14 +170,14 @@
 			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 				<%
 					if (listActivite!=null)
-			for (Activite activite : listActivite) {
-							String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_MEMBRE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
-							String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();
-							%>
+					for (Activite activite : listActivite) {
+									String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+									String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();
+				%>
 
 				<tr onclick="document.location='<%=lienDetailActivite%>'">
-					<td><%=activite.getAdpaterListHtml()%> 
-					<%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
+					<td><%=activite.getAdpaterListHtml()%> <%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
+						
 					</td>
 
 				</tr>

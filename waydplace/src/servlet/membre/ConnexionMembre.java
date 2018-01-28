@@ -196,10 +196,7 @@ public class ConnexionMembre extends HttpServlet {
 
 			 tokenFireBase = request.getParameter("token");
 			 jetonSite = request.getParameter("jetonSite");
-			 
-			 LOG.info("rentre"+jetonSite);
-			 LOG.info("jeton"+tokenFireBase);
-			 
+				 
 			 MessageAction connexionSiteMembre = connexionSiteMembre(tokenFireBase, jetonSite,
 					request, response);
 
@@ -271,7 +268,9 @@ public class ConnexionMembre extends HttpServlet {
 		case ActionPage.REDIRECTION_CREATION_COMPTE_PRO:
 			response.sendRedirect("compte/CreationComptePro.jsp");
 			break;
-	
+		case ActionPage.REDIRECTION_CREATION_COMPTE_MEMBRE:
+			response.sendRedirect("compte/CreationCompteMembre.jsp");
+			break;
 		case ActionPage.REDIRECTION_LOGIN_PRO:
 			response.sendRedirect("compte/loginPro.jsp");
 			break;
@@ -287,8 +286,42 @@ public class ConnexionMembre extends HttpServlet {
 			}
 
 			break;
-		}
+		
 
+		case ActionPage.CREER_COMPTE_MEMBRE:
+
+				MessageAction creerCompteMembre = creerCompteMembre(request);
+
+				if (creerCompteMembre.isOk()) {
+
+				} else {
+
+				}
+
+				break;
+			}
+
+	
+	}
+
+	private MessageAction creerCompteMembre(HttpServletRequest request) {
+		String pwd = request.getParameter("pwd");
+		String pwd1 = request.getParameter("pwd1");
+		String email = request.getParameter("email");
+		String pseudo = request.getParameter("nom");
+		
+
+		MessageAction creerUserFireBase = creerUtilisateurFireBase(email, pwd,
+				pseudo);
+
+		if (creerUserFireBase.isOk()) {
+
+				return new MessageAction(true, "");
+		}
+		else{
+		
+		return new MessageAction(false, creerUserFireBase.getMessage());}
+		
 	}
 
 	private MessageAction connexionSiteGestionnaire(String tokenFireBase,
@@ -386,7 +419,7 @@ public class ConnexionMembre extends HttpServlet {
 			if (membre == null) {
 
 				MessageAction ajouteMembre = MembreDAO.ajouteMembre(uid,
-						pseudo, mail, photo, site.getId());
+						pseudo, mail, photo, site.getId(),Parametres.TYPE_ORGANISATEUR_MEMBRE);
 				if (ajouteMembre.isOk()) {
 
 					membre = MembreDAO.getMembreByUID(uid);
@@ -421,11 +454,7 @@ public class ConnexionMembre extends HttpServlet {
 	private MessageAction connexionSiteMembre(String tokenFireBase, String jetonSite,
 			HttpServletRequest request, HttpServletResponse response) {
 
-	
-		
-		
-		
-		
+			
 		
 		final HttpSession session = request.getSession();
 		Profil profil = null;
@@ -479,7 +508,7 @@ public class ConnexionMembre extends HttpServlet {
 			if (membre == null) {
 
 				MessageAction ajouteMembre = MembreDAO.ajouteMembre(uid,
-						pseudo, mail, photo, site.getId());
+						pseudo, mail, photo, site.getId(),Parametres.TYPE_ORGANISATEUR_MEMBRE);
 				
 				if (ajouteMembre.isOk()) {
 
@@ -497,7 +526,6 @@ public class ConnexionMembre extends HttpServlet {
 					if (membre.getId_site()!=site.getId()){
 						return new MessageAction(false, "Vous n êtes pas reconnu avec ce code site");
 					}
-					
 					profil = new Profil(site, membre);
 					session.setAttribute("profil", profil);
 					return new MessageAction(true, "",profil);
@@ -511,7 +539,7 @@ public class ConnexionMembre extends HttpServlet {
 			if (membre != null && site != null) {
 				profil = new Profil(site, membre);
 				session.setAttribute("profil", profil);
-				return new MessageAction(true, "");
+				return new MessageAction(true, "",profil);
 			
 			}
 

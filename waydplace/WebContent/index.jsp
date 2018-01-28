@@ -82,9 +82,11 @@
 		<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
 		</form>
 		
-		<a href='/waydplace/ConnexionMembre?action=<%=ActionPage.REDIRECTION_CREATION_COMPTE_PRO %>'><p>Compte Pro</p></a>
-		<a href='/waydplace/ConnexionMembre?action=<%=ActionPage.REDIRECTION_LOGIN_PRO %>'><p>Connexio Pro</p></a>
+		<a href='/waydplace/ConnexionMembre?action=<%=ActionPage.REDIRECTION_CREATION_COMPTE_PRO %>'><p>Creation Compte Pro</p></a>
+		<a href='/waydplace/ConnexionMembre?action=<%=ActionPage.REDIRECTION_LOGIN_PRO %>'><p>Connexion Pro</p></a>
 
+	<a href='/waydplace/ConnexionMembre?action=<%=ActionPage.REDIRECTION_CREATION_COMPTE_MEMBRE %>'><p>Creation Compte membre</p></a>
+	
 		<a id="btn_googl"  onclick="signInGoogle()" class="btn btn-primary">Login
 			with Google</a>
 			

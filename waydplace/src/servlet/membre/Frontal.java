@@ -178,6 +178,40 @@ public class Frontal extends HttpServlet {
 					request, response);
 
 			break;
+			
+		case ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL:
+
+			Activite activite2 = getActivite(request);
+			request.setAttribute("activite", activite2);
+			
+			if (activite2==null)
+			{
+				LOG.info("*******************");
+				
+				profil.setMessageDialog("L'activite a été est supprimée.");
+				response.sendRedirect("membre/rechercheActivite.jsp");
+				return;
+			}
+			LOG.info("*******************");
+					
+			switch(activite2.getId_ref_type_organisateur()){
+		
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+				request.getRequestDispatcher("commun/detailActiviteSite.jsp").forward(
+						request, response);
+				break;
+		
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				request.getRequestDispatcher("commun/detailActiviteMembre.jsp").forward(
+						request, response);	
+				
+
+				break;
+			}
+			
+			break;
+			
+	
 		case ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
 
 			Activite activite = getActivite(request, profil);
@@ -202,7 +236,10 @@ public class Frontal extends HttpServlet {
 
 			if (effaceActivite.isOk()) {
 
+				profil.setMessageDialog("Votre activité a été est supprimée.");
 				response.sendRedirect("membre/mesactivites.jsp");
+			
+			//	response.sendRedirect("membre/mesactivites.jsp");
 
 			} else {
 
@@ -244,7 +281,10 @@ public class Frontal extends HttpServlet {
 
 			if (modifierActiviteMembre.isOk()) {
 
+				profil.setMessageDialog("Votre activité est modifiée.");
 				response.sendRedirect("membre/mesactivites.jsp");
+				
+				//response.sendRedirect("membre/mesactivites.jsp");
 
 			} else {
 
@@ -259,8 +299,9 @@ public class Frontal extends HttpServlet {
 					profil);
 
 			if (modifierCompteMembre.isOk()) {
-
+				profil.setMessageDialog("Modification prise en compte.");
 				response.sendRedirect("membre/compteMembre.jsp");
+			
 			} else {
 				redirectionErreur(modifierCompteMembre);
 			}
@@ -281,6 +322,7 @@ public class Frontal extends HttpServlet {
 
 			if (ajouteActiviteMembre.isOk()) {
 
+				profil.setMessageDialog("Votre activité est ajoutée.");
 				response.sendRedirect("membre/mesactivites.jsp");
 
 			} else {

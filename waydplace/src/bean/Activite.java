@@ -139,10 +139,10 @@ public class Activite {
 
 			return "<div class='clearfix'><a href='" + lienDetailParticipant
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite' style='width: 10%;' ></a>"
+					+ "'  class='pull-left marge-droite img-thumbnail'  width='200'	height='200' ></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
-					+ libelle + "</h4></div>" + "<h6 align='right'>"
-					+ getHoraireLigne() + "</h6>";
+					+ libelle + "</h4><h6 align='left'>"
+					+ getHoraireLigne() + "</h6> <button>lklk</button></div>" ;
 
 		case Parametres.TYPE_ORGANISATEUR_SITE:
 			
@@ -152,18 +152,17 @@ public class Activite {
 
 			return "<div class='clearfix'><a href='" + lienDetailSite
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite' style='width: 20%;'></a>"
+					+ "'  class='pull-left marge-droite' style='width: 30%;'></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
-					+ libelle + "</h4></div>" + "<h6 align='right'>"
-					+ getHoraireLigne() + "</h6>";
+					+ libelle + "</h4>"
+							+"<h6 align='right'>"
+							+ getHoraireLigne() + "</h6></div>" ;
 
 	
 		}
 		return"";
 		
-		
-		
-		
+			
 		
 
 	}

@@ -97,7 +97,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
 
-					<div class="panel-title">Détail Activite</div>
+					<div class="panel-title">Détail Activite Site</div>
 
 				</div>
 

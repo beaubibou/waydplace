@@ -11,7 +11,9 @@
 
 	
 }
-
+.marge-droite {
+  margin-right: 10px; 
+}
 .table-responsive>.table>tbody>tr>td {
 	vertical-align: middle;
 }

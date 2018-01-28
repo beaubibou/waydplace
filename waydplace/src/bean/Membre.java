@@ -67,6 +67,9 @@ public class Membre {
 		return " à oimplemener";
 	}
 	public Date getDate_naissance() {
+		if (date_naissance==null)
+			return new Date();
+	
 		return date_naissance;
 	}
 
