@@ -102,7 +102,7 @@
 			</div>
 
 		</div>
-		<table class="table table-striped table-responsive " id="matable">
+		<table class="table table-striped table-responsive " style='border: 5px solid #fff;' id="matable">
 
 			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 
@@ -112,13 +112,15 @@
 											{
 				%>
 
-
 				<tr>
 
-					<td><%=activite.getAdpaterListHtml()%> <%=activite.getPanelActionGestionHtml()%>
-
+					<td><%=activite.getAdpaterListHtml()%>
+				
 					</td>
+		<td>
+		<%=activite.getPanelActionGestionHtml()%>
 
+		</td>
 
 				</tr>
 				<%

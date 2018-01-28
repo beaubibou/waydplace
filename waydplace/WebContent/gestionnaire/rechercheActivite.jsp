@@ -29,7 +29,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
 	type="text/css">
 <script src="/waydplace/js/moment.js"></script>
 <link
@@ -56,10 +56,9 @@
 	<%@ include file="menuGestionnaire.jsp"%>
 
 
-	<div class="container" style="width: 90%; margin-top: 120px;">
-
-		<div class="panel panel-primary">
-			<div class="panel-body" style="background: #99ccff;">
+	<div class="container margedebut ">
+		<div class="panel barrerecherche ">
+			<div class="panel-heading">
 
 				<form class="form-inline" id="formulaire" method="post"
 					action="/waydplace/FrontalGestionnaire">
@@ -148,28 +147,23 @@
 						</div>
 					</div>
 					<button id="go" type="submit" class="btn btn-info"
-						name="rechercheactivite">Rechercher</button>
-
+							name="rechercheactivite">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
 
 				</form>
 
 			</div>
 
 		</div>
-	</div>
+	
 
-
-	<div class="container" style="width: 90%;">
-
-		<table class="table table-striped table-responsive">
+	
+		<table class="table table-striped table-responsive" style='	border: 5px solid #fff;'>
 			<thead>
-				<tr>
-					<th style="width: 100%;" class="text-center">Etat</th>
-
-
-				</tr>
+				
 			</thead>
-			<tbody style="background-color: #FFFFFF;">
+			<tbody style="vertical-align: middle;">
 				<%
 					if (listActivite!=null)
 								for (Activite activite : listActivite) {
@@ -180,19 +174,7 @@
 				<tr>
 					<td>
 
-						<div class='clearfix'>
-							<img src='<%=activite.getURLPhoto()%>'
-							class='pull-left marge-droite img-thumbnail' width='200'
-								height='200'>
-							<h1>test</h1>
-							<p>Bootstrap is the most popular HTML, CSS, and JS framework
-								for developing responsive, mobile-first projects on the web.</p>
-						</div>
-
-
-
-
-						</div>
+					<%=activite.getAdpaterListHtml() %>
 					</td>
 
 

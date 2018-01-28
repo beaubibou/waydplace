@@ -28,8 +28,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
-	type="text/css">
+
 <script src="/waydplace/js/moment.js"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
@@ -165,9 +164,9 @@
 		</div>
 
 
-		<table class="table table-responsive " id="matable">
+		<table class="table table-striped  table-responsive  "  style='	border: 5px solid #fff;'id="matable">
 
-			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
+			<tbody style="vertical-align: middle;">
 				<%
 					if (listActivite!=null)
 					for (Activite activite : listActivite) {
@@ -176,9 +175,14 @@
 				%>
 
 				<tr onclick="document.location='<%=lienDetailActivite%>'">
-					<td><%=activite.getAdpaterListHtml()%> <%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
-						
+					<td><%=activite.getAdpaterListHtml()%>
+							
 					</td>
+					<td>
+					 <%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
+				
+					</td>
+					
 
 				</tr>
 

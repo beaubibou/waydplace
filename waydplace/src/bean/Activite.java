@@ -1,15 +1,8 @@
 package bean;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import net.coobird.thumbnailator.Thumbnails;
-
-import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
-
 import outils.Outils;
 import parametre.ActionPage;
 import parametre.Parametres;
@@ -142,7 +135,7 @@ public class Activite {
 					+ "'  class='pull-left marge-droite img-thumbnail'  width='200'	height='200' ></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
 					+ libelle + "</h4><h6 align='left'>"
-					+ getHoraireLigne() + "</h6> <button>lklk</button></div>" ;
+					+ getHoraireLigne() + "</h6></div>" ;
 
 		case Parametres.TYPE_ORGANISATEUR_SITE:
 			
@@ -150,13 +143,14 @@ public class Activite {
 					+ ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE
 					+ "&idmembre=" + getUid_membre();
 
+			
 			return "<div class='clearfix'><a href='" + lienDetailSite
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite' style='width: 30%;'></a>"
+					+ "'  class='pull-left marge-droite img-thumbnail'  width=200'	height='160' ></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
-					+ libelle + "</h4>"
-							+"<h6 align='right'>"
-							+ getHoraireLigne() + "</h6></div>" ;
+					+ libelle + "</h4><h6 align='left'>"
+					+ getHoraireLigne() + "</h6></div>" ;
+			
 
 	
 		}
