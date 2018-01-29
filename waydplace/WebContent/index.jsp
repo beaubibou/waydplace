@@ -1,3 +1,4 @@
+<%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="text.pageweb.LoginTxt"%>
 <%@page import="parametre.ActionPage"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -82,10 +83,10 @@
 		<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
 		</form>
 		
-		<a href='/waydplace/ConnexionMembre?action=<%=ActionPage.REDIRECTION_CREATION_COMPTE_PRO %>'><p>Creation Compte Pro</p></a>
-		<a href='/waydplace/ConnexionMembre?action=<%=ActionPage.REDIRECTION_LOGIN_PRO %>'><p>Connexion Pro</p></a>
+		<a href='/waydplace/ConnexionMembre?action=<%=ConnexionMembre.REDIRECTION_CREATION_COMPTE_PRO %>'><p>Creation Compte Pro</p></a>
+		<a href='/waydplace/ConnexionMembre?action=<%=ConnexionMembre.REDIRECTION_LOGIN_PRO %>'><p>Connexion Pro</p></a>
 
-	<a href='/waydplace/ConnexionMembre?action=<%=ActionPage.REDIRECTION_CREATION_COMPTE_MEMBRE %>'><p>Creation Compte membre</p></a>
+	<a href='/waydplace/ConnexionMembre?action=<%=ConnexionMembre.REDIRECTION_CREATION_COMPTE_MEMBRE %>'><p>Creation Compte membre</p></a>
 	
 		<a id="btn_googl"  onclick="signInGoogle()" class="btn btn-primary">Login
 			with Google</a>
@@ -109,7 +110,7 @@
 	<form id="formlogin" action="/waydplace/ConnexionMembre" method="post">
 		<input id="tokenfb" type="hidden" class="form-control" name="token">
 		<input id="pwd" type="hidden" class="form-control" name="pwd">
-		<input type="text" name='action'	value='<%=ActionPage.CONNEXION_SITE_MEMBRE%>'>
+		<input type="text" name='action'	value='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE%>'>
 		<input id="outputJetonSite" type="hidden" class="form-control" name="jetonSite">
 	
 		
@@ -203,14 +204,14 @@
 
 function signInTestMembre1(){
 	
-	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE_TEST%>';
+	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="membre1";
 	 document.getElementById("formmasque").submit();
 }
 
 function signInTestAnonyme(){
 	
-	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE_TEST%>';
+	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="anonyme";
 	 document.getElementById("formmasque").submit();
 }
@@ -218,14 +219,14 @@ function signInTestAnonyme(){
 
 function signInTestMembre2(){
 	
-	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE_TEST%>';
+	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="membre2";
 	 document.getElementById("formmasque").submit();
 }
 
 
 function signInTestGestionnaire(){
-	 document.getElementById("action").value ='<%=ActionPage.CONNEXION_SITE_MEMBRE_TEST%>';
+	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="gestionnaire";
 	 document.getElementById("formmasque").submit();
 }

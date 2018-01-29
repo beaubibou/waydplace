@@ -144,7 +144,7 @@
 
 							<%=ProposeActiviteMembre.initNbrCaracteres()%></h5>
 							
-						<input type='hidden' name='action' value='<%=ActionPage.AJOUTER_ACTIVITE_MEMBRE%>'>
+						<input type='hidden' name='action' value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
 
 						<button type="submit" class="btnwayd btn-lg">Proposer</button>
 

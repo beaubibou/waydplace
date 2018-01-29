@@ -38,7 +38,6 @@ import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
 import text.pageweb.Erreur_HTML;
-
 import bean.Membre;
 import bean.MessageAction;
 import bean.Profil;
@@ -48,6 +47,15 @@ import bean.Site;
  * Servlet implementation class ConnexionMembre
  */
 public class ConnexionMembre extends HttpServlet {
+	public static final String CONNEXION_SITE_MEMBRE_TEST = "connexionSiteTest";
+	public static final String CONNEXION_SITE_MEMBRE="connexionsitemembre";
+	public static final String CREER_COMPTE_PRO = "creerComptePro";
+	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
+	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
+	public static final String REDIRECTION_CREATION_COMPTE_MEMBRE = "redirectionCreationCompteMembre";
+	
+	public static final String REDIRECTION_CREATION_COMPTE_PRO = "redirectionCreationComptePro";
+	
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(ConnexionMembre.class);
 
@@ -55,6 +63,11 @@ public class ConnexionMembre extends HttpServlet {
 	public final static String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
 	public final static String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
 	public final static String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
+	
+	private static final String PAGE_CREATION_COMPTE_SITE = "compte/CreationComptePro.jsp";
+	private static final String PAGE_CREATION_COMPTE_MEMBRE = "compte/CreationCompteMembre.jsp";
+
+	
 	private final String CLE_CAPTCHA="6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
 	static {
@@ -203,7 +216,7 @@ public class ConnexionMembre extends HttpServlet {
 			break;
 		
 			
-		case ActionPage.CONNEXION_SITE_MEMBRE:
+		case CONNEXION_SITE_MEMBRE:
 
 			 tokenFireBase = request.getParameter("token");
 			 jetonSite = request.getParameter("jetonSite");
@@ -240,7 +253,7 @@ public class ConnexionMembre extends HttpServlet {
 			}
 
 			break;
-		case ActionPage.CONNEXION_SITE_MEMBRE_TEST:
+		case CONNEXION_SITE_MEMBRE_TEST:
 
 			 tokenFireBase = request.getParameter("tokenFireBase");
 			 jetonSite = request.getParameter("jetonSite");
@@ -276,17 +289,17 @@ public class ConnexionMembre extends HttpServlet {
 
 			break;
 
-		case ActionPage.REDIRECTION_CREATION_COMPTE_PRO:
-			response.sendRedirect("compte/CreationComptePro.jsp");
+		case REDIRECTION_CREATION_COMPTE_PRO:
+			response.sendRedirect(PAGE_CREATION_COMPTE_SITE);
 			break;
-		case ActionPage.REDIRECTION_CREATION_COMPTE_MEMBRE:
-			response.sendRedirect("compte/CreationCompteMembre.jsp");
+		case REDIRECTION_CREATION_COMPTE_MEMBRE:
+			response.sendRedirect(PAGE_CREATION_COMPTE_MEMBRE);
 			break;
-		case ActionPage.REDIRECTION_LOGIN_PRO:
+		case REDIRECTION_LOGIN_PRO:
 			response.sendRedirect("compte/loginPro.jsp");
 			break;
 	
-		case ActionPage.CREER_COMPTE_PRO:
+		case CREER_COMPTE_PRO:
 
 			MessageAction creerComptePro = creerComptePro(request);
 
@@ -299,7 +312,7 @@ public class ConnexionMembre extends HttpServlet {
 			break;
 		
 
-		case ActionPage.CREER_COMPTE_MEMBRE:
+		case CREER_COMPTE_MEMBRE:
 
 				MessageAction creerCompteMembre = creerCompteMembre(request);
 

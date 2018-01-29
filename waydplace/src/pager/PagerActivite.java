@@ -7,6 +7,8 @@ import org.joda.time.DateTime;
 
 import parametre.ActionPage;
 import parametre.Parametres;
+import servlet.membre.Frontal;
+import servlet.membre.FrontalGestionnaire;
 import bean.Activite;
 import bean.Profil;
 import critere.FiltreRecherche;
@@ -107,15 +109,15 @@ public class PagerActivite {
 			switch (profil.getTypeOrganisteur()) {
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				lien="/waydplace/Frontal?action="+Frontal.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
 				break;
 				
 			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				lien="/waydplace/Frontal?action="+Frontal.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
 				break;
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
-				lien="/waydplace/FrontalGestionnaire?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				lien="/waydplace/FrontalGestionnaire?action="+FrontalGestionnaire.REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE+"&page="+suivant;
 				
 				break;
 
@@ -146,15 +148,15 @@ public class PagerActivite {
 			switch (profil.getTypeOrganisteur()) {
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				lien="/waydplace/Frontal?action="+Frontal.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
 				break;
 				
 			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-				lien="/waydplace/Frontal?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				lien="/waydplace/Frontal?action="+Frontal.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
 				break;
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
-				lien="/waydplace/FrontalGestionnaire?action="+ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				lien="/waydplace/FrontalGestionnaire?action="+FrontalGestionnaire.REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE+"&page="+suivant;
 				
 				break;
 

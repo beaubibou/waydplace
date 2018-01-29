@@ -27,13 +27,16 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
 
-<link href="/wayd/css/styleWayd.css" rel="stylesheet" type="text/css">
-<script src="/wayd/js/initfirebase.js"></script>
-
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+	type="text/css">
+<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
+	media="all" type="text/css">
 </head>
 <body>
 	<%
-  	Profil profil = (Profil) request.getSession().getAttribute("profil");
+  	
+	
+	Profil profil = (Profil) request.getSession().getAttribute("profil");
   	String mail = profil.getMembre().getMail();
 
 	%>
@@ -147,7 +150,7 @@ function envoiDemande(){
 
 
 				BootstrapDialog.alert("<%=Erreur_HTML.MOT_DE_PASSE_CHANGE%>", function(){
-					document.location.href="/wayd/ComptePro";   
+					document.location.href="/waydplace/membre/compteMembre.jsp";   
 				});
 				
 			  // Update successful.

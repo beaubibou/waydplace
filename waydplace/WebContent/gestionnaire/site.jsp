@@ -66,7 +66,7 @@
 								<%=profil.getSite().getDetailEnteteSiteHtml()%>
 
 								<form
-									action="/waydplace/FrontalGestionnaire?action=<%=ActionPage.CHARGE_PHOTO_SITE_GESTIONNAIRE%>"
+									action="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.CHARGE_PHOTO_SITE_GESTIONNAIRE%>"
 									method="post" enctype="multipart/form-data"
 									onsubmit="return valideFichier()">
 
@@ -93,7 +93,7 @@
 						onsubmit="return valideFormulaire()">
 
 						<input name="action" type="hidden"
-							value=<%=ActionPage.MODIFIER_SITE_GESTIONNAIRE%>>
+							value=<%=FrontalGestionnaire.MODIFIER_SITE_GESTIONNAIRE%>>
 
 						<div class="form-group">
 

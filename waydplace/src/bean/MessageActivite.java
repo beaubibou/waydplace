@@ -2,8 +2,10 @@ package bean;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import outils.Outils;
 import parametre.ActionPage;
+import servlet.membre.Frontal;
 
 public class MessageActivite {
 	int id;
@@ -162,7 +164,7 @@ public class MessageActivite {
 			return "";
 
 		String lien = "<p><a href='/waydplace/Frontal?action="
-				+ ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE
+				+ Frontal.REDIRECTION_ENVOYER_MESSAGE_MEMBRE
 				+ "&uid_emetteur="
 				+ profil.getUID()
 				+ "&idactivite="

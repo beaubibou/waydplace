@@ -1,5 +1,6 @@
 
 
+<%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="com.sun.accessibility.internal.resources.accessibility"%>
 <%@page import="pager.PagerActivite"%>
 <%@page import="critere.CritereTypeOrganisateur"%>
@@ -65,7 +66,7 @@
 					action="/waydplace/Frontal">
 
 					<input type="hidden" name='action'
-						value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES%>'>
+						value='<%=Frontal.REFRESH_RECHERCHE_ACTIVITE_MEMBRES%>'>
 
 
 
@@ -170,8 +171,8 @@
 				<%
 					if (listActivite!=null)
 					for (Activite activite : listActivite) {
-									String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
-									String lienDetailParticipant = "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE+"&idmembre=" +activite.getUid_membre();
+									String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+									String lienDetailParticipant = "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT+"&idmembre=" +activite.getUid_membre();
 				%>
 
 				<tr onclick="document.location='<%=lienDetailActivite%>'">
@@ -226,7 +227,7 @@
 	
 			$('#datefin').datetimepicker(
 					{
-						defaultDate : new Date(<%=filtre.getCritereDateFinCreation().getYear()%>,<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>,<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>,	),
+						defaultDate : new Date(<%=filtre.getCritereDateFinCreation().getYear()%>,<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>,<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>	),
 			format : 'DD/MM/YYYY'
 
 							}).on('dp.change', function (e) {document.getElementById("formulaire").submit(); });

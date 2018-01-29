@@ -147,7 +147,7 @@
 
 							<%=ProposeActiviteMembre.initNbrCaracteres()%></h5>
 							
-						<input type='hidden' name='action' value='<%=ActionPage.AJOUTER_ACTIVITE_GESTIONNAIRE%>'>
+						<input type='hidden' name='action' value='<%=FrontalGestionnaire.AJOUTER_ACTIVITE_GESTIONNAIRE%>'>
 
 						<button type="submit" class="btnwayd btn-lg">Proposer</button>
 

@@ -4,15 +4,16 @@ import dao.MessageDAO;
 import bean.Profil;
 import parametre.ActionPage;
 import parametre.Parametres;
+import servlet.membre.Frontal;
 import text.pageweb.MenuGestionnaireText;
 
 public class MenuMembre {
 
 	private static String LIEN_CONNEXION = "<li><a href='/waydplace/index.jsp'><span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
 	private static String LIEN_DECONNEXION = "<li><a href='/waydplace/Frontal?action="
-			+ ActionPage.DECONNEXION_MEMBRE+ "'><span class='glyphicon glyphicon-log-in'></span> Deconnexion</a></li>";
+			+ Frontal.DECONNEXION_MEMBRE+ "'><span class='glyphicon glyphicon-log-in'></span> Deconnexion</a></li>";
 	private static String LIEN_ENVELLOPPE = "<li><a href='/waydplace/Frontal?action="
-			+ ActionPage.REDIRECTION_MESSAGES_MEMBRE+ "'><span class='glyphicon glyphicon-envelope'></span> </a></li>";
+			+ Frontal.REDIRECTION_MESSAGES_MEMBRE+ "'><span class='glyphicon glyphicon-envelope'></span> </a></li>";
 
 	
 
@@ -22,7 +23,7 @@ public class MenuMembre {
 
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 
-			lien = getLi(ActionPage.REDIRECTION_MES_ACTIVITES_MEMBRE,
+			lien = getLi(Frontal.REDIRECTION_MES_ACTIVITES_MEMBRE,
 					MenuGestionnaireText.GERER);
 
 			break;
@@ -42,7 +43,7 @@ public class MenuMembre {
 
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 			
-			lien = getLi(ActionPage.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE,
+			lien = getLi(Frontal.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE,
 					MenuGestionnaireText.PROPOSER);
 
 			break;
@@ -62,7 +63,7 @@ public class MenuMembre {
 
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 
-			lien = getLi(ActionPage.REDIRECTION_COMPTE_MEMBRE,
+			lien = getLi(Frontal.REDIRECTION_COMPTE_MEMBRE,
 					MenuGestionnaireText.MON_COMPTE);
 
 			break;
@@ -87,8 +88,7 @@ public class MenuMembre {
 		switch (profil.getTypeOrganisteur()) {
 
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-			System.out.println(LIEN_DECONNEXION);
-			lien = LIEN_DECONNEXION;
+				lien = LIEN_DECONNEXION;
 
 			break;
 

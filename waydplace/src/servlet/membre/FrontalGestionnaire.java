@@ -49,6 +49,30 @@ import dao.SiteDAO;
  * Servlet implementation class FrontalGestionnaire
  */
 public class FrontalGestionnaire extends HttpServlet {
+	
+	public static final String REFRESH_MES_ACTIVITE_GESTIONNAIRE="refreshMesActiviteGestionnaire";
+	public static final String REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE = "redirectionproposeractivite";
+	public static final String REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "proposerplusieursactivitegestionnaire";
+	public static final String REDIRECTION_SITE_GESTIONNAIRE = "redirectionsitegestionnaire";
+	public static final String REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE = "gererActiviteGesionnaire";
+	public static final String REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE = "rediModifierActiviteGesionnaire";
+	public static final String REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE = "redirechercheractivite";
+	public static final String REDIRECTION_PLANING_GESTIONNAIRE = "planingGestionnaire";
+	public static final String REDIRECTION_COMPTE_GESTIONNAIRE = "redirectioncompteGestionnaire";
+	public static final String REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE = "redirectioChalgeMDPgestionnaire";
+	public static final String CHARGE_PHOTO_SITE_GESTIONNAIRE = "chargePgotoSiteGestionnaire";
+	public static final String AJOUTER_ACTIVITE_GESTIONNAIRE = "ajouterActiviteGesionnaire";
+	public static final String EFFACE_ACTIVITE_GESTIONNAIRE = "effaceActiviteGestionnaire";
+	public static final String MODIFIER_ACTIVITE_GESTIONNAIRE = "modifieractivitegestionnaire";
+	public static final String AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "ajouterplsactivitegestionnaire";
+	public static final String REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE = "refreshrechercheactivitegestionnaire";
+	public static final String MODIFIER_SITE_GESTIONNAIRE = "modifierSiteGetionnaire";
+	public static final String DECONNEXION_GESTIONNAIRE = "deconnexionGetionnaire";
+	public static final String SUPPRIMER_PHOTO_GESTIONNAIRE = "supprimerPhotoGestionnaire";
+	public static final String CHARGE_PHOTO_PROFIL_GESTIONNAIRE = "chargePhotoProfilGestionnaire";
+	public static  final String MODIFIER_COMPTE_GESTIONNAIRE="modifierCompteGestionnaire";
+	
+	
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger
 			.getLogger(FrontalGestionnaire.class);
@@ -91,13 +115,13 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		switch (action) {
 
-		case ActionPage.REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE:
+		case REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE:
 
 			response.sendRedirect("gestionnaire/proposeUneActivite.jsp");
 
 			break;
 
-		case ActionPage.REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE:
+		case REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE:
 
 			Activite activite = getActivite(request, profil);
 
@@ -106,17 +130,81 @@ public class FrontalGestionnaire extends HttpServlet {
 					.forward(request, response);
 
 			break;
+			
+		case MODIFIER_COMPTE_GESTIONNAIRE:
+			MessageAction modifierCompteGestionnaire = modifierCompteGestionnaire(request,
+					profil);
 
-		case ActionPage.MODIFIER_ACTIVITE_GESTIONNAIRE:
+			if (modifierCompteGestionnaire.isOk()) {
+				profil.setMessageDialog("Modification prise en compte.");
+				response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
+			
+			} else {
+		
+				redirectionErreur(modifierCompteGestionnaire.getMessage(),request,response);
+			}
+			
+			break;
+		
+
+	
+		
+		case REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE:
+
+			
+			response.sendRedirect("gestionnaire/changementmotdepasse.jsp");
+			break;
+			
+			
+			
+
+		case MODIFIER_ACTIVITE_GESTIONNAIRE:
 
 			MessageAction modifierActiviteMembre = modifierActiviteMembre(
 					request, profil);
 
+			if (modifierActiviteMembre.isOk()){
 			response.sendRedirect("gestionnaire/mesactivites.jsp");
+			}
+			else{
+				
+				
+			}
 
 			break;
 
-		case ActionPage.MODIFIER_SITE_GESTIONNAIRE:
+		case CHARGE_PHOTO_PROFIL_GESTIONNAIRE:
+
+			MessageAction chargePhotoGestionnaire = chargePhotoGestionnaire(request, profil);
+
+			if (chargePhotoGestionnaire.isOk()) {
+
+				response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
+
+			} else {
+
+				redirectionErreur(chargePhotoGestionnaire.getMessage(),request,response);
+			}
+			break;
+	
+		case SUPPRIMER_PHOTO_GESTIONNAIRE:
+			MessageAction supprimePhotoGestionnaire = supprimePhotoGestionnaire(
+					request, profil);
+
+			if (supprimePhotoGestionnaire.isOk()) {
+				
+				profil.setPhoto(null);
+			
+				response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
+
+			} else {
+
+				redirectionErreur(supprimePhotoGestionnaire.getMessage(), request,
+						response);
+			}
+			break;
+
+		case MODIFIER_SITE_GESTIONNAIRE:
 
 			MessageAction modifierSite = modifierSite(request, profil);
 			if (modifierSite.isOk()) {
@@ -127,7 +215,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			}
 			break;
 
-		case ActionPage.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
+		case REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
 
 			request.getRequestDispatcher(
 					"gestionnaire/proposePlusieursActivite.jsp").forward(
@@ -135,21 +223,27 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			break;
 
-		case ActionPage.REDIRECTION_SITE_GESTIONNAIRE:
+		case REDIRECTION_SITE_GESTIONNAIRE:
 
 			request.getRequestDispatcher("gestionnaire/site.jsp").forward(
 					request, response);
 
 			break;
+		case REDIRECTION_COMPTE_GESTIONNAIRE:
 
-		case ActionPage.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE:
+			request.getRequestDispatcher("gestionnaire/compteGestionnaire.jsp")
+					.forward(request, response);
+
+			break;
+
+		case REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE:
 
 			request.getRequestDispatcher("gestionnaire/mesactivites.jsp")
 					.forward(request, response);
 
 			break;
 
-		case ActionPage.DECONNEXION_GESTIONNAIRE:
+		case DECONNEXION_GESTIONNAIRE:
 
 			session.invalidate();
 
@@ -158,7 +252,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			break;
 
-		case ActionPage.REDIRECTION_PLANING_GESTIONNAIRE:
+		case REDIRECTION_PLANING_GESTIONNAIRE:
 
 			ArrayList<ActiviteAgenda> listActivite = ActiviteDAO
 					.getActiviteAgendaBySite(profil.getIdSite());
@@ -170,7 +264,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			break;
 
-		case ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE:
+		case REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE:
 
 			pager = new PagerActivite(profil.getFiltre(), page);
 			request.setAttribute("pager", pager);
@@ -179,7 +273,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			break;
 
-		case ActionPage.REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE:
+		case REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE:
 
 			MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
 					request, profil);
@@ -201,8 +295,8 @@ public class FrontalGestionnaire extends HttpServlet {
 			}
 
 			break;
-			
-		case ActionPage.REFRESH_MES_ACTIVITE_GESTIONNAIRE:
+
+		case REFRESH_MES_ACTIVITE_GESTIONNAIRE:
 
 			MessageAction updateFiltreRecherche = updateFiltreRecherche(
 					request, profil);
@@ -211,8 +305,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			}
 			break;
 
-
-		case ActionPage.AJOUTER_ACTIVITE_GESTIONNAIRE:
+		case AJOUTER_ACTIVITE_GESTIONNAIRE:
 
 			MessageAction ajouteActiviteMembre = ajouterActiviteGestionnaire(
 					request, response, profil);
@@ -227,22 +320,23 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			break;
 
-		case ActionPage.AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
+		case AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
 
 			MessageAction ajoutePlusieursActiviteMembre = ajouterPlusieursActiviteGestionnaire(
 					request, response, profil);
 
 			if (ajoutePlusieursActiviteMembre.isOk()) {
 
-					response.sendRedirect("gestionnaire/mesactivites.jsp");
+				response.sendRedirect("gestionnaire/mesactivites.jsp");
 
 			} else {
 
-			}	
+			}
 
 			break;
+			
 
-		case ActionPage.EFFACE_ACTIVITE_GESTIONNAIRE:
+		case EFFACE_ACTIVITE_GESTIONNAIRE:
 
 			MessageAction effaceActivite = effaceActivite(request, profil);
 
@@ -256,19 +350,19 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			break;
 
-		case ActionPage.CHARGE_PHOTO_SITE_GESTIONNAIRE:
+		case CHARGE_PHOTO_SITE_GESTIONNAIRE:
 
 			MessageAction chargePhotoMembre = chargePhotoSite(request, profil);
 
-			if (chargePhotoMembre.isOk()){
-				
-				response.sendRedirect("gestionnaire/site.jsp");	
+			if (chargePhotoMembre.isOk()) {
+
+				response.sendRedirect("gestionnaire/site.jsp");
+			} else {
+
+				redirectionErreur(chargePhotoMembre.getMessage(), request,
+						response);
 			}
-			else{
-				
-				redirectionErreur(chargePhotoMembre.getMessage(), request, response);
-			}
-			
+
 			break;
 
 		default:
@@ -279,10 +373,131 @@ public class FrontalGestionnaire extends HttpServlet {
 
 	private void redirectionErreur(String message, HttpServletRequest request,
 			HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
+
+
 	}
 
+	private MessageAction supprimePhotoGestionnaire(HttpServletRequest request,
+			Profil profil) {
+
+		MessageAction updatePhoto = MembreDAO
+				.updatePhoto(null, profil.getUID());
+
+		if (updatePhoto.isOk()) {
+
+			return new MessageAction(true, "");
+
+		} else
+			return new MessageAction(false, updatePhoto.getMessage());
+
+	}
+	
+	private MessageAction modifierCompteGestionnaire(HttpServletRequest request,
+			Profil profil) {
+
+		String pseudo = request.getParameter("pseudo");
+		String description = request.getParameter("commentaire");
+		String uid = request.getParameter("uid");
+		String idtypeGenreStr=request.getParameter("typeGenre");
+			
+		String datedebut = request.getParameter("datenaissance");
+		DateTime datenaissanceDT=null;
+		try {
+			 datenaissanceDT = getDateFromString(datedebut);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Date dateNaissance=datenaissanceDT.toDate();
+		
+		
+		MessageAction vpModifieCompte = vpModifieCompte(pseudo, description,
+				uid,idtypeGenreStr);
+
+		int idTypeGenre = Integer.parseInt(idtypeGenreStr);
+		
+		
+		if (vpModifieCompte.isOk()) {
+
+			MessageAction modifieMembreDAO = MembreDAO.modifieCompteMembre(
+					pseudo, description, profil.getUID(),idTypeGenre,dateNaissance);
+			if (modifieMembreDAO.isOk()) {
+				profil.setPseudo(pseudo);
+				profil.setDescription(description);
+				profil.setIdGenre(idTypeGenre);
+				profil.setDateNaissance(dateNaissance);
+			
+				return new MessageAction(true, "");
+			} else
+				return modifieMembreDAO;
+
+		}
+
+		return new MessageAction(false, "Erreur inconnue");
+
+	}
+
+	private MessageAction vpModifieCompte(String pseudo,String description,
+			String uid,String idtypeGenreStr) {
+		
+			
+		return new MessageAction(true, "");
+	}
+
+	private MessageAction chargePhotoGestionnaire(HttpServletRequest request,
+			Profil profil) {
+		File file;
+		int maxFileSize = 6000 * 1024;
+		int maxMemSize = 6000 * 1024;
+		String contentType = request.getContentType();
+		if ((contentType.indexOf("multipart/form-data") >= 0)) {
+
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			factory.setSizeThreshold(maxMemSize);
+			factory.setRepository(new File("c:\\temp"));
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setSizeMax(maxFileSize);
+			try {
+				List fileItems = upload.parseRequest(request);
+				Iterator i = fileItems.iterator();
+
+				while (i.hasNext()) {
+					FileItem fi = (FileItem) i.next();
+					if (!fi.isFormField()) {
+							BufferedImage tmp = ImageIO.read(fi.getInputStream());
+
+						BufferedImage imBuff = resize(tmp, 300, 200);
+
+						String stringPhoto = encodeToString(imBuff, "jpeg");
+
+						MessageAction updatePhoto = MembreDAO.updatePhoto(
+								stringPhoto, profil.getUID());
+
+						if (updatePhoto.isOk()) {
+							profil.setMembrePhotostr(stringPhoto);
+							return new MessageAction(true, "");
+						} else {
+
+							return new MessageAction(false,
+									updatePhoto.getMessage());
+
+						}
+
+					}
+				}
+
+			} catch (Exception ex) {
+				LOG.error(ExceptionUtils.getStackTrace(ex));
+				return new MessageAction(false, ex.getMessage());
+			}
+
+		}
+
+		return new MessageAction(false, "erreur inconnue");
+	}
+
+	
 	private MessageAction chargePhotoSite(HttpServletRequest request,
 			Profil profil) {
 		File file;
@@ -337,11 +552,13 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		return new MessageAction(false, "erreur inconnue");
 	}
-	
-	public static BufferedImage resize(BufferedImage img, int newW, int newH) throws IOException {
-		  return Thumbnails.of(img).forceSize(newW, newH).outputQuality(1).asBufferedImage();
-		 
-		}
+
+	public static BufferedImage resize(BufferedImage img, int newW, int newH)
+			throws IOException {
+		return Thumbnails.of(img).forceSize(newW, newH).outputQuality(1)
+				.asBufferedImage();
+
+	}
 
 	public static String encodeToString(BufferedImage image, String type) {
 		String imageString = null;
@@ -368,14 +585,14 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		if (vpModifieSite.isOk()) {
 
-				MessageAction modifieSiteDAO = SiteDAO.modifieSite(nom,
+			MessageAction modifieSiteDAO = SiteDAO.modifieSite(nom,
 					description, profil.getIdSite());
 
 			if (modifieSiteDAO.isOk()) {
 				profil.setNomSite(nom);
 				profil.setDescriptionSite(description);
 				return new MessageAction(true, "");
-		
+
 			} else
 
 				return modifieSiteDAO;
@@ -541,9 +758,9 @@ public class FrontalGestionnaire extends HttpServlet {
 		if (vpAjouteActivite.isOk()) {// Verification des parametres
 
 			ajouteActivites(profil.getIdSite(),
-					Parametres.TYPE_ORGANISATEUR_SITE, dateDebut,
-					dateFin, titre, libelle, profil.getUID(),
-					id_ref_type_activite, joursVoulus, duree);
+					Parametres.TYPE_ORGANISATEUR_SITE, dateDebut, dateFin,
+					titre, libelle, profil.getUID(), id_ref_type_activite,
+					joursVoulus, duree);
 
 			return new MessageAction(true, "");
 
@@ -576,7 +793,7 @@ public class FrontalGestionnaire extends HttpServlet {
 				calFin.setTime(dateDebut);
 				calFin.add(Calendar.MINUTE, duree);
 				calFin.add(Calendar.DAY_OF_MONTH, f);
-		
+
 				ActiviteDAO.AjouteActivite(idSite, id_ref_type_organisateur,
 						calDebut.getTime(), calFin.getTime(), titre, libelle,
 						uid, id_ref_type_activite);
@@ -762,9 +979,8 @@ public class FrontalGestionnaire extends HttpServlet {
 		if (vpAjouteActivite.isOk()) {// Verification des parametres
 
 			MessageAction ajouteActivite = ActiviteDAO.AjouteActivite(
-					profil.getIdSite(),
-					Parametres.TYPE_ORGANISATEUR_SITE, dateDebut,
-					dateFin, titre, libelle, profil.getUID(),
+					profil.getIdSite(), Parametres.TYPE_ORGANISATEUR_SITE,
+					dateDebut, dateFin, titre, libelle, profil.getUID(),
 					id_ref_type_activite);
 
 			if (ajouteActivite.isOk()) {// Si l'activité ajouté

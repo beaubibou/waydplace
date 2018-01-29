@@ -1,5 +1,7 @@
 
 
+<%@page import="servlet.membre.FrontalCommun"%>
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="dao.ActiviteDAO"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="critere.FiltreRecherche"%>
@@ -47,11 +49,11 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-		FiltreRecherche filtre=profil.getFiltre();
-		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActiviteBySite(profil.getIdSite(), filtre.getCritereRechercheEtatMesActivite());
+			FiltreRecherche filtre=profil.getFiltre();
+			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActiviteBySite(profil.getIdSite(), filtre.getCritereRechercheEtatMesActivite());
 	%>
 
-<%@ include file="menuGestionnaire.jsp"%>
+	<%@ include file="menuGestionnaire.jsp"%>
 
 
 	<div class="container margedebut ">
@@ -67,8 +69,8 @@
 
 				<div class="row">
 					<div class="col-sm-3">
-						<form method="post" action="/waydplace/FrontalGestionnaire" id="formulaire"
-							class="form-inline">
+						<form method="post" action="/waydplace/FrontalGestionnaire"
+							id="formulaire" class="form-inline">
 							<div class="form-group">
 								<label for="idEtatActivite">Status:</label> <select
 									class="form-control" id="idEtatActivite"
@@ -88,7 +90,7 @@
 
 							</div>
 							<input type="hidden" name='action'
-								value='<%=ActionPage.REFRESH_MES_ACTIVITE_GESTIONNAIRE%>'>
+								value='<%=FrontalGestionnaire.REFRESH_MES_ACTIVITE_GESTIONNAIRE%>'>
 						</form>
 					</div>
 
@@ -99,7 +101,7 @@
 
 		</div>
 		<table class="table table-responsive " id="matable">
-			<thead class="entetetable" align="center" >
+			<thead class="entetetable" align="center">
 				<tr>
 					<th style="width: 10%;" class="text-center">Etat</th>
 					<th class="text-center">Titre</th>
@@ -109,26 +111,25 @@
 
 				</tr>
 			</thead>
-			<tbody	style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
+			<tbody
+				style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
 
 				<%
 					if (listMesActivite!=null)
-					for (Activite activite : listMesActivite)
-					{
-				String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
-						
-					%>
+							for (Activite activite : listMesActivite)
+							{
+						String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+				%>
 
 
 				<tr onclick="document.location='<%=lienDetailActivite%>'">
 					<td><%=activite.getEtatHtml()%></td>
 					<td class="idActivite" id=<%=activite.getId()%>
 						style="vertical-align: middle;"><%=activite.getTitre()%></td>
-						<td style="vertical-align: middle;"><%=activite.getLibelle()%></td>
+					<td style="vertical-align: middle;"><%=activite.getLibelle()%></td>
 					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
-					<td style="vertical-align: middle;"><a title="Détail"></a>
-					<%=activite.getPanelActionGestionHtmlGestionaire() %>
- </td>
+					<td style="vertical-align: middle;"><a title="Détail"></a> <%=activite.getPanelActionGestionHtmlGestionaire()%>
+					</td>
 
 
 				</tr>

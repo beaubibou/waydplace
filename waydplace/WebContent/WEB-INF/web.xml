@@ -44,4 +44,14 @@
     <servlet-name>CreationCompte</servlet-name>
     <url-pattern>/CreationCompte</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FrontalCommun</display-name>
+    <servlet-name>FrontalCommun</servlet-name>
+    <servlet-class>servlet.membre.FrontalCommun</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FrontalCommun</servlet-name>
+    <url-pattern>/FrontalCommun</url-pattern>
+  </servlet-mapping>
 </web-app>

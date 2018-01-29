@@ -2,10 +2,15 @@ package bean;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.apache.log4j.Logger;
+
 import outils.Outils;
 import parametre.ActionPage;
 import parametre.Parametres;
+import servlet.membre.Frontal;
+import servlet.membre.FrontalCommun;
+import servlet.membre.FrontalGestionnaire;
 
 public class Activite {
 	private static final Logger LOG = Logger.getLogger(Activite.class);
@@ -63,7 +68,7 @@ public class Activite {
 			return "";
 
 		return "<p><a href='/waydplace/Frontal?action="
-				+ ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE
+				+ Frontal.REDIRECTION_ENVOYER_MESSAGE_MEMBRE
 				+ "&uid_emetteur="
 				+ profil.getUID()
 				+ "&idactivite="
@@ -80,9 +85,9 @@ public class Activite {
 			return "";
 		
 		String lienEffaceActivite = "/waydplace/Frontal?action="
-				+ ActionPage.EFFACE_ACTIVITE_MEMBRE + "&idactivite=" + id;
+				+ Frontal.EFFACE_ACTIVITE_MEMBRE + "&idactivite=" + id;
 		String lienModifierActivite = "/waydplace/Frontal?action="
-				+ ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE
+				+ Frontal.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE
 				+ "&idactivite=" + id;
 
 		return "<p ><a href='"
@@ -99,9 +104,9 @@ public class Activite {
 			return "";
 		
 		String lienEffaceActivite = "/waydplace/FrontalGestionnaire?action="
-				+ ActionPage.EFFACE_ACTIVITE_GESTIONNAIRE + "&idactivite=" + id;
+				+ FrontalGestionnaire.EFFACE_ACTIVITE_GESTIONNAIRE + "&idactivite=" + id;
 		String lienModifierActivite = "/waydplace/FrontalGestionnaire?action="
-				+ ActionPage.REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE
+				+ FrontalGestionnaire.REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE
 				+ "&idactivite=" + id;
 
 		return "<p><a href='"
@@ -132,7 +137,7 @@ public class Activite {
 			return "";
 	
 		String lienEnvoiMessage = "/waydplace/Frontal?action="
-				+ ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE
+				+ Frontal.REDIRECTION_ENVOYER_MESSAGE_MEMBRE
 				+ "&uid_emetteur=" + profil.getUID() + "&idactivite=" + id
 				+ "&uid_destinataire=" + uidEmetteur;
 
@@ -149,8 +154,8 @@ public class Activite {
 		
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 		
-			String lienDetailParticipant = "/waydplace/Frontal?action="
-					+ ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE
+			String lienDetailParticipant = "/waydplace/FrontalCommun?action="
+					+ FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT
 					+ "&idmembre=" + getUid_membre();
 
 			return "<div class='clearfix'><a href='" + lienDetailParticipant
@@ -162,8 +167,8 @@ public class Activite {
 
 		case Parametres.TYPE_ORGANISATEUR_SITE:
 			
-			String lienDetailSite = "/waydplace/Frontal?action="
-					+ ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE
+			String lienDetailSite = "/waydplace/FrontalCommun?action="
+					+ FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT
 					+ "&idmembre=" + getUid_membre();
 
 			
@@ -174,7 +179,6 @@ public class Activite {
 					+ libelle + "</h4><h6 align='left'>"
 					+ getHoraireLigne() + "</h6></div>" ;
 			
-
 	
 		}
 		return"";

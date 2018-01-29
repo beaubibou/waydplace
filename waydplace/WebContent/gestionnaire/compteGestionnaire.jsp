@@ -1,5 +1,5 @@
 
-<%@page import="servlet.membre.Frontal"%>
+<%@page import="servlet.membre.FrontalGestionnaire"%>
 <%@page import="outils.AlertDialog"%>
 <%@page import="outils.Outils"%>
 <%@page import="bean.RefTypeGenre"%>
@@ -45,10 +45,10 @@
 <body>
 	<%
 		Profil profil = (Profil) request.getSession()
-			.getAttribute("profil");
+		.getAttribute("profil");
 	%>
 	<%=AlertDialog.getAlertDialog(profil)%>
-	<%@include file="menuMembre.jsp"%>
+	<%@include file="menuGestionnaire.jsp"%>
 	<div class="container margedebut">
 		<div class="panel panel-default">
 			<div class="panel-heading panel-heading-custom">
@@ -72,7 +72,7 @@
 
 
 							<form
-								action="/waydplace/Frontal?action=<%=Frontal.CHARGE_PHOTO_PROFIL_MEMBRE%>"
+								action="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.CHARGE_PHOTO_PROFIL_GESTIONNAIRE%>"
 								method="post" enctype="multipart/form-data"
 								onsubmit="return valideFichier()">
 
@@ -84,9 +84,12 @@
 											style="display: none;">
 										</label> <input type="submit" value="Envoyer la photo"
 											class="btn btn-primary btn-sm  " /> <a
-											href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
-											class='btn btn-danger btn-sm'> <span class="glyphicon glyphicon-remove"></span></a>
-					 <a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>' class="btn btn-info btn-sm"> <span class="glyphicon glyphicon-lock"></span></a> 
+											href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.SUPPRIMER_PHOTO_GESTIONNAIRE%>'
+											class='btn btn-danger btn-sm'> <span
+											class="glyphicon glyphicon-remove"></span></a> <a
+											href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE%>'
+											class="btn btn-info btn-sm"> <span
+											class="glyphicon glyphicon-lock"></span></a>
 
 									</div>
 								</div>
@@ -100,11 +103,11 @@
 				</div>
 
 
-				<form action="/waydplace/Frontal" method="post"
+				<form action="/waydplace/FrontalGestionnaire" method="post"
 					onsubmit="return valideFormulaire()">
 
 					<input name="action" type="hidden"
-						value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>>
+						value=<%=FrontalGestionnaire.MODIFIER_COMPTE_GESTIONNAIRE%>>
 
 					<div class="form-group">
 						<div class="row">
@@ -190,12 +193,11 @@
 		var monfichier;
 		monfichier=latitude = document.getElementById("file").value;
 		
-	if (monfichier==''){
-		BootstrapDialog
-		.alert("<%=CompteMembre.AUCUN_FICHIER_SELECTIONNE%>");
+	if (monfichier==''){BootstrapDialog	.alert("<%=CompteMembre.AUCUN_FICHIER_SELECTIONNE%>");
 				return false;
 			}
 
+	
 		}
 	</script>
 

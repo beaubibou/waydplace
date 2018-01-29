@@ -1,5 +1,7 @@
 
 
+<%@page import="servlet.membre.FrontalCommun"%>
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="com.sun.accessibility.internal.resources.accessibility"%>
 <%@page import="pager.PagerActivite"%>
 <%@page import="critere.CritereTypeOrganisateur"%>
@@ -64,7 +66,7 @@
 					action="/waydplace/FrontalGestionnaire">
 
 					<input type="hidden" name='action'
-						value='<%=ActionPage.REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE%>'>
+						value='<%=FrontalGestionnaire.REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE%>'>
 
 
 					<div class="form-group">
@@ -167,7 +169,7 @@
 				<%
 					if (listActivite!=null)
 								for (Activite activite : listActivite) {
-									String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+									String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
 									
 									%>
 
@@ -220,7 +222,7 @@
 	
 			$('#datefin').datetimepicker(
 					{
-						defaultDate : new Date(<%=filtre.getCritereDateFinCreation().getYear()%>,<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>,<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>,	),
+						defaultDate : new Date(<%=filtre.getCritereDateFinCreation().getYear()%>,<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>,<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>),
 			format : 'DD/MM/YYYY'
 
 							}).on('dp.change', function (e) {document.getElementById("formulaire").submit(); });

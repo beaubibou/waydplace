@@ -48,7 +48,31 @@ import dao.MessageDAO;
 public class Frontal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(Frontal.class);
-
+	public static final String REDIRECTION_PROPOSER_ACTIVITE_MEMBRE="proposerActiviteMembre";
+	public static final String REDIRECTION_MES_ACTIVITES_MEMBRE="redirectionmesactivites";
+	public static final String REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE = "rechercherActivite";
+	public static final String REDIRECTION_ENVOYER_MESSAGE_MEMBRE ="rediEnvoyerMessageMembre" ;
+	public static final String REDIRECTION_MESSAGES_MEMBRE = "redireMessageMembre";
+	public static final String REDIRECTION_PLANING_MEMBRE = "redirectionPlaningMembre";
+	public static final String AJOUTER_ACTIVITE_MEMBRE = "ajouteActiviteMembre";
+	public static final String REFRESH_MES_ACTIVITE_MEMBRES = "refreshmesactivitemembres";
+	public static final String REFRESH_RECHERCHE_ACTIVITE_MEMBRES = "resfreshRechercheActiviteMembres";
+	public static final String REDIRECTION_COMPTE_MEMBRE = "redirectionprofilmembre";
+	public static final String REDIRECTION_MODIFIER_ACTIVITE_MEMBRE = "redirectionmodifieractivitemembre";
+	public static final String EFFACE_ACTIVITE_MEMBRE = "effaceActiviteMembre";
+	public static final String MODIFIER_ACTIVITE_MEMBRE = "modifierActiviteMembre";
+	public static final String MODIFIER_COMPTE_MEMBRE = "modifiercompteMembre";
+	public static final String ENVOI_MESSAGE_MEMBRE = "envoiMessageMembre";
+	public static final String ENVOI_REPONSE_MEMBRE = "envoirReponseMembre";
+	public static final String CHARGE_PHOTO_PROFIL_MEMBRE = "chargephotoProfilMembre";
+	public static final String SUPPRIMER_PHOTO_MEMBRE = "supprimerPhotoMembre";
+	public static final String REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE = "changerMotDePasseMembre";
+	public static final String DECONNEXION_MEMBRE = "deconnexionMembre";
+	public static final String CREER_COMPTE_PRO = "creerComptePro";
+	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
+	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
+	public static final String REDIRECTION_CREATION_COMPTE_MEMBRE = "redirectionCreationCompteMembre";
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -90,11 +114,11 @@ public class Frontal extends HttpServlet {
 
 		switch (action) {
 
-		case ActionPage.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
+		case REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
 			response.sendRedirect("membre/proposeActiviteMembre.jsp");
 			break;
 
-		case ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
+		case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
 
 			int page = 0;
 			pager = new PagerActivite(profil.getFiltre(), page);
@@ -104,26 +128,26 @@ public class Frontal extends HttpServlet {
 
 			break;
 			
-		case ActionPage.CHANGER_MOT_DE_PASSE_MEMBRE:
+		case REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE:
 
-			response.sendRedirect("commun/changementmotdepasse.jsp");
+			response.sendRedirect("membre/changementmotdepasse.jsp");
 
 			break;
 			
 
-		case ActionPage.REDIRECTION_MESSAGES_MEMBRE:
+		case REDIRECTION_MESSAGES_MEMBRE:
 
 			response.sendRedirect("membre/mesmessages.jsp");
 
 			break;
 
-		case ActionPage.REDIRECTION_PLANING_MEMBRE:
+		case REDIRECTION_PLANING_MEMBRE:
 
 			response.sendRedirect("membre/planing.jsp");
 
 			break;
 
-		case ActionPage.REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
+		case REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
 
 			MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
 					request, profil);
@@ -145,24 +169,17 @@ public class Frontal extends HttpServlet {
 
 			break;
 
-		case ActionPage.REDIRECTION_MES_ACTIVITES_MEMBRE:
+		case REDIRECTION_MES_ACTIVITES_MEMBRE:
 			response.sendRedirect("membre/mesactivites.jsp");
 			break;
 
-		case ActionPage.REDIRECTION_DETAIL_PARTICIPANT_MEMBRE:
+	
 
-			Membre membre = getMembre(request, profil);
-
-			request.setAttribute("membre", membre);
-			request.getRequestDispatcher("commun/detailMembre.jsp").forward(
-					request, response);
-			break;
-
-		case ActionPage.REDIRECTION_COMPTE_MEMBRE:
+		case REDIRECTION_COMPTE_MEMBRE:
 			response.sendRedirect("membre/compteMembre.jsp");
 			break;
 
-		case ActionPage.REDIRECTION_ENVOYER_MESSAGE_MEMBRE:
+		case REDIRECTION_ENVOYER_MESSAGE_MEMBRE:
 
 			MessageAction vpRedirectionEnvoiMessage = vpRedirectionEnvoiMessage(
 					request, profil);
@@ -176,50 +193,11 @@ public class Frontal extends HttpServlet {
 
 			break;
 
-		case ActionPage.REDIRECTION_DETAIL_ACTIVITE_MEMBRE:
-
-			Activite activite1 = getActivite(request);
-
-			request.setAttribute("activite", activite1);
-			request.getRequestDispatcher("commun/detailActivite.jsp").forward(
-					request, response);
-
-			break;
-			
-		case ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL:
-
-			Activite activite2 = getActivite(request);
-			request.setAttribute("activite", activite2);
-			
-			if (activite2==null)
-			{
-				LOG.info("*******************");
-				
-				profil.setMessageDialog("L'activite a été est supprimée.");
-				response.sendRedirect("membre/rechercheActivite.jsp");
-				return;
-			}
-			LOG.info("*******************");
-					
-			switch(activite2.getId_ref_type_organisateur()){
-		
-			case Parametres.TYPE_ORGANISATEUR_SITE:
-				request.getRequestDispatcher("commun/detailActiviteSite.jsp").forward(
-						request, response);
-				break;
-		
-			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-				request.getRequestDispatcher("commun/detailActiviteMembre.jsp").forward(
-						request, response);	
-				
-
-				break;
-			}
-			
-			break;
+	
+	
 			
 	
-		case ActionPage.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
+		case REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
 
 			Activite activite = getActivite(request, profil);
 
@@ -228,7 +206,7 @@ public class Frontal extends HttpServlet {
 					request, response);
 
 			break;
-		case ActionPage.REFRESH_MES_ACTIVITE_MEMBRES:
+		case REFRESH_MES_ACTIVITE_MEMBRES:
 
 			MessageAction updateFiltreRecherche = updateFiltreRecherche(
 					request, profil);
@@ -237,7 +215,7 @@ public class Frontal extends HttpServlet {
 			}
 			break;
 
-		case ActionPage.EFFACE_ACTIVITE_MEMBRE:
+		case EFFACE_ACTIVITE_MEMBRE:
 
 			MessageAction effaceActivite = effaceActivite(request, profil);
 
@@ -254,7 +232,7 @@ public class Frontal extends HttpServlet {
 
 			break;
 
-		case ActionPage.CHARGE_PHOTO_PROFIL_MEMBRE:
+		case CHARGE_PHOTO_PROFIL_MEMBRE:
 
 			MessageAction chargePhotoMembre = chargePhotoMembre(request, profil);
 
@@ -268,7 +246,7 @@ public class Frontal extends HttpServlet {
 			}
 			break;
 
-		case ActionPage.SUPPRIMER_PHOTO_MEMBRE:
+		case SUPPRIMER_PHOTO_MEMBRE:
 			MessageAction supprimePhotoMembre = supprimePhotoMembre(request, profil);
 
 			if (supprimePhotoMembre.isOk()) {
@@ -281,7 +259,7 @@ public class Frontal extends HttpServlet {
 			}
 			break;
 
-		case ActionPage.MODIFIER_ACTIVITE_MEMBRE:
+		case MODIFIER_ACTIVITE_MEMBRE:
 
 			MessageAction modifierActiviteMembre = modifierActiviteMembre(
 					request, profil);
@@ -300,7 +278,7 @@ public class Frontal extends HttpServlet {
 
 			break;
 
-		case ActionPage.MODIFIER_COMPTE_MEMBRE:
+		case MODIFIER_COMPTE_MEMBRE:
 
 			MessageAction modifierCompteMembre = modifierCompteMembre(request,
 					profil);
@@ -314,7 +292,7 @@ public class Frontal extends HttpServlet {
 			}
 			break;
 
-		case ActionPage.DECONNEXION_MEMBRE:
+		case DECONNEXION_MEMBRE:
 
 			session.invalidate();
 
@@ -322,7 +300,7 @@ public class Frontal extends HttpServlet {
 					.forward(request, response);
 			break;
 
-		case ActionPage.AJOUTER_ACTIVITE_MEMBRE:
+		case AJOUTER_ACTIVITE_MEMBRE:
 
 			MessageAction ajouteActiviteMembre = ajouterActiviteMembre(request,
 					profil);
@@ -338,7 +316,7 @@ public class Frontal extends HttpServlet {
 
 			break;
 
-		case ActionPage.ENVOI_MESSAGE_MEMBRE:
+		case ENVOI_MESSAGE_MEMBRE:
 
 			MessageAction vpEnvoiMessage = vpEnvoiMessage(request, profil);
 
@@ -365,7 +343,7 @@ public class Frontal extends HttpServlet {
 
 			break;
 
-		case ActionPage.ENVOI_REPONSE_MEMBRE:
+		case ENVOI_REPONSE_MEMBRE:
 
 			vpEnvoiMessage = vpEnvoiMessage(request, profil);
 
@@ -415,8 +393,6 @@ public class Frontal extends HttpServlet {
 		File file;
 		int maxFileSize = 6000 * 1024;
 		int maxMemSize = 6000 * 1024;
-		// String filePath = "c:/apache-tomcat/webapps/data/";
-
 		String contentType = request.getContentType();
 		if ((contentType.indexOf("multipart/form-data") >= 0)) {
 
@@ -432,11 +408,7 @@ public class Frontal extends HttpServlet {
 				while (i.hasNext()) {
 					FileItem fi = (FileItem) i.next();
 					if (!fi.isFormField()) {
-						// String fieldName = fi.getFieldName();
-						// String fileName = fi.getName();
-						// boolean isInMemory = fi.isInMemory();
-						// long sizeInBytes = fi.getSize();
-						BufferedImage tmp = ImageIO.read(fi.getInputStream());
+							BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
 						BufferedImage imBuff = resize(tmp, 300, 200);
 

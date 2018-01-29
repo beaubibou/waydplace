@@ -1,3 +1,4 @@
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="tag.MenuMembre"%>
 <%@page import="bean.Profil"%>
 <%@page import="parametre.ActionPage"%>
@@ -33,10 +34,10 @@
 				<%=MenuMembre.get_LI_PROPOSE((Profil) session.getAttribute("profil"))%>
 				
 				<li><a
-					href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>">Rechercher
+					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>">Rechercher
 				</a></li>
 				<li><a
-					href="/waydplace/Frontal?action=<%=ActionPage.REDIRECTION_PLANING_MEMBRE%>">Planning
+					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_PLANING_MEMBRE%>">Planning
 				</a></li>
 
 				<%=MenuMembre.get_LI_ENVELOPPE((Profil) session

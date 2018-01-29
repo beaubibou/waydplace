@@ -75,7 +75,7 @@
 					<form action="/waydplace/Frontal"
 						onsubmit="return valideFormulaire()" method="post">
 		
-				<input  name="action" type="hidden"  value=<%=ActionPage.MODIFIER_ACTIVITE_MEMBRE %> >
+				<input  name="action" type="hidden"  value=<%=Frontal.MODIFIER_ACTIVITE_MEMBRE %> >
 				<input  name="idactivite" type="hidden"  value=<%=activite.getId() %> >
 		
 

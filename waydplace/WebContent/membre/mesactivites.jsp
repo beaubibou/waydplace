@@ -1,5 +1,6 @@
 
 
+<%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="outils.AlertDialog"%>
 <%@page import="dao.ActiviteDAO"%>
 <%@page import="parametre.ActionPage"%>
@@ -92,7 +93,7 @@
 
 							</div>
 							<input type="hidden" name='action'
-								value='<%=ActionPage.REFRESH_MES_ACTIVITE_MEMBRES%>'>
+								value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
 						</form>
 					</div>
 
@@ -118,7 +119,7 @@
 					if (listMesActivite!=null)
 											for (Activite activite : listMesActivite)
 											{
-												String lienDetailActivite =  "/waydplace/Frontal?action="+ActionPage.REDIRECTION_DETAIL_ACTIVITE_ALL+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+								String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
 												
 				%>
 

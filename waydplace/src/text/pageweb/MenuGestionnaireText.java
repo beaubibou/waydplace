@@ -4,6 +4,8 @@ public class MenuGestionnaireText {
 	public static String ACCUEIL="Accueil";
 	public static String PROPOSER="Proposer";
 	public static String GERER="Gérer";
+	public static String COMPTE="Compte";
+	
 	public static String CREER_ACTIVITE="Proposez une activité";
 	public static String PLANIFIER_ACTIVITE="Planifiez vos activités";
 	public static String A_PROPOS="A propos";

@@ -196,7 +196,7 @@
 						<h5 class="nbrcaracteremax" id="nbr">
 
 							<%=ProposePlusieursActivite.initNbrCaracteres()%></h5>
-							<input type='hidden' name='action' value='<%=ActionPage.AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE%>'>
+							<input type='hidden' name='action' value='<%=FrontalGestionnaire.AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE%>'>
 							
 						<button type="submit" class="btnwayd btn-lg"><%=ProposePlusieursActivite.LABEL_BUTTON_PROPOSEZ%></button>
 

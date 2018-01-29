@@ -1,4 +1,5 @@
 
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="text.pageweb.EnvoiMessage"%>
 <%@page import="outils.Outils"%>
 <%@page import="bean.Activite"%>
@@ -79,7 +80,7 @@
 					<form action="/waydplace/Frontal"
 						onsubmit="return valideFormulaire()" method="post">
 
-						<input name="action" type="text" Value=<%=ActionPage.ENVOI_MESSAGE_MEMBRE%>> 
+						<input name="action" type="text" Value=<%=Frontal.ENVOI_MESSAGE_MEMBRE%>> 
 						
 						<input name="uid_destinataire" type="text"	value=<%=uidDestinataire%>> 
 						<input name="uid_emetteur" type="text"value=<%=uidEmetteur%>>

@@ -1,4 +1,5 @@
 
+<%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="outils.Outils"%>
 <%@page import="text.pageweb.CreationCompteProText"%>
@@ -60,7 +61,7 @@
 
 					<form action="/waydplace/ConnexionMembre" method="post"
 						onsubmit="return valideFormulaire()">
-						<input  name="action" type="hidden"  value=<%=ActionPage.CREER_COMPTE_MEMBRE %> >
+						<input  name="action" type="hidden"  value=<%=ConnexionMembre.CREER_COMPTE_MEMBRE %> >
 			
 						<div class="form-group">
 							<div class="row">

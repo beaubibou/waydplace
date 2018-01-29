@@ -75,7 +75,7 @@
 					<form action="/waydplace/FrontalGestionnaire"
 						onsubmit="return valideFormulaire()" method="post">
 		
-				<input  name="action" type="hidden"  value=<%=ActionPage.MODIFIER_ACTIVITE_GESTIONNAIRE %> >
+				<input  name="action" type="hidden"  value=<%=FrontalGestionnaire.MODIFIER_ACTIVITE_GESTIONNAIRE %> >
 				<input  name="idactivite" type="hidden"  value=<%=activite.getId() %> >
 		
 

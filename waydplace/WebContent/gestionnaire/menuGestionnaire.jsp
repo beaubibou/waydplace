@@ -1,3 +1,4 @@
+<%@page import="servlet.membre.FrontalGestionnaire"%>
 <%@page import="bean.Profil"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="text.pageweb.MenuGestionnaireText"%>
@@ -22,18 +23,21 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 		
+			<li ><a
+					href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_COMPTE_GESTIONNAIRE%>"><%=MenuGestionnaireText.COMPTE%></a></li>
+				<li>
 					<li ><a
-					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_SITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.SITE%></a></li>
+					href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_SITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.SITE%></a></li>
 				<li>
 					<a
-					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.GERER%> </a></li>
+					href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.GERER%> </a></li>
 
 <li>
 					<a
-					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE%>">Rechercher </a></li>
+					href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE%>">Rechercher </a></li>
 <li>
 	<a
-					href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_PLANING_GESTIONNAIRE%>">Planning </a></li>
+					href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PLANING_GESTIONNAIRE%>">Planning </a></li>
 
 
 				<li
@@ -42,9 +46,9 @@
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a style='color: black; background-color: #FFFFFF;'
-							href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.CREER_ACTIVITE%></a></li>
+							href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.CREER_ACTIVITE%></a></li>
 						<li><a style='color: black; background-color: #FFFFFF;'
-							href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.PLANIFIER_ACTIVITE%></a></li>
+							href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.PLANIFIER_ACTIVITE%></a></li>
 
 					</ul></li>
 
@@ -63,7 +67,7 @@
 		
 		<%}else{ %>
 		
-		<li><a href="/waydplace/FrontalGestionnaire?action=<%=ActionPage.DECONNEXION_GESTIONNAIRE %>"><span
+		<li><a href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.DECONNEXION_GESTIONNAIRE %>"><span
 						class="glyphicon glyphicon-log-out"></span> Deconnexion</a></li>
 	<%} %>	
 			</ul>
