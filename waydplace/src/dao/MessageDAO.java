@@ -52,6 +52,7 @@ public class MessageDAO {
 				requetePhoto.append("'"+uidEmetteur + "',");
 				requetePhoto.append("'"+uidDestinataire+"',");
 			}
+			
 			requetePhoto.delete(requetePhoto.length()-1, requetePhoto.length());
 		
 			rs.close();

@@ -18,7 +18,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,10 +51,6 @@
 				.getAttribute("profil");
 		ArrayList<Discussion> listMesDiscussion = MessageDAO
 				.getDiscussions(profil.getUID());
-
-		HashMap<String, String> photo = MessageDAO.getPhotoMessages(profil
-				.getUID());
-
 		BoiteReception boiteReception = new BoiteReception(profil);
 	%>
 

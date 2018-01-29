@@ -84,10 +84,8 @@
 										</label> <input type="submit" value="Envoyer la photo"
 											class="btn btn-primary btn-sm  " /> <a
 											href='/waydplace/Frontal?action=<%=ActionPage.SUPPRIMER_PHOTO_MEMBRE%>'
-											class='btn btn-danger btn-sm'> <span
-											class="glyphicon glyphicon-remove"></span></a> <a href="#"
-											class="btn btn-info btn-sm"> <span
-											class="glyphicon glyphicon-lock"></span></a> </a>
+											class='btn btn-danger btn-sm'> <span class="glyphicon glyphicon-remove"></span></a>
+					 <a href='/waydplace/Frontal?action=<%=ActionPage.CHANGER_MOT_DE_PASSE_MEMBRE%>' class="btn btn-info btn-sm"> <span class="glyphicon glyphicon-lock"></span></a> 
 
 									</div>
 								</div>

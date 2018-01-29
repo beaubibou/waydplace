@@ -27,7 +27,8 @@ public class ActionPage {
 	public static final String CHARGE_PHOTO_PROFIL_MEMBRE = "chargephotoProfilMembre";
 	public static final String SUPPRIMER_PHOTO_MEMBRE = "supprimerPhotoMembre";
 	public static final String REDIRECTION_DETAIL_ACTIVITE_ALL = "redirectionDetailActiviteALL";
-	
+	public static final String CHANGER_MOT_DE_PASSE_MEMBRE = "changerMotDePasseMembre";
+
 	
 	
 	

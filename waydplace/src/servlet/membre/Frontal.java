@@ -103,6 +103,13 @@ public class Frontal extends HttpServlet {
 					.forward(request, response);
 
 			break;
+			
+		case ActionPage.CHANGER_MOT_DE_PASSE_MEMBRE:
+
+			response.sendRedirect("commun/changementmotdepasse.jsp");
+
+			break;
+			
 
 		case ActionPage.REDIRECTION_MESSAGES_MEMBRE:
 
