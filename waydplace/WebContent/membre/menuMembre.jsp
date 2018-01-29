@@ -14,9 +14,6 @@
 					class="icon-bar"></span>
 			</button>
 
-			<img style="margin-top: 10px; margin-right: 10px;"
-				src="/wayd/img/waydLogoLR.png" class="img-rounded"
-				alt="Cinque Terre" width="30" height="30">
 
 		</div>
 
@@ -42,11 +39,11 @@
 
 				<%=MenuMembre.get_LI_ENVELOPPE((Profil) session
 					.getAttribute("profil"))%>
-
-				<%=MenuMembre.get_LI_BADGE((Profil) session
+		<%=MenuMembre.get_LI_BADGE((Profil) session
 					.getAttribute("profil"))%>
 
 
+		
 			</ul>
 
 

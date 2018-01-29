@@ -60,9 +60,7 @@
 						<div class="row">
 
 							<div class="col-sm-8">
-								<a href="#" class="btn btn-danger btn-sm"> <span
-									class="glyphicon glyphicon-remove"></span>
-								</a>
+							
 								<%=profil.getSite().getDetailEnteteSiteHtml()%>
 
 								<form
@@ -71,14 +69,17 @@
 									onsubmit="return valideFichier()">
 
 									</br>
-									<div class="container">
-										<div class="btn-group">
-											<label class="btn btn-default btn-file btn-primary btn-sm">
-												.. <input name="file" size="50" type="file"
-												style="display: none;">
-											</label> <input type="submit" value="Envoyer la photo"
-												class="btn btn-primary btn-sm  " />
-										</div>
+										<div class="container">
+									<div class="btn-group">
+										<label class="btn btn-default btn-file btn-primary btn-sm">
+											.. <input name="file" size="50" type="file"
+											style="display: none;">
+										</label> <input type="submit" value="Envoyer la photo"
+											class="btn btn-primary btn-sm  " /> <a
+											href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.SUPPRIMER_PHOTO_SITE_GESTIONNAIRE%>'
+											class='btn btn-danger btn-sm'> <span class="glyphicon glyphicon-remove"></span></a>
+					 <a href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE%>' class="btn btn-info btn-sm"> <span class="glyphicon glyphicon-lock"></span></a> 
+
 									</div>
 
 								</form>

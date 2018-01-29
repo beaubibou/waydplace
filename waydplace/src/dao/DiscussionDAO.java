@@ -61,7 +61,7 @@ public class DiscussionDAO {
 			
 
 		} catch (NamingException | SQLException e) {
-			e.printStackTrace();
+		
 			LOG.error(ExceptionUtils.getStackTrace(e));
 		} finally {
 
@@ -70,8 +70,7 @@ public class DiscussionDAO {
 		}
 
 		return new MessageAction(true, "ok");
-
-		
+	
 	}
 
 	public static boolean  isDiscussionExist(int idActivite,String uidProprietaire,String uidDestinataire){
@@ -93,8 +92,7 @@ public class DiscussionDAO {
 				return true;
 
 		} catch (NamingException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 			LOG.error(ExceptionUtils.getStackTrace(e));
 		}
 

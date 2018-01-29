@@ -118,8 +118,7 @@ public class MenuMembre {
 		switch (profil.getTypeOrganisteur()) {
 
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-			System.out.println(LIEN_DECONNEXION);
-			lien = LIEN_ENVELLOPPE;
+				lien = LIEN_ENVELLOPPE;
 
 			break;
 
@@ -150,8 +149,7 @@ public class MenuMembre {
 		switch (profil.getTypeOrganisteur()) {
 
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-			System.out.println(LIEN_DECONNEXION);
-			lien ="<li><a href=''> <span class='badge'>"+nbrMessage+"</span></a><br></li>";
+			lien ="<li><a href=''> <span class='badge'>"+nbrMessage+"</span></a></li>";
 
 			break;
 

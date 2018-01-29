@@ -95,7 +95,7 @@
 									<div class="form-group">
 										<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
 										<div class='input-group date' id='datedebut'>
-											<input type='text' class="form-control" id="iddatedebut"
+											<input type='text' class="form-control" id="iddatedebut" required
 												name="debut" /> <span class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -107,7 +107,7 @@
 									<div class="form-group">
 										<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
 										<div class='input-group date' id="datefin">
-											<input type='text' class="form-control" id="iddatefin"
+											<input type='text' class="form-control" id="iddatefin" required
 												name="fin" /> <span class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>

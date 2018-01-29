@@ -121,7 +121,7 @@
 								<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
 								<div class='input-group date' id='datenaissance'>
 									<input type='text' class="form-control" id="datenaissance"
-										name="datenaissance" /> <span class="input-group-addon">
+										name="datenaissance" required /> <span class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>

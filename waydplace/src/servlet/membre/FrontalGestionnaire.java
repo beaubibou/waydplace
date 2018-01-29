@@ -71,6 +71,10 @@ public class FrontalGestionnaire extends HttpServlet {
 	public static final String SUPPRIMER_PHOTO_GESTIONNAIRE = "supprimerPhotoGestionnaire";
 	public static final String CHARGE_PHOTO_PROFIL_GESTIONNAIRE = "chargePhotoProfilGestionnaire";
 	public static  final String MODIFIER_COMPTE_GESTIONNAIRE="modifierCompteGestionnaire";
+	public static  final String SUPPRIMER_PHOTO_SITE_GESTIONNAIRE="supprimerPhotoSitegestionnaire";
+	
+	
+	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -203,6 +207,28 @@ public class FrontalGestionnaire extends HttpServlet {
 						response);
 			}
 			break;
+
+			
+		case SUPPRIMER_PHOTO_SITE_GESTIONNAIRE:
+			MessageAction supprimePhotoSite = supprimePhotoSite(
+					request, profil);
+
+			if (supprimePhotoSite.isOk()) {
+				
+				profil.setPhoto(null);
+			
+				response.sendRedirect("gestionnaire/site.jsp");
+
+			} else {
+
+				redirectionErreur(supprimePhotoSite.getMessage(), request,
+						response);
+			}
+			break;
+
+			
+			
+			
 
 		case MODIFIER_SITE_GESTIONNAIRE:
 
@@ -389,6 +415,21 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		} else
 			return new MessageAction(false, updatePhoto.getMessage());
+
+	}
+	
+	private MessageAction supprimePhotoSite(HttpServletRequest request,
+			Profil profil) {
+
+		MessageAction updateSitePhoto = SiteDAO.updatePhoto(null, profil.getIdSite());
+			
+
+		if (updateSitePhoto.isOk()) {
+
+			return new MessageAction(true, "");
+
+		} else
+			return new MessageAction(false, updateSitePhoto.getMessage());
 
 	}
 	

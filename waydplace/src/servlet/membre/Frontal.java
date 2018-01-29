@@ -471,6 +471,7 @@ public class Frontal extends HttpServlet {
 		String uidDestinataire = request.getParameter("uid_destinataire");
 		String message = request.getParameter("message");
 		int idActivite = Integer.parseInt(idactiviteStr);
+	
 		DiscussionDAO
 				.ajouteDiscussion(idActivite, uidEmetteur, uidDestinataire);
 
