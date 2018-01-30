@@ -166,7 +166,6 @@ public class DiscussionDAO {
 			rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-
 				String id = rs.getString("id");
 				int idActivite = rs.getInt("id_activite");
 				String participantunUID = rs.getString("uid_participantun");
