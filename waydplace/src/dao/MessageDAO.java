@@ -237,14 +237,16 @@ public class MessageDAO {
 			String uidDestinataire, String message, int idActivite) {
 		long debut = System.currentTimeMillis();
 
+		String uid_discussion=DiscussionDAO.getUIDDiscussion(uidEmetteur,uidDestinataire,idActivite);
+	
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 
 		try {
 			connexion = CxoPool.getConnection();
 			connexion.setAutoCommit(false);
-			String requete = "INSERT INTO boiteemission(uidemetteur,uiddestinataire,message,idactivite )"
-					+ "	values (?,?,?,?)";
+			String requete = "INSERT INTO boiteemission(uidemetteur,uiddestinataire,message,idactivite,uid_discussion )"
+					+ "	values (?,?,?,?,?)";
 
 			preparedStatement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
@@ -252,10 +254,11 @@ public class MessageDAO {
 			preparedStatement.setString(2, uidDestinataire);
 			preparedStatement.setString(3, message);
 			preparedStatement.setInt(4, idActivite);
+			preparedStatement.setString(5, uid_discussion);
 			preparedStatement.execute();
 
-			requete = "INSERT INTO boitereception(uidemetteur,uiddestinataire,message,idactivite )"
-					+ "	values (?,?,?,?)";
+			requete = "INSERT INTO boitereception(uidemetteur,uiddestinataire,message,idactivite,uid_discussion )"
+					+ "	values (?,?,?,?,?)";
 
 			preparedStatement.close();
 			preparedStatement = connexion.prepareStatement(requete);
@@ -263,6 +266,8 @@ public class MessageDAO {
 			preparedStatement.setString(2, uidDestinataire);
 			preparedStatement.setString(3, message);
 			preparedStatement.setInt(4, idActivite);
+			preparedStatement.setString(5, uid_discussion);
+			
 			preparedStatement.execute();
 			connexion.commit();
 
@@ -314,5 +319,6 @@ public class MessageDAO {
 		return Integer.toString(nbrmessagenonlu);
 
 	}
+
 
 }

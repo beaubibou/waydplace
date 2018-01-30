@@ -37,7 +37,7 @@ public class BoiteReception {
 				hashMapMembre.put(membreDiscussion.getUid(), membreDiscussion);
 		}
 	 	
-		LOG.info("nbr mesé"+listMesMessage.size());
+		
 	}
 	
 	public ArrayList<Discussion> getMesDiscussion() {
