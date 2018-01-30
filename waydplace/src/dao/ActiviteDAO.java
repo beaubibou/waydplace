@@ -577,7 +577,6 @@ public class ActiviteDAO {
 				String photoSite = rs.getString("photoSite");
 				String nomSite = rs.getString("nomSite");
 
-				LOG.info("photo site"+photoSite);
 				activite = new Activite(titre, libelle, id, id_site,
 						photoOrganisateur, pseudoOrganisateur,
 						id_ref_type_organisateur, uid_membre, datefin,

@@ -55,13 +55,13 @@ public class BoiteReception {
 		
 		for (MessageActivite messageActivite:getListMessageBy(discussion.idActivite,uidDestinataire))
 		{
-			MembreDiscussion emetteur=hashMapMembre.get(messageActivite.getUidEmetteur());
-			MembreDiscussion destinataire=hashMapMembre.get(messageActivite.getUidDestinataire());
-			
-			messageActivite.setPhotoEmetteur(emetteur.getPhoto());
-			messageActivite.setPseudoDestinataire(destinataire.getPseudo());
-			messageActivite.setPseudoEmetteur(emetteur.getPseudo());
-		
+//			MembreDiscussion emetteur=hashMapMembre.get(messageActivite.getUidEmetteur());
+//			MembreDiscussion destinataire=hashMapMembre.get(messageActivite.getUidDestinataire());
+//			
+//			messageActivite.setPhotoEmetteur(emetteur.getPhoto());
+//			messageActivite.setPseudoDestinataire(destinataire.getPseudo());
+//			messageActivite.setPseudoEmetteur(emetteur.getPseudo());
+//		
 			retour.add(messageActivite);
 		}
 		
@@ -74,9 +74,9 @@ public class BoiteReception {
 		
 		for (MessageActivite messageActivite:listMesMessage){
 			
-			if (messageActivite.isForDiscussin(idActivite,uidDestinataire,profil.getUID()))
-				retour.add(messageActivite);
-			
+//			if (messageActivite.isForDiscussin(idActivite,uidDestinataire,profil.getUID()))
+//				retour.add(messageActivite);
+//			
 		}
 		return retour;
 				

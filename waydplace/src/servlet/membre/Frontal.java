@@ -52,7 +52,7 @@ public class Frontal extends HttpServlet {
 	public static final String REDIRECTION_MES_ACTIVITES_MEMBRE="redirectionmesactivites";
 	public static final String REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE = "rechercherActivite";
 	public static final String REDIRECTION_ENVOYER_MESSAGE_MEMBRE ="rediEnvoyerMessageMembre" ;
-	public static final String REDIRECTION_MESSAGES_MEMBRE = "redireMessageMembre";
+	public static final String REDIRECTION_DISCUSSION_MEMBRE = "redirectionDiscussionMembre";
 	public static final String REDIRECTION_PLANING_MEMBRE = "redirectionPlaningMembre";
 	public static final String AJOUTER_ACTIVITE_MEMBRE = "ajouteActiviteMembre";
 	public static final String REFRESH_MES_ACTIVITE_MEMBRES = "refreshmesactivitemembres";
@@ -135,9 +135,9 @@ public class Frontal extends HttpServlet {
 			break;
 			
 
-		case REDIRECTION_MESSAGES_MEMBRE:
+		case REDIRECTION_DISCUSSION_MEMBRE:
 
-			response.sendRedirect("membre/mesmessages.jsp");
+			response.sendRedirect("membre/mesDiscussion.jsp");
 
 			break;
 
@@ -471,7 +471,6 @@ public class Frontal extends HttpServlet {
 		String uidDestinataire = request.getParameter("uid_destinataire");
 		String message = request.getParameter("message");
 		int idActivite = Integer.parseInt(idactiviteStr);
-	LOG.info("envoi**********************");
 		
 		
 	DiscussionDAO

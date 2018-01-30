@@ -13,7 +13,7 @@ public class MenuMembre {
 	private static String LIEN_DECONNEXION = "<li><a href='/waydplace/Frontal?action="
 			+ Frontal.DECONNEXION_MEMBRE+ "'><span class='glyphicon glyphicon-log-in'></span> Deconnexion</a></li>";
 	private static String LIEN_ENVELLOPPE = "<li><a href='/waydplace/Frontal?action="
-			+ Frontal.REDIRECTION_MESSAGES_MEMBRE+ "'><span class='glyphicon glyphicon-envelope'></span> </a></li>";
+			+ Frontal.REDIRECTION_DISCUSSION_MEMBRE+ "'><span class='glyphicon glyphicon-envelope'></span> </a></li>";
 
 	
 

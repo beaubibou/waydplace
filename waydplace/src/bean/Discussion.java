@@ -13,14 +13,13 @@ public class Discussion {
 	int id;
 	HashMap<String, MembreDiscussion> membreDiscussion=new HashMap<String, MembreDiscussion>();
 	
-	public Discussion(int idActivite,String titreAString) {
+	public Discussion(int idActivite,String titreActivite) {
 		super();
 		this.idActivite = idActivite;
-		this.titreActivite="a ompemùenter";
+		this.titreActivite=titreActivite;
 	}
 
 	public void addMembre(String uid,String photo,String pseudo){
-		LOG.info("+++++++++++addmmebre "+uid+" psed"+pseudo);
 		
 		MembreDiscussion membre=new MembreDiscussion(uid,photo,pseudo);
 		membreDiscussion.put(uid, membre);

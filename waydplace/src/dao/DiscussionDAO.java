@@ -155,13 +155,14 @@ public class DiscussionDAO {
 					+ "participantdeux.photo as participantdeuxPhoto,"
 					+ "discussion.id, uid_participantdeux, uid_participantun,"
 					+ "id_activite, discussion.date_creation "
-					+ "FROM discussion,membre as participantun,membre as participant2,activite "
+					+ "FROM discussion,membre as participantun,membre as participantdeux,activite "
 					+ "where discussion.uid_participantun=participantun.uid "
-					+ "and discussion.uid_participantdeux=participant2.uid "
-					+ "and activite.id=discussion.id_activite and discussion.uid like '%-?-%'";
+					+ "and discussion.uid_participantdeux=participantdeux.uid "
+					+ "and activite.id=discussion.id_activite and discussion.uid like ?";
 
+			String like="%-P"+uidProprietaire+"-%";
 			preparedStatement = connexion.prepareStatement(requete);
-			preparedStatement.setString(1, uidProprietaire);
+			preparedStatement.setString(1, like);
 
 			rs = preparedStatement.executeQuery();
 
@@ -173,7 +174,7 @@ public class DiscussionDAO {
 				String participantunPseudo = rs.getString("participantunPseudo");
 				String participantdeuxPseudo = rs.getString("participantdeuxPseudo");
 				String participantunPhoto = rs.getString("participantunPhoto");
-				String participantdeuxPhoto = rs.getString("participantdeuxPseudoPhoto");
+				String participantdeuxPhoto = rs.getString("participantdeuxPhoto");
 				String titreActivite = rs.getString("titreActivite");
 
 				Discussion discussion = new Discussion(idActivite,
