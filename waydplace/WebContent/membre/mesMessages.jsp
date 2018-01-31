@@ -1,5 +1,6 @@
 
 
+<%@page import="bean.ListMessage"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="bean.Discussion"%>
 <%@page import="dao.MessageDAO"%>
@@ -48,6 +49,9 @@
 	<%
 		Profil profil = (Profil) request.getSession()
 				.getAttribute("profil");
+	
+	ListMessage listMessage=(ListMessage)request.getAttribute("listMessage");
+		
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -55,21 +59,21 @@
 
 
 	<div class="container" style='margin-top: 120px;'>
-		<h2>Messages</h2>
+		<h2><%=listMessage.getEnteteAdaptaterHtml()%></h2>
 		<table class="table">
 
 			<tbody>
 
 				<%
-					//	for (Discussion discussion : boiteReception.getMesDiscussion()) {
+						for (MessageActivite messageActivite : listMessage.getListMessages()) {
 				%>
 				<tr>
-
+					<%=messageActivite.getAdaptaterListHtml() %>
 				</tr>
 
 
-				<%
-					//		}
+				<%	
+						}
 				%>
 
 			</tbody>

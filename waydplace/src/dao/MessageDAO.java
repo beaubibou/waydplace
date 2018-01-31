@@ -103,22 +103,21 @@ public class MessageDAO {
 
 			while (rs.next()) {
 
-				String uid_pour = rs.getString("uid_pour");
-				String uid_avec = rs.getString("uid_avec");
+				String uidPour = rs.getString("uid_pour");
+				String uidAvec = rs.getString("uid_avec");
 				String message = rs.getString("message");
 				Date dateCreation = rs.getTimestamp("date_creation");
 				boolean recu = rs.getBoolean("recu");
 				boolean emis = rs.getBoolean("emis");
 				boolean lu = rs.getBoolean("lu");
-				String uid_discussion = rs.getString("uid_discussion");
+				String uidDiscussion = rs.getString("uid_discussion");
 				int idActivite = rs.getInt("id_activite");
 				int id = rs.getInt("id");
 				MessageActivite messageActivite = new MessageActivite(id,
-						uid_pour, uid_avec, dateCreation, recu, emis,
-						idActivite, lu, message);
-				retour.put(uid_discussion, messageActivite);
+						uidPour, uidAvec, dateCreation, recu, emis, idActivite,
+						lu, message, uidDiscussion);
+				retour.put(uidDiscussion, messageActivite);
 			}
-			
 
 		} catch (NamingException | SQLException e) {
 			LOG.error(ExceptionUtils.getStackTrace(e));
@@ -135,7 +134,7 @@ public class MessageDAO {
 	public static MessageAction ajouteMessage(String uidEmetteur,
 			String uidDestinataire, String message, int idActivite) {
 
-			String uid_discussion = DiscussionDAO.getUIDDiscussion(uidEmetteur,
+		String uid_discussion = DiscussionDAO.getUIDDiscussion(uidEmetteur,
 				uidDestinataire, idActivite);
 
 		Connection connexion = null;
@@ -222,6 +221,53 @@ public class MessageDAO {
 
 		return Integer.toString(nbrmessagenonlu);
 
+	}
+
+	public static ArrayList<MessageActivite> getListMessage(String uidMembre,
+			String uidDiscussion) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		ArrayList<MessageActivite> retour = new ArrayList<MessageActivite>();
+
+		try {
+
+			connexion = CxoPool.getConnection();
+			String requete = "select * from messages where uid_pour=? and uid_discussion=? ";
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setString(1, uidMembre);
+			preparedStatement.setString(2, uidDiscussion);
+			rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				String uid_pour = rs.getString("uid_pour");
+				String uid_avec = rs.getString("uid_avec");
+				String message = rs.getString("message");
+				Date dateCreation = rs.getTimestamp("date_creation");
+				boolean recu = rs.getBoolean("recu");
+				boolean emis = rs.getBoolean("emis");
+				boolean lu = rs.getBoolean("lu");
+				String uid_discussion = rs.getString("uid_discussion");
+				int idActivite = rs.getInt("id_activite");
+				int id = rs.getInt("id");
+				MessageActivite messageActivite = new MessageActivite(id,
+						uid_pour, uid_avec, dateCreation, recu, emis,
+						idActivite, lu, message, uid_discussion);
+
+				retour.add(messageActivite);
+			}
+
+		} catch (NamingException | SQLException e) {
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return retour;
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+
+		return retour;
 	}
 
 }

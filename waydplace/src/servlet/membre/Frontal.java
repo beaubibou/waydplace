@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -34,8 +35,10 @@ import parametre.MessageText;
 import parametre.Parametres;
 import sun.misc.BASE64Encoder;
 import bean.Activite;
+import bean.ListMessage;
 import bean.Membre;
 import bean.MessageAction;
+import bean.MessageActivite;
 import bean.Profil;
 import dao.ActiviteDAO;
 import dao.DiscussionDAO;
@@ -72,7 +75,7 @@ public class Frontal extends HttpServlet {
 	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
 	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
 	public static final String REDIRECTION_CREATION_COMPTE_MEMBRE = "redirectionCreationCompteMembre";
-	private static final String REDIRECTION_MESSAGE_MEMBRE = "redirectionMessageMembre";
+	public static final String REDIRECTION_MESSAGE_MEMBRE = "redirectionMessageMembre";
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -144,7 +147,12 @@ public class Frontal extends HttpServlet {
 			
 		case REDIRECTION_MESSAGE_MEMBRE:
 
-			response.sendRedirect("membre/mesMessages.jsp");
+			String uidDiscussion=request.getParameter("uidDiscussion");
+			
+			ListMessage listMessage=new ListMessage(profil, uidDiscussion);
+			request.setAttribute("listMessage", listMessage);
+			request.getRequestDispatcher("membre/mesMessages.jsp")
+					.forward(request, response);
 
 			break;
 

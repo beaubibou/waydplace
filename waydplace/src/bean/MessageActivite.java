@@ -14,12 +14,12 @@ public class MessageActivite {
 	String uid_pour;
 	String message;
 	boolean lu, emis, recu;
-
+	String uid_discussion;
 	Date date_creation;
 
 	public MessageActivite(int id, String uid_pour, String uid_avec,
 			Date dateCreation, boolean recu, boolean emis, int idActivite,
-			boolean lu, String message) {
+			boolean lu, String message, String uid_discussion) {
 
 		this.id = id;
 		this.idActivite = idActivite;
@@ -30,76 +30,60 @@ public class MessageActivite {
 		this.recu = recu;
 		this.emis = emis;
 		this.date_creation = dateCreation;
-
+		this.uid_discussion = uid_discussion;
 	}
-	
 
 	public String getUid_avec() {
 		return uid_avec;
 	}
 
-	
-	
-	public String getDateCreationStr(){
-	
+	public String getDateCreationStr() {
 
 		SimpleDateFormat formatStr = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-	
-		
-		
-		if (date_creation==null)
+
+		if (date_creation == null)
 			return "";
 		else
-			
+
 			return formatStr.format(date_creation);
-		
-		
+
 	}
 
 	public void setUid_avec(String uid_avec) {
 		this.uid_avec = uid_avec;
 	}
 
-
 	public String getUid_pour() {
 		return uid_pour;
 	}
-
 
 	public void setUid_pour(String uid_pour) {
 		this.uid_pour = uid_pour;
 	}
 
-
 	public boolean isEmis() {
 		return emis;
 	}
-
 
 	public void setEmis(boolean emis) {
 		this.emis = emis;
 	}
 
-
 	public boolean isRecu() {
 		return recu;
 	}
-
 
 	public void setRecu(boolean recu) {
 		this.recu = recu;
 	}
 
-
 	public Date getDate_creation() {
 		return date_creation;
 	}
 
-
 	public void setDate_creation(Date date_creation) {
 		this.date_creation = date_creation;
 	}
-
 
 	public int getId() {
 		return id;
@@ -153,7 +137,12 @@ public class MessageActivite {
 				+ "'<span style='color: blue;'	class='glyphicon glyphicon-envelope'></span></a></p>";
 
 		return lien;
-
+	
 	}
 
+	public String getAdaptaterListHtml(){
+
+	return message+"</br>"+getDateCreationStr();
+
+	}
 }

@@ -60,20 +60,18 @@
 
 	<div class="container" style='margin-top: 120px;'>
 		<h2>Messages</h2>
-		<table class="table">
+		<table class="table table-striped table-responsive " style='border: 5px solid #fff;' id='matable'>
 
 			<tbody>
 
 				<%
 					for (Discussion discussion : listDiscussion.getMesDiscussion()) {
+					
 				%>
-				<tr>
+				<tr onclick="document.location='<%=discussion.lienHtmlMessageDiscussion(profil)%>'">
 					<td>
-							<%=discussion.getTitreActivite() %>
-							<%=discussion.getDateDernierMessage() %>
-							<%=discussion.getDernierMessage() %>
-						
-						<img src='<%=discussion.getPhotoInterlocuteurURL(profil) %>'  class='pull-left marge-droite img-thumbnail' style='width: 40%;'>"
+							<%=discussion.getAdpaterListHtml(profil)%>
+					
 							
 						
 							

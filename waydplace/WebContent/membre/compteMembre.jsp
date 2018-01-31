@@ -43,8 +43,9 @@
 
 </head>
 <body>
-	<%		Profil profil = (Profil) request.getSession()
-			.getAttribute("profil");
+	<%
+		Profil profil = (Profil) request.getSession()
+		.getAttribute("profil");
 	%>
 	<%=AlertDialog.getAlertDialog(profil)%>
 	<%@include file="menuMembre.jsp"%>
@@ -84,8 +85,11 @@
 										</label> <input type="submit" value="Envoyer la photo"
 											class="btn btn-primary btn-sm  " /> <a
 											href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
-											class='btn btn-danger btn-sm'> <span class="glyphicon glyphicon-remove"></span></a>
-					 <a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>' class="btn btn-info btn-sm"> <span class="glyphicon glyphicon-lock"></span></a> 
+											class='btn btn-danger btn-sm'> <span
+											class="glyphicon glyphicon-remove"></span></a> <a
+											href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
+											class="btn btn-info btn-sm"> <span
+											class="glyphicon glyphicon-lock"></span></a>
 
 									</div>
 								</div>
@@ -120,8 +124,9 @@
 								<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
 								<div class='input-group date' id='datenaissance'>
 									<input type='text' class="form-control" id="datenaissance"
-										name="datenaissance" required /> <span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
+										name="datenaissance" required /> <span
+										class="input-group-addon"> <span
+										class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>
 

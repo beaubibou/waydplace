@@ -62,8 +62,7 @@ public class DiscussionDAO {
 
 	static String getUIDDiscussion(String uidDestinataire,
 			String uidProprietaire,int idActivite) {
-		// TODO Auto-generated method stub
-
+	
 			if (uidDestinataire.compareTo(uidProprietaire)>0)
 				
 				return "-P"+uidDestinataire+"-P"+uidProprietaire+"-A"+idActivite;
@@ -103,41 +102,7 @@ public class DiscussionDAO {
 
 	}
 
-	public static int getDiscussion(int idActivite, String uidProprietaire,
-			String uidDestinataire) {
-
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet rs = null;
-		int retour = 0;
-		try {
-			connexion = CxoPool.getConnection();
-			String requete = " SELECT id from discussion where id_activite=? and uid_proprietaire=? and uid_destinataire=?";
-			preparedStatement = connexion.prepareStatement(requete);
-			preparedStatement.setInt(1, idActivite);
-			preparedStatement.setString(2, uidProprietaire);
-			preparedStatement.setString(3, uidDestinataire);
-			rs = preparedStatement.executeQuery();
-
-			if (rs.next()) {
-				retour = rs.getInt("id");
-			}
-			;
-
-		} catch (NamingException | SQLException e) {
-
-			LOG.error(ExceptionUtils.getStackTrace(e));
-		}
-
-		finally {
-
-			CxoPool.close(connexion, preparedStatement, rs);
-
-		}
-		return retour;
-
-	}
-
+	
 	public static ArrayList<Discussion> getAllDiscussionByPersonne(
 			String uidProprietaire) {
 
@@ -199,5 +164,68 @@ public class DiscussionDAO {
 
 		return retour;
 	}
+	
+	public static Discussion getDiscussionByUID(
+			String uidDiscussion) {
+
+		Discussion retour = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+
+		Connection connexion = null;
+		try {
+			connexion = CxoPool.getConnection();
+		
+			String requete = "SELECT activite.titre as titreActivite,participantun.pseudo as participantunPseudo,"
+					+ "participantun.photo as participantunPhoto,"
+					+ "participantdeux.pseudo as participantdeuxPseudo,"
+					+ "participantdeux.photo as participantdeuxPhoto,"
+					+ "discussion.id,discussion.uid as discussionuid, uid_participantdeux, uid_participantun,"
+					+ "id_activite, discussion.date_creation "
+					+ "FROM discussion,membre as participantun,membre as participantdeux,activite "
+					+ "where discussion.uid_participantun=participantun.uid "
+					+ "and discussion.uid_participantdeux=participantdeux.uid "
+					+ "and activite.id=discussion.id_activite and discussion.uid like ?";
+
+		
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setString(1, uidDiscussion);
+
+			rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+			
+				String id = rs.getString("id");
+				int idActivite = rs.getInt("id_activite");
+				String participantunUID = rs.getString("uid_participantun");
+				String participantdeuxUID = rs.getString("uid_participantdeux");
+				String participantunPseudo = rs.getString("participantunPseudo");
+				String participantdeuxPseudo = rs.getString("participantdeuxPseudo");
+				String participantunPhoto = rs.getString("participantunPhoto");
+				String participantdeuxPhoto = rs.getString("participantdeuxPhoto");
+				String titreActivite = rs.getString("titreActivite");
+				String uid = rs.getString("discussionuid");
+				 retour = new Discussion(idActivite,
+						titreActivite,uid);
+				retour.addMembre(participantunUID, participantunPhoto,
+						participantunPseudo);
+				retour.addMembre(participantdeuxUID, participantdeuxPhoto,
+						participantdeuxPseudo);
+
+				
+
+			}
+
+		} catch (NamingException | SQLException e) {
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return retour;
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+
+		return retour;
+	}
+
 
 }

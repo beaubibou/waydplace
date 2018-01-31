@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import outils.Outils;
 import parametre.Parametres;
+import servlet.membre.Frontal;
 import servlet.membre.FrontalCommun;
 
 public class Discussion {
@@ -21,6 +22,13 @@ public class Discussion {
 
 	public String getUid() {
 		return uid;
+	}
+	
+	public String lienHtmlMessageDiscussion(Profil profil){
+		
+	return  "/waydplace/Frontal?action="+Frontal.REDIRECTION_MESSAGE_MEMBRE
+				+"&uidMembre=" +profil.getUID()+"&uidDiscussion=" +uid;
+		
 	}
 
 	public void setUid(String uid) {
@@ -134,19 +142,15 @@ public String getPhotoInterlocuteurURL(Profil profil) {
 		
 
 	}
-public String getAdpaterListHtml() {
+public String getAdpaterListHtml(Profil profil) {
 
 	
-		String lienDetailParticipant = "/waydplace/FrontalCommun?action="
-				+ FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT
-				+ "&idmembre=" + getUid_membre();
-
-		return "<div class='clearfix'><a href='" + lienDetailParticipant
-				+ "'>	<img src='" + getURLPhoto()
-				+ "'  class='pull-left marge-droite img-thumbnail'  width='200'	height='200' ></a>"
-				+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
-				+ libelle + "</h4><h6 align='left'>"
-				+ getHoraireLigne() + "</h6></div>" ;
+	
+		return "<div class='clearfix'><img src='" + getPhotoInterlocuteurURL(profil)
+				+ "'  class='pull-left marge-droite img-thumbnail'  width='100'	height='100' >"
+				+ "<h2 style='margin-top: 0px'>" + titreActivite + "</h2>" + "<h4 >"
+				+ dernierMessages.getMessage() + "</h4><h6 align='left'>"
+				+ dernierMessages.getDateCreationStr() + "</h6></div>" ;
 
 	
 	
@@ -154,6 +158,7 @@ public String getAdpaterListHtml() {
 	
 
 }
+
 
 
 
