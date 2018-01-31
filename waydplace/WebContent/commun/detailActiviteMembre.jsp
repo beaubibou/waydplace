@@ -1,4 +1,5 @@
 
+<%@page import="bean.Profil"%>
 <%@page import="parametre.Parametres"%>
 <%@page import="outils.Outils"%>
 <%@page import="bean.Activite"%>

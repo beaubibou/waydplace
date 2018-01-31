@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
+import outils.Outils;
+import parametre.Parametres;
+import servlet.membre.FrontalCommun;
+
 public class Discussion {
 	private static final Logger LOG = Logger.getLogger(Discussion.class);
 	int idActivite;
@@ -12,10 +16,37 @@ public class Discussion {
 	int id;
 	private String uid;
 	private MessageActivite dernierMessages;
+	
 	HashMap<String, MembreDiscussion> membreDiscussion = new HashMap<String, MembreDiscussion>();
 
-	public MessageActivite getDernierMessages() {
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public MessageActivite getDernierMessageActivite() {
 		return dernierMessages;
+	}
+	
+	public String getDernierMessage() {
+		
+		if (dernierMessages==null)
+			return "";
+		else
+		
+			return 	dernierMessages.getMessage();
+	}
+	
+	public String getDateDernierMessage(){
+		
+		if (dernierMessages==null)
+			return "";
+		else
+		
+			return 	dernierMessages.getDateCreationStr();
 	}
 
 	public void setDernierMessages(MessageActivite dernierMessages) {
@@ -71,10 +102,7 @@ public class Discussion {
 	public String getDestinaireConversation2(String uidEmetteur) {
 		// Valable dans une discussion à 2
 
-		for (MembreDiscussion membre : new ArrayList<MembreDiscussion>(
-				membreDiscussion.values()))
-			LOG.info("membre disc" + membre.getUid());
-
+	
 		for (MembreDiscussion membre : new ArrayList<MembreDiscussion>(
 				membreDiscussion.values()))
 			if (!membre.getUid().equals(uidEmetteur))
@@ -82,5 +110,51 @@ public class Discussion {
 
 		return null;
 	}
+	
+	public String getPhotoInterlocuteurStr(Profil profil){
+		
+		for (MembreDiscussion membre : new ArrayList<MembreDiscussion>(
+				membreDiscussion.values()))
+			if (!membre.getUid().equals(profil.getUID()))
+				return membre.getPhoto();
+		
+		return null;
+	}
+	
+public String getPhotoInterlocuteurURL(Profil profil) {
+
+		String photo=getPhotoInterlocuteurStr(profil);
+	
+			if (photo == null)	
+				return Parametres.IMAGE_INCONNUE;
+			else
+				return Outils.getUrlPhoto(photo);
+
+	
+		
+
+	}
+public String getAdpaterListHtml() {
+
+	
+		String lienDetailParticipant = "/waydplace/FrontalCommun?action="
+				+ FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT
+				+ "&idmembre=" + getUid_membre();
+
+		return "<div class='clearfix'><a href='" + lienDetailParticipant
+				+ "'>	<img src='" + getURLPhoto()
+				+ "'  class='pull-left marge-droite img-thumbnail'  width='200'	height='200' ></a>"
+				+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
+				+ libelle + "</h4><h6 align='left'>"
+				+ getHoraireLigne() + "</h6></div>" ;
+
+	
+	
+		
+	
+
+}
+
+
 
 }

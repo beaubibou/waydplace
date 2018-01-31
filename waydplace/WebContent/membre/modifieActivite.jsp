@@ -1,4 +1,5 @@
 
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="outils.Outils"%>
 <%@page import="bean.Activite"%>
 <%@page import="parametre.ActionPage"%>

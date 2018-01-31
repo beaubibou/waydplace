@@ -135,8 +135,7 @@ public class MessageDAO {
 	public static MessageAction ajouteMessage(String uidEmetteur,
 			String uidDestinataire, String message, int idActivite) {
 
-		LOG.info("*************ok");
-		String uid_discussion = DiscussionDAO.getUIDDiscussion(uidEmetteur,
+			String uid_discussion = DiscussionDAO.getUIDDiscussion(uidEmetteur,
 				uidDestinataire, idActivite);
 
 		Connection connexion = null;
@@ -145,11 +144,10 @@ public class MessageDAO {
 		try {
 			connexion = CxoPool.getConnection();
 			connexion.setAutoCommit(false);
-			String requete = "INSERT INTO messages(uid_pour,uid_avec,message,id_activite,uid_discussion,emis,recu )"
+			String requete = "INSERT INTO messages(uid_pour,uid_avec,message,id_activite,uid_discussion,emis,recu,lu )"
 					+ "	values (?,?,?,?,?,?,?)";
 
-			preparedStatement = connexion.prepareStatement(requete,
-					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uidEmetteur);
 			preparedStatement.setString(2, uidDestinataire);
 			preparedStatement.setString(3, message);
@@ -157,11 +155,12 @@ public class MessageDAO {
 			preparedStatement.setString(5, uid_discussion);
 			preparedStatement.setBoolean(6, true);
 			preparedStatement.setBoolean(7, false);
+			preparedStatement.setBoolean(8, true);
 			preparedStatement.execute();
 			preparedStatement.close();
 
-			requete = "INSERT INTO messages(uid_pour,uid_avec,message,id_activite,uid_discussion,emis,recu )"
-					+ "	values (?,?,?,?,?,?,?)";
+			requete = "INSERT INTO messages(uid_pour,uid_avec,message,id_activite,uid_discussion,emis,recu,lu )"
+					+ "	values (?,?,?,?,?,?,?,false)";
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uidDestinataire);
@@ -171,6 +170,7 @@ public class MessageDAO {
 			preparedStatement.setString(5, uid_discussion);
 			preparedStatement.setBoolean(6, false);
 			preparedStatement.setBoolean(7, true);
+			preparedStatement.setBoolean(8, false);
 			preparedStatement.execute();
 
 			connexion.commit();
@@ -198,8 +198,8 @@ public class MessageDAO {
 		try {
 			connexion = CxoPool.getConnection();
 
-			String requete = "select  count(id) as nbrmessagenonlu from boitereception"
-					+ " where (uiddestinataire=? and lu=false);";
+			String requete = "select  count(id) as nbrmessagenonlu from messages"
+					+ " where (uid_pour=? and lu=false);";
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uid);

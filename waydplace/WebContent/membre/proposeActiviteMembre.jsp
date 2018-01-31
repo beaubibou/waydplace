@@ -1,4 +1,5 @@
 
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>

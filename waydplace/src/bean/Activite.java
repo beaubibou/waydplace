@@ -215,19 +215,19 @@ public class Activite {
 	
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 		if (photoOrganisateur == null)
-				return "/waydplace/img/inconnu.jpg";
+				return Parametres.IMAGE_INCONNUE;
 			else
 				return Outils.getUrlPhoto(photoOrganisateur);
 
 		case Parametres.TYPE_ORGANISATEUR_SITE:
 			
 			if (photoSite == null)
-				return "/waydplace/img/inconnu.jpg";
+				return Parametres.IMAGE_INCONNUE;
 			else
 				return Outils.getUrlPhoto(photoSite);
 
 		default:
-			return "/waydplace/img/inconnu.jpg";
+			return Parametres.IMAGE_INCONNUE;
 		}
 
 	}

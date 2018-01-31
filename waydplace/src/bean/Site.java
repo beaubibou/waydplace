@@ -3,6 +3,7 @@ package bean;
 import java.util.Date;
 
 import outils.Outils;
+import parametre.Parametres;
 
 public class Site {
 	String nom;
@@ -80,7 +81,7 @@ public class Site {
 private String getURLPhoto() {
 		
 		if (photo==null)
-			return "/waydplace/img/inconnu.jpg";
+			return Parametres.IMAGE_INCONNUE;
 		else
 			return Outils.getUrlPhoto(photo);
 				

@@ -82,7 +82,7 @@ public class Membre {
 	public String getDetailEnteteMembreHtml(){
 		
 		
-		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' style='width: 40%;'>"+
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
 	"<h2 style='margin-top: 0px'>"+pseudo +"</h2>"+
 	"<h4 >"+getAge()+"</h4>"+
 	"<h5 >"+getSexe()+"</h5></div>";
@@ -92,7 +92,7 @@ public class Membre {
 	private String getURLPhoto() {
 		
 		if (photo==null)
-			return "/waydplace/img/inconnu.jpg";
+			return Parametres.IMAGE_INCONNUE;
 		else
 			return Outils.getUrlPhoto(photo);
 				

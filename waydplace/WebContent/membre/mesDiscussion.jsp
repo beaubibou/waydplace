@@ -1,7 +1,7 @@
 
 
 <%@page import="bean.ListDiscussion"%>
-<%@page import="bean.BoiteReception"%>
+
 <%@page import="java.util.HashMap"%>
 <%@page import="bean.Discussion"%>
 <%@page import="dao.MessageDAO"%>
@@ -69,8 +69,14 @@
 				%>
 				<tr>
 					<td>
-						<%=discussion.getTitreActivite() %>
-							<%=discussion.getDernierMessages() %>
+							<%=discussion.getTitreActivite() %>
+							<%=discussion.getDateDernierMessage() %>
+							<%=discussion.getDernierMessage() %>
+						
+						<img src='<%=discussion.getPhotoInterlocuteurURL(profil) %>'  class='pull-left marge-droite img-thumbnail' style='width: 40%;'>"
+							
+						
+							
 					</td>
 				</tr>
 

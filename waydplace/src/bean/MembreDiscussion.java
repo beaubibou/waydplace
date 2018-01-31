@@ -1,6 +1,7 @@
 package bean;
 
 import outils.Outils;
+import parametre.Parametres;
 
 public class MembreDiscussion {
 
@@ -53,7 +54,7 @@ public class MembreDiscussion {
 	public String getURLPhoto() {
 	
 			if (photo == null)
-				return "/waydplace/img/inconnu.jpg";
+				return Parametres.IMAGE_INCONNUE;
 			else
 				return Outils.getUrlPhoto(photo);
 

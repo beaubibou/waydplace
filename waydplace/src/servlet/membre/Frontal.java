@@ -72,6 +72,7 @@ public class Frontal extends HttpServlet {
 	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
 	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
 	public static final String REDIRECTION_CREATION_COMPTE_MEMBRE = "redirectionCreationCompteMembre";
+	private static final String REDIRECTION_MESSAGE_MEMBRE = "redirectionMessageMembre";
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -138,6 +139,12 @@ public class Frontal extends HttpServlet {
 		case REDIRECTION_DISCUSSION_MEMBRE:
 
 			response.sendRedirect("membre/mesDiscussion.jsp");
+
+			break;
+			
+		case REDIRECTION_MESSAGE_MEMBRE:
+
+			response.sendRedirect("membre/mesMessages.jsp");
 
 			break;
 

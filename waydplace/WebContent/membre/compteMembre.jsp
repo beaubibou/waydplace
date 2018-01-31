@@ -43,8 +43,7 @@
 
 </head>
 <body>
-	<%
-		Profil profil = (Profil) request.getSession()
+	<%		Profil profil = (Profil) request.getSession()
 			.getAttribute("profil");
 	%>
 	<%=AlertDialog.getAlertDialog(profil)%>

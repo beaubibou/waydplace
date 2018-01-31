@@ -1,6 +1,5 @@
 
 
-<%@page import="bean.BoiteReception"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="bean.Discussion"%>
 <%@page import="dao.MessageDAO"%>
@@ -21,7 +20,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Mes activités</title>
+<title>Mes messages</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -49,9 +48,6 @@
 	<%
 		Profil profil = (Profil) request.getSession()
 				.getAttribute("profil");
-		ArrayList<Discussion> listMesDiscussion = MessageDAO
-				.getDiscussions(profil.getUID());
-		BoiteReception boiteReception = new BoiteReception(profil);
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -65,46 +61,15 @@
 			<tbody>
 
 				<%
-					for (Discussion discussion : boiteReception.getMesDiscussion()) {
+					//	for (Discussion discussion : boiteReception.getMesDiscussion()) {
 				%>
 				<tr>
-					<td><div class="container">
 
-							<img src='<%=boiteReception.getPhotoInterlocteur(discussion)%>'>
-							<button type="button" class="btn btn-info" data-toggle="collapse"
-								data-target="#<%=discussion.getIdActivite()%>"><%=discussion.getTitreActivite()%></button>
-							<div id="<%=discussion.getIdActivite()%>" class="collapse">
-								<div class="container">
-									<table class="table">
-										<%
-											for (MessageActivite messageActivite : boiteReception
-														.getMessageDiscussionEntre2ByActivite(discussion)) {
-										%>
-										<tbody>
-											<tr>
-
-												<%=messageActivite.getMessageHtlm()%>
-												<td><%=MessageActivite.getLienReponse(profil,
-							messageActivite.getIdActivite(),
-							messageActivite.getUidEmetteur())%></td>
-											</tr>
-											<%
-												}
-											%>
-
-										</tbody>
-									</table>
-
-								</div>
-
-							</div>
-
-						</div></td>
 				</tr>
 
 
 				<%
-					}
+					//		}
 				%>
 
 			</tbody>

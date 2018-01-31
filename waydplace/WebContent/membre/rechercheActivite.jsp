@@ -1,5 +1,6 @@
 
 
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="com.sun.accessibility.internal.resources.accessibility"%>
 <%@page import="pager.PagerActivite"%>

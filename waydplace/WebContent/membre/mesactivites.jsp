@@ -1,5 +1,6 @@
 
 
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="outils.AlertDialog"%>
 <%@page import="dao.ActiviteDAO"%>
