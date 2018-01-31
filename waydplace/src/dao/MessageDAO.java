@@ -144,7 +144,7 @@ public class MessageDAO {
 			connexion = CxoPool.getConnection();
 			connexion.setAutoCommit(false);
 			String requete = "INSERT INTO messages(uid_pour,uid_avec,message,id_activite,uid_discussion,emis,recu,lu )"
-					+ "	values (?,?,?,?,?,?,?)";
+					+ "	values (?,?,?,?,?,?,?,true)";
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uidEmetteur);
@@ -154,7 +154,7 @@ public class MessageDAO {
 			preparedStatement.setString(5, uid_discussion);
 			preparedStatement.setBoolean(6, true);
 			preparedStatement.setBoolean(7, false);
-			preparedStatement.setBoolean(8, true);
+			
 			preparedStatement.execute();
 			preparedStatement.close();
 
@@ -169,7 +169,7 @@ public class MessageDAO {
 			preparedStatement.setString(5, uid_discussion);
 			preparedStatement.setBoolean(6, false);
 			preparedStatement.setBoolean(7, true);
-			preparedStatement.setBoolean(8, false);
+			
 			preparedStatement.execute();
 
 			connexion.commit();

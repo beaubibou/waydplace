@@ -49,9 +49,9 @@
 	<%
 		Profil profil = (Profil) request.getSession()
 				.getAttribute("profil");
-	
-	ListMessage listMessage=(ListMessage)request.getAttribute("listMessage");
-		
+
+		ListMessage listMessage = (ListMessage) request
+				.getAttribute("listMessage");
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -60,20 +60,30 @@
 
 	<div class="container" style='margin-top: 120px;'>
 		<h2><%=listMessage.getEnteteAdaptaterHtml()%></h2>
+		
+		<form action='<%=listMessage.getDiscussion().getLienReponseHTML()%>' method='post'>
+			<div class="form-group">
+				<label for="comment">Comment:</label>
+				<textarea name="message" class="form-control" rows="5" id="comment"></textarea>
+			</div>
+			<button type="submit" class="btn btn-default">Envoyer</button>
+		</form>
 		<table class="table">
+
 
 			<tbody>
 
 				<%
-						for (MessageActivite messageActivite : listMessage.getListMessages()) {
+					for (MessageActivite messageActivite : listMessage
+							.getListMessages()) {
 				%>
 				<tr>
-					<%=messageActivite.getAdaptaterListHtml() %>
+					<%=messageActivite.getAdaptaterListHtml()%>
 				</tr>
 
 
-				<%	
-						}
+				<%
+					}
 				%>
 
 			</tbody>

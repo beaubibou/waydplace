@@ -11,6 +11,7 @@ import servlet.membre.Frontal;
 import servlet.membre.FrontalCommun;
 
 public class Discussion {
+	
 	private static final Logger LOG = Logger.getLogger(Discussion.class);
 	int idActivite;
 	String titreActivite;
@@ -33,6 +34,18 @@ public class Discussion {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+	
+	public String getLienReponseHTML(){
+		
+		ArrayList<MembreDiscussion> listMembre=new ArrayList<MembreDiscussion>(membreDiscussion.values());
+		String uid_pour=listMembre.get(0).getUid();
+		String uid_avec=listMembre.get(1).getUid();
+		
+		
+		return "/waydplace/Frontal?action="+Frontal.ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES+"&idactivite="
+		+idActivite+"&uid_pour="+uid_pour+"&uid_avec="+uid_avec+"&uidDiscussion="+uid;
+		
 	}
 
 	public MessageActivite getDernierMessageActivite() {
@@ -144,17 +157,20 @@ public String getPhotoInterlocuteurURL(Profil profil) {
 	}
 public String getAdpaterListHtml(Profil profil) {
 
-	
+		
+	String dernierMessageStr="";
+	String dateCreationStr="";
+	if (dernierMessages!=null){
+		dernierMessageStr=dernierMessages.getMessage();
+		 dateCreationStr=dernierMessages.getDateCreationStr();
+	}
 	
 		return "<div class='clearfix'><img src='" + getPhotoInterlocuteurURL(profil)
 				+ "'  class='pull-left marge-droite img-thumbnail'  width='100'	height='100' >"
 				+ "<h2 style='margin-top: 0px'>" + titreActivite + "</h2>" + "<h4 >"
-				+ dernierMessages.getMessage() + "</h4><h6 align='left'>"
-				+ dernierMessages.getDateCreationStr() + "</h6></div>" ;
+				+ dernierMessageStr + "</h4><h6 align='left'>"
+				+ dateCreationStr + "</h6></div>" ;
 
-	
-	
-		
 	
 
 }
