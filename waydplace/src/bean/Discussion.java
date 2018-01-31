@@ -7,29 +7,38 @@ import org.apache.log4j.Logger;
 
 public class Discussion {
 	private static final Logger LOG = Logger.getLogger(Discussion.class);
-
 	int idActivite;
 	String titreActivite;
 	int id;
-	HashMap<String, MembreDiscussion> membreDiscussion=new HashMap<String, MembreDiscussion>();
-	
-	public Discussion(int idActivite,String titreActivite) {
-		super();
-		this.idActivite = idActivite;
-		this.titreActivite=titreActivite;
+	private String uid;
+	private MessageActivite dernierMessages;
+	HashMap<String, MembreDiscussion> membreDiscussion = new HashMap<String, MembreDiscussion>();
+
+	public MessageActivite getDernierMessages() {
+		return dernierMessages;
 	}
 
-	public void addMembre(String uid,String photo,String pseudo){
-		
-		MembreDiscussion membre=new MembreDiscussion(uid,photo,pseudo);
+	public void setDernierMessages(MessageActivite dernierMessages) {
+		this.dernierMessages = dernierMessages;
+	}
+
+	public Discussion(int idActivite, String titreActivite, String uid) {
+		super();
+		this.idActivite = idActivite;
+		this.titreActivite = titreActivite;
+		this.uid = uid;
+	}
+
+	public void addMembre(String uid, String photo, String pseudo) {
+
+		MembreDiscussion membre = new MembreDiscussion(uid, photo, pseudo);
 		membreDiscussion.put(uid, membre);
 	}
-	
+
 	public int getIdActivite() {
 		return idActivite;
 	}
 
-	
 	public void setIdActivite(int idActivite) {
 		this.idActivite = idActivite;
 	}
@@ -61,20 +70,17 @@ public class Discussion {
 
 	public String getDestinaireConversation2(String uidEmetteur) {
 		// Valable dans une discussion à 2
-		
-		for (MembreDiscussion membre:new ArrayList<MembreDiscussion>( membreDiscussion.values()))
-			LOG.info("membre disc"+membre.getUid());
-		
-		
-		for (MembreDiscussion membre:new ArrayList<MembreDiscussion>( membreDiscussion.values()))
+
+		for (MembreDiscussion membre : new ArrayList<MembreDiscussion>(
+				membreDiscussion.values()))
+			LOG.info("membre disc" + membre.getUid());
+
+		for (MembreDiscussion membre : new ArrayList<MembreDiscussion>(
+				membreDiscussion.values()))
 			if (!membre.getUid().equals(uidEmetteur))
 				return membre.getUid();
-		
+
 		return null;
 	}
 
-	
-	
-	
-	
 }

@@ -2,8 +2,12 @@ package bean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.apache.log4j.Logger;
+
+import text.pageweb.MesActivites;
 import dao.DiscussionDAO;
+import dao.MessageDAO;
 public class ListDiscussion {
 
 	ArrayList<Discussion> mesDiscussion=new ArrayList<Discussion>();
@@ -19,12 +23,17 @@ public class ListDiscussion {
 	}
 	 public ListDiscussion(Profil profil){
 		this.profil=profil;
+		
 		mesDiscussion=DiscussionDAO.getAllDiscussionByPersonne(profil.getUID());
+		listDerniersMessages=MessageDAO.getDerniersMessage(profil.getUID());
 		for (Discussion discussion:mesDiscussion){
+			
+		
 			for (MembreDiscussion membreDiscussion:discussion.getMembreDiscussion().values())
 				hashMapMembre.put(membreDiscussion.getUid(), membreDiscussion);
 		}
 	 	
+		
 		
 	}
 	

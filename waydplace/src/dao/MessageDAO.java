@@ -85,9 +85,9 @@ public class MessageDAO {
 
 	}
 
-	public HashMap<String, MessageActivite> getDerniersMessage(String  uid){
-		
-		HashMap<String, MessageActivite>  retour=new HashMap<String, MessageActivite> ();
+	public static HashMap<String, MessageActivite> getDerniersMessage(String uid) {
+
+		HashMap<String, MessageActivite> retour = new HashMap<String, MessageActivite>();
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
@@ -113,51 +113,12 @@ public class MessageDAO {
 				String uid_discussion = rs.getString("uid_discussion");
 				int idActivite = rs.getInt("id_activite");
 				int id = rs.getInt("id");
-MessageActivite messageActivite=new MessageActivite(id, uid_pour, uid_avec, dateCreation, recu, emis, idActivite,lu,message);
+				MessageActivite messageActivite = new MessageActivite(id,
+						uid_pour, uid_avec, dateCreation, recu, emis,
+						idActivite, lu, message);
+				retour.put(uid_discussion, messageActivite);
 			}
-
-		} catch (NamingException | SQLException e) {
-			LOG.error(ExceptionUtils.getStackTrace(e));
-			return retour;
-		} finally {
-
-			CxoPool.close(connexion, preparedStatement, rs);
-		}
-
-		return retour;
-		
-		
-		
-		
-	}
-	public static ArrayList<Discussion> getDiscussions(String uidDestinataire) {
-
-		ArrayList<Discussion> retour = new ArrayList<Discussion>();
-		PreparedStatement preparedStatement = null;
-		ResultSet rs = null;
-
-		Connection connexion = null;
-		try {
-			connexion = CxoPool.getConnection();
-
-			String requete = "SELECT distinct discussion.idactivite,activite.titre"
-					+ "  FROM (select idactivite from boitereception where uiddestinataire=? union select idactivite from boiteemission"
-					+ " where uidemetteur=? )"
-					+ " as discussion,activite where  discussion.idactivite=activite.id";
-
-			preparedStatement = connexion.prepareStatement(requete);
-			preparedStatement.setString(1, uidDestinataire);
-			preparedStatement.setString(2, uidDestinataire);
-			rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-
-				String libelle = rs.getString("titre");
-				int idActivite = rs.getInt("idactivite");
-				Discussion discussion = new Discussion(idActivite, libelle);
-				retour.add(discussion);
-
-			}
+			
 
 		} catch (NamingException | SQLException e) {
 			LOG.error(ExceptionUtils.getStackTrace(e));
@@ -170,17 +131,14 @@ MessageActivite messageActivite=new MessageActivite(id, uid_pour, uid_avec, date
 		return retour;
 
 	}
-
-	
-
-	
 
 	public static MessageAction ajouteMessage(String uidEmetteur,
 			String uidDestinataire, String message, int idActivite) {
-		
+
 		LOG.info("*************ok");
-		String uid_discussion=DiscussionDAO.getUIDDiscussion(uidEmetteur,uidDestinataire,idActivite);
-	
+		String uid_discussion = DiscussionDAO.getUIDDiscussion(uidEmetteur,
+				uidDestinataire, idActivite);
+
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 
@@ -201,7 +159,7 @@ MessageActivite messageActivite=new MessageActivite(id, uid_pour, uid_avec, date
 			preparedStatement.setBoolean(7, false);
 			preparedStatement.execute();
 			preparedStatement.close();
-			
+
 			requete = "INSERT INTO messages(uid_pour,uid_avec,message,id_activite,uid_discussion,emis,recu )"
 					+ "	values (?,?,?,?,?,?,?)";
 
@@ -214,8 +172,7 @@ MessageActivite messageActivite=new MessageActivite(id, uid_pour, uid_avec, date
 			preparedStatement.setBoolean(6, false);
 			preparedStatement.setBoolean(7, true);
 			preparedStatement.execute();
-			
-			
+
 			connexion.commit();
 
 		} catch (NamingException | SQLException e) {

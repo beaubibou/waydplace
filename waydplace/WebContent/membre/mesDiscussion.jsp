@@ -70,6 +70,7 @@
 				<tr>
 					<td>
 						<%=discussion.getTitreActivite() %>
+							<%=discussion.getDernierMessages() %>
 					</td>
 				</tr>
 

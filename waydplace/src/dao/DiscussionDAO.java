@@ -153,7 +153,7 @@ public class DiscussionDAO {
 					+ "participantun.photo as participantunPhoto,"
 					+ "participantdeux.pseudo as participantdeuxPseudo,"
 					+ "participantdeux.photo as participantdeuxPhoto,"
-					+ "discussion.id, uid_participantdeux, uid_participantun,"
+					+ "discussion.id,discussion.uid as discussionuid, uid_participantdeux, uid_participantun,"
 					+ "id_activite, discussion.date_creation "
 					+ "FROM discussion,membre as participantun,membre as participantdeux,activite "
 					+ "where discussion.uid_participantun=participantun.uid "
@@ -167,6 +167,7 @@ public class DiscussionDAO {
 			rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
+			
 				String id = rs.getString("id");
 				int idActivite = rs.getInt("id_activite");
 				String participantunUID = rs.getString("uid_participantun");
@@ -176,9 +177,9 @@ public class DiscussionDAO {
 				String participantunPhoto = rs.getString("participantunPhoto");
 				String participantdeuxPhoto = rs.getString("participantdeuxPhoto");
 				String titreActivite = rs.getString("titreActivite");
-
+				String uid = rs.getString("discussionuid");
 				Discussion discussion = new Discussion(idActivite,
-						titreActivite);
+						titreActivite,uid);
 				discussion.addMembre(participantunUID, participantunPhoto,
 						participantunPseudo);
 				discussion.addMembre(participantdeuxUID, participantdeuxPhoto,
