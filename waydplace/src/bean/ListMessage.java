@@ -50,7 +50,7 @@ public class ListMessage {
 	public String getEnteteAdaptaterHtml(){
 		
 		return "<div class='clearfix'>	<img src='" + discussion.getPhotoInterlocuteurURL(profil)
-				+ "'  class='pull-left marge-droite img-thumbnail'  width='200'	height='200' >"
+				+ "'  class='pull-left marge-droite img-thumbnail'  width='100'	height='100' >"
 				+ "<h2 style='margin-top: 0px'>" + discussion.getTitreActivite() + "</h2>" + "<h4 >"
 				+ discussion.getPseudoInterlocuteur(profil) + "</h4></div>" ;
 		

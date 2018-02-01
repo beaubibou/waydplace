@@ -50,7 +50,7 @@
 	<%
 		Profil profil = (Profil) request.getSession()
 				.getAttribute("profil");
-		
+
 		ListDiscussion listDiscussion = new ListDiscussion(profil);
 	%>
 
@@ -58,24 +58,24 @@
 
 
 
-	<div class="container" style='margin-top: 120px;'>
-		<h2>Messages</h2>
-		<table class="table table-striped table-responsive " style='border: 5px solid #fff;' id='matable'>
+	<div class="container margedebut ">
+		<div class="panel barrerecherche">
+			<div class="panel-heading">
+				<h4>Mes messages</h4>
+			</div>
+		</div>
+
+		<table class="table table-striped table-responsive "
+			style='border: 5px solid #fff;' id='matable'>
 
 			<tbody>
 
 				<%
 					for (Discussion discussion : listDiscussion.getMesDiscussion()) {
-					
 				%>
-				<tr onclick="document.location='<%=discussion.lienHtmlMessageDiscussion(profil)%>'">
-					<td>
-							<%=discussion.getAdpaterListHtml(profil)%>
-					
-							
-						
-							
-					</td>
+				<tr
+					onclick="document.location='<%=discussion.lienHtmlMessageDiscussion(profil)%>'">
+					<td><%=discussion.getAdpaterListHtml(profil)%></td>
 				</tr>
 
 

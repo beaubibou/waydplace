@@ -151,7 +151,7 @@ public class Frontal extends HttpServlet {
 			case REDIRECTION_MESSAGE_MEMBRE:
 
 				uidDiscussion = request.getParameter("uidDiscussion");
-
+				MessageDAO.litMessage(uidDiscussion, profil.getUID());
 				ListMessage listMessage = new ListMessage(profil, uidDiscussion);
 				request.setAttribute("listMessage", listMessage);
 				request.getRequestDispatcher("membre/mesMessages.jsp").forward(

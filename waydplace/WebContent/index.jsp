@@ -112,9 +112,7 @@
 		<input id="pwd" type="hidden" class="form-control" name="pwd">
 		<input type="text" name='action'	value='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE%>'>
 		<input id="outputJetonSite" type="hidden" class="form-control" name="jetonSite">
-	
 		
-	
 	</form>
 
 	<div class="container">
@@ -237,20 +235,16 @@ function signInTest(){
 }
 function signInGoogle(){
 	
+	var codeSite=document.getElementById("inputJetonSite").value;
 	var provider = new firebase.auth.GoogleAuthProvider();
+
 	firebase.auth().signInWithPopup(provider).then(function(result) {
-		  // This gives you a Google Access Token. You can use it to access the Google API.
 		  var token = result.credential.accessToken;
-		  // The signed-in user info.
 		  var user = result.user;
-		  // ...
 		  firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function(idToken) {
-			  // Send token to your backend via HTTPS
-			  // ...
-			//  document.getElementById("demo").innerHTML ="opo";
-			//   document.location.href="/wayd/Connexion?token="+idToken;
-			  document.getElementById("token").value =idToken;
-			  document.getElementById("formlogin").submit();
+				     document.getElementById("outputJetonSite").value =codeSite;
+				 document.getElementById("token").value =idToken;
+				 document.getElementById("formlogin").submit();
 			
 		 
 		  }).catch(function(error) {
@@ -259,7 +253,6 @@ function signInGoogle(){
 			  var errorCode = error.code;
 			  
 			  BootstrapDialog.alert(errorCode);
-			  // Handle error
 			});
 	  
 		  

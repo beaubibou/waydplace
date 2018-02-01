@@ -94,11 +94,12 @@ public class MessageDAO {
 		try {
 			connexion = CxoPool.getConnection();
 
-			String requete = "select * from messages where id in (select max (id) from messages  group by uid_discussion) "
+			String requete = "select * from messages where id in (select max (id) from (select * from messages where  uid_pour=?) as filtre1) "
 					+ "and uid_pour=?";
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uid);
+			preparedStatement.setString(2, uid);
 			rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -131,6 +132,41 @@ public class MessageDAO {
 
 	}
 
+	public static MessageAction litMessage (String uidDiscussion,String uid_pour){
+		
+	
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connexion = CxoPool.getConnection();
+			connexion.setAutoCommit(false);
+			String requete = "update  messages set lu=true where uid_discussion=? and uid_pour=?";
+
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setString(1, uidDiscussion);
+			preparedStatement.setString(2, uid_pour);
+					
+			preparedStatement.execute();
+			preparedStatement.close();
+
+		
+			connexion.commit();
+
+		} catch (NamingException | SQLException e) {
+			LOG.error(ExceptionUtils.getStackTrace(e));
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement);
+
+		}
+
+		return new MessageAction(true, "ok");
+
+		
+		
+	}
+	
 	public static MessageAction ajouteMessage(String uidEmetteur,
 			String uidDestinataire, String message, int idActivite) {
 

@@ -58,28 +58,47 @@
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
-	
+
 	<div class="container margedebut ">
 		<div class="panel barrerecherche">
 			<div class="panel-heading">
-				<form  action='<%=listMessage.getDiscussion().getLienReponseHTML()%>'
+				<form action='<%=listMessage.getDiscussion().getLienReponseHTML()%>'
 					method='post'>
-					<h2><%=listMessage.getEnteteAdaptaterHtml()%></h2>
 					
-					<div class="form-group">
-						<label for="comment">Message:</label>
-						<textarea required name="message" class="form-control" rows="2"
-							id="comment"></textarea>
+
+					<div class="row">
+					
+						<div class="col-sm-3">
+							<div class="form-group">
+
+							<%=listMessage.getEnteteAdaptaterHtml()%>
+
+							</div>
+						</div>
+
+						<div class="col-sm-8">
+							<div class="form-group">
+
+								<textarea required name="message" class="form-control" rows="2"
+									id="comment" placeholder="Tapez votre message"></textarea>
+							</div>
+						</div>
+						<div class="col-sm-1">
+							<button type="submit" class="btn btn-default">></button>
+						</div>
+
 					</div>
+
 					<input type="hidden" name='ieip' value=<%=new Date().getTime()%>>
-					<button type="submit" class="btn btn-default">Envoyer</button>
+
 				</form>
 
 
 			</div>
 		</div>
 
-		<table class="table table-striped table-responsive "	style='border: 5px solid #fff;' id='matable'>
+		<table class="table table-striped table-responsive "
+			style='border: 5px solid #fff;' id='matable'>
 			<thead class="entetetable" align="center">
 
 			</thead>

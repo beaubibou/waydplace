@@ -75,9 +75,7 @@
 								action="/waydplace/Frontal?action=<%=Frontal.CHARGE_PHOTO_PROFIL_MEMBRE%>"
 								method="post" enctype="multipart/form-data"
 								onsubmit="return valideFichier()">
-
-								</br>
-								<div class="container">
+								
 									<div class="btn-group">
 										<label class="btn btn-default btn-file btn-primary btn-sm">
 											.. <input name="file" size="50" type="file"
@@ -92,7 +90,7 @@
 											class="glyphicon glyphicon-lock"></span></a>
 
 									</div>
-								</div>
+							
 
 							</form>
 

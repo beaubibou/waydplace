@@ -68,8 +68,6 @@
 									method="post" enctype="multipart/form-data"
 									onsubmit="return valideFichier()">
 
-									</br>
-										<div class="container">
 									<div class="btn-group">
 										<label class="btn btn-default btn-file btn-primary btn-sm">
 											.. <input name="file" size="50" type="file"
@@ -178,8 +176,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
+	
 
 	<script>
 	

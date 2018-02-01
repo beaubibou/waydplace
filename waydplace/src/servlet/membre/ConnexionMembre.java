@@ -60,15 +60,14 @@ public class ConnexionMembre extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(ConnexionMembre.class);
 
 	public static FirebaseOptions optionFireBase;
-	public final static String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
-	public final static String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
-	public final static String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
+	public static final  String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
+	public static final  String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
+	public static final  String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
 	
 	private static final String PAGE_CREATION_COMPTE_SITE = "compte/CreationComptePro.jsp";
 	private static final String PAGE_CREATION_COMPTE_MEMBRE = "compte/CreationCompteMembre.jsp";
-
 	
-	private final String CLE_CAPTCHA="6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
+	private static final String CLE_CAPTCHA="6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
 	static {
 		boolean chargement = false;
@@ -93,7 +92,7 @@ public class ConnexionMembre extends HttpServlet {
 				}
 			} catch (IOException e) {
 
-				e.printStackTrace();
+				
 				LOG.error(ExceptionUtils.getStackTrace(e));
 			}
 		}
@@ -117,7 +116,7 @@ public class ConnexionMembre extends HttpServlet {
 				}
 			} catch (IOException e) {
 
-				e.printStackTrace();
+			
 				LOG.error(ExceptionUtils.getStackTrace(e));
 			}
 		}
@@ -141,7 +140,7 @@ public class ConnexionMembre extends HttpServlet {
 				}
 			} catch (IOException e) {
 
-				e.printStackTrace();
+				
 				LOG.error(ExceptionUtils.getStackTrace(e));
 			}
 		}
