@@ -123,16 +123,13 @@ public class Profil {
 		
 	}
 	public void setNomSite(String nom) {
-		// TODO Auto-generated method stub
 		site.setNom(nom);
 	}
 	public boolean isAnonyme() {
-		// TODO Auto-generated method stub
 		return membre.isAnonyme();
 	}
 	public int getTypeOrganisteur() {
-		// TODO Auto-generated method stub
-		return membre.getId_ref_type_organisateur();
+			return membre.getId_ref_type_organisateur();
 	}
 	public void setSitePhotostr(String stringPhoto) {
 	site.setPhoto(stringPhoto);
@@ -159,7 +156,6 @@ public class Profil {
 		return new DateTime(membre.getDate_naissance().getTime());
 	}
 	public void setDateNaissance(Date dateNaissance) {
-		// TODO Auto-generated method stub
 		membre.setDate_naissance(dateNaissance);
 	}
 	
