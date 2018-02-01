@@ -9,7 +9,6 @@ public class ListMessage {
 
 	Discussion discussion;
 	ArrayList< MessageActivite> listMessages =new ArrayList< MessageActivite> ();
-
 	Profil profil;
 	
 	
@@ -17,9 +16,8 @@ public class ListMessage {
 		
 		listMessages=MessageDAO.getListMessage(profil.getUID(),uidDiscussion);
 		discussion=DiscussionDAO.getDiscussionByUID(uidDiscussion);
-	
+		this.profil=profil;
 		
-		System.out.println("ppppppppppppppppppppp"+uidDiscussion);
 		
 	}
 
@@ -47,15 +45,33 @@ public class ListMessage {
 		this.profil = profil;
 	}
 	
-	public String getMessageAdaptaterHtml(MessageActivite messageActivite){
-		
-		return null;
-			
-	}
+	
 	
 	public String getEnteteAdaptaterHtml(){
 		
-		return "Activite:"+discussion.getTitreActivite()+"</br>";
+		return "<div class='clearfix'>	<img src='" + discussion.getPhotoInterlocuteurURL(profil)
+				+ "'  class='pull-left marge-droite img-thumbnail'  width='200'	height='200' >"
+				+ "<h2 style='margin-top: 0px'>" + discussion.getTitreActivite() + "</h2>" + "<h4 >"
+				+ discussion.getPseudoInterlocuteur(profil) + "</h4></div>" ;
+		
+	}
+	
+	public String getAdaptaterListHtml(MessageActivite message){
+
+		if (message.isRecu()){
+		
+			
+	 	return 	"<div align='left' <p ><strong>"+discussion.getPseudoInterlocuteur(profil)+"</strong></p><h5 style='margin-top: 0px'>" + message.getMessage() + "</h5>" + "<h6 >"
+			+ message.getDateCreationStr() + "</h6></div>"
+			 ;
+		}
+		
+		else{
+			return 	"<div align='left' ><p><strong>Moi</strong></p><h5 style='margin-top: 0px'>" + message.getMessage() + "</h5>" + "<h6 >"
+					+ message.getDateCreationStr() + "</h6></div>"
+					 ;
+			
+		}
 		
 	}
 

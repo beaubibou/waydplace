@@ -140,9 +140,5 @@ public class MessageActivite {
 	
 	}
 
-	public String getAdaptaterListHtml(){
-
-	return message+"</br>"+getDateCreationStr();
-
-	}
+	
 }

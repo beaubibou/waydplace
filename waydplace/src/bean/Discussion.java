@@ -145,16 +145,24 @@ public class Discussion {
 public String getPhotoInterlocuteurURL(Profil profil) {
 
 		String photo=getPhotoInterlocuteurStr(profil);
-	
-			if (photo == null)	
+				if (photo == null)	
 				return Parametres.IMAGE_INCONNUE;
 			else
 				return Outils.getUrlPhoto(photo);
-
-	
 		
 
 	}
+
+public  String getPseudoInterlocuteur(Profil profil){
+
+	for (MembreDiscussion membre : new ArrayList<MembreDiscussion>(
+			membreDiscussion.values()))
+		if (!membre.getUid().equals(profil.getUID()))
+			return membre.getPseudo();
+	
+	return null;
+	
+}
 public String getAdpaterListHtml(Profil profil) {
 
 		

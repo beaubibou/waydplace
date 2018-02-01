@@ -56,7 +56,7 @@
 					<br>
 
 					<div class="row">
-						<div class="col-sm-4  col-sm-offset-4 ">
+						<div  class="col-sm-4 col-sm-offset-4 ">
 							<a
 								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>"
 								class="btn btn-info" role="button">Rechercher</a>

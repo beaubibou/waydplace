@@ -56,12 +56,9 @@
 	<%=AlertDialog.getAlertDialog(profil)%>
 
 	<%@ include file="menuMembre.jsp"%>
-	<script type="text/javascript">
-		
-	</script>
+
 
 	<div class="container margedebut ">
-
 		<div class="panel barrerecherche">
 			<div class="panel-heading">
 				<div class="row">

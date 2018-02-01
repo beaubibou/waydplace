@@ -234,7 +234,7 @@ public class MessageDAO {
 		try {
 
 			connexion = CxoPool.getConnection();
-			String requete = "select * from messages where uid_pour=? and uid_discussion=? ";
+			String requete = "select * from messages where uid_pour=? and uid_discussion=? order by date_creation desc";
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uidMembre);
 			preparedStatement.setString(2, uidDiscussion);

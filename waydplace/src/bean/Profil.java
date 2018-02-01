@@ -14,6 +14,28 @@ public class Profil {
 	Membre membre;
 	FiltreRecherche filtre;
 	String messageDialog;
+	
+	String lastAction=null;
+	
+	public boolean isMemeAction(String action){
+		
+		if (lastAction==null){
+			lastAction=action;
+			return false;
+		}
+			
+		if (lastAction.equals(action))
+			return true;
+		
+		if (!lastAction.equals(action)){
+			
+			lastAction=action;
+			return false;
+		}
+		
+		return false;
+		
+	}
 	public Profil(Site site, Membre membre) {
 		super();
 		this.site = site;
@@ -140,4 +162,6 @@ public class Profil {
 		// TODO Auto-generated method stub
 		membre.setDate_naissance(dateNaissance);
 	}
+	
+	
 }

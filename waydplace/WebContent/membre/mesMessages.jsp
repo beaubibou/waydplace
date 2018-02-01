@@ -1,5 +1,6 @@
 
 
+<%@page import="java.util.Date"%>
 <%@page import="bean.ListMessage"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="bean.Discussion"%>
@@ -22,6 +23,8 @@
 <html lang="en">
 <head>
 <title>Mes messages</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -55,30 +58,41 @@
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
+	
+	<div class="container margedebut ">
+		<div class="panel barrerecherche">
+			<div class="panel-heading">
+				<form  action='<%=listMessage.getDiscussion().getLienReponseHTML()%>'
+					method='post'>
+					<h2><%=listMessage.getEnteteAdaptaterHtml()%></h2>
+					
+					<div class="form-group">
+						<label for="comment">Message:</label>
+						<textarea required name="message" class="form-control" rows="2"
+							id="comment"></textarea>
+					</div>
+					<input type="hidden" name='ieip' value=<%=new Date().getTime()%>>
+					<button type="submit" class="btn btn-default">Envoyer</button>
+				</form>
 
 
-
-	<div class="container" style='margin-top: 120px;'>
-		<h2><%=listMessage.getEnteteAdaptaterHtml()%></h2>
-		
-		<form action='<%=listMessage.getDiscussion().getLienReponseHTML()%>' method='post'>
-			<div class="form-group">
-				<label for="comment">Comment:</label>
-				<textarea name="message" class="form-control" rows="5" id="comment"></textarea>
 			</div>
-			<button type="submit" class="btn btn-default">Envoyer</button>
-		</form>
-		<table class="table">
+		</div>
 
+		<table class="table table-striped table-responsive "	style='border: 5px solid #fff;' id='matable'>
+			<thead class="entetetable" align="center">
 
-			<tbody>
+			</thead>
+
+			<tbody tbody
+				style="background-color: #FFFFFF; vertical-align: middle;">
 
 				<%
 					for (MessageActivite messageActivite : listMessage
 							.getListMessages()) {
 				%>
 				<tr>
-					<%=messageActivite.getAdaptaterListHtml()%>
+					<td><%=listMessage.getAdaptaterListHtml(messageActivite)%></td>
 				</tr>
 
 
@@ -88,6 +102,8 @@
 
 			</tbody>
 		</table>
+
+
 	</div>
 
 

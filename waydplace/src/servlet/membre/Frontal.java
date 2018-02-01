@@ -440,17 +440,24 @@ public class Frontal extends HttpServlet {
 		String message = request.getParameter("message");
 		int idActivite = Integer.parseInt(idactiviteStr);
 
+		String lastaction = request.getParameter("ieip");
+	
+		if (!profil.isMemeAction(lastaction))
+		{
 		DiscussionDAO.ajouteDiscussion(idActivite, uidPour, uidAvec);
 
 		MessageDAO.ajouteMessage(uidAvec, uidPour, message, idActivite);
-
+		}
+		
 		return new MessageAction(true, "");
 
 	}
 
 	private MessageAction vpEnvoiMessageFromMessage(HttpServletRequest request,
 			Profil profil) {
-		return new MessageAction(true, "");
+		
+	
+							return new MessageAction(true, "");
 	}
 
 	private MessageAction supprimePhotoMembre(HttpServletRequest request,

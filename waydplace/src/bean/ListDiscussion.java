@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-import text.pageweb.MesActivites;
 import dao.DiscussionDAO;
 import dao.MessageDAO;
 
