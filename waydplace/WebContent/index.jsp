@@ -239,13 +239,13 @@ function signInGoogle(){
 	var provider = new firebase.auth.GoogleAuthProvider();
 
 	firebase.auth().signInWithPopup(provider).then(function(result) {
-		  var token = result.credential.accessToken;
+		var token = result.credential.accessToken;
 		  var user = result.user;
 		  firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function(idToken) {
-				     document.getElementById("outputJetonSite").value =codeSite;
-				 document.getElementById("token").value =idToken;
-				 document.getElementById("formlogin").submit();
-			
+			   document.getElementById("tokenfb").value =idToken;
+			    document.getElementById("pwd").value ="0";
+			    document.getElementById("outputJetonSite").value =codeSite;
+				document.getElementById("formlogin").submit();
 		 
 		  }).catch(function(error) {
 			  var errorMessage = error.message;

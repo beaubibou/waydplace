@@ -5,10 +5,9 @@ import java.util.Date;
 import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
 
-import dao.CacheDAO;
 import outils.Outils;
-import parametre.ActionPage;
 import parametre.Parametres;
+import dao.CacheDAO;
 
 public class Membre {
 	private static final Logger LOG = Logger.getLogger(Membre.class);
@@ -81,17 +80,15 @@ public class Membre {
 
 	public String getDetailEnteteMembreHtml(){
 		
-		return " <div class='col-md-8  col-xs-12'>"+
-         "<img src='" +getURLPhoto()+ "' class='img-thumbnail picture hidden-xs' />"+
-       " <div class='header'>  <h1>Lorem Ipsum</h1>     <h4>Web Developer</h4>  <span>Neque "+
-         "porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...here is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...</span>  </div>  </div>";
+//		 	return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
+//				"<div class='header'><h1>"+pseudo+" style='margin-top: 0px'>Lorem Ipsum</h1> <h4>Web Developer</h4><span>Neque porro quisquam est qui dolorem"
+//				+ " ipsum quia dolor sit amet, consectetur, adipisci velit...There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...</span></div></div>";
+
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
+	"<h2 style='margin-top: 0px'>"+pseudo +"</h2>"+
+	"<h4 >"+getAge()+"</h4>"+
+	"<h5 >"+getSexe()+"</h5></div>";
 		
-		
-//		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
-//	"<h2 style='margin-top: 0px'>"+pseudo +"</h2>"+
-//	"<h4 >"+getAge()+"</h4>"+
-//	"<h5 >"+getSexe()+"</h5></div>";
-//		
 	}
 
 	private String getURLPhoto() {
