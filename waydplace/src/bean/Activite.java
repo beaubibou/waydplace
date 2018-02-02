@@ -391,7 +391,7 @@ public class Activite {
 public String getDetailEnteteMembreHtml(){
 		
 		
-		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' style='width: 40%;'>"+
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
 	"<h2 style='margin-top: 0px'>"+titre +"</h2>"+
 	"<h4 >"+getHoraireLigne()+"</h4>"+
 	"<h5 >"+getLibelle()+"</h5></div>";

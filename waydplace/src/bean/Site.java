@@ -89,7 +89,7 @@ private String getURLPhoto() {
 
 	public String getDetailEnteteSiteHtml(){
 				
-		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"' class='pull-left marge-droite img-thumbnail' style='width: 40%;'>"+
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"' class='pull-left marge-droite img-thumbnail' width='300'	height='300'>"+
 	"<h2 style='margin-top: 0px'>"+nom +"</h2></div>";
 		
 	}

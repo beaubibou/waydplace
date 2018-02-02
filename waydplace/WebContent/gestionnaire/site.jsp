@@ -47,136 +47,141 @@
 		Site site = profil.getSite();
 	%>
 
-<div class="container margedebut">
-			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title">Site</div>
+		<div class="container margedebut">
+		<div class="panel panel-default">
+			<div class="panel-heading panel-heading-custom">
+				<div class="panel-title">Sites</div>
+			</div>
+			<div style="padding-top: 30px" class="panel-body">
+
+				<div style="border-bottom: 1px solid #888;">
+
+					<p class="text-tuto">Site</p>
+
 				</div>
-				<div style="padding-top: 30px" class="panel-body">
+
+				<br> <br>
+
+				<div class="form-group">
 
 
+					<%=profil.getSite().getDetailEnteteSiteHtml()%>
 
-					<div class="form-group">
-						<div class="row">
-
-							<div class="col-sm-8">
-							
-								<%=profil.getSite().getDetailEnteteSiteHtml()%>
-
-								<form
-									action="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.CHARGE_PHOTO_SITE_GESTIONNAIRE%>"
-									method="post" enctype="multipart/form-data"
-									onsubmit="return valideFichier()">
-
-									<div class="btn-group">
-										<label class="btn btn-default btn-file btn-primary btn-sm">
-											.. <input name="file" size="50" type="file"
-											style="display: none;">
-										</label> <input type="submit" value="Envoyer la photo"
-											class="btn btn-primary btn-sm  " /> <a
-											href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.SUPPRIMER_PHOTO_SITE_GESTIONNAIRE%>'
-											class='btn btn-danger btn-sm'> <span class="glyphicon glyphicon-remove"></span></a>
-					 <a href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE%>' class="btn btn-info btn-sm"> <span class="glyphicon glyphicon-lock"></span></a> 
-
-									</div>
-
-								</form>
-
-
-							</div>
-						</div>
-
-					</div>
-
-					<form action="/waydplace/FrontalGestionnaire" method="post"
-						onsubmit="return valideFormulaire()">
-
-						<input name="action" type="hidden"
-							value=<%=FrontalGestionnaire.MODIFIER_SITE_GESTIONNAIRE%>>
-
-						<div class="form-group">
-
-							<div class="row">
-
-
-								<div class="col-sm-8 ">
-
-									<div class="form-group">
-										<label for="nom"><%=SiteText.LABEL_NOM%></label> <input
-											type="text" class="form-control" id="nom"
-											placeholder="<%=SiteText.getHintNomSociete()%>"
-											maxlength="<%=SiteText.TAILLE_NOM_SITE_MAX%>" name="nom"
-											required value="<%=site.getNom()%>">
-									</div>
-
-
-								</div>
-
-							</div>
-							<div class="form-group">
-
-								<div class="row">
-									<div class="col-sm-8">
-										<div class="form-group">
-											<label for="jeton"><%=SiteText.LABEL_JETON%></label> <input
-												type="text" class="form-control" id="jeton"
-												placeholder="<%=SiteText.HINT_DESCRIPTION_JETON%>"
-												maxlength="<%=SiteText.TAILLE_JETON_MAX%>" name="jetonSite"
-												required value="<%=site.getJeton()%>">
-										</div>
-									</div>
-
-
-								</div>
-							</div>
-							<div class="form-group">
-
-								<div class="row">
-									<div class="col-sm-4">
-										<div class="form-group">
-											<label for="jeton"><%=SiteText.LABEL_TELEPHONE%></label> <input
-												type="text" class="form-control" id="jeton"
-												placeholder="<%=SiteText.HINT_TELEPHONE%>"
-												maxlength="<%=SiteText.TAILLE_TELEPHONNE_MAX%>"
-												name="jetonSite" required value="<%=site.getJeton()%>">
-										</div>
-									</div>
-
-
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-
-							<label for="adresse"><%=SiteText.LABEL_ADRESSE%></label>
-							<textarea class="form-control" rows="5" id="adresse"
-								name="adresse" placeholder="<%=SiteText.HINT_ADRESSE%>"
-								maxlength="<%=SiteText.TAILLE_ADRESSE_MAX%>"><%=site.getAdresse()%></textarea>
-						</div>
-						<div class="form-group">
-
-							<label for="description"><%=SiteText.LABEL_DESCRIPTION_PROFIL%></label>
-							<textarea class="form-control" rows="5" id="description"
-								name="description"
-								placeholder="<%=SiteText.getHintDescriptionProfil()%>"
-								maxlength="<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=site.getDescription()%></textarea>
-
+					<form
+						action="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.CHARGE_PHOTO_SITE_GESTIONNAIRE%>"
+						method="post" enctype="multipart/form-data"
+						onsubmit="return valideFichier()">
+<br>
+						<div class="btn-group">
+							<label class="btn btn-default btn-file btn-primary btn-sm">
+								.. <input name="file" size="50" type="file"
+								style="display: none;">
+							</label> <input type="submit" value="Envoyer la photo"
+								class="btn btn-primary btn-sm  " /> <a
+								href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.SUPPRIMER_PHOTO_SITE_GESTIONNAIRE%>'
+								class='btn btn-danger btn-sm'> <span
+								class="glyphicon glyphicon-remove"></span></a> <a
+								href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE%>'
+								class="btn btn-info btn-sm"> <span
+								class="glyphicon glyphicon-lock"></span></a>
 
 						</div>
-
-						<h5 class="nbrcaracteremax" id="nbr">
-							0 Caractére
-							<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
-						</h5>
-						<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
 
 					</form>
 
 
 				</div>
-			</div>
-		</div>
+		
+
 	
+<div class="form-group"></div>
+		<form action="/waydplace/FrontalGestionnaire" method="post"
+			onsubmit="return valideFormulaire()">
+
+			<input name="action" type="hidden"
+				value=<%=FrontalGestionnaire.MODIFIER_SITE_GESTIONNAIRE%>>
+
+			<div class="form-group">
+
+				<div class="row">
+
+
+					<div class="col-sm-8 ">
+
+						<div class="form-group">
+							<label for="nom"><%=SiteText.LABEL_NOM%></label> <input
+								type="text" class="form-control" id="nom"
+								placeholder="<%=SiteText.getHintNomSociete()%>"
+								maxlength="<%=SiteText.TAILLE_NOM_SITE_MAX%>" name="nom"
+								required value="<%=site.getNom()%>">
+						</div>
+
+
+					</div>
+
+				</div>
+				<div class="form-group">
+
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label for="jeton"><%=SiteText.LABEL_JETON%></label> <input
+									type="text" class="form-control" id="jeton"
+									placeholder="<%=SiteText.HINT_DESCRIPTION_JETON%>"
+									maxlength="<%=SiteText.TAILLE_JETON_MAX%>" name="jetonSite"
+									required value="<%=site.getJeton()%>">
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="form-group">
+
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="jeton"><%=SiteText.LABEL_TELEPHONE%></label> <input
+									type="text" class="form-control" id="jeton"
+									placeholder="<%=SiteText.HINT_TELEPHONE%>"
+									maxlength="<%=SiteText.TAILLE_TELEPHONNE_MAX%>"
+									name="jetonSite" required value="<%=site.getJeton()%>">
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+
+				<label for="adresse"><%=SiteText.LABEL_ADRESSE%></label>
+				<textarea class="form-control" rows="5" id="adresse" name="adresse"
+					placeholder="<%=SiteText.HINT_ADRESSE%>"
+					maxlength="<%=SiteText.TAILLE_ADRESSE_MAX%>"><%=site.getAdresse()%></textarea>
+			</div>
+			<div class="form-group">
+
+				<label for="description"><%=SiteText.LABEL_DESCRIPTION_PROFIL%></label>
+				<textarea class="form-control" rows="5" id="description"
+					name="description"
+					placeholder="<%=SiteText.getHintDescriptionProfil()%>"
+					maxlength="<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=site.getDescription()%></textarea>
+
+
+			</div>
+
+			<h5 class="nbrcaracteremax" id="nbr">
+				0 Caractére
+				<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
+			</h5>
+			<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
+
+		</form>
+</div>
+
+	</div>
+	</div>
 
 	<script>
 	
@@ -188,24 +193,30 @@
 	if (monfichier==''){
 		BootstrapDialog
 		.alert("<%=CompteMembre.AUCUN_FICHIER_SELECTIONNE%>");
-	return false;
-	}
-			
-	
-	}
-	
+				return false;
+			}
+
+		}
 	</script>
 
 	<script>
-	
-	$(document).ready(function(e) {
+		$(document)
+				.ready(
+						function(e) {
 
-		$('#description').keyup(function() {
+							$('#description')
+									.keyup(
+											function() {
 
-			var nombreCaractere = $(this).val().length;
-			//alert(nombreCaractere);
+												var nombreCaractere = $(this)
+														.val().length;
+												//alert(nombreCaractere);
 
-			var msg = nombreCaractere + '/'+<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>;
+												var msg = nombreCaractere
+														+ '/'
+														+
+	<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
+		;
 
 												$('#nbr').text(msg);
 												// Le script qui devra calculer et afficher le nombre de mots et de caractères

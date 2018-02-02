@@ -51,8 +51,7 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
-	type="text/css">
+
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
 	rel="stylesheet" type="text/css" />
@@ -61,6 +60,8 @@
 <link href="/waydplace/css/styleWayd.css" rel="stylesheet"
 	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
+	media="all" type="text/css">
+	<link href="/waydplace/css/boutton.css" rel="stylesheet"
 	media="all" type="text/css">
 </head>
 <body>
@@ -127,6 +128,14 @@
 						<a href="motdepasseoublie.jsp">Mot de passe oublié?</a>
 					</div>
 				</div>
+				
+				<button class="loginBtn loginBtn--facebook">
+  Login with Facebook
+</button>
+
+<button onclick="signInGoogle()"  class="loginBtn loginBtn--google">
+  Login with Google
+</button>
 
 				<div style="padding-top: 30px" class="panel-body">
 

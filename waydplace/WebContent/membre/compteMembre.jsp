@@ -49,6 +49,7 @@
 	%>
 	<%=AlertDialog.getAlertDialog(profil)%>
 	<%@include file="menuMembre.jsp"%>
+	
 	<div class="container margedebut">
 		<div class="panel panel-default">
 			<div class="panel-heading panel-heading-custom">
@@ -66,8 +67,7 @@
 
 				<div class="form-group">
 			
-				
-							<%=profil.getMembre().getDetailEnteteMembreHtml()%>
+						<%=profil.getMembre().getDetailEnteteMembreHtml()%>
 
 
 							<form
@@ -76,7 +76,7 @@
 								onsubmit="return valideFichier()">
 
 								
-							</br>
+						
 									<div class="btn-group">
 										<label class="btn btn-default btn-file btn-primary btn-sm">
 											.. <input name="file" size="50" type="file"
