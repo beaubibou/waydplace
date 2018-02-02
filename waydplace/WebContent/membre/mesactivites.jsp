@@ -105,10 +105,10 @@
 		<table class="table table-striped table-responsive "
 			style='border: 5px solid #fff;' id="matable">
 
-			<thead class="entetetable" align="center">
+			<thead>
 				<tr>
 					<th style="width: 80%;" class="text-center"></th>
-					<th style="width: 20%;" class="text-center">Action</th>
+					<th style="width: 20%;" class="text-center"></th>
 
 				</tr>
 			</thead>
