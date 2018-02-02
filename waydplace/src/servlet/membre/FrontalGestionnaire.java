@@ -49,8 +49,8 @@ import dao.SiteDAO;
  * Servlet implementation class FrontalGestionnaire
  */
 public class FrontalGestionnaire extends HttpServlet {
-	
-	public static final String REFRESH_MES_ACTIVITE_GESTIONNAIRE="refreshMesActiviteGestionnaire";
+
+	public static final String REFRESH_MES_ACTIVITE_GESTIONNAIRE = "refreshMesActiviteGestionnaire";
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE = "redirectionproposeractivite";
 	public static final String REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "proposerplusieursactivitegestionnaire";
 	public static final String REDIRECTION_SITE_GESTIONNAIRE = "redirectionsitegestionnaire";
@@ -70,13 +70,10 @@ public class FrontalGestionnaire extends HttpServlet {
 	public static final String DECONNEXION_GESTIONNAIRE = "deconnexionGetionnaire";
 	public static final String SUPPRIMER_PHOTO_GESTIONNAIRE = "supprimerPhotoGestionnaire";
 	public static final String CHARGE_PHOTO_PROFIL_GESTIONNAIRE = "chargePhotoProfilGestionnaire";
-	public static  final String MODIFIER_COMPTE_GESTIONNAIRE="modifierCompteGestionnaire";
-	public static  final String SUPPRIMER_PHOTO_SITE_GESTIONNAIRE="supprimerPhotoSitegestionnaire";
-	
-	
-	
-	
-	
+	public static final String MODIFIER_COMPTE_GESTIONNAIRE = "modifierCompteGestionnaire";
+	public static final String SUPPRIMER_PHOTO_SITE_GESTIONNAIRE = "supprimerPhotoSitegestionnaire";
+	public static final String REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE = "REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE";
+
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger
 			.getLogger(FrontalGestionnaire.class);
@@ -117,289 +114,290 @@ public class FrontalGestionnaire extends HttpServlet {
 		if (action == null || action.isEmpty())
 			return;
 
-		switch (action) {
+		try {
+			switch (action) {
 
-		case REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE:
+			case REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE:
 
-			response.sendRedirect("gestionnaire/proposeUneActivite.jsp");
+				response.sendRedirect("gestionnaire/proposeUneActivite.jsp");
 
-			break;
+				break;
 
-		case REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE:
+			case REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE:
 
-			Activite activite = getActivite(request, profil);
+				Activite activite = getActivite(request, profil);
 
-			request.setAttribute("activite", activite);
-			request.getRequestDispatcher("gestionnaire/modifieActivite.jsp")
-					.forward(request, response);
+				request.setAttribute("activite", activite);
+				request.getRequestDispatcher("gestionnaire/modifieActivite.jsp")
+						.forward(request, response);
 
-			break;
-			
-		case MODIFIER_COMPTE_GESTIONNAIRE:
-			MessageAction modifierCompteGestionnaire = modifierCompteGestionnaire(request,
-					profil);
+				break;
 
-			if (modifierCompteGestionnaire.isOk()) {
-				profil.setMessageDialog("Modification prise en compte.");
-				response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
-			
-			} else {
-		
-				redirectionErreur(modifierCompteGestionnaire.getMessage(),request,response);
-			}
-			
-			break;
-		
+			case MODIFIER_COMPTE_GESTIONNAIRE:
+				MessageAction modifierCompteGestionnaire = modifierCompteGestionnaire(
+						request, profil);
 
-	
-		
-		case REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE:
+				if (modifierCompteGestionnaire.isOk()) {
+					profil.setMessageDialog("Modification prise en compte.");
+					response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
 
-			
-			response.sendRedirect("gestionnaire/changementmotdepasse.jsp");
-			break;
-			
-			
-			
+				} else {
 
-		case MODIFIER_ACTIVITE_GESTIONNAIRE:
+					redirectionErreur(modifierCompteGestionnaire.getMessage(),
+							request, response);
+				}
 
-			MessageAction modifierActiviteMembre = modifierActiviteMembre(
-					request, profil);
+				break;
 
-			if (modifierActiviteMembre.isOk()){
-			response.sendRedirect("gestionnaire/mesactivites.jsp");
-			}
-			else{
-				
-				
-			}
+			case REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE:
 
-			break;
+				response.sendRedirect("gestionnaire/changementmotdepasse.jsp");
+				break;
 
-		case CHARGE_PHOTO_PROFIL_GESTIONNAIRE:
+			case MODIFIER_ACTIVITE_GESTIONNAIRE:
 
-			MessageAction chargePhotoGestionnaire = chargePhotoGestionnaire(request, profil);
+				MessageAction modifierActiviteMembre = modifierActiviteMembre(
+						request, profil);
 
-			if (chargePhotoGestionnaire.isOk()) {
+				if (modifierActiviteMembre.isOk()) {
+					response.sendRedirect("gestionnaire/mesactivites.jsp");
+				} else {
 
-				response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
+				}
 
-			} else {
+				break;
 
-				redirectionErreur(chargePhotoGestionnaire.getMessage(),request,response);
-			}
-			break;
-	
-		case SUPPRIMER_PHOTO_GESTIONNAIRE:
-			MessageAction supprimePhotoGestionnaire = supprimePhotoGestionnaire(
-					request, profil);
+			case CHARGE_PHOTO_PROFIL_GESTIONNAIRE:
 
-			if (supprimePhotoGestionnaire.isOk()) {
-				
-				profil.setPhoto(null);
-			
-				response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
+				MessageAction chargePhotoGestionnaire = chargePhotoGestionnaire(
+						request, profil);
 
-			} else {
+				if (chargePhotoGestionnaire.isOk()) {
 
-				redirectionErreur(supprimePhotoGestionnaire.getMessage(), request,
+					response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
+
+				} else {
+
+					redirectionErreur(chargePhotoGestionnaire.getMessage(),
+							request, response);
+				}
+				break;
+
+			case SUPPRIMER_PHOTO_GESTIONNAIRE:
+				MessageAction supprimePhotoGestionnaire = supprimePhotoGestionnaire(
+						request, profil);
+
+				if (supprimePhotoGestionnaire.isOk()) {
+
+					profil.setPhoto(null);
+
+					response.sendRedirect("gestionnaire/compteGestionnaire.jsp");
+
+				} else {
+
+					redirectionErreur(supprimePhotoGestionnaire.getMessage(),
+							request, response);
+				}
+				break;
+
+			case SUPPRIMER_PHOTO_SITE_GESTIONNAIRE:
+				MessageAction supprimePhotoSite = supprimePhotoSite(request,
+						profil);
+
+				if (supprimePhotoSite.isOk()) {
+
+					profil.setPhoto(null);
+
+					response.sendRedirect("gestionnaire/site.jsp");
+
+				} else {
+
+					redirectionErreur(supprimePhotoSite.getMessage(), request,
+							response);
+				}
+				break;
+
+			case MODIFIER_SITE_GESTIONNAIRE:
+
+				MessageAction modifierSite = modifierSite(request, profil);
+				if (modifierSite.isOk()) {
+
+					response.sendRedirect("gestionnaire/site.jsp");
+				} else {
+					redirectionErreur(modifierSite, request, response);
+				}
+				break;
+
+			case REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
+
+				request.getRequestDispatcher(
+						"gestionnaire/proposePlusieursActivite.jsp").forward(
+						request, response);
+
+				break;
+
+			case REDIRECTION_SITE_GESTIONNAIRE:
+
+				request.getRequestDispatcher("gestionnaire/site.jsp").forward(
+						request, response);
+
+				break;
+			case REDIRECTION_COMPTE_GESTIONNAIRE:
+
+				request.getRequestDispatcher(
+						"gestionnaire/compteGestionnaire.jsp").forward(request,
 						response);
-			}
-			break;
 
-			
-		case SUPPRIMER_PHOTO_SITE_GESTIONNAIRE:
-			MessageAction supprimePhotoSite = supprimePhotoSite(
-					request, profil);
+				break;
 
-			if (supprimePhotoSite.isOk()) {
+			case REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE:
+
+				request.getRequestDispatcher("gestionnaire/mesactivites.jsp")
+						.forward(request, response);
+
+				break;
 				
-				profil.setPhoto(null);
-			
-				response.sendRedirect("gestionnaire/site.jsp");
+			case REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE:
 
-			} else {
+				request.getRequestDispatcher("gestionnaire/mesNotifications.jsp")
+						.forward(request, response);
 
-				redirectionErreur(supprimePhotoSite.getMessage(), request,
+				break;
+
+			case DECONNEXION_GESTIONNAIRE:
+
+				session.invalidate();
+
+				request.getRequestDispatcher("index.jsp").forward(request,
 						response);
-			}
-			break;
 
-			
-			
-			
+				break;
 
-		case MODIFIER_SITE_GESTIONNAIRE:
+			case REDIRECTION_PLANING_GESTIONNAIRE:
 
-			MessageAction modifierSite = modifierSite(request, profil);
-			if (modifierSite.isOk()) {
+				ArrayList<ActiviteAgenda> listActivite = ActiviteDAO
+						.getActiviteAgendaBySite(profil.getIdSite());
+				AdapterAgenda adapterAgenda = new AdapterAgenda(listActivite);
+				request.getRequestDispatcher(
+						"gestionnaire/ecranPrincipalGestionnaire.jsp").forward(
+						request, response);
 
-				response.sendRedirect("gestionnaire/site.jsp");
-			} else {
-				redirectionErreur(modifierSite, request, response);
-			}
-			break;
+				break;
 
-		case REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
+			case REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE:
 
-			request.getRequestDispatcher(
-					"gestionnaire/proposePlusieursActivite.jsp").forward(
-					request, response);
-
-			break;
-
-		case REDIRECTION_SITE_GESTIONNAIRE:
-
-			request.getRequestDispatcher("gestionnaire/site.jsp").forward(
-					request, response);
-
-			break;
-		case REDIRECTION_COMPTE_GESTIONNAIRE:
-
-			request.getRequestDispatcher("gestionnaire/compteGestionnaire.jsp")
-					.forward(request, response);
-
-			break;
-
-		case REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE:
-
-			request.getRequestDispatcher("gestionnaire/mesactivites.jsp")
-					.forward(request, response);
-
-			break;
-
-		case DECONNEXION_GESTIONNAIRE:
-
-			session.invalidate();
-
-			request.getRequestDispatcher("index.jsp")
-					.forward(request, response);
-
-			break;
-
-		case REDIRECTION_PLANING_GESTIONNAIRE:
-
-			ArrayList<ActiviteAgenda> listActivite = ActiviteDAO
-					.getActiviteAgendaBySite(profil.getIdSite());
-			AdapterAgenda adapterAgenda = new AdapterAgenda(listActivite);
-			System.out.println(adapterAgenda.getHtmlItemAgenda());
-			request.getRequestDispatcher(
-					"gestionnaire/ecranPrincipalGestionnaire.jsp").forward(
-					request, response);
-
-			break;
-
-		case REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE:
-
-			pager = new PagerActivite(profil.getFiltre(), page);
-			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("gestionnaire/rechercheActivite.jsp")
-					.forward(request, response);
-
-			break;
-
-		case REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE:
-
-			MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
-					request, profil);
-
-			if (updateFiltreRechercheActivite.isOk()) {
-
-				int pageEncours = 0;
-
-				if (request.getParameter("page") != null)
-					pageEncours = Integer
-							.parseInt(request.getParameter("page"));
-
-				pager = new PagerActivite(profil.getFiltre(), pageEncours);
+				pager = new PagerActivite(profil.getFiltre(), page);
 				request.setAttribute("pager", pager);
 				request.getRequestDispatcher(
 						"gestionnaire/rechercheActivite.jsp").forward(request,
 						response);
 
+				break;
+
+			case REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE:
+
+				MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
+						request, profil);
+
+				if (updateFiltreRechercheActivite.isOk()) {
+
+					int pageEncours = 0;
+
+					if (request.getParameter("page") != null)
+						pageEncours = Integer.parseInt(request
+								.getParameter("page"));
+
+					pager = new PagerActivite(profil.getFiltre(), pageEncours);
+					request.setAttribute("pager", pager);
+					request.getRequestDispatcher(
+							"gestionnaire/rechercheActivite.jsp").forward(
+							request, response);
+
+				}
+
+				break;
+
+			case REFRESH_MES_ACTIVITE_GESTIONNAIRE:
+
+				MessageAction updateFiltreRecherche = updateFiltreRecherche(
+						request, profil);
+				if (updateFiltreRecherche.isOk()) {
+					response.sendRedirect("gestionnaire/mesactivites.jsp");
+				}
+				break;
+
+			case AJOUTER_ACTIVITE_GESTIONNAIRE:
+
+				MessageAction ajouteActiviteMembre = ajouterActiviteGestionnaire(
+						request, response, profil);
+
+				if (ajouteActiviteMembre.isOk()) {
+
+					response.sendRedirect("gestionnaire/mesactivites.jsp");
+
+				} else {
+
+				}
+
+				break;
+
+			case AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
+
+				MessageAction ajoutePlusieursActiviteMembre = ajouterPlusieursActiviteGestionnaire(
+						request, response, profil);
+
+				if (ajoutePlusieursActiviteMembre.isOk()) {
+
+					response.sendRedirect("gestionnaire/mesactivites.jsp");
+
+				} else {
+
+				}
+
+				break;
+
+			case EFFACE_ACTIVITE_GESTIONNAIRE:
+
+				MessageAction effaceActivite = effaceActivite(request, profil);
+
+				if (effaceActivite.isOk()) {
+
+					response.sendRedirect("gestionnaire/mesactivites.jsp");
+
+				} else {
+
+				}
+
+				break;
+
+			case CHARGE_PHOTO_SITE_GESTIONNAIRE:
+
+				MessageAction chargePhotoMembre = chargePhotoSite(request,
+						profil);
+
+				if (chargePhotoMembre.isOk()) {
+
+					response.sendRedirect("gestionnaire/site.jsp");
+				} else {
+
+					redirectionErreur(chargePhotoMembre.getMessage(), request,
+							response);
+				}
+
+				break;
+
+			default:
+
 			}
+		} catch (Exception e) {
 
-			break;
-
-		case REFRESH_MES_ACTIVITE_GESTIONNAIRE:
-
-			MessageAction updateFiltreRecherche = updateFiltreRecherche(
-					request, profil);
-			if (updateFiltreRecherche.isOk()) {
-				response.sendRedirect("gestionnaire/mesactivites.jsp");
-			}
-			break;
-
-		case AJOUTER_ACTIVITE_GESTIONNAIRE:
-
-			MessageAction ajouteActiviteMembre = ajouterActiviteGestionnaire(
-					request, response, profil);
-
-			if (ajouteActiviteMembre.isOk()) {
-
-				response.sendRedirect("gestionnaire/mesactivites.jsp");
-
-			} else {
-
-			}
-
-			break;
-
-		case AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE:
-
-			MessageAction ajoutePlusieursActiviteMembre = ajouterPlusieursActiviteGestionnaire(
-					request, response, profil);
-
-			if (ajoutePlusieursActiviteMembre.isOk()) {
-
-				response.sendRedirect("gestionnaire/mesactivites.jsp");
-
-			} else {
-
-			}
-
-			break;
-			
-
-		case EFFACE_ACTIVITE_GESTIONNAIRE:
-
-			MessageAction effaceActivite = effaceActivite(request, profil);
-
-			if (effaceActivite.isOk()) {
-
-				response.sendRedirect("gestionnaire/mesactivites.jsp");
-
-			} else {
-
-			}
-
-			break;
-
-		case CHARGE_PHOTO_SITE_GESTIONNAIRE:
-
-			MessageAction chargePhotoMembre = chargePhotoSite(request, profil);
-
-			if (chargePhotoMembre.isOk()) {
-
-				response.sendRedirect("gestionnaire/site.jsp");
-			} else {
-
-				redirectionErreur(chargePhotoMembre.getMessage(), request,
-						response);
-			}
-
-			break;
-
-		default:
-
+			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
-
 	}
 
 	private void redirectionErreur(String message, HttpServletRequest request,
 			HttpServletResponse response) {
-
 
 	}
 
@@ -417,12 +415,12 @@ public class FrontalGestionnaire extends HttpServlet {
 			return new MessageAction(false, updatePhoto.getMessage());
 
 	}
-	
+
 	private MessageAction supprimePhotoSite(HttpServletRequest request,
 			Profil profil) {
 
-		MessageAction updateSitePhoto = SiteDAO.updatePhoto(null, profil.getIdSite());
-			
+		MessageAction updateSitePhoto = SiteDAO.updatePhoto(null,
+				profil.getIdSite());
 
 		if (updateSitePhoto.isOk()) {
 
@@ -432,43 +430,42 @@ public class FrontalGestionnaire extends HttpServlet {
 			return new MessageAction(false, updateSitePhoto.getMessage());
 
 	}
-	
-	private MessageAction modifierCompteGestionnaire(HttpServletRequest request,
-			Profil profil) {
+
+	private MessageAction modifierCompteGestionnaire(
+			HttpServletRequest request, Profil profil) {
 
 		String pseudo = request.getParameter("pseudo");
 		String description = request.getParameter("commentaire");
 		String uid = request.getParameter("uid");
-		String idtypeGenreStr=request.getParameter("typeGenre");
-			
+		String idtypeGenreStr = request.getParameter("typeGenre");
+
 		String datedebut = request.getParameter("datenaissance");
-		DateTime datenaissanceDT=null;
+		DateTime datenaissanceDT = null;
 		try {
-			 datenaissanceDT = getDateFromString(datedebut);
+			datenaissanceDT = getDateFromString(datedebut);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
-		
-		Date dateNaissance=datenaissanceDT.toDate();
-		
-		
+
+		Date dateNaissance = datenaissanceDT.toDate();
+
 		MessageAction vpModifieCompte = vpModifieCompte(pseudo, description,
-				uid,idtypeGenreStr);
+				uid, idtypeGenreStr);
 
 		int idTypeGenre = Integer.parseInt(idtypeGenreStr);
-		
-		
+
 		if (vpModifieCompte.isOk()) {
 
 			MessageAction modifieMembreDAO = MembreDAO.modifieCompteMembre(
-					pseudo, description, profil.getUID(),idTypeGenre,dateNaissance);
+					pseudo, description, profil.getUID(), idTypeGenre,
+					dateNaissance);
 			if (modifieMembreDAO.isOk()) {
 				profil.setPseudo(pseudo);
 				profil.setDescription(description);
 				profil.setIdGenre(idTypeGenre);
 				profil.setDateNaissance(dateNaissance);
-			
+
 				return new MessageAction(true, "");
 			} else
 				return modifieMembreDAO;
@@ -479,10 +476,9 @@ public class FrontalGestionnaire extends HttpServlet {
 
 	}
 
-	private MessageAction vpModifieCompte(String pseudo,String description,
-			String uid,String idtypeGenreStr) {
-		
-			
+	private MessageAction vpModifieCompte(String pseudo, String description,
+			String uid, String idtypeGenreStr) {
+
 		return new MessageAction(true, "");
 	}
 
@@ -506,7 +502,7 @@ public class FrontalGestionnaire extends HttpServlet {
 				while (i.hasNext()) {
 					FileItem fi = (FileItem) i.next();
 					if (!fi.isFormField()) {
-							BufferedImage tmp = ImageIO.read(fi.getInputStream());
+						BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
 						BufferedImage imBuff = resize(tmp, 300, 200);
 
@@ -538,7 +534,6 @@ public class FrontalGestionnaire extends HttpServlet {
 		return new MessageAction(false, "erreur inconnue");
 	}
 
-	
 	private MessageAction chargePhotoSite(HttpServletRequest request,
 			Profil profil) {
 		File file;

@@ -1,6 +1,7 @@
 package servlet.membre;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+
+import com.google.gson.Gson;
 
 import dao.ActiviteDAO;
 import dao.MembreDAO;
@@ -26,14 +29,16 @@ public class FrontalCommun extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(FrontalCommun.class);
 	public static final String REDIRECTION_DETAIL_ACTIVITE = "redirectionDetailActivite";
 	public static final String REDIRECTION_DETAIL_PARTICIPANT = "redirectiondetailParticipantMembre";
+	public static final String AJAX_GET_MESSAGE_DIALOG = "AJAX_GET_MESSAGE_DIALOG";
 
+	
 	public FrontalCommun() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+	
 		doPost(request, response);
 	}
 
@@ -54,7 +59,6 @@ public class FrontalCommun extends HttpServlet {
 
 		case REDIRECTION_DETAIL_ACTIVITE:
 
-			System.out.println("ooooooooooooo");
 			Activite activite = getActivite(request);
 			request.setAttribute("activite", activite);
 
@@ -79,6 +83,21 @@ public class FrontalCommun extends HttpServlet {
 				break;
 			}
 
+			break;
+			
+		case AJAX_GET_MESSAGE_DIALOG:
+			
+			
+		
+			String messageAlert=profil.getMessageDialog();
+			String monMessage="null";
+			
+			if (messageAlert!=null)	
+				monMessage=messageAlert;
+		
+			response.setContentType("text/plain");
+			response.getWriter().write(monMessage);
+		
 			break;
 
 		case REDIRECTION_DETAIL_PARTICIPANT:

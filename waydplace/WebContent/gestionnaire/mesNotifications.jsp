@@ -1,8 +1,7 @@
 
 
-<%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.FrontalCommun"%>
-<%@page import="outils.AlertDialog"%>
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="dao.ActiviteDAO"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="critere.FiltreRecherche"%>
@@ -20,12 +19,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Mes activités</title>
+<title>Mes notifications</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
@@ -40,8 +36,11 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<script src="js/alertdialog.js"></script>
+
+<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
 	type="text/css">
+
 
 
 </head>
@@ -51,15 +50,14 @@
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
 			FiltreRecherche filtre=profil.getFiltre();
-			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
-			String afficheMessage=(String)request.getAttribute("alertMessage");
+			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActiviteBySite(profil.getIdSite(), filtre.getCritereRechercheEtatMesActivite());
 	%>
 
-
-	<%@ include file="menuMembre.jsp"%>
+	<%@ include file="menuGestionnaire.jsp"%>
 
 
 	<div class="container margedebut ">
+
 		<div class="panel barrerecherche">
 			<div class="panel-heading">
 				<div class="row">
@@ -71,8 +69,8 @@
 
 				<div class="row">
 					<div class="col-sm-3">
-						<form method="post" action="/waydplace/Frontal" id="formulaire"
-							class="form-inline">
+						<form method="post" action="/waydplace/FrontalGestionnaire"
+							id="formulaire" class="form-inline">
 							<div class="form-group">
 								<label for="idEtatActivite">Status:</label> <select
 									class="form-control" id="idEtatActivite"
@@ -92,7 +90,7 @@
 
 							</div>
 							<input type="hidden" name='action'
-								value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
+								value='<%=FrontalGestionnaire.REFRESH_MES_ACTIVITE_GESTIONNAIRE%>'>
 						</form>
 					</div>
 
@@ -102,32 +100,37 @@
 			</div>
 
 		</div>
-		<table class="table table-striped table-responsive "
-			style='border: 5px solid #fff;' id="matable">
-
+		<table class="table table-responsive " id="matable">
 			<thead class="entetetable" align="center">
 				<tr>
-					<th style="width: 80%;" class="text-center"></th>
+					<th style="width: 10%;" class="text-center">Etat</th>
+					<th class="text-center">Titre</th>
+					<th class="text-center">Détail</th>
+					<th style="width: 20%;" class="text-center">Date</th>
 					<th style="width: 20%;" class="text-center">Action</th>
 
 				</tr>
 			</thead>
-
-			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
+			<tbody
+				style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
 
 				<%
 					if (listMesActivite!=null)
-													for (Activite activite : listMesActivite)
-													{
-										String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+							for (Activite activite : listMesActivite)
+							{
+						String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
 				%>
 
+
 				<tr onclick="document.location='<%=lienDetailActivite%>'">
-
-					<td><%=activite.getAdpaterListHtml()%></td>
-					<td style="vertical-align: middle; text-align: center;"><%=activite.getPanelActionGestionHtmlMembre()%>
-
+					<td><%=activite.getEtatHtml()%></td>
+					<td class="idActivite" id=<%=activite.getId()%>
+						style="vertical-align: middle;"><%=activite.getTitre()%></td>
+					<td style="vertical-align: middle;"><%=activite.getLibelle()%></td>
+					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
+					<td style="vertical-align: middle;"><a title="Détail"></a> <%=activite.getPanelActionGestionHtmlGestionaire()%>
 					</td>
+
 
 				</tr>
 				<%
@@ -146,22 +149,6 @@
 		});
 	</script>
 
-	<script type="text/javascript">
-	<!-- Permet d afficher un message dialog -->
-		getMessageDialog();
-		function getMessageDialog() {
-
-			$.get("/waydplace/FrontalCommun?action=AJAX_GET_MESSAGE_DIALOG",
-					function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-
-						if (responseText == 'null')
-							return;
-
-						BootstrapDialog.alert(responseText);
-
-					});
-		}
-	</script>
 
 
 

@@ -56,7 +56,12 @@ public class Profil {
 	}
 	
 	public String getMessageDialog() {
+	
+		if (messageDialog==null)
+		return null;
+	
 		String retour=new String(messageDialog);
+	
 		messageDialog=null;
 		return retour;
 	}

@@ -24,6 +24,8 @@
 <head>
 <title>Mes discussion</title>
 <meta charset="utf-8">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <link

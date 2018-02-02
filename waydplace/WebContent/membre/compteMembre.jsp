@@ -15,6 +15,8 @@
 <title><%=CompteMembre.TITRE_ONGLET%></title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -47,7 +49,6 @@
 		Profil profil = (Profil) request.getSession()
 		.getAttribute("profil");
 	%>
-	<%=AlertDialog.getAlertDialog(profil)%>
 	<%@include file="menuMembre.jsp"%>
 	
 	<div class="container margedebut">
@@ -75,7 +76,7 @@
 								method="post" enctype="multipart/form-data"
 								onsubmit="return valideFichier()">
 
-								
+								<br>
 						
 									<div class="btn-group">
 										<label class="btn btn-default btn-file btn-primary btn-sm">
@@ -242,5 +243,23 @@
 		;
 		$('#nbr').text(msg);
 	</script>
+	
+	<script type="text/javascript">
+	<!-- Permet d afficher un message dialog -->
+		getMessageDialog();
+		function getMessageDialog() {
+
+			$.get("/waydplace/FrontalCommun?action=AJAX_GET_MESSAGE_DIALOG",
+					function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+
+						if (responseText == 'null')
+							return;
+
+						BootstrapDialog.alert(responseText);
+
+					});
+		}
+	</script>
+	
 </body>
 </html>

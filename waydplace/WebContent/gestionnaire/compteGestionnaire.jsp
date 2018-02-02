@@ -1,5 +1,5 @@
 
-<%@page import="servlet.membre.FrontalGestionnaire"%>
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="outils.AlertDialog"%>
 <%@page import="outils.Outils"%>
 <%@page import="bean.RefTypeGenre"%>
@@ -21,8 +21,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
-	type="text/css">
+
+	
 <script src="/waydplace/js/moment.js"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
@@ -49,6 +49,7 @@
 	%>
 	<%=AlertDialog.getAlertDialog(profil)%>
 	<%@include file="menuGestionnaire.jsp"%>
+	
 	<div class="container margedebut">
 		<div class="panel panel-default">
 			<div class="panel-heading panel-heading-custom">
@@ -65,49 +66,46 @@
 
 
 				<div class="form-group">
-					<div class="row">
-
-						<div class="col-sm-8">
-							<%=profil.getMembre().getDetailEnteteMembreHtml()%>
+			
+						<%=profil.getMembre().getDetailEnteteMembreHtml()%>
 
 
 							<form
-								action="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.CHARGE_PHOTO_PROFIL_GESTIONNAIRE%>"
+								action="/waydplace/Frontal?action=<%=Frontal.CHARGE_PHOTO_PROFIL_MEMBRE%>"
 								method="post" enctype="multipart/form-data"
 								onsubmit="return valideFichier()">
 
-								</br>
-								<div class="container">
+								<br>
+						
 									<div class="btn-group">
 										<label class="btn btn-default btn-file btn-primary btn-sm">
 											.. <input name="file" size="50" type="file"
 											style="display: none;">
 										</label> <input type="submit" value="Envoyer la photo"
 											class="btn btn-primary btn-sm  " /> <a
-											href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.SUPPRIMER_PHOTO_GESTIONNAIRE%>'
+											href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
 											class='btn btn-danger btn-sm'> <span
 											class="glyphicon glyphicon-remove"></span></a> <a
-											href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE%>'
+											href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
 											class="btn btn-info btn-sm"> <span
 											class="glyphicon glyphicon-lock"></span></a>
 
 									</div>
-								</div>
-
+							
 							</form>
 
 
-						</div>
-					</div>
+					
+					
 
 				</div>
 
 
-				<form action="/waydplace/FrontalGestionnaire" method="post"
+				<form action="/waydplace/Frontal" method="post"
 					onsubmit="return valideFormulaire()">
 
 					<input name="action" type="hidden"
-						value=<%=FrontalGestionnaire.MODIFIER_COMPTE_GESTIONNAIRE%>>
+						value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>>
 
 					<div class="form-group">
 						<div class="row">
@@ -124,8 +122,9 @@
 								<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
 								<div class='input-group date' id='datenaissance'>
 									<input type='text' class="form-control" id="datenaissance"
-										name="datenaissance" /> <span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
+										name="datenaissance" required /> <span
+										class="input-group-addon"> <span
+										class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>
 
@@ -193,11 +192,12 @@
 		var monfichier;
 		monfichier=latitude = document.getElementById("file").value;
 		
-	if (monfichier==''){BootstrapDialog	.alert("<%=CompteMembre.AUCUN_FICHIER_SELECTIONNE%>");
+	if (monfichier==''){
+		BootstrapDialog
+		.alert("<%=CompteMembre.AUCUN_FICHIER_SELECTIONNE%>");
 				return false;
 			}
 
-	
 		}
 	</script>
 

@@ -16,6 +16,7 @@
 <html lang="fr">
 <head>
 <title>><%=EnvoiMessage.TITRE_ONGLET%></title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

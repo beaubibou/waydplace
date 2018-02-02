@@ -260,8 +260,7 @@ public class ActiviteDAO {
 
 	public static ArrayList<Activite> getMesActivite(String uid,
 			int etatActivite) {
-		long debut = System.currentTimeMillis();
-
+	
 		Activite activite = null;
 		ArrayList<Activite> retour = new ArrayList<Activite>();
 		PreparedStatement preparedStatement = null;
@@ -467,13 +466,10 @@ public class ActiviteDAO {
 		int critereTypeActivite = filtre.getCritereTypeActivite();
 		int critereTypeOrganisateur = filtre.getCritereTypeorganisateur();
 		int critereEtatActivite = filtre.getCritereRechercheEtatActivite();
-
 		DateTime critereDateDebut = filtre.getCritereDateDebutCreation();
 		DateTime critereDateFin = filtre.getCritereDateFinCreation();
-
 		String critereDateDebutStr = critereDateDebut.toString("dd/MM/yyyy");
 		String critereDateFinStr = critereDateFin.toString("dd/MM/yyyy");
-
 		Activite activite = null;
 
 		PreparedStatement preparedStatement = null;

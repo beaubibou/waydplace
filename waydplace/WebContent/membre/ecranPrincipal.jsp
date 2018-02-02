@@ -1,3 +1,4 @@
+<%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="text.pageweb.EcranPrincipal"%>
@@ -7,8 +8,11 @@
 <html>
 <head>
 
-<meta charset="utf-8">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/waydplace/js/messageAlert.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
@@ -19,10 +23,9 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/css/bootstrap-dialog.min.css"
 	rel="stylesheet" type="text/css" />
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
-
-
 
 <link href="/waydplace/css/styleWayd.css" rel="stylesheet"
 	type="text/css">
@@ -30,6 +33,7 @@
 	media="all" type="text/css">
 </head>
 <body>
+
 
 <%@include file="menuMembre.jsp"%>
 
@@ -93,6 +97,26 @@
 		</div>
 	</div>
 
+<script >
 
+test();
+function test() {
+	
+$.get("/waydplace/FrontalCommun?action=<%=FrontalCommun.AJAX_GET_MESSAGE_DIALOG%>", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+
+	 if (responseText=='null')
+		 return;
+	 
+		 alert(responseText);
+	
+
+});
+
+
+}
+
+
+		
+</script>
 </body>
 </html>
