@@ -171,7 +171,9 @@
 					</h5>
 
 					<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
-
+<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+											class='btn btn-info btn-lg'> <span
+											class="glyphicon glyphicon-home"></span></a> 
 				</form>
 
 			</div>

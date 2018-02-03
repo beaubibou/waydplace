@@ -22,14 +22,18 @@
 			<ul class="nav navbar-nav">
 
 
+				<%=MenuMembre.get_LI_ACCEUIL((Profil) session
+					.getAttribute("profil"))%>
+
 				<%=MenuMembre.get_LI_MON_COMPTE((Profil) session
 					.getAttribute("profil"))%>
 
 				<%=MenuMembre.get_LI_GERER((Profil) session
 					.getAttribute("profil"))%>
 
-				<%=MenuMembre.get_LI_PROPOSE((Profil) session.getAttribute("profil"))%>
-				
+				<%=MenuMembre.get_LI_PROPOSE((Profil) session
+					.getAttribute("profil"))%>
+
 				<li><a
 					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>">Rechercher
 				</a></li>
@@ -39,11 +43,11 @@
 
 				<%=MenuMembre.get_LI_ENVELOPPE((Profil) session
 					.getAttribute("profil"))%>
-		<%=MenuMembre.get_LI_BADGE((Profil) session
+				<%=MenuMembre.get_LI_BADGE((Profil) session
 					.getAttribute("profil"))%>
 
 
-		
+
 			</ul>
 
 

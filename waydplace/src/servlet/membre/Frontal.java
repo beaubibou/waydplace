@@ -77,7 +77,14 @@ public class Frontal extends HttpServlet {
 	public static final String REDIRECTION_CREATION_COMPTE_MEMBRE = "redirectionCreationCompteMembre";
 	public static final String REDIRECTION_MESSAGE_MEMBRE = "redirectionMessageMembre";
 	public static final String ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES = "envoiMessageFromMessages";
+	public static final String REDIRECTION_ACCUEIL_MEMBRE = "REDIRECTION_ACCUEIL_MEMBRE";
+	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
 
+	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="+REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
+
+	
+	
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -117,13 +124,53 @@ public class Frontal extends HttpServlet {
 
 		if (action == null || action.isEmpty())
 			return;
+		int TYPE_USER=0;
+		
+		if (profil!=null)
+		 TYPE_USER=profil.getTypeOrganisteur();
+		
+		if (TYPE_USER==Parametres.TYPE_ORGANISATEUR_VISITEUR){
+			
+			switch (action) {
+			
+			case REDIRECTION_INSCRIPTION_MEMBRE:
+				response.sendRedirect("index.jsp");
+				break;
+			
+		
+			case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
 
+			int page = 0;
+			pager = new PagerActivite(profil.getFiltre(), page);
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("membre/rechercheActivite.jsp")
+					.forward(request, response);
+
+			break;
+			
+			default:
+				
+			response.sendRedirect("membre/ecranPrincipal.jsp");
+
+				
+			break;
+				
+			}
+			return;
+		}
+		
+		
+		
 		try {
 
 			switch (action) {
 
 			case REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
 				response.sendRedirect("membre/proposeActiviteMembre.jsp");
+				break;
+				
+			case REDIRECTION_INSCRIPTION_MEMBRE:
+				response.sendRedirect("index.jsp");
 				break;
 
 			case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
@@ -147,6 +194,13 @@ public class Frontal extends HttpServlet {
 				response.sendRedirect("membre/mesDiscussion.jsp");
 
 				break;
+				
+			case REDIRECTION_ACCUEIL_MEMBRE:
+
+				response.sendRedirect("membre/ecranPrincipal.jsp");
+
+				break;
+
 
 			case REDIRECTION_MESSAGE_MEMBRE:
 

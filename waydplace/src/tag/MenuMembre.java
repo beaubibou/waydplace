@@ -9,13 +9,13 @@ import text.pageweb.MenuGestionnaireText;
 
 public class MenuMembre {
 
-	private static String LIEN_CONNEXION = "<li><a href='/waydplace/index.jsp'><span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
+		private static String LIEN_CONNEXION = "<li><a href='/waydplace/index.jsp'><span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
 	private static String LIEN_DECONNEXION = "<li><a href='/waydplace/Frontal?action="
 			+ Frontal.DECONNEXION_MEMBRE+ "'><span class='glyphicon glyphicon-log-in'></span> Deconnexion</a></li>";
 	private static String LIEN_ENVELLOPPE = "<li><a href='/waydplace/Frontal?action="
 			+ Frontal.REDIRECTION_DISCUSSION_MEMBRE+ "'><span class='glyphicon glyphicon-envelope'></span> </a></li>";
-
-	
+	private static String LIEN_ACCUEIL_MEMBRE = "<li><a href='/waydplace/Frontal?action="
+			+ Frontal.REDIRECTION_ACCUEIL_MEMBRE+ "'><span class='glyphicon glyphicon-home'></span> </a></li>";
 
 	public static String get_LI_GERER(Profil profil) {
 		String lien = "";
@@ -72,6 +72,28 @@ public class MenuMembre {
 
 			break;
 		}
+
+		return lien;
+
+	}
+	
+	public static String get_LI_ACCEUIL(Profil profil) {
+		String lien = "";
+		switch (profil.getTypeOrganisteur()) {
+
+		
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+
+			lien = LIEN_ACCUEIL_MEMBRE;
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+			lien = LIEN_ACCUEIL_MEMBRE;
+
+			break;
+		}
+		
 
 		return lien;
 

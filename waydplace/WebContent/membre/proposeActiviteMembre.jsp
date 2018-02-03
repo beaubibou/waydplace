@@ -149,8 +149,13 @@
 							
 						<input type='hidden' name='action' value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
 
+					
 						<button type="submit" class="btnwayd btn-lg">Proposer</button>
-
+					
+						<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+											class='btn btn-info btn-lg'> <span
+											class="glyphicon glyphicon-home"></span></a> 
+						
 						
 					</form>
 					

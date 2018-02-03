@@ -16,7 +16,7 @@
 <%@page import="outils.Outils"%>
 <%@page import="dao.CacheDAO"%>
 <%@page import="critere.CritereEtatActivite"%>
-<%@page import="text.pageweb.MesActivites"%>
+<%@page import="text.pageweb.RechercheActiviteMembre"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,6 +64,24 @@
 	<div class="container margedebut ">
 		<div class="panel barrerecherche">
 			<div class="panel-heading">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-1">
+							<a
+								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+								class='btn btn-info btn-md'> <span
+								class="glyphicon glyphicon-home"></span></a>
+
+						</div>
+						<div class="col-sm-11">
+							<p class="text-tuto"><%=RechercheActiviteMembre.TUTO_LIGNE1%></p>
+
+
+						</div>
+
+					</div>
+				</div>
+
 
 				<form class="form-inline" id="formulaire" method="post"
 					action="/waydplace/Frontal">
@@ -168,33 +186,33 @@
 		</div>
 
 
-		<table class="table table-striped  table-responsive  "  style='	border: 5px solid #fff;'id="matable">
+		<table class="table table-striped  table-responsive  "
+			style='border: 5px solid #fff;' id="matable">
 
-
+		<%if (listActivite!=null && !listActivite.isEmpty()){ %>
 			<thead>
 				<tr>
 					<th style="width: 80%;" class="text-center"></th>
 					<th style="width: 20%;" class="text-center"></th>
 
 				</tr>
+				
 			</thead>
+			<%} %>
 			<tbody style="vertical-align: middle;">
 				<%
-					if (listActivite!=null)
-					for (Activite activite : listActivite) {
-									String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
-									String lienDetailParticipant = "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT+"&idmembre=" +activite.getUid_membre();
+					if (listActivite!=null )
+									for (Activite activite : listActivite) {
+													String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+													String lienDetailParticipant = "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT+"&idmembre=" +activite.getUid_membre();
 				%>
 
 				<tr onclick="document.location='<%=lienDetailActivite%>'">
-					<td><%=activite.getAdpaterListHtml()%>
-							
+					<td><%=activite.getAdpaterListHtml()%></td>
+					<td><%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
+
 					</td>
-					<td>
-					 <%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
-				
-					</td>
-					
+
 
 				</tr>
 
@@ -228,25 +246,39 @@
 				document.getElementById("formulaire").submit();
 			});
 
-			
-			$('#datedebut').datetimepicker({
-				defaultDate : new Date(<%=filtre.getCritereDateDebutCreation().getYear()%>,<%=filtre.getCritereDateDebutCreation().getMonthOfYear()-1%>,<%=filtre.getCritereDateDebutCreation().getDayOfMonth()%>),
-				format : 'DD/MM/YYYY'
+			$('#datedebut')
+					.datetimepicker(
+							{
+								defaultDate : new Date(
+	<%=filtre.getCritereDateDebutCreation().getYear()%>
+		,
+	<%=filtre.getCritereDateDebutCreation().getMonthOfYear()-1%>
+		,
+	<%=filtre.getCritereDateDebutCreation().getDayOfMonth()%>
+		),
+								format : 'DD/MM/YYYY'
 
-			}).on('dp.change', function (e) {document.getElementById("formulaire").submit(); });
+							}).on('dp.change', function(e) {
+						document.getElementById("formulaire").submit();
+					});
 
-	
-			$('#datefin').datetimepicker(
-					{
-						defaultDate : new Date(<%=filtre.getCritereDateFinCreation().getYear()%>,<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>,<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>	),
-			format : 'DD/MM/YYYY'
+			$('#datefin')
+					.datetimepicker(
+							{
+								defaultDate : new Date(
+	<%=filtre.getCritereDateFinCreation().getYear()%>
+		,
+	<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>
+		,
+	<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>
+		),
+								format : 'DD/MM/YYYY'
 
-							}).on('dp.change', function (e) {document.getElementById("formulaire").submit(); });
-		
+							}).on('dp.change', function(e) {
+						document.getElementById("formulaire").submit();
+					});
+
 		});
-		
-		
-	
 	</script>
 </body>
 

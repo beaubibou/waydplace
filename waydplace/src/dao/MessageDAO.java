@@ -94,8 +94,8 @@ public class MessageDAO {
 		try {
 			connexion = CxoPool.getConnection();
 
-			String requete = "select * from messages where id in (select max (id) from (select * from messages where  uid_pour=?) as filtre1) "
-					+ "and uid_pour=?";
+			String requete = "select * from messages where id in (select max (id) from (select * from messages where  uid_pour=? ) as filtre1 group by uid_discussion ) "
+					+ "and uid_pour=? ";
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, uid);
