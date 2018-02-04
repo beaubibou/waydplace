@@ -303,9 +303,15 @@ public class ConnexionMembre extends HttpServlet {
 			MessageAction creerComptePro = creerComptePro(request);
 
 			if (creerComptePro.isOk()) {
-
+				response.sendRedirect("index.jsp");
+			
 			} else {
 
+				request.setAttribute("messageAlert", creerComptePro.getMessage());
+				request.getRequestDispatcher("compte/CreationComptePro.jsp")
+				.forward(request, response);
+				
+				
 			}
 
 			break;
@@ -316,12 +322,16 @@ public class ConnexionMembre extends HttpServlet {
 				MessageAction creerCompteMembre = creerCompteMembre(request);
 
 				if (creerCompteMembre.isOk()) {
-					response.sendRedirect("index.jsp");
-				
+					//response.sendRedirect("index.jsp");
+				request.getRequestDispatcher("compte/sendEmail.jsp").forward(request,
+							response);
 				} 
 				else 
 				{
-				System.out.println(creerCompteMembre.getMessage());
+				request.setAttribute("messageAlert", creerCompteMembre.getMessage());
+				request.getRequestDispatcher("compte/CreationCompteMembre.jsp")
+				.forward(request, response);
+				
 				}
 
 				break;
@@ -341,6 +351,7 @@ public class ConnexionMembre extends HttpServlet {
 		
 		if (!iscaptcha.isOk()) {
 		return new MessageAction(false, iscaptcha.getMessage());
+	
 		}
 
 		
@@ -713,5 +724,6 @@ public class ConnexionMembre extends HttpServlet {
 		 return new MessageAction(false,"Cochez je ne suis pas un robot");
 
 	}
+	
 
 }

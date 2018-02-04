@@ -13,8 +13,17 @@ public class AlertDialog {
 		String message =profil.getMessageDialog();
 	
 		return	" <script type='text/javascript'> BootstrapDialog.alert('"+message+"');</script>";
-	
 		
+		
+	}
+	
+public static String getAlertDialog(String message){
+		
+	//return	" <script type='text/javascript'> alert('"+message+"');</script>";
+	
+	if (message==null)return"";
+	if (message.isEmpty())return"";
+		return	" <script type='text/javascript'> BootstrapDialog.alert('"+message+"');</script>";
 		
 		
 	}

@@ -13,9 +13,7 @@
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
@@ -122,40 +120,38 @@
 				<%
 					}
 				%>
-				
-					<%
-						if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
-					%>
 
-					<div class="row">
-						<div class="col-sm-4 col-sm-offset-4 ">
-
-							<a
-								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_INSCRIPTION_MEMBRE%>"
-								class="btn btn-info  btn-block btn-lg" role="button">S'inscrire</a>
-						</div>
-
-					</div>
-
-
-				</div>
-				<br>
 				<%
-					}
+					if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
 				%>
 
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-4 ">
+
+						<a
+							href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_INSCRIPTION_MEMBRE%>"
+							class="btn btn-info  btn-block btn-lg" role="button">S'inscrire</a>
+					</div>
+
+				</div>
+
+
 			</div>
+			<br>
+			<%
+				}
+			%>
+
 		</div>
-	
+	</div>
+
 	<script>
 
 test();
 
 
-
 function test() {
-	
-$.get("/waydplace/FrontalCommun?action=<%=FrontalCommun.AJAX_GET_MESSAGE_DIALOG%>",
+	$.get("/waydplace/FrontalCommun?action=<%=FrontalCommun.AJAX_GET_MESSAGE_DIALOG%>",
 							function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 
 								if (responseText == 'null')

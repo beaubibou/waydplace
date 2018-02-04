@@ -1,4 +1,7 @@
 
+<%@page import="outils.AlertDialog"%>
+<%@page import="servlet.membre.Frontal"%>
+<%@page import="text.pageweb.CreationCompteMembre"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="outils.Outils"%>
@@ -35,25 +38,29 @@
 <body>
 
 	<%
-	
-	String pseudo = Outils.convertRequeteToString(request
-			.getAttribute("pseudo"));
+		String pseudo = Outils.convertRequeteToString(request
+				.getParameter("nom"));
+
+		String email = Outils.convertRequeteToString(request
+				.getParameter("email"));
+		String pwd1 = Outils.convertRequeteToString(request
+				.getParameter("pwd1"));
+		String pwd = Outils.convertRequeteToString(request
+				.getParameter("pwd"));
+
+		String messageAlert = (String)request.getAttribute("messageAlert");	
 		
-	String email = Outils.convertRequeteToString(request
-			.getAttribute("email"));
-	String pwd1 = Outils.convertRequeteToString(request
-			.getAttribute("pwd1"));
-	String pwd = Outils.convertRequeteToString(request
-			.getAttribute("pwd"));
-	 %>
+		
+		%>
 
-
+		<%=AlertDialog.getAlertDialog(messageAlert) %>
 
 	<div class="container margedebut">
+		<div id="loginbox"
+			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 			<div class="panel panel-default">
-	
 				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title"><%=CreationCompteProText.TITRE_PANEL%></div>
+					<div class="panel-title"><%=CreationCompteMembre.TITRE_PANEL%></div>
 
 				</div>
 
@@ -61,20 +68,22 @@
 
 					<form action="/waydplace/ConnexionMembre" method="post"
 						onsubmit="return valideFormulaire()">
-						<input  name="action" type="hidden"  value=<%=ConnexionMembre.CREER_COMPTE_MEMBRE %> >
-			
+						<input name="action" type="hidden"
+							value=<%=ConnexionMembre.CREER_COMPTE_MEMBRE%>>
+
 						<div class="form-group">
 							<div class="row">
 								<div class='col-md-4 col-md-offset-5'>
 									<h4>Authentification</h4>
 								</div>
 							</div>
+							<br>
 							<div style="margin-bottom: 25px" class="input-group">
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-user"></i></span> <input
 									id="login-username" type="email" class="form-control"
 									name="email" required value="<%=email%>"
-									placeholder="<%=CreationCompteProText.HINT_EMAIL%>">
+									placeholder="<%=CreationCompteMembre.HINT_EMAIL%>">
 							</div>
 
 							<div style="margin-bottom: 25px" class="input-group">
@@ -82,7 +91,7 @@
 									class="glyphicon glyphicon-lock"></i></span> <input
 									id="login-password" type="password" class="form-control"
 									name="pwd" value="<%=pwd%>"
-									placeholder="<%=CreationCompteProText.HINT_MOT_DE_PASSE%>">
+									placeholder="<%=CreationCompteMembre.HINT_MOT_DE_PASSE%>">
 							</div>
 
 							<div style="margin-bottom: 25px" class="input-group">
@@ -90,7 +99,7 @@
 									class="glyphicon glyphicon-lock"></i></span> <input
 									id="login-password-bis" type="password" class="form-control"
 									name="pwd1" value="<%=pwd1%>"
-									placeholder="<%=CreationCompteProText.HINT_MOT_DE_PASSE_BIS%>">
+									placeholder="<%=CreationCompteMembre.HINT_MOT_DE_PASSE_BIS%>">
 							</div>
 							<div class="row">
 								<div class='col-md-4 col-md-offset-5'>
@@ -99,36 +108,29 @@
 							</div>
 
 							<div class="form-group">
-								<label for="nom"><%=CreationCompteProText.LABEL_NOM_GESTIONNAIRE%></label> <input
-									type="text"
+								<label for="nom"><%=CreationCompteMembre.LABEL_PSEUDO_GESTIONNAIRE%></label>
+								<input type="text"
 									maxlength="<%=CreationCompteProText.TAILLE_PSEUDO_MAX%>"
 									value="<%=pseudo%>" class="form-control" id="nom"
-									placeholder="<%=CreationCompteProText.HINT_PSEUDO%>" name="nom" required>
+									placeholder="<%=CreationCompteMembre.HINT_PSEUDO%>" name="nom"
+									required>
 							</div>
 
-							
-							<div class="form-group">
 
-								<input type="hidden" class="form-control" id="latitude"
-									name="latitude" value=0>
-							</div>
-							<div class="form-group">
+							<br>
 
-								<input type="hidden" class="form-control" id="longitude"
-									name="longitude" value=0>
-							</div>
 							<div class="form-group">
 								<div class="g-recaptcha"
 									data-sitekey="6Ld6TzgUAAAAAMx76Q_NXm3xEJ1vPa799RLMeYLn"></div>
 							</div>
 
-							
-								<button type="submit" class="btn btnwayd">Soumettre</button>
-								<a href="/wayd/Home" class="btn btnwayd" role="button"><span
-									class="glyphicon glyphicon-home"></span> Accueil</a>
+							<br>
+							<button type="submit" class="btn btnwayd">Soumettre</button>
+							<a href='/waydplace/index.jsp' class="btn btnwayd" role="button"><span
+								class=" glyphicon glyphicon-home"></span> Accueil</a>
 
 
-							
+
 						</div>
 
 					</form>
@@ -139,8 +141,26 @@
 		</div>
 	</div>
 
-	
+	<script type="text/javascript">
+		function valideFormulaire() {
 
-	
+			var pwd1 = document.getElementById("login-password").value;
+			var pwd2 = document.getElementById("login-password-bis").value;
+
+			if (pwd1 != pwd2) {
+				BootstrapDialog.alert("Mot de passe différents");
+				return false;
+			}
+			
+			
+			
+
+			return true;
+		}
+		
+		
+	</script>
+
+
 </body>
 </html>

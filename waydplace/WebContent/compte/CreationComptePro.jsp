@@ -1,4 +1,5 @@
 
+<%@page import="outils.AlertDialog"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="outils.Outils"%>
@@ -54,19 +55,24 @@
 			.getAttribute("commentaire"));
 	String nomSite = Outils.convertRequeteToString(request
 			.getAttribute("nomSite"));
-	 %>
-
-
-
-	<div class="container margedebut">
-			<div class="panel panel-default">
+	String messageAlert = (String)request.getAttribute("messageAlert");	
 	
+	
+	%>
+
+	<%=AlertDialog.getAlertDialog(messageAlert) %>
+
+
+		<div class="container margedebut">
+		<div id="loginbox"	class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
 					<div class="panel-title"><%=CreationCompteProText.TITRE_PANEL%></div>
 
 				</div>
 
 				<div style="padding-top: 30px" class="panel-body">
+
 
 					<form action="/waydplace/ConnexionMembre" method="post"
 						onsubmit="return valideFormulaire()">
@@ -199,6 +205,25 @@
 	</div>
 
 	
+	<script type="text/javascript">
+		function valideFormulaire() {
+
+			var pwd1 = document.getElementById("login-password").value;
+			var pwd2 = document.getElementById("login-password-bis").value;
+
+			if (pwd1 != pwd2) {
+				BootstrapDialog.alert("Mot de passe différents");
+				return false;
+			}
+			
+			
+			
+
+			return true;
+		}
+		
+		
+	</script>
 
 	<script>
 		$(document).ready(function(e) {

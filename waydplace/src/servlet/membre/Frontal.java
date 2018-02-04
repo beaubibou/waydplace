@@ -79,8 +79,12 @@ public class Frontal extends HttpServlet {
 	public static final String ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES = "envoiMessageFromMessages";
 	public static final String REDIRECTION_ACCUEIL_MEMBRE = "REDIRECTION_ACCUEIL_MEMBRE";
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
+	
 
+	
+	
 	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="+REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
+	public static final String ACTION_REDIRECTION_INDEX = "/waydplace/Frontal/index.jsp";
 
 	
 	
