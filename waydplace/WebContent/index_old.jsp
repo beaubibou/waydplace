@@ -1,4 +1,3 @@
-<%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="text.pageweb.LoginTxt"%>
 <%@page import="parametre.ActionPage"%>
@@ -62,41 +61,59 @@
 	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
 	media="all" type="text/css">
-<link href="/waydplace/css/boutton.css" rel="stylesheet" media="all"
-	type="text/css">
+	<link href="/waydplace/css/boutton.css" rel="stylesheet"
+	media="all" type="text/css">
 </head>
 <body>
 
 	<div class="container">
 		<h2>Stacked form</h2>
-		<form id="formmasque" action="/waydplace/ConnexionMembre"
-			method="post">
+		<form id="formmasque" action="/waydplace/ConnexionMembre" method="post">
 
-			<input id='action' type="hidden" name='action'> <input
-				id="token" type="hidden" class="form-control" name="tokenFireBase">
-			<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
+			<input id='action' type="hidden" name='action' >
+			
+			
+			<div class="form-group">
+				<label for="codesite">Code site:</label> <input type="text"
+					class="form-control" id="codesite"
+					placeholder="Tapez le code du site" name="jetonSite" value="aaaa">
+			</div>
+
+
+			<input id="token" type="hidden" class="form-control" name="tokenFireBase">
+		<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
 		</form>
+		
+		<a href='/waydplace/ConnexionMembre?action=<%=ConnexionMembre.REDIRECTION_CREATION_COMPTE_PRO %>'><p>Creation Compte Pro</p></a>
+		<a href='/waydplace/ConnexionMembre?action=<%=ConnexionMembre.REDIRECTION_LOGIN_PRO %>'><p>Connexion Pro</p></a>
 
-
-
-		<a id="btn_googl" onclick="signInTestGestionnaire()"
-			class="btn btn-primary">Gestionnaire </a> <a id="btn_googl"
-			onclick="signInTestMembre1()" class="btn btn-primary">Membre 1 </a> <a
-			id="btn_googl" onclick="signInTestMembre2()" class="btn btn-primary">Membre
-			2 </a> <a id="btn_googl" onclick="signInTestAnonyme()"
-			class="btn btn-primary">Anonyme </a>
-
+	<a href='/waydplace/ConnexionMembre?action=<%=ConnexionMembre.REDIRECTION_CREATION_COMPTE_MEMBRE %>'><p>Creation Compte membre</p></a>
+	
+		<a id="btn_googl"  onclick="signInGoogle()" class="btn btn-primary">Login
+			with Google</a>
+			
+			
+			<a id="btn_googl"  onclick="signInTestGestionnaire()" class="btn btn-primary">Gestionnaire
+			</a>
+			
+			<a id="btn_googl"  onclick="signInTestMembre1()" class="btn btn-primary">Membre 1
+			</a>
+			
+			<a id="btn_googl"  onclick="signInTestMembre2()" class="btn btn-primary">Membre 2
+			</a>
+			
+			<a id="btn_googl"  onclick="signInTestAnonyme()" class="btn btn-primary">Anonyme
+			</a>
+					
 	</div>
 
-
+	
 	<form id="formlogin" action="/waydplace/ConnexionMembre" method="post">
 		<input id="tokenfb" type="hidden" class="form-control" name="token">
 		<input id="pwd" type="hidden" class="form-control" name="pwd">
-		<input type="hidden" name='action'
-			value='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE%>'> <input
-			id="outputJetonSite" type="hidden" class="form-control"
-			name="jetonSite">
-
+		<input type="text" name='action'	value='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE%>'>
+		<input id="outputJetonSite" type="hidden" class="form-control" name="jetonSite">
+		
 	</form>
 
 	<div class="container">
@@ -108,18 +125,25 @@
 					<div class="panel-title"><%=LoginTxt.TITRE_PANEL%></div>
 					<div
 						style="float: right; font-size: 80%; position: relative; top: -10px">
-						<a href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot de passe oublié?</a>
+						<a href="motdepasseoublie.jsp">Mot de passe oublié?</a>
 					</div>
 				</div>
+				
+				<button class="loginBtn loginBtn--facebook">
+  Login with Facebook
+</button>
 
-
+<button onclick="signInGoogle()"  class="loginBtn loginBtn--google">
+  Login with Google
+</button>
 
 				<div style="padding-top: 30px" class="panel-body">
 
 					<div style="display: none" id="login-alert"
 						class="alert alert-danger col-sm-12"></div>
 
-				
+					<form id="loginform" class="form-horizontal" role="form">
+
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-user"></i></span> <input id="login-username"
@@ -136,9 +160,9 @@
 
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-home"></i></span> <input id="inputJetonSite"
-								type="text" class="form-control" value="aaaa"
-								placeholder="<%=LoginTxt.CODE_SITE%>">
+								class="glyphicon glyphicon-user"></i></span> <input id="inputJetonSite"
+								type="text" class="form-control" 
+									value="aaaa" placeholder="<%=LoginTxt.CODE_SITE%>">
 						</div>
 
 						<div style="margin-top: 10px" class="form-group">
@@ -158,54 +182,28 @@
 							</div>
 
 
-
 							<br>
 							<div class="form-group">
 								<div class="col-md-12 control">
+									<br>
 									<div
-										style="padding-top: 15px; font-size: 85%">
-										<span>
-											<button onclick="signInFB()"
-												class="loginBtn loginBtn--facebook">Login with
-												Facebook</button>
-											<button onclick="signInGoogle()"
-												class="loginBtn loginBtn--google">Login with Google</button>
-
-										</span> <br>
+										style="border-top: 1px solid #888; padding-top: 15px; padding-left: 15px; font-size: 85%">
+										Pas de compte? <a href="/wayd/CreerUserPro">
+											Inscrivez-vous. </a>
 									</div>
-</div>
-</div>
-</div>
 
-									<div class="form-group">
-										<div style="padding-top: 15px;" class="col-md-12 control">
+								</div>
 
-											<div
-												style="border-top: 1px solid #888; padding-top: 15px; padding-left: 15px; font-size: 85%">
-												Particulier pas de compte? <a
-													href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>'>
-													Inscrivez-vous. </a>
-											</div>
-											<div
-												style="padding-top: 15px; padding-left: 15px; font-size: 85%">
-												Professionnel pas de compte? <a
-													href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>'>
-													Inscrivez-vous. </a>
-											</div>
-
-										</div>
-
-
-									</div>
-				
+							</div>
+					</form>
 
 				</div>
 
 			</div>
 		</div>
 	</div>
-
-
+	
+	
 </body>
 
 
@@ -245,52 +243,10 @@ function signInTest(){
 	  document.getElementById("formmasque").submit();
 }
 function signInGoogle(){
-
+	
 	var codeSite=document.getElementById("inputJetonSite").value;
 	var provider = new firebase.auth.GoogleAuthProvider();
-		firebase.auth().signInWithPopup(provider).then(function(result) {
-		var token = result.credential.accessToken;
-		  var user = result.user;
-			
-		  firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function(idToken) {
-			
-			  document.getElementById("tokenfb").value =idToken;
-			    document.getElementById("pwd").value ="0";
-			    document.getElementById("outputJetonSite").value =codeSite;
-			    
-			  
-				document.getElementById("formlogin").submit();
-			
-				
-				
-		  }).catch(function(error) {
-			  var errorMessage = error.message;
 
-			  var errorCode = error.code;
-			  
-			  BootstrapDialog.alert(errorCode);
-			});
-	  
-		  
-	}).catch(function(error) {
-		  // Handle Errors here.
-		  var errorCode = error.code;
-		  var errorMessage = error.message;
-		  // The email of the user's account used.
-		  var email = error.email;
-		  // The firebase.auth.AuthCredential type that was used.
-		  var credential = error.credential;
-		  BootstrapDialog.alert(errorCode);
-		  // ...
-		});
-	
-	
-}
-
-function signInFB(){
-	var codeSite=document.getElementById("inputJetonSite").value;
-	var provider = new firebase.auth.FacebookAuthProvider();
-	
 	firebase.auth().signInWithPopup(provider).then(function(result) {
 		var token = result.credential.accessToken;
 		  var user = result.user;

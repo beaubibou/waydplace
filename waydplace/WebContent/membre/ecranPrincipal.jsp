@@ -60,7 +60,7 @@
 
 							<a
 								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE%>"
-								class="btn btn-info btn-block btn-lg">Propose</a>
+								class="btn btn-info btn-block btn-lg btnwayd">Propose</a>
 						</div>
 
 					</div>
@@ -74,7 +74,7 @@
 						<div class="col-sm-4 col-sm-offset-4 ">
 							<a
 								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>"
-								class="btn btn-info  btn-block btn-lg" role="button">Rechercher</a>
+								class="btn btn-info  btn-block  btn-lg btnwayd">Rechercher</a>
 						</div>
 
 					</div>
@@ -89,7 +89,7 @@
 						<div class="col-sm-4 col-sm-offset-4 ">
 							<a
 								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_MES_ACTIVITES_MEMBRE%>"
-								class="btn btn-info  btn-block btn-lg" role="button">Mes
+								class="btn btn-info  btn-block btn-lg btnwayd">Mes
 								activités</a>
 						</div>
 
@@ -107,7 +107,7 @@
 
 							<a
 								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_DISCUSSION_MEMBRE%>"
-								class="btn btn-info  btn-block btn-lg" role="button">Mes
+								class="btn btn-info  btn-block btn-lg btnwayd" >Mes
 								messages (<%=MessageDAO.getNbrMessageNonLu(profilTmp.getUID())%>)
 							</a>
 						</div>
@@ -130,7 +130,7 @@
 
 						<a
 							href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_INSCRIPTION_MEMBRE%>"
-							class="btn btn-info  btn-block btn-lg" role="button">S'inscrire</a>
+							class="btn btn-info  btn-block btn-lg btnwayd"  >S'inscrire</a>
 					</div>
 
 				</div>

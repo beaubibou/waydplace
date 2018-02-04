@@ -81,18 +81,17 @@
 					<form action="/waydplace/Frontal"
 						onsubmit="return valideFormulaire()" method="post">
 
-						<input name="action" type="text" Value=<%=Frontal.ENVOI_MESSAGE_MEMBRE%>> 
+						<input name="action" type="hidden" Value=<%=Frontal.ENVOI_MESSAGE_MEMBRE%>> 
 						
-						<input name="uid_destinataire" type="text"	value=<%=uidDestinataire%>> 
-						<input name="uid_emetteur" type="text"value=<%=uidEmetteur%>>
-						<input name="idactivite" type="text"	value=<%=idactivite.toString()%>>
+						<input name="uid_destinataire" type="hidden"	value=<%=uidDestinataire%>> 
+						<input name="uid_emetteur" type="hidden"value=<%=uidEmetteur%>>
+						<input name="idactivite" type="hidden"	value=<%=idactivite.toString()%>>
 							
 
 						<div class="form-group" style="border-bottom: 1px solid #888;">
 
 							<p class="text-tuto"><%=EnvoiMessage.MESSAGE_JUMBO_LIGNE1%></p>
-							<p class="text-tuto"><%=EnvoiMessage.MESSAGE_JUMBO_LIGNE2%></p>
-							<p class="text-tuto"><%=EnvoiMessage.MESSAGE_JUMBO_LIGNE3%></p>
+							
 
 						</div>
 						<br>

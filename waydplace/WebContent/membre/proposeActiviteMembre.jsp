@@ -153,7 +153,7 @@
 						<button type="submit" class="btnwayd btn-lg">Proposer</button>
 					
 						<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btn-info btn-lg'> <span
+											class='btn btnwayd btn-lg'> <span
 											class="glyphicon glyphicon-home"></span></a> 
 						
 						

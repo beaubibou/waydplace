@@ -95,8 +95,10 @@ public class Membre {
 		
 		if (photo==null)
 			return Parametres.IMAGE_INCONNUE;
-		else
-			return Outils.getUrlPhoto(photo);
+	
+		
+			
+		return Outils.getUrlPhoto(photo);
 				
 	}
 

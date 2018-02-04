@@ -53,19 +53,21 @@ public class ConnexionMembre extends HttpServlet {
 	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
 	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
 	public static final String REDIRECTION_CREATION_COMPTE_MEMBRE = "redirectionCreationCompteMembre";
-	
 	public static final String REDIRECTION_CREATION_COMPTE_PRO = "redirectionCreationComptePro";
-	
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(ConnexionMembre.class);
-
 	public static FirebaseOptions optionFireBase;
 	public static final  String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
 	public static final  String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
 	public static final  String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
-	
 	private static final String PAGE_CREATION_COMPTE_SITE = "compte/CreationComptePro.jsp";
 	private static final String PAGE_CREATION_COMPTE_MEMBRE = "compte/CreationCompteMembre.jsp";
+	
+	
+	public static final String ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE ="/waydplace/ConnexionMembre?action="+REDIRECTION_CREATION_COMPTE_MEMBRE;
+	public static final String ACTION_REDIRECTION_CREATION_COMPTE_PRO ="/waydplace/ConnexionMembre?action="+REDIRECTION_CREATION_COMPTE_PRO;
+	public static final String ACTION_REDIRECTION_CREATION_MDP_OUBLIE ="/waydplace/compte/motdepasseoublie.jsp";
+
 	
 	private static final String CLE_CAPTCHA="6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
@@ -528,6 +530,7 @@ public class ConnexionMembre extends HttpServlet {
 			}
 		
 		} 
+		
 		//**********************************************************
 		
 		
@@ -539,13 +542,12 @@ public class ConnexionMembre extends HttpServlet {
 			if (FirebaseApp.getApps().isEmpty())
 				FirebaseApp.initializeApp(optionFireBase);
 			
-			
 			FirebaseToken token = FirebaseAuth.getInstance()
 					.verifyIdTokenAsync(tokenFireBase).get();
 			String uid = token.getUid();
 			String mail = token.getEmail();
 			String pseudo = token.getName();
-			String photo = null;
+			String photo = token.getPicture();
 
 			membre = MembreDAO.getMembreByUID(uid);
 
@@ -558,6 +560,7 @@ public class ConnexionMembre extends HttpServlet {
 				if (ajouteMembre.isOk()) {
 
 					membre = MembreDAO.getMembreByUID(uid);
+			
 				} else {
 
 					return ajouteMembre;

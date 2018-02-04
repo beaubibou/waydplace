@@ -32,6 +32,10 @@ public class Outils {
 
 		if (photo == null)
 			photo = "";
+		
+		if (photo.contains("https:"))
+			return photo;
+		
 		byte[] bytes = Base64.decode(photo);
 		String urlPhoto = "data:image/jpeg;base64," + Base64.encode(bytes);
 

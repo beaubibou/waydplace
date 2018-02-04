@@ -79,18 +79,19 @@
 								<br>
 						
 									<div class="btn-group">
-										<label class="btn btn-default btn-file btn-primary btn-sm">
+										<label class="btn btnwayd btn-file btn-primary btn-sm">
 											.. <input name="file" size="50" type="file"
 											style="display: none;">
 										</label> <input type="submit" value="Envoyer la photo"
-											class="btn btn-primary btn-sm  " /> <a
+											class="btn btnwayd btn-sm  " />
+											 <a
+											href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
+											class="btn btnwayd btn-sm"> <span
+											class="glyphicon glyphicon-lock"></span></a>
+ <a
 											href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
 											class='btn btn-danger btn-sm'> <span
-											class="glyphicon glyphicon-remove"></span></a> <a
-											href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
-											class="btn btn-info btn-sm"> <span
-											class="glyphicon glyphicon-lock"></span></a>
-
+											class="glyphicon glyphicon-remove"></span></a>
 									</div>
 							
 							</form>
@@ -172,7 +173,7 @@
 
 					<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
 <a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btn-info btn-lg'> <span
+											class='btn btnwayd btn-lg'> <span
 											class="glyphicon glyphicon-home"></span></a> 
 				</form>
 

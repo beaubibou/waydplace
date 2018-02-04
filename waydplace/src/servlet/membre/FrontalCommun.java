@@ -54,6 +54,14 @@ public class FrontalCommun extends HttpServlet {
 
 		if (action == null || action.isEmpty())
 			return;
+		
+		
+		
+		
+		
+		
+		
+		
 
 		switch (action) {
 
@@ -87,7 +95,6 @@ public class FrontalCommun extends HttpServlet {
 			
 		case AJAX_GET_MESSAGE_DIALOG:
 			
-			
 		
 			String messageAlert=profil.getMessageDialog();
 			String monMessage="null";
@@ -111,7 +118,7 @@ public class FrontalCommun extends HttpServlet {
 
 		default:
 
-			break;
+			
 		}
 	}
 

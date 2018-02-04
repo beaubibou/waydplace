@@ -80,7 +80,6 @@ public class MenuMembre {
 	public static String get_LI_ACCEUIL(Profil profil) {
 		String lien = "";
 		switch (profil.getTypeOrganisteur()) {
-
 		
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 

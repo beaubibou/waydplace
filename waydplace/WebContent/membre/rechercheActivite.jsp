@@ -69,7 +69,7 @@
 						<div class="col-sm-1">
 							<a
 								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-								class='btn btn-info btn-md'> <span
+								class='btn btnwayd btn-md'> <span
 								class="glyphicon glyphicon-home"></span></a>
 
 						</div>
@@ -184,12 +184,12 @@
 			</div>
 
 		</div>
-
+<%if (listActivite!=null && !listActivite.isEmpty()){ %>
+		
 
 		<table class="table table-striped  table-responsive  "
 			style='border: 5px solid #fff;' id="matable">
 
-		<%if (listActivite!=null && !listActivite.isEmpty()){ %>
 			<thead>
 				<tr>
 					<th style="width: 80%;" class="text-center"></th>
@@ -198,7 +198,7 @@
 				</tr>
 				
 			</thead>
-			<%} %>
+		
 			<tbody style="vertical-align: middle;">
 				<%
 					if (listActivite!=null )
@@ -216,12 +216,21 @@
 
 				</tr>
 
-				<%
-					}
-				%>
+			<%} %>
 
 			</tbody>
 		</table>
+		<%} else{ %>
+				<div class="jumbotron">
+  <h1>Pas de résultats</h1>      
+  <h3>Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER %>'>proposer.</a></h3>
+</div>
+
+
+
+
+		<%} %>
+		
 	</div>
 
 

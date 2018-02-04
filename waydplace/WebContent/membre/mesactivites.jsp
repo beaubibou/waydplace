@@ -68,7 +68,7 @@
 				<div class="row">
 					<div class="col-sm-1">
 								<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btn-info btn-md'> <span
+											class='btn btn-info btn-md btnwayd'> <span
 											class="glyphicon glyphicon-home"></span></a> 
 						
 					</div>
@@ -158,9 +158,6 @@
   <h1>Pas de résultats</h1>      
   <h3>Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER %>'>proposer.</a></h3>
 </div>
-
-
-
 
 		<%} %>
 	</div>

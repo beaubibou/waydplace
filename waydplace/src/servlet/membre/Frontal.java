@@ -80,12 +80,11 @@ public class Frontal extends HttpServlet {
 	public static final String REDIRECTION_ACCUEIL_MEMBRE = "REDIRECTION_ACCUEIL_MEMBRE";
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
 	
-
-	
 	
 	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="+REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
 	public static final String ACTION_REDIRECTION_INDEX = "/waydplace/Frontal/index.jsp";
-
+	
+	public static final String ACTION_REDIRECTION_MON_COMPTE = "/waydplace/Frontal?action="+REDIRECTION_COMPTE_MEMBRE;
 	
 	
 	
@@ -555,7 +554,7 @@ public class Frontal extends HttpServlet {
 					if (!fi.isFormField()) {
 						BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
-						BufferedImage imBuff = resize(tmp, 300, 200);
+						BufferedImage imBuff = resize(tmp, 300, 250);
 
 						String stringPhoto = encodeToString(imBuff, "jpeg");
 

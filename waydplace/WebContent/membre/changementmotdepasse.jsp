@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="text.pageweb.Erreur_HTML"%>
 <%@page import="text.pageweb.ChangemetMotDePasse"%>
 <%@page import="bean.Membre"%>
@@ -8,10 +9,22 @@
 
 <html lang="en">
 <head>
-<title>titre</title>
+<title>Changement </title>
 <meta charset="utf-8">
+<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCiTVROhzVToGPW-h16amlnckDvFEse9Hg",
+    authDomain: "waydplace.firebaseapp.com",
+    databaseURL: "https://waydplace.firebaseio.com",
+    projectId: "waydplace",
+    storageBucket: "",
+    messagingSenderId: "165326675460"
+  };
+  firebase.initializeApp(config);
+</script>
 
-<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -110,7 +123,7 @@
 
 								<a id="btn-password" onclick="envoiDemande()"
 									class="btn btnwayd ">Envoyer la demande</a> <a
-									href="/wayd/ComptePro" class="btn btn-info"><span
+									href='<%=Frontal.ACTION_REDIRECTION_MON_COMPTE%>' class="btn btnwayd"><span
 									class="glyphicon glyphicon-arrow-left"></span> </a>
 							</div>
 
@@ -134,59 +147,55 @@ function envoiDemande(){
 
 	
 	if ( mdp!=mdpBis){
-	
-		BootstrapDialog.show({
-			message:"<%=Erreur_HTML.MOT_DE_PASSEBIS_NOK%>"
-					});
-
-		return false;
-
-}
-
-	firebase.auth().signInWithEmailAndPassword(email, ancienmdp).then(function(firebaseUser) {
-
-		 
-		 firebase.auth().currentUser.updatePassword(mdp).then(function() {
+		BootstrapDialog.alert('Les mots de passe ne correspondent pas');
+	return false;
+	}
 
 
-				BootstrapDialog.alert("<%=Erreur_HTML.MOT_DE_PASSE_CHANGE%>", function(){
-					document.location.href="/waydplace/membre/compteMembre.jsp";   
-				});
-				
-			  // Update successful.
-			}).catch(function(error) {
-			  // An error happened.
-				var errorMessage = error.message;
-				 
-				BootstrapDialog.show({
-					message:errorMessage
-							});
+
+
+firebase.auth().signInWithEmailAndPassword(email, ancienmdp).then(function(firebaseUser) {
+
+	 
+	 firebase.auth().currentUser.updatePassword(mdp).then(function() {
+
+
+			BootstrapDialog.alert("<%=Erreur_HTML.MOT_DE_PASSE_CHANGE%>", function(){
+				document.location.href="/waydplace/membre/compteMembre.jsp";   
 			});
-
-
-
-		
-	  
-		  
-	}).catch(function(error) {
-		  // Handle Errors here.
-		  var errorCode = error.code;
-	
-		if (errorCode=='auth/wrong-password')
-
-				BootstrapDialog.show({
-					
-				message:"<%=Erreur_HTML.MOT_DE_PASSE_ANCIEN_NOK%>"
-						});
-
-		  // ...
+			
+		  // Update successful.
+		}).catch(function(error) {
+		  // An error happened.
+			var errorMessage = error.message;
+			 
+			BootstrapDialog.alert(errorMessage);
 		});
+
 	
+ 
+	  
+}).catch(function(error) {
+	  // Handle Errors here.
+	  var errorCode = error.code;
+		var errorMessage = error.message;
+
+	if (errorCode=='auth/wrong-password')	
+		BootstrapDialog.alert(errorMessage);
+
+
+			
+
+	  // ...
+	});
+
+
+}
+
 
 	
 	
-	
-}
+
 </script>
 
 
