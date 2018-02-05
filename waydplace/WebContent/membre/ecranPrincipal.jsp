@@ -151,6 +151,7 @@ test();
 
 
 function test() {
+	
 	$.get("/waydplace/FrontalCommun?action=<%=FrontalCommun.AJAX_GET_MESSAGE_DIALOG%>",
 							function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 
