@@ -47,10 +47,15 @@
 		Site site = profil.getSite();
 	%>
 
-		<div class="container margedebut">
-		<div class="panel panel-default">
+	<div class="container">
+		<div id="loginbox"
+			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
+	<div class="panel panel-default">
 			<div class="panel-heading panel-heading-custom">
-				<div class="panel-title">Sites</div>
+				<div class="panel-title"><a
+							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE %>'
+							class='btn btnwayd btn-sm'> <span
+							class="glyphicon glyphicon-home"></span></a> Site</div>
 			</div>
 			<div style="padding-top: 30px" class="panel-body">
 
@@ -182,7 +187,8 @@
 
 	</div>
 	</div>
-
+</div>
+</body>
 	<script>
 	
 	function valideFichier(){
@@ -233,5 +239,5 @@
 		;
 		$('#nbr').text(msg);
 	</script>
-</body>
+
 </html>

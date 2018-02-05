@@ -64,7 +64,10 @@
 			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title"><%=ProposeActiviteMembre.TITRE_PANEL%></div>
+					<div class="panel-title"><a
+							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE %>'
+							class='btn btnwayd btn-sm'> <span
+							class="glyphicon glyphicon-home"></span></a> <%=ProposeActiviteMembre.TITRE_PANEL%></div>
 				</div>
 
 				<div style="padding-top: 3"0px" class="panel-body">

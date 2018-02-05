@@ -35,8 +35,6 @@ public class FrontalCommun extends HttpServlet {
 	public static final String FROM_MES_ACTIVITES_GESTIONNAIRE = "FROM_MES_ACTIVITES_GESTIONNAIRE";
 	public static final String FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE = "FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE";
 
-	
-	
 	public FrontalCommun() {
 		super();
 	}
@@ -54,7 +52,8 @@ public class FrontalCommun extends HttpServlet {
 		Profil profil = (Profil) session.getAttribute("profil");
 
 		String action = request.getParameter("action");
-	
+		String from = request.getParameter("from");
+
 		LOG.info("Action" + action);
 
 		if (action == null || action.isEmpty())
@@ -65,11 +64,9 @@ public class FrontalCommun extends HttpServlet {
 		case REDIRECTION_DETAIL_ACTIVITE:
 
 			Activite activite = getActivite(request);
-			String from = request.getParameter("from");
 			request.setAttribute("activite", activite);
 
 			if (activite == null) {
-
 				profil.setMessageDialog("L'activite a été est supprimée.");
 				response.sendRedirect("membre/rechercheActivite.jsp");
 				return;
@@ -77,78 +74,19 @@ public class FrontalCommun extends HttpServlet {
 
 			switch (activite.getId_ref_type_organisateur()) {
 
-		
 			case Parametres.TYPE_ORGANISATEUR_SITE:
 
-				String lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
-
-				if (from != null) {
-
-					if (from.equals(FROM_MES_ACTIVITES_GESTIONNAIRE)) {
-
-						lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
-					}
-
-					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE)) {
-
-						lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_GESTIONNAIRE;
-					}
-
-					if (from.equals(FROM_MES_ACTIVITES_MEMBRES)) {
-
-						lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
-					}
-
-					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)) {
-
-						lienRetour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
-					}
-					
-
-				}
-
+				String lienRetour = getLienRetour(profil, from);
 				request.setAttribute("back", lienRetour);
-
 				request.getRequestDispatcher("commun/detailActiviteMembre.jsp")
 						.forward(request, response);
 
 				break;
-			
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 
-				
-					
-				 lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
-
-				if (from != null) {
-					
-				
-					if (from.equals(FROM_MES_ACTIVITES_GESTIONNAIRE)) {
-
-						lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
-					}
-
-					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE)) {
-
-						lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_GESTIONNAIRE;
-					}
-
-					if (from.equals(FROM_MES_ACTIVITES_MEMBRES)) {
-
-						lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
-					}
-
-					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)) {
-
-						lienRetour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
-					}
-					
-
-				}
-
+				lienRetour =  getLienRetour(profil, from);
 				request.setAttribute("back", lienRetour);
-
 				request.getRequestDispatcher("commun/detailActiviteMembre.jsp")
 						.forward(request, response);
 
@@ -174,14 +112,12 @@ public class FrontalCommun extends HttpServlet {
 
 			Membre membre = getMembre(request, profil);
 			from = request.getParameter("from");
-			
 
 			switch (membre.getId_ref_type_organisateur()) {
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
 
-				String lienRetour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
-
+				String lienRetour =  getLienRetour(profil, from);
 				request.setAttribute("back", lienRetour);
 				request.setAttribute("membre", membre);
 				request.getRequestDispatcher("commun/detailMembre.jsp")
@@ -190,23 +126,8 @@ public class FrontalCommun extends HttpServlet {
 				break;
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-				
-				 lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
 
-				if (from != null) {
-
-					if (from.equals(FROM_MES_ACTIVITES_MEMBRES)) {
-
-						lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
-					}
-
-					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)) {
-
-						lienRetour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
-					}
-
-				}
-		
+				lienRetour =  getLienRetour(profil, from);
 				request.setAttribute("back", lienRetour);
 				request.setAttribute("membre", membre);
 				request.getRequestDispatcher("commun/detailMembre.jsp")
@@ -215,9 +136,66 @@ public class FrontalCommun extends HttpServlet {
 
 			default:
 			}
-			
+
 			break;
 		}
+	}
+
+	private String getLienRetour(Profil profil, String from) {
+		// TODO Auto-generated method stub
+
+		String retour = "";
+
+		switch (profil.getTypeOrganisteur()) {
+
+		case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+
+			retour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
+
+			if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)) {
+
+				retour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
+			}
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+
+			retour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
+
+			if (from.equals(FROM_MES_ACTIVITES_MEMBRES)) {
+
+				retour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
+			}
+
+			if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)) {
+
+				retour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
+			}
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_SITE:
+
+			retour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
+
+			if (from.equals(FROM_MES_ACTIVITES_GESTIONNAIRE)) {
+
+				retour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
+			}
+
+			if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE)) {
+
+				retour = FrontalGestionnaire.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_GESTIONNAIRE;
+			}
+
+			break;
+
+		default:
+			break;
+		}
+		
+		return retour;
 	}
 
 	private Activite getActivite(HttpServletRequest request) {

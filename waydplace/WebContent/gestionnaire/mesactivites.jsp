@@ -118,7 +118,8 @@
 					if (listMesActivite!=null)
 							for (Activite activite : listMesActivite)
 							{
-						String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+						String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE
+								+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_GESTIONNAIRE;;
 				%>
 
 

@@ -50,10 +50,14 @@
 	<%=AlertDialog.getAlertDialog(profil)%>
 	<%@include file="menuGestionnaire.jsp"%>
 	
-	<div class="container margedebut">
-		<div class="panel panel-default">
+<div class="container">
+		<div id="loginbox"
+			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">		<div class="panel panel-default">
 			<div class="panel-heading panel-heading-custom">
-				<div class="panel-title">Mon compte</div>
+				<div class="panel-title"><a
+							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE %>'
+							class='btn btnwayd btn-sm'> <span
+							class="glyphicon glyphicon-home"></span></a> Mon compte</div>
 			</div>
 			<div style="padding-top: 30px" class="panel-body">
 
@@ -68,7 +72,6 @@
 				<div class="form-group">
 			
 						<%=profil.getMembre().getDetailEnteteMembreHtml()%>
-
 
 							<form
 								action="/waydplace/Frontal?action=<%=Frontal.CHARGE_PHOTO_PROFIL_MEMBRE%>"
@@ -176,11 +179,11 @@
 			</div>
 		</div>
 	</div>
-
+	</div>
+</body>
 
 	<script>
-	
-			$('#datenaissance').datetimepicker({
+				$('#datenaissance').datetimepicker({
 				defaultDate : new Date(<%=profil.getDateNaissance().getYear()%>,<%=profil.getDateNaissance().getMonthOfYear()-1%>,<%=profil.getDateNaissance().getDayOfMonth()%>),
 				format : 'DD/MM/YYYY'
 
@@ -242,5 +245,5 @@
 		;
 		$('#nbr').text(msg);
 	</script>
-</body>
+
 </html>
