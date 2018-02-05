@@ -2,6 +2,7 @@ package text.pageweb;
 
 
 public class CompteMembre {
+
 	public static String HINT_SITEWEB="http://monsite.fr";
 	public static String HINT_SIRET=CommunText.HINT_SIRET;
 	public static String HINT_ADRESSE="Saissisez l'adresse de la structure.";
@@ -36,11 +37,11 @@ public class CompteMembre {
 	public static String LABEL_DESCRIPTION_PROFIL =CommunText.LABEL_DESCRIPTION_PROFIL;
 	public static String LABEL_TELEPHONE = CommunText.LABEL_TELEPHONE;
 	
-	
-	
-	
 	public static  String ALERT_GPS_NO_POSITION=CommunText.ALERT_GPS_NO_POSITION;
 			
+	
+	public static final String ERREUR_PSEUDO_TROP_COURT = "Le pseudo ne peut pas être inférieur à 4 caractéres";
+	
 	
 	public static String getHintNomSociete() {
 

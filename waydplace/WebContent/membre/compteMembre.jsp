@@ -24,7 +24,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	
+
 <script src="/waydplace/js/moment.js"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
@@ -47,145 +47,142 @@
 <body>
 	<%
 		Profil profil = (Profil) request.getSession()
-		.getAttribute("profil");
+			.getAttribute("profil");
 	%>
 	<%@include file="menuMembre.jsp"%>
-	
+
 	<div class="container">
 		<div id="loginbox"
 			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
-		<div class="panel panel-default">
-			<div class="panel-heading panel-heading-custom">
-				<div class="panel-title"> <a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btnwayd btn-sm'> <span
-											class="glyphicon glyphicon-home"></span></a> Mon compte</div>
-			</div>
-			<div style="padding-top: 30px" class="panel-body">
-
-				<div style="border-bottom: 1px solid #888;">
-
-					<p class="text-tuto"><%=CompteMembre.MESSAGE_JUMBO_L1%></p>
-
+			<div class="panel panel-default">
+				<div class="panel-heading panel-heading-custom">
+					<div class="panel-title">
+						<a
+							href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+							class='btn btnwayd btn-sm'> <span
+							class="glyphicon glyphicon-home"></span></a> Mon compte
+					</div>
 				</div>
-				<br> <br>
+				<div style="padding-top: 30px" class="panel-body">
 
-				<div class="form-group">
-			
+
+
+					<div class="form-group">
+
 						<%=profil.getMembre().getDetailEnteteMembreHtml()%>
 
 
-							<form
-								action="/waydplace/Frontal?action=<%=Frontal.CHARGE_PHOTO_PROFIL_MEMBRE%>"
-								method="post" enctype="multipart/form-data"
-								onsubmit="return valideFichier()">
+						<form
+							action="/waydplace/Frontal?action=<%=Frontal.CHARGE_PHOTO_PROFIL_MEMBRE%>"
+							method="post" enctype="multipart/form-data"
+							onsubmit="return valideFichier()">
 
-								<br>
-						
-									<div class="btn-group">
-										<label class="btn btnwayd btn-file btn-primary btn-sm">
-											.. <input name="file" size="50" type="file"
-											style="display: none;">
-										</label> <input type="submit" value="Envoyer la photo"
-											class="btn btnwayd btn-sm  " />
-											 <a
-											href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
-											class="btn btnwayd btn-sm"> <span
-											class="glyphicon glyphicon-lock"></span></a>
- <a
-											href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
-											class='btn btn-danger btn-sm'> <span
-											class="glyphicon glyphicon-remove"></span></a>
+							<br>
+
+							<div class="btn-group">
+								<label class="btn btnwayd btn-file btn-primary btn-sm">
+									.. <input name="file" size="50" type="file"
+									style="display: none;">
+								</label> <input type="submit" value="Envoyer la photo"
+									class="btn btnwayd btn-sm  " /> <a
+									href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
+									class="btn btnwayd btn-sm"> <span
+									class="glyphicon glyphicon-lock"></span></a> <a
+									href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
+									class='btn btn-danger btn-sm'> <span
+									class="glyphicon glyphicon-remove"></span></a>
+							</div>
+
+						</form>
+
+
+
+
+
+					</div>
+					<div style="border-top: 1px solid #888;">
+
+						<form action="/waydplace/Frontal" method="post"
+						id='formulaire'	onsubmit="return valideFormulaire()">
+
+							<input name="action" type="hidden"
+								value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>> <br>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+
+										<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
+											type="text" class="form-control" id="nom"
+											placeholder="<%=CompteMembre.getHintNomSociete()%>"
+											maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
+											required value="<%=profil.getPseudo()%>">
 									</div>
-							
-							</form>
+									<div class="col-sm-4">
+
+										<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
+										<div class='input-group date' id='datenaissance'>
+											<input type='text' class="form-control" id="datenaissance"
+												name="datenaissance" required /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+
+									</div>
+									<div class="col-sm-4">
+										<label for="typeUser">Genre</label> <select
+											data-style="btn-primary" class="form-control" id="typeGenre"
+											name="typeGenre">
+
+											<%
+												for (RefTypeGenre critereGenre:CacheDAO.getListGenre()) {
+											%>
+											<option value="<%=critereGenre.getId()%>"
+												<%=Outils.jspAdapterListSelected(critereGenre.getId(), profil.getIdGenre())%>>
+												<%=critereGenre.getLibelle()%></option>
+											<%
+												}
+											%>
+
+										</select>
+
+									</div>
 
 
-					
-					
 
-				</div>
-
-
-				<form action="/waydplace/Frontal" method="post"
-					onsubmit="return valideFormulaire()">
-
-					<input name="action" type="hidden"
-						value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>>
-
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-4">
-
-								<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
-									type="text" class="form-control" id="nom"
-									placeholder="<%=CompteMembre.getHintNomSociete()%>"
-									maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
-									required value="<%=profil.getPseudo()%>">
-							</div>
-							<div class="col-sm-4">
-
-								<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
-								<div class='input-group date' id='datenaissance'>
-									<input type='text' class="form-control" id="datenaissance"
-										name="datenaissance" required /> <span
-										class="input-group-addon"> <span
-										class="glyphicon glyphicon-calendar"></span>
-									</span>
 								</div>
-
-							</div>
-							<div class="col-sm-4">
-								<label for="typeUser">Genre</label> <select
-									data-style="btn-primary" class="form-control" id="typeGenre"
-									name="typeGenre">
-
-									<%
-										for (RefTypeGenre critereGenre:CacheDAO.getListGenre()) {
-									%>
-									<option value="<%=critereGenre.getId()%>"
-										<%=Outils.jspAdapterListSelected(critereGenre.getId(), profil.getIdGenre())%>>
-										<%=critereGenre.getLibelle()%></option>
-									<%
-										}
-									%>
-
-								</select>
-
 							</div>
 
 
 
-						</div>
+							<div class="form-group">
+								<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
+								<textarea class="form-control" rows="5" id="description"
+									name="commentaire"
+									placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
+									maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=profil.getDescription()%></textarea>
+							</div>
+
+							<h5 class="nbrcaracteremax" id="nbr">
+								0 Caractére
+								<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+							</h5>
+					
+					
+						</form>
+						
+						<button  onclick="modifieCompte()" class="btnwayd btn-lg">Sauvegarder</button>
+							<a
+								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+								class='btn btnwayd btn-lg'> <span
+								class="glyphicon glyphicon-home"></span></a>
 					</div>
-
-
-					<div class="form-group"></div>
-
-					<div class="form-group">
-						<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
-						<textarea class="form-control" rows="5" id="description"
-							name="commentaire"
-							placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
-							maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=profil.getDescription()%></textarea>
-					</div>
-
-					<h5 class="nbrcaracteremax" id="nbr">
-						0 Caractére
-						<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-					</h5>
-
-					<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
-<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btnwayd btn-lg'> <span
-											class="glyphicon glyphicon-home"></span></a> 
-				</form>
-
+				</div>
 			</div>
 		</div>
-	</div>
 
 
-	<script>
+		<script>
 	
 			$('#datenaissance').datetimepicker({
 				defaultDate : new Date(<%=profil.getDateNaissance().getYear()%>,<%=profil.getDateNaissance().getMonthOfYear()-1%>,<%=profil.getDateNaissance().getDayOfMonth()%>),
@@ -202,70 +199,87 @@
 	if (monfichier==''){
 		BootstrapDialog
 		.alert("<%=CompteMembre.AUCUN_FICHIER_SELECTIONNE%>");
-				return false;
+					return false;
+				}
+
 			}
+		</script>
 
-		}
-	</script>
+		<script>
+		
 
-	<script>
-		$('#datenaissance').datetimepicker({
-			defaultDate : new Date(2010, 10, 10),
-			format : 'DD/MM/YYYY'
+			$(document)
+					.ready(
+							function(e) {
 
-		}).on('dp.change', function(e) {
-			document.getElementById("formulaire").submit();
-		});
+								$('#description')
+										.keyup(
+												function() {
 
-		$(document)
-				.ready(
-						function(e) {
+													var nombreCaractere = $(
+															this).val().length;
+													//alert(nombreCaractere);
 
-							$('#description')
-									.keyup(
-											function() {
+													var msg = nombreCaractere
+															+ '/'
+															+
+		<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+			;
+													$('#nbr').text(msg);
+													// Le script qui devra calculer et afficher le nombre de mots et de caractères
 
-												var nombreCaractere = $(this)
-														.val().length;
-												//alert(nombreCaractere);
+												})
 
-												var msg = nombreCaractere
-														+ '/'
-														+
-	<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-		;
-												$('#nbr').text(msg);
-												// Le script qui devra calculer et afficher le nombre de mots et de caractères
+							});
 
-											})
+			// Init le nombre de caraterces	
+			var nombreCaractere = $('#description').val().length;
+			var msg = nombreCaractere + "/"
+					+
+		<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+			;
+			$('#nbr').text(msg);
+		</script>
 
-						});
-
-		// Init le nombre de caraterces	
-		var nombreCaractere = $('#description').val().length;
-		var msg = nombreCaractere + "/"
-				+
-	<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-		;
-		$('#nbr').text(msg);
-	</script>
-	
-	<script type="text/javascript">
-	<!-- Permet d afficher un message dialog -->
-		getMessageDialog();
-		function getMessageDialog() {
-
-			$.get("/waydplace/FrontalCommun?action=AJAX_GET_MESSAGE_DIALOG",
+		<script type="text/javascript">
+		
+		function modifieCompte(){
+			
+			
+			$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,
 					function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+						if (responseText == 'ok')
+						{
+							BootstrapDialog.show({
+					            title: 'Confirmation',
+					            message: 'Votre compte a été modfiée',
+					            buttons: [{
+					                label: 'Ok',
+					                action: function(dialog) {
+					                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
+					                  //  dialog.setMessage('Message 1');
+					                }
+					            
+					            }]
+					        }); 
+							
+							
+						}
+						else
+						{
+							
+							BootstrapDialog.alert(responseText);
+						}
 
-						if (responseText == 'null')
-							return;
+						
 
-						BootstrapDialog.alert(responseText);
-
-					});
+					});	
+			
+			
+			
 		}
-	</script>
-	
+		
+		
+		</script>
 </body>
 </html>

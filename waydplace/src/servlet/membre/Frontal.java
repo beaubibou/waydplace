@@ -34,6 +34,9 @@ import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
 import sun.misc.BASE64Encoder;
+import text.pageweb.CompteMembre;
+import text.pageweb.ModifierActiviteMembre;
+import text.pageweb.ProposeActiviteMembre;
 import bean.Activite;
 import bean.ListMessage;
 import bean.Membre;
@@ -79,17 +82,19 @@ public class Frontal extends HttpServlet {
 	public static final String ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES = "envoiMessageFromMessages";
 	public static final String REDIRECTION_ACCUEIL_MEMBRE = "REDIRECTION_ACCUEIL_MEMBRE";
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
-	
-	
-	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="+REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
-	public static final String ACTION_REDIRECTION_INDEX = "/waydplace/Frontal/index.jsp";
-	
-	public static final String ACTION_REDIRECTION_MON_COMPTE = "/waydplace/Frontal?action="+REDIRECTION_COMPTE_MEMBRE;
-	public static final String ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE = "/waydplace/Frontal?action="+REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE;
-	
-	public static final String ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE = "/waydplace/Frontal?action="+REDIRECTION_MES_ACTIVITES_MEMBRE;
 
-	
+	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="
+			+ REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
+	public static final String ACTION_REDIRECTION_INDEX = "/waydplace/Frontal/index.jsp";
+
+	public static final String ACTION_REDIRECTION_MON_COMPTE = "/waydplace/Frontal?action="
+			+ REDIRECTION_COMPTE_MEMBRE;
+	public static final String ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE = "/waydplace/Frontal?action="
+			+ REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE;
+
+	public static final String ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE = "/waydplace/Frontal?action="
+			+ REDIRECTION_MES_ACTIVITES_MEMBRE;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -129,43 +134,39 @@ public class Frontal extends HttpServlet {
 
 		if (action == null || action.isEmpty())
 			return;
-		int TYPE_USER=0;
-		
-		if (profil!=null)
-		 TYPE_USER=profil.getTypeOrganisteur();
-		
-		if (TYPE_USER==Parametres.TYPE_ORGANISATEUR_VISITEUR){
-			
+		int TYPE_USER = 0;
+
+		if (profil != null)
+			TYPE_USER = profil.getTypeOrganisteur();
+
+		if (TYPE_USER == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
+
 			switch (action) {
-			
+
 			case REDIRECTION_INSCRIPTION_MEMBRE:
 				response.sendRedirect("index.jsp");
 				break;
-			
-		
+
 			case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
 
-			int page = 0;
-			pager = new PagerActivite(profil.getFiltre(), page);
-			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("membre/rechercheActivite.jsp")
-					.forward(request, response);
+				int page = 0;
+				pager = new PagerActivite(profil.getFiltre(), page);
+				request.setAttribute("pager", pager);
+				request.getRequestDispatcher("membre/rechercheActivite.jsp")
+						.forward(request, response);
 
-			break;
-			
+				break;
+
 			default:
-				
-			response.sendRedirect("membre/ecranPrincipal.jsp");
 
-				
-			break;
-				
+				response.sendRedirect("membre/ecranPrincipal.jsp");
+
+				break;
+
 			}
 			return;
 		}
-		
-		
-		
+
 		try {
 
 			switch (action) {
@@ -173,7 +174,7 @@ public class Frontal extends HttpServlet {
 			case REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
 				response.sendRedirect("membre/proposeActiviteMembre.jsp");
 				break;
-				
+
 			case REDIRECTION_INSCRIPTION_MEMBRE:
 				response.sendRedirect("index.jsp");
 				break;
@@ -199,13 +200,12 @@ public class Frontal extends HttpServlet {
 				response.sendRedirect("membre/mesDiscussion.jsp");
 
 				break;
-				
+
 			case REDIRECTION_ACCUEIL_MEMBRE:
 
 				response.sendRedirect("membre/ecranPrincipal.jsp");
 
 				break;
-
 
 			case REDIRECTION_MESSAGE_MEMBRE:
 
@@ -337,14 +337,14 @@ public class Frontal extends HttpServlet {
 
 				if (modifierActiviteMembre.isOk()) {
 
-					profil.setMessageDialog("Votre activité est modifiée.");
-					response.sendRedirect("membre/mesactivites.jsp");
-
-					// response.sendRedirect("membre/mesactivites.jsp");
+					response.setContentType("text/plain");
+					response.getWriter().write("ok");
 
 				} else {
 
-					redirectionErreur(modifierActiviteMembre);
+					response.setContentType("text/plain");
+					response.getWriter().write(
+							modifierActiviteMembre.getMessage());
 				}
 
 				break;
@@ -355,12 +355,17 @@ public class Frontal extends HttpServlet {
 						request, profil);
 
 				if (modifierCompteMembre.isOk()) {
-					profil.setMessageDialog("Modification prise en compte.");
-					response.sendRedirect("membre/compteMembre.jsp");
+
+					response.setContentType("text/plain");
+					response.getWriter().write("ok");
 
 				} else {
-					redirectionErreur(modifierCompteMembre);
+
+					response.setContentType("text/plain");
+					response.getWriter().write(
+							modifierCompteMembre.getMessage());
 				}
+
 				break;
 
 			case DECONNEXION_MEMBRE:
@@ -378,11 +383,14 @@ public class Frontal extends HttpServlet {
 
 				if (ajouteActiviteMembre.isOk()) {
 
-					profil.setMessageDialog("Votre activité est ajoutée.");
-					response.sendRedirect("membre/mesactivites.jsp");
+					response.setContentType("text/plain");
+					response.getWriter().write("ok");
 
 				} else {
-					redirectionErreur(ajouteActiviteMembre);
+
+					response.setContentType("text/plain");
+					response.getWriter().write(
+							ajouteActiviteMembre.getMessage());
 				}
 
 				break;
@@ -472,7 +480,7 @@ public class Frontal extends HttpServlet {
 			if (vpEnvoiMessageFromMessageDAO.isOk()) {
 
 				String uidDiscussion = request.getParameter("uidDiscussion");
-				
+
 				ListMessage listMessage1 = new ListMessage(profil,
 						uidDiscussion);
 				request.setAttribute("listMessage", listMessage1);
@@ -500,23 +508,21 @@ public class Frontal extends HttpServlet {
 		int idActivite = Integer.parseInt(idactiviteStr);
 
 		String lastaction = request.getParameter("ieip");
-	
-		if (!profil.isMemeAction(lastaction))
-		{
-		DiscussionDAO.ajouteDiscussion(idActivite, uidPour, uidAvec);
 
-		MessageDAO.ajouteMessage(uidAvec, uidPour, message, idActivite);
+		if (!profil.isMemeAction(lastaction)) {
+			DiscussionDAO.ajouteDiscussion(idActivite, uidPour, uidAvec);
+
+			MessageDAO.ajouteMessage(uidAvec, uidPour, message, idActivite);
 		}
-		
+
 		return new MessageAction(true, "");
 
 	}
 
 	private MessageAction vpEnvoiMessageFromMessage(HttpServletRequest request,
 			Profil profil) {
-		
-	
-							return new MessageAction(true, "");
+
+		return new MessageAction(true, "");
 	}
 
 	private MessageAction supprimePhotoMembre(HttpServletRequest request,
@@ -673,14 +679,14 @@ public class Frontal extends HttpServlet {
 		try {
 			datenaissanceDT = getDateFromString(datedebut);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
 		Date dateNaissance = datenaissanceDT.toDate();
 
-		MessageAction vpModifieCompte = vpModifieCompte(pseudo, description,
-				uid, idtypeGenreStr);
+		MessageAction vpModifieCompte = vpModifieCompteMembre(pseudo,
+				description, uid, idtypeGenreStr);
 
 		int idTypeGenre = Integer.parseInt(idtypeGenreStr);
 
@@ -701,12 +707,16 @@ public class Frontal extends HttpServlet {
 
 		}
 
-		return new MessageAction(false, "Erreur inconnue");
+		return new MessageAction(false, vpModifieCompte.getMessage());
 
 	}
 
-	private MessageAction vpModifieCompte(String pseudo, String description,
-			String uid, String idtypeGenreStr) {
+	private MessageAction vpModifieCompteMembre(String pseudo,
+			String description, String uid, String idtypeGenreStr) {
+
+		if (pseudo.length() <= 4)
+			return new MessageAction(false,
+					CompteMembre.ERREUR_PSEUDO_TROP_COURT);
 
 		return new MessageAction(true, "");
 	}
@@ -769,6 +779,10 @@ public class Frontal extends HttpServlet {
 
 	private MessageAction vpModifieActivite(String titre, String libelle,
 			Date dateDebut, Date dateFin) {
+
+		if (titre.length() <= 4)
+			return new MessageAction(false,
+					ModifierActiviteMembre.ERREUR_TITRE_TROP_COURT);
 
 		return new MessageAction(true, "");
 	}
@@ -933,9 +947,6 @@ public class Frontal extends HttpServlet {
 
 		}
 
-		// MessageAction vp_updateFiltreRecherche =
-		// vp_updateFiltreRecherche(critereRechercheEtatMesActivite);
-
 		return new MessageAction(true, "");
 	}
 
@@ -997,7 +1008,7 @@ public class Frontal extends HttpServlet {
 
 			} else {
 
-				return ajouteActivite;
+				return new MessageAction(false, ajouteActivite.getMessage());
 
 			}
 
@@ -1005,7 +1016,7 @@ public class Frontal extends HttpServlet {
 
 		else {
 
-			return vpAjouteActivite;
+			return new MessageAction(false, vpAjouteActivite.getMessage());
 
 		}
 
@@ -1014,8 +1025,23 @@ public class Frontal extends HttpServlet {
 	private MessageAction vpAjouteActiviteMembre(String titre, String libelle,
 			Date dateDebut, Date dateFin) {
 
+		if (dateFin.before(new Date()))
+			return new MessageAction(false,ModifierActiviteMembre.DATEFIN_INF_NOW);
+		if (dateFin.before(dateDebut))
+			return new MessageAction(false,ModifierActiviteMembre.DATEDEBUT_SUP_DATEFIN);
+		
+		if (titre.length()<=4)
+			return new MessageAction(false,ModifierActiviteMembre.ERREUR_TITRE_TROP_COURT);
+		
+		if (titre.length()>ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX)
+			return new MessageAction(false,ProposeActiviteMembre.ERREUR_TITRE_TROP_LONG);
+		
+		if (libelle.length()>ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX)
+			return new MessageAction(false,ProposeActiviteMembre.ERREUR_DESCRIPTION_ACTIVITE_TROP_LONG);
+		
 		return new MessageAction(true, "");
 	}
+	
 
 	private void redirectionErreur(MessageAction ajouteMembre) {
 

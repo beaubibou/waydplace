@@ -87,7 +87,8 @@
 							</div>
 						</div>
 						<div class="col-sm-1">
-							<button type="submit" class="btn btn-default">></button>
+							<button type="submit" class="btn btnwayd">
+							<span class="glyphicon glyphicon-ok"></span></button>
 						</div>
 
 					</div>

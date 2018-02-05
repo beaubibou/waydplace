@@ -1,4 +1,5 @@
 
+<%@page import="text.pageweb.ModifierActiviteMembre"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="outils.Outils"%>
 <%@page import="bean.Activite"%>
@@ -14,7 +15,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+<title><%=ModifierActiviteMembre.TITRE_ONGLET%></title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,7 +59,7 @@
 	<%
 		Activite activite=(Activite) request.getAttribute("activite");
 			ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
-			// Defini le li a rendre actif
+		
 	%>
 
 
@@ -78,7 +79,7 @@
 
 
 					<form action="/waydplace/Frontal"
-						onsubmit="return valideFormulaire()" method="post">
+						id='formulaire' onsubmit="return valideFormulaire()" method="post">
 		
 				<input  name="action" type="hidden"  value=<%=Frontal.MODIFIER_ACTIVITE_MEMBRE %> >
 				<input  name="idactivite" type="hidden"  value=<%=activite.getId() %> >
@@ -86,17 +87,17 @@
 
 						<div class="form-group" style="border-bottom: 1px solid #888;">
 
-							<p class="text-tuto"><%=ProposeActiviteMembre.MESSAGE_JUMBO_LIGNE1%></p>
+							<p class="text-tuto"><%=ModifierActiviteMembre.MESSAGE_JUMBO_LIGNE1%></p>
 					
 						</div>
 						<br>
 
 						<div class="form-group">
 
-							<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
+							<label for="titre"><%=ModifierActiviteMembre.LABEL_TITRE%></label>
 							<input type="text" class="form-control" id="titre" required
-								placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
-								maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
+								placeholder="<%=ModifierActiviteMembre.getHintTitreActivite()%>"
+								maxLength="<%=ModifierActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
 								name="titre" required value="<%=activite.getTitre()%>">
 						</div>
 
@@ -106,7 +107,7 @@
 
 								<div class='col-sm-4'>
 									<div class="form-group">
-										<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
+										<label for="iddatedebut"><%=ModifierActiviteMembre.LABEL_DATE_DEBUT%></label>
 										<div class='input-group date' id='datedebut'>
 											<input type='text' class="form-control" id="iddatedebut"
 												name="debut" /> <span class="input-group-addon"> <span
@@ -118,7 +119,7 @@
 
 								<div class='col-sm-4'>
 									<div class="form-group">
-										<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
+										<label for="iddatefin"><%=ModifierActiviteMembre.LABEL_DATE_FIN%></label>
 										<div class='input-group date' id="datefin">
 											<input type='text' class="form-control" id="iddatefin"
 												name="fin" /> <span class="input-group-addon"> <span
@@ -128,7 +129,7 @@
 									</div>
 								</div>
 								<div class='col-sm-4'>
-									<label for="typeactivite"><%=ProposeActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
+									<label for="typeactivite"><%=ModifierActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
 									<select class="form-control" id="type" name="typeactivite">
 										<%
 											for (RefTypeActivite typeactivite:listTypeActivite) {
@@ -144,24 +145,25 @@
 						</div>
 
 						<div class="form-group">
-							<label for="description"><%=ProposeActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
+							<label for="description"><%=ModifierActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
 							<textarea row="12"
-								placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
-								maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
+								placeholder="<%=ModifierActiviteMembre.getHintDescriptionActivite()%>"
+								maxlength="<%=ModifierActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
 								class="form-control" rows="5" id="description"
 								name="description"><%=activite.getLibelle()%></textarea>
 						</div>
 						<h5 class="nbrcaracteremax" id="nbr">
 
-							<%=ProposeActiviteMembre.initNbrCaracteres()%></h5>
+							<%=ModifierActiviteMembre.initNbrCaracteres()%></h5>
 
 						
 
-						<button type="submit" class="btnwayd btn-lg">Modifier</button>
-
-
+					
+	
 					</form>
 
+				<button  onclick="modifieActivite()" class="btnwayd btn-lg">Modifier</button>
+				
 
 				</div>
 			</div>
@@ -175,6 +177,45 @@
 
 	
 	<script>
+	function modifieActivite(){
+	
+		if (valideFormulaire()==false)
+			return;
+		
+		
+		$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,
+				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+
+					if (responseText == 'ok')
+					{
+						BootstrapDialog.show({
+				            title: 'Confirmation',
+				            message: 'Votre activité a été modfiée',
+				            buttons: [{
+				                label: 'Ok',
+				                action: function(dialog) {
+				                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
+				                  //  dialog.setMessage('Message 1');
+				                }
+				            
+				            }]
+				        }); 
+						
+						
+					}
+					else{
+						
+						BootstrapDialog.alert(responseText);
+					}
+
+					
+
+				});	
+		
+		
+		
+	}
+	
 		function dateDiff(date1, date2) {
 			var diff = {} // Initialisation du retour
 			var tmp = date2 - date1;
@@ -209,20 +250,17 @@
 			var datedebut = $('#datedebut').data('DateTimePicker').date();
 			var datefin = $('#datefin').data('DateTimePicker').date();
 
-			// Verifie les positions
-			latitude = document.getElementById("latitude").value;
-			longitude = document.getElementById("longitude").value;
-
+		
 
 			if (datedebut > datefin) {
 				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DATEDEBUT_SUP_DATEFIN%>"
+					message:"<%=ModifierActiviteMembre.DATEDEBUT_SUP_DATEFIN%>"
 							});
 				return false;
 			}
 			if (datefin < new Date()) {
 				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DATEFIN_INF_NOW%>"
+					message:"<%=ModifierActiviteMembre.DATEFIN_INF_NOW%>"
 							});
 				return false;
 			}
@@ -233,17 +271,18 @@
 
 			if (diffHeure > 8) {
 				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DUREE_PAS_SUPERIEUR_A%>"
+					message:"<%=ModifierActiviteMembre.DUREE_PAS_SUPERIEUR_A%>"
 							});
 				return false;
 			}
 
 			if (diffHeure <1) {
 				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DUREE_PAS_INFERIEURE_A%>"
+					message:"<%=ModifierActiviteMembre.DUREE_PAS_INFERIEURE_A%>"
 							});
 				return false;
 			}
+			
 			return true;
 		}
 
@@ -283,7 +322,7 @@
 				var nombreCaractere = $(this).val().length;
 				//alert(nombreCaractere);
 
-				var msg = nombreCaractere + '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
+				var msg = nombreCaractere + '<%=ModifierActiviteMembre.getNbrCarateresDescription()%>';
 
 				$('#nbr').text(msg);
 				// Le script qui devra calculer et afficher le nombre de mots et de caractères
@@ -294,7 +333,7 @@
 
 		// Init le nombre de caraterces	
 		var nombreCaractere = $('#description').val().length;
-		var msg = nombreCaractere +   '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
+		var msg = nombreCaractere +   '<%=ModifierActiviteMembre.getNbrCarateresDescription()%>';
 		$('#nbr').text(msg);
 	</script>
 </body>

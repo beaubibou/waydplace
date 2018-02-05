@@ -113,12 +113,8 @@
 							<div class='col-sm-12'>
 
 								<%=activite.getDetailEnteteMembreHtml()%>
-
-
-
+						<%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre()) %>
 							</div>
-
-
 
 						</div>
 

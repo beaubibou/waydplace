@@ -12,8 +12,8 @@ public class ProposeActiviteMembre {
 	public static String HINT_TITRE = CommunText.HINT_TITRE;
 
 	public static String TITRE_JUMBO = "Proposez vos activités";
-	public static String MESSAGE_JUMBO_LIGNE1 = "Modifiez votre activité.";
-	public static String MESSAGE_JUMBO_LIGNE2 = "Vous pouvez planifier jusqu à 3 activités simultanément.";
+	public static String MESSAGE_JUMBO_LIGNE1 = "Proposez votre activité. Vous pouvez planifier jusqu à 3 activités simultanément.";
+	public static String MESSAGE_JUMBO_LIGNE2 = "";
 	public static String MESSAGE_JUMBO_LIGNE3 = " Une fois votre activité créée n'hésitez pas à ajouter jusqu'à 3 photos. ";
 
 	public static String TITRE_PANEL = "Proposez une activité";
@@ -30,8 +30,10 @@ public class ProposeActiviteMembre {
 	
 	public static final String DATEDEBUT_SUP_DATEFIN="La date de début est superieure à la date de fin";
 	public static final String DATEFIN_INF_NOW="La date de début est inférieure à aujourd'hui";
-	public static final String DUREE_PAS_SUPERIEUR_A="La durée ne doit pas excéder 8 heures";
+	public static final String DUREE_PAS_SUPERIEUR_A="La durée ne doit pas excéder 12 heures";
 	public static final String DUREE_PAS_INFERIEURE_A="La durée ne peut pas être inférieur à 8 heures";
+	public static final String ERREUR_TITRE_TROP_LONG = "Titre trop long";
+	public static final String ERREUR_DESCRIPTION_ACTIVITE_TROP_LONG = "Description de l'activité trop longue";
 
 	public static String getHintTitreActivite() {
 

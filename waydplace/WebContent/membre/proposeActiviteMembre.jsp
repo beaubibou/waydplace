@@ -1,4 +1,5 @@
 
+<%@page import="outils.Outils"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="dao.CacheDAO"%>
@@ -56,6 +57,18 @@
 				ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
 			// Defini le li a rendre actif
 		
+		String titre = Outils.convertRequeteToString(request
+				.getParameter("titre"));
+
+		String description = Outils.convertRequeteToString(request
+				.getParameter("description"));
+		
+
+		String messageAlert = (String)request.getAttribute("messageAlert");	
+		
+		
+	
+	
 	%>
 
 	<%@ include file="menuMembre.jsp"%>
@@ -75,12 +88,11 @@
 				
 				
 					<form action="/waydplace/Frontal"
-						onsubmit="return valideFormulaire()" method="post">
+						onsubmit="return valideFormulaire()" method="post" id='formulaire'>
 
 						<div class="form-group"   style="border-bottom: 1px solid #888;">
 
 							<p class="text-tuto"><%=ProposeActiviteMembre.MESSAGE_JUMBO_LIGNE1%></p>
-							<p class="text-tuto"><%=ProposeActiviteMembre.MESSAGE_JUMBO_LIGNE2%></p>
 						
 						</div>
 					<br>	
@@ -90,7 +102,7 @@
 							<input type="text" class="form-control" id="titre" required
 								placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
 								maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
-								name="titre" required>
+								name="titre" required value='<%=titre%>'>
 						</div>
 
 
@@ -144,7 +156,7 @@
 								placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
 								maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
 								class="form-control" rows="5" id="description"
-								name="description"></textarea>
+								name="description" value='<%=description%>'></textarea>
 						</div>
 						<h5 class="nbrcaracteremax" id="nbr">
 
@@ -153,15 +165,17 @@
 						<input type='hidden' name='action' value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
 
 					
-						<button type="submit" class="btnwayd btn-lg">Proposer</button>
-					
-						<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btnwayd btn-lg'> <span
-											class="glyphicon glyphicon-home"></span></a> 
+						
 						
 						
 					</form>
 					
+					
+					<button  onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
+					
+						<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+											class='btn btnwayd btn-lg'> <span
+											class="glyphicon glyphicon-home"></span></a> 
 						
 				</div>
 			</div>
@@ -174,6 +188,44 @@
 
 	
 	<script>
+	
+	function ajouteActivite(){
+		
+		//if (valideFormulaire()==false)
+		//	return;
+		
+		$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,
+				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+					if (responseText == 'ok')
+					{
+						BootstrapDialog.show({
+				            title: 'Confirmation',
+				            message: 'Votre activité a été ajoutée',
+				            buttons: [{
+				                label: 'Ok',
+				                action: function(dialog) {
+				                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
+				                  //  dialog.setMessage('Message 1');
+				                }
+				            
+				            }]
+				        }); 
+						
+						
+					}
+					else
+					{
+						
+						BootstrapDialog.alert(responseText);
+					}
+
+					
+
+				});	
+		
+		
+		
+	}
 	
 		$(function() {
 
@@ -228,14 +280,10 @@
 
 		function valideFormulaire() {
 			
+			
 			var datedebut = $('#datedebut').data('DateTimePicker').date();
 			var datefin = $('#datefin').data('DateTimePicker').date();
-
-			// Verifie les positions
-			latitude = document.getElementById("latitude").value;
-			longitude = document.getElementById("longitude").value;
-
-
+		
 			if (datedebut > datefin) {
 				BootstrapDialog.show({
 					message:"<%=ProposeActiviteMembre.DATEDEBUT_SUP_DATEFIN%>"
@@ -253,7 +301,7 @@
 					datefin).getTime());
 			// Condition Ã  rajouter pour le nbr d'heure max de l'activitÃ©
 
-			if (diffHeure > 8) {
+			if (diffHeure > 12) {
 				BootstrapDialog.show({
 					message:"<%=ProposeActiviteMembre.DUREE_PAS_SUPERIEUR_A%>"
 							});

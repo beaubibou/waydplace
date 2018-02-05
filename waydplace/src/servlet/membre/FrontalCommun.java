@@ -54,14 +54,7 @@ public class FrontalCommun extends HttpServlet {
 
 		if (action == null || action.isEmpty())
 			return;
-		
-		
-		
-		
-		
-		
-		
-		
+			
 
 		switch (action) {
 
