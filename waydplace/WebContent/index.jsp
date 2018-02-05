@@ -75,6 +75,10 @@
 			<input id='action' type="hidden" name='action'> <input
 				id="token" type="hidden" class="form-control" name="tokenFireBase">
 			<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
+			<input id='action' type="hidden" name='action'> <input
+				id="codeSiteMasque" type="hidden" class="form-control"
+				name="jetonSite">
+
 		</form>
 
 
@@ -108,7 +112,9 @@
 					<div class="panel-title"><%=LoginTxt.TITRE_PANEL%></div>
 					<div
 						style="float: right; font-size: 80%; position: relative; top: -10px">
-						<a href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot de passe oublié?</a>
+						<a
+							href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot
+							de passe oublié?</a>
 					</div>
 				</div>
 
@@ -119,85 +125,84 @@
 					<div style="display: none" id="login-alert"
 						class="alert alert-danger col-sm-12"></div>
 
-				
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input id="login-username"
-								type="email" class="form-control" name="email"
-								value="moi@wayd.fr" placeholder="<%=LoginTxt.HINT_EMAIL%>">
-						</div>
 
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-lock"></i></span> <input id="login-password"
-								type="password" class="form-control" name="pwd" value='azerty'
-								placeholder="<%=LoginTxt.HINT_MOT_DE_PASSE%>">
-						</div>
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-user"></i></span> <input id="login-username"
+							type="email" class="form-control" name="email"
+							value="moi@wayd.fr" placeholder="<%=LoginTxt.HINT_EMAIL%>">
+					</div>
 
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-home"></i></span> <input id="inputJetonSite"
-								type="text" class="form-control" value="aaaa"
-								placeholder="<%=LoginTxt.CODE_SITE%>">
-						</div>
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-lock"></i></span> <input id="login-password"
+							type="password" class="form-control" name="pwd" value='azerty'
+							placeholder="<%=LoginTxt.HINT_MOT_DE_PASSE%>">
+					</div>
 
-						<div style="margin-top: 10px" class="form-group">
-							<!-- Button -->
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-home"></i></span> <input id="inputJetonSite"
+							type="text" class="form-control" value="aaaa"
+							placeholder="<%=LoginTxt.CODE_SITE%>">
+					</div>
 
-							<div class="col-sm-12 controls">
+					<div style="margin-top: 10px" class="form-group">
+						<!-- Button -->
 
-								<!--			<a id="btn-fblogin" onclick="popup()" class="btn btn-primary">Login
+						<div class="col-sm-12 controls">
+
+							<!--			<a id="btn-fblogin" onclick="popup()" class="btn btn-primary">Login
 									with Google</a> 
 					 -->
-								<a id="btn-password" onclick="signPassword()"
-									class="btn  btnwayd">Se connecter</a> <a id="btn-primary"
-									href="/wayd/auth/redemandeConfirmationMail.jsp"
-									class="btn  btnwayd">Mail de confirmation non reçu?</a>
+							<a id="btn-password" onclick="signPassword()"
+								class="btn  btnwayd">Se connecter</a> <a id="btn-primary"
+								href="/wayd/auth/redemandeConfirmationMail.jsp"
+								class="btn  btnwayd">Mail de confirmation non reçu?</a>
 
 
+						</div>
+
+
+
+						<br>
+						<div class="form-group">
+							<div class="col-md-12 control">
+								<div style="padding-top: 15px; font-size: 85%">
+									<span>
+										<button onclick="signInFB()"
+											class="loginBtn loginBtn--facebook">Login with
+											Facebook</button>
+										<button onclick="signInGoogle()"
+											class="loginBtn loginBtn--google">Login with Google</button>
+
+									</span> <br>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div style="padding-top: 15px;" class="col-md-12 control">
+
+							<div
+								style="border-top: 1px solid #888; padding-top: 15px; padding-left: 15px; font-size: 85%">
+								Particulier pas de compte? <a
+									href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>'>
+									Inscrivez-vous. </a>
+							</div>
+							<div
+								style="padding-top: 15px; padding-left: 15px; font-size: 85%">
+								Professionnel pas de compte? <a
+									href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>'>
+									Inscrivez-vous. </a>
 							</div>
 
+						</div>
 
 
-							<br>
-							<div class="form-group">
-								<div class="col-md-12 control">
-									<div
-										style="padding-top: 15px; font-size: 85%">
-										<span>
-											<button onclick="signInFB()"
-												class="loginBtn loginBtn--facebook">Login with
-												Facebook</button>
-											<button onclick="signInGoogle()"
-												class="loginBtn loginBtn--google">Login with Google</button>
+					</div>
 
-										</span> <br>
-									</div>
-</div>
-</div>
-</div>
-
-									<div class="form-group">
-										<div style="padding-top: 15px;" class="col-md-12 control">
-
-											<div
-												style="border-top: 1px solid #888; padding-top: 15px; padding-left: 15px; font-size: 85%">
-												Particulier pas de compte? <a
-													href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>'>
-													Inscrivez-vous. </a>
-											</div>
-											<div
-												style="padding-top: 15px; padding-left: 15px; font-size: 85%">
-												Professionnel pas de compte? <a
-													href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>'>
-													Inscrivez-vous. </a>
-											</div>
-
-										</div>
-
-
-									</div>
-				
 
 				</div>
 
@@ -213,6 +218,8 @@
 
 function signInTestMembre1(){
 	
+	var codeSite=document.getElementById("inputJetonSite").value;
+    document.getElementById("codeSiteMasque").value =codeSite;
 	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="membre1";
 	 document.getElementById("formmasque").submit();
@@ -220,7 +227,10 @@ function signInTestMembre1(){
 
 function signInTestAnonyme(){
 	
-	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
+	var codeSite=document.getElementById("inputJetonSite").value;
+    document.getElementById("codeSiteMasque").value =codeSite;
+	
+	document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="anonyme";
 	 document.getElementById("formmasque").submit();
 }
@@ -228,13 +238,19 @@ function signInTestAnonyme(){
 
 function signInTestMembre2(){
 	
-	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
+	var codeSite=document.getElementById("inputJetonSite").value;
+    document.getElementById("codeSiteMasque").value =codeSite;
+	
+	document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="membre2";
 	 document.getElementById("formmasque").submit();
 }
 
 
 function signInTestGestionnaire(){
+	var codeSite=document.getElementById("inputJetonSite").value;
+    document.getElementById("codeSiteMasque").value =codeSite;
+
 	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="gestionnaire";
 	 document.getElementById("formmasque").submit();

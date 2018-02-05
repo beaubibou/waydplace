@@ -1,5 +1,4 @@
 <%@page import="parametre.Parametres"%>
-<%@page import="com.sun.scenario.effect.impl.prism.PrTexture"%>
 <%@page import="dao.MessageDAO"%>
 <%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="servlet.membre.Frontal"%>

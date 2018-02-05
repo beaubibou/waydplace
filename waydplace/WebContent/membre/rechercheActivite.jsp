@@ -220,22 +220,8 @@
 
 			</tbody>
 		</table>
-		<%} else{ %>
-				<div class="jumbotron">
-  <h1>Pas de résultats</h1>      
-  <h3>Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER %>'>proposer.</a></h3>
-</div>
-
-
-
-
-		<%} %>
 		
-	</div>
-
-
-
-	<ul class="pager">
+		<ul class="pager">
 
 		<li <%=pager.isPreviousHtml()%>><a
 			href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
@@ -245,6 +231,21 @@
 
 
 	</ul>
+		<%}
+else
+		{ %>
+				<div class="jumbotron jumbotron-style">
+  <h1>Pas de résultats</h1>      
+  <h3>Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER %>'>proposer.</a></h3>
+</div>
+
+		<%} %>
+		
+	</div>
+
+
+
+	
 
 
 	<script>

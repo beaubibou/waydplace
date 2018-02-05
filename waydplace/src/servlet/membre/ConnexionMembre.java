@@ -285,6 +285,7 @@ public class ConnexionMembre extends HttpServlet {
 					break;
 				}
 			} else {
+				System.out.println(connexionSiteMembreTest.getMessage());
 				response.sendRedirect("erreur");
 			}
 
@@ -429,7 +430,7 @@ public class ConnexionMembre extends HttpServlet {
 		Site site = SiteDAO.getSiteByJeton(jetonSite);
 
 		if (site == null)
-			return new MessageAction(false, MessageText.JETON_SITE_INVALIDE);
+			return new MessageAction(false,"le jeton:"+jetonSite+"-"+  MessageText.JETON_SITE_INVALIDE);
 
 		Membre membre;
 		if (tokenFireBase.equals("anonyme")) {

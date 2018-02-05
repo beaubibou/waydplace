@@ -47,13 +47,13 @@
 
 </head>
 
-<body ">
+<body">
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-			FiltreRecherche filtre=profil.getFiltre();
-			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
-			String afficheMessage=(String)request.getAttribute("alertMessage");
+		FiltreRecherche filtre=profil.getFiltre();
+		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
+		String afficheMessage=(String)request.getAttribute("alertMessage");
 	%>
 
 
@@ -63,22 +63,23 @@
 	<div class="container margedebut ">
 		<div class="panel barrerecherche">
 			<div class="panel-heading">
-					<div class="form-group">
-					
-				<div class="row">
-					<div class="col-sm-1">
-								<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btn-info btn-md btnwayd'> <span
-											class="glyphicon glyphicon-home"></span></a> 
-						
+				<div class="form-group">
+
+					<div class="row">
+						<div class="col-sm-1">
+							<a
+								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+								class='btn btn-info btn-md btnwayd'> <span
+								class="glyphicon glyphicon-home"></span></a>
+
+						</div>
+						<div class="col-sm-11">
+							<p class="text-tuto"><%=MesActivites.TUTO_LIGNE1%></p>
+
+
+						</div>
+
 					</div>
-					<div class="col-sm-11">
-						<p class="text-tuto"><%=MesActivites.TUTO_LIGNE1%></p>
-							
-						
-					</div>
-				
-				</div>
 				</div>
 
 				<div class="row">
@@ -103,8 +104,8 @@
 								</select>
 
 							</div>
-							
-					
+
+
 							<input type="hidden" name='action'
 								value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
 						</form>
@@ -116,8 +117,10 @@
 			</div>
 
 		</div>
-			<%if (listMesActivite!=null && !listMesActivite.isEmpty()){ %>
-		
+		<%
+			if (listMesActivite!=null && !listMesActivite.isEmpty()){
+		%>
+
 		<table class="table table-striped table-responsive "
 			style='border: 5px solid #fff;' id="matable">
 
@@ -127,17 +130,17 @@
 					<th style="width: 20%;" class="text-center"></th>
 
 				</tr>
-				
+
 			</thead>
-		
+
 
 			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 
 				<%
 					if (listMesActivite!=null)
-													for (Activite activite : listMesActivite)
-													{
-										String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+															for (Activite activite : listMesActivite)
+															{
+												String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
 				%>
 
 				<tr onclick="document.location='<%=lienDetailActivite%>'">
@@ -153,13 +156,22 @@
 				%>
 			</tbody>
 		</table>
-			<%} else{ %>
-				<div class="jumbotron">
-  <h1>Pas de résultats</h1>      
-  <h3>Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER %>'>proposer.</a></h3>
-</div>
+		<%
+			} else
+			{
+		%>
+		<div class="jumbotron jumbotron-style">
 
-		<%} %>
+			<h1>Pas de résultats</h1>
+			<h3>
+				Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas
+				à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
+			</h3>
+		</div>
+
+		<%
+			}
+		%>
 	</div>
 
 
@@ -172,11 +184,8 @@
 
 	<script type="text/javascript">
 	<!-- Permet d afficher un message dialog -->
-		
-		
-		
 		function getMessageDialog() {
-			
+
 			$.get("/waydplace/FrontalCommun?action=AJAX_GET_MESSAGE_DIALOG",
 					function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 						if (responseText == 'null')
@@ -186,10 +195,8 @@
 
 					});
 		}
-		
-	
-		
-		$( document ).ready(function() {
+
+		$(document).ready(function() {
 			getMessageDialog();
 		});
 	</script>

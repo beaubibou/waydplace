@@ -60,11 +60,15 @@
 
 	<%@ include file="menuMembre.jsp"%>
 
+	<div class="container">
+		<div id="loginbox"
+			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
 
-	<div class="container margedebut">
 			<div class="panel panel-default">
 						<div class="panel-heading panel-heading-custom">
-					<div class="panel-title"><%=ProposeActiviteMembre.TITRE_PANEL%></div>
+					<div class="panel-title"><a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+											class='btn btnwayd btn-sm'> <span
+											class="glyphicon glyphicon-home"></span></a> <%=ProposeActiviteMembre.TITRE_PANEL%></div>
 				</div>
 
 				<div style="padding-top: 30px" class="panel-body">
@@ -77,7 +81,6 @@
 
 							<p class="text-tuto"><%=ProposeActiviteMembre.MESSAGE_JUMBO_LIGNE1%></p>
 							<p class="text-tuto"><%=ProposeActiviteMembre.MESSAGE_JUMBO_LIGNE2%></p>
-								<p class="text-tuto"><%=ProposeActiviteMembre.MESSAGE_JUMBO_LIGNE3%></p>
 						
 						</div>
 					<br>	

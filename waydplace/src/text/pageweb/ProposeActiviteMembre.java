@@ -12,8 +12,8 @@ public class ProposeActiviteMembre {
 	public static String HINT_TITRE = CommunText.HINT_TITRE;
 
 	public static String TITRE_JUMBO = "Proposez vos activités";
-	public static String MESSAGE_JUMBO_LIGNE1 = "Modifier les critères de votre activité.";
-	public static String MESSAGE_JUMBO_LIGNE2 = "Vous pouvez planifier jusqu à 5 activités simultanément.";
+	public static String MESSAGE_JUMBO_LIGNE1 = "Modifiez votre activité.";
+	public static String MESSAGE_JUMBO_LIGNE2 = "Vous pouvez planifier jusqu à 3 activités simultanément.";
 	public static String MESSAGE_JUMBO_LIGNE3 = " Une fois votre activité créée n'hésitez pas à ajouter jusqu'à 3 photos. ";
 
 	public static String TITRE_PANEL = "Proposez une activité";

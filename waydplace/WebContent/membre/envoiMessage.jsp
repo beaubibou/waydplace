@@ -72,7 +72,9 @@
 			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title"><%=EnvoiMessage.TITRE_PANEL %></div>
+					<div class="panel-title"><a href='<%=Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE%>'
+											class='btn btnwayd btn-sm'> <span
+											class="glyphicon glyphicon-arrow-left"></span></a> <%=EnvoiMessage.TITRE_PANEL %></div>
 				</div>
 
 				<div style="padding-top: 30px" class="panel-body">

@@ -85,8 +85,10 @@ public class Frontal extends HttpServlet {
 	public static final String ACTION_REDIRECTION_INDEX = "/waydplace/Frontal/index.jsp";
 	
 	public static final String ACTION_REDIRECTION_MON_COMPTE = "/waydplace/Frontal?action="+REDIRECTION_COMPTE_MEMBRE;
+	public static final String ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE = "/waydplace/Frontal?action="+REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE;
 	
-	
+	public static final String ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE = "/waydplace/Frontal?action="+REDIRECTION_MES_ACTIVITES_MEMBRE;
+
 	
 	/**
 	 * @see HttpServlet#HttpServlet()

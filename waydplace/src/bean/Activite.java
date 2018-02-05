@@ -147,6 +147,15 @@ public class Activite {
 				+ "' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-envelope'></span></a></p>";
 
 	}
+	public String getLibelleEllipis(){
+		
+		StringBuilder retour=new StringBuilder(libelle);
+		if (retour.length()>61)
+		return	retour.substring(0, 60)+"...";
+		
+		else return
+				libelle;
+	}
 
 	public String getAdpaterListHtml() {
 
@@ -160,9 +169,9 @@ public class Activite {
 
 			return "<div class='clearfix'><a href='" + lienDetailParticipant
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite img-thumbnail'  width='200'	height='200' ></a>"
-					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
-					+ libelle + "</h4><h6 align='left'>"
+					+ "'  class='pull-left marge-droite img-thumbnail'  width='150'	height='150' ></a>"
+					+ "<h2 style='margin-top: 0px;'>" + getTitre() + "</h2>" + "<h4>"
+					+ getLibelleEllipis() + "</h4><h6 align='left'>"
 					+ getHoraireLigne() + "</h6></div>" ;
 
 		case Parametres.TYPE_ORGANISATEUR_SITE:
@@ -174,13 +183,14 @@ public class Activite {
 			
 			return "<div class='clearfix'><a href='" + lienDetailSite
 					+ "'>	<img src='" + getURLPhoto()
-					+ "'  class='pull-left marge-droite img-thumbnail'  width=200'	height='160' ></a>"
+					+ "'  class='pull-left marge-droite img-thumbnail'  width=150'	height='150' ></a>"
 					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
-					+ libelle + "</h4><h6 align='left'>"
+					+ getLibelleEllipis() + "</h4><h6 align='left'>"
 					+ getHoraireLigne() + "</h6></div>" ;
 			
 	
 		}
+		
 		return"";
 		
 			
@@ -309,6 +319,8 @@ public class Activite {
 	}
 
 	public String getTitre() {
+		
+			
 		return titre;
 	}
 
@@ -393,8 +405,7 @@ public String getDetailEnteteMembreHtml(){
 		
 		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
 	"<h2 style='margin-top: 0px'>"+titre +"</h2>"+
-	"<h4 >"+getHoraireLigne()+"</h4>"+
-	"<h5 >"+getLibelle()+"</h5></div>";
+	"<h4 >"+getHoraireLigne()+"</h4></div>";
 		
 	}
 
