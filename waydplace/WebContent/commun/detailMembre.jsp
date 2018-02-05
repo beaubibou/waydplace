@@ -61,6 +61,7 @@
 	Profil profil = (Profil) request.getSession().getAttribute("profil");
 	
 			Membre membre = (Membre) request.getAttribute("membre");
+			String back=(String)request.getAttribute("back");
 		
 	%>
 
@@ -89,7 +90,9 @@
 	
 				<div class="panel-heading panel-heading-custom">
 
-					<div class="panel-title">Profil</div>
+					<div class="panel-title"><a href='<%=back%>'
+											class='btn btnwayd btn-sm'> <span
+											class="glyphicon glyphicon-arrow-left"></span></a> Profil</div>
 
 				</div>
 

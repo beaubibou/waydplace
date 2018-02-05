@@ -6,7 +6,6 @@
 <%@page import="parametre.ActionPage"%>
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
-
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
@@ -60,6 +59,7 @@
 	String  uidEmetteur=(String) request.getAttribute("uid_emetteur");
 	String uidDestinataire =(String) request.getAttribute("uid_destinataire");
 	Integer  idactivite=(Integer) request.getAttribute("idactivite");
+	
 	
 	
 	%>

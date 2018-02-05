@@ -63,10 +63,27 @@
 	<div class="container margedebut ">
 		<div class="panel barrerecherche">
 			<div class="panel-heading">
-				<h4>Mes messages</h4>
-			</div>
-		</div>
+			<div class="form-group">
 
+					<div class="row">
+						<div class="col-sm-1">
+							<a
+								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+								class='btn btn-info btn-md btnwayd'> <span
+								class="glyphicon glyphicon-home"></span></a>
+
+						</div>
+						<div class="col-sm-11">
+							<p class="text-tuto">Retrouvez toutes vos discussions</p>
+
+
+						</div>
+
+					</div>
+				</div>
+				
+		</div>
+</div>
 		<table class="table table-striped table-responsive "
 			style='border: 5px solid #fff;' id='matable'>
 

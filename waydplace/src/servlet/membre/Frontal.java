@@ -94,7 +94,8 @@ public class Frontal extends HttpServlet {
 
 	public static final String ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE = "/waydplace/Frontal?action="
 			+ REDIRECTION_MES_ACTIVITES_MEMBRE;
-
+	
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */

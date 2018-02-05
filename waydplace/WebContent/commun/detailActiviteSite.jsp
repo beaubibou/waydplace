@@ -100,7 +100,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
 
-					<div class="panel-title">Détail Activite Site</div>
+					<div class="panel-title"><a href='<%=Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE%>'
+											class='btn btnwayd btn-sm'> <span
+											class="glyphicon glyphicon-arrow-left"></span></a>Détail Activite Site</div>
 
 				</div>
 

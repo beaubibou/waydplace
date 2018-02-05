@@ -202,13 +202,16 @@
 			<tbody style="vertical-align: middle;">
 				<%
 					if (listActivite!=null )
-									for (Activite activite : listActivite) {
-													String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
-													String lienDetailParticipant = "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT+"&idmembre=" +activite.getUid_membre();
+				for (Activite activite : listActivite) {
+								String lienDetailActivite =  "/waydplace/FrontalCommun?action="
+													+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
+													+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES;
+				String lienDetailParticipant = "/waydplace/FrontalCommun?action="+
+					FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES;
 				%>
 
 				<tr onclick="document.location='<%=lienDetailActivite%>'">
-					<td><%=activite.getAdpaterListHtml()%></td>
+					<td><%=activite.getAdpaterListHtml(FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)%></td>
 					<td><%=activite.getPanelActionParticipationHtml(profil,activite.getUid_membre())%>
 
 					</td>

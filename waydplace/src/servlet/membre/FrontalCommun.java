@@ -30,7 +30,12 @@ public class FrontalCommun extends HttpServlet {
 	public static final String REDIRECTION_DETAIL_ACTIVITE = "redirectionDetailActivite";
 	public static final String REDIRECTION_DETAIL_PARTICIPANT = "redirectiondetailParticipantMembre";
 	public static final String AJAX_GET_MESSAGE_DIALOG = "AJAX_GET_MESSAGE_DIALOG";
+	public static final String FROM_MES_ACTIVITES_MEMBRES = "FROM_MES_ACTIVITES_MEMBRES";
+	public static final String FROM_MES_RECHERCHE_ACTIVITES_MEMBRES = "FROM_MES_RECHERCHE_ACTIVITES_MEMBRES";
+	public static final String FROM_MES_ACTIVITES_GESTIONNAIRE = "FROM_MES_ACTIVITES_GESTIONNAIRE";
+	public static final String FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE = "FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE";
 
+	
 	
 	public FrontalCommun() {
 		super();
@@ -38,7 +43,7 @@ public class FrontalCommun extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-	
+
 		doPost(request, response);
 	}
 
@@ -49,18 +54,18 @@ public class FrontalCommun extends HttpServlet {
 		Profil profil = (Profil) session.getAttribute("profil");
 
 		String action = request.getParameter("action");
-
+	
 		LOG.info("Action" + action);
 
 		if (action == null || action.isEmpty())
 			return;
-			
 
 		switch (action) {
 
 		case REDIRECTION_DETAIL_ACTIVITE:
 
 			Activite activite = getActivite(request);
+			String from = request.getParameter("from");
 			request.setAttribute("activite", activite);
 
 			if (activite == null) {
@@ -72,12 +77,78 @@ public class FrontalCommun extends HttpServlet {
 
 			switch (activite.getId_ref_type_organisateur()) {
 
+		
 			case Parametres.TYPE_ORGANISATEUR_SITE:
-				request.getRequestDispatcher("commun/detailActiviteSite.jsp")
+
+				String lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
+
+				if (from != null) {
+
+					if (from.equals(FROM_MES_ACTIVITES_GESTIONNAIRE)) {
+
+						lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
+					}
+
+					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE)) {
+
+						lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_GESTIONNAIRE;
+					}
+
+					if (from.equals(FROM_MES_ACTIVITES_MEMBRES)) {
+
+						lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
+					}
+
+					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)) {
+
+						lienRetour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
+					}
+					
+
+				}
+
+				request.setAttribute("back", lienRetour);
+
+				request.getRequestDispatcher("commun/detailActiviteMembre.jsp")
 						.forward(request, response);
+
 				break;
+			
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+
+				
+					
+				 lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
+
+				if (from != null) {
+					
+				
+					if (from.equals(FROM_MES_ACTIVITES_GESTIONNAIRE)) {
+
+						lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
+					}
+
+					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE)) {
+
+						lienRetour = FrontalGestionnaire.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_GESTIONNAIRE;
+					}
+
+					if (from.equals(FROM_MES_ACTIVITES_MEMBRES)) {
+
+						lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
+					}
+
+					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)) {
+
+						lienRetour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
+					}
+					
+
+				}
+
+				request.setAttribute("back", lienRetour);
+
 				request.getRequestDispatcher("commun/detailActiviteMembre.jsp")
 						.forward(request, response);
 
@@ -85,33 +156,67 @@ public class FrontalCommun extends HttpServlet {
 			}
 
 			break;
-			
+
 		case AJAX_GET_MESSAGE_DIALOG:
-			
-		
-			String messageAlert=profil.getMessageDialog();
-			String monMessage="null";
-			
-			if (messageAlert!=null)	
-				monMessage=messageAlert;
-		
+
+			String messageAlert = profil.getMessageDialog();
+			String monMessage = "null";
+
+			if (messageAlert != null)
+				monMessage = messageAlert;
+
 			response.setContentType("text/plain");
 			response.getWriter().write(monMessage);
-		
+
 			break;
 
 		case REDIRECTION_DETAIL_PARTICIPANT:
 
 			Membre membre = getMembre(request, profil);
-
-			request.setAttribute("membre", membre);
-			request.getRequestDispatcher("commun/detailMembre.jsp").forward(
-					request, response);
-			break;
-
-		default:
-
+			from = request.getParameter("from");
 			
+
+			switch (membre.getId_ref_type_organisateur()) {
+
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+
+				String lienRetour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
+
+				request.setAttribute("back", lienRetour);
+				request.setAttribute("membre", membre);
+				request.getRequestDispatcher("commun/detailMembre.jsp")
+						.forward(request, response);
+
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				
+				 lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
+
+				if (from != null) {
+
+					if (from.equals(FROM_MES_ACTIVITES_MEMBRES)) {
+
+						lienRetour = Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE;
+					}
+
+					if (from.equals(FROM_MES_RECHERCHE_ACTIVITES_MEMBRES)) {
+
+						lienRetour = Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE;
+					}
+
+				}
+		
+				request.setAttribute("back", lienRetour);
+				request.setAttribute("membre", membre);
+				request.getRequestDispatcher("commun/detailMembre.jsp")
+						.forward(request, response);
+				break;
+
+			default:
+			}
+			
+			break;
 		}
 	}
 

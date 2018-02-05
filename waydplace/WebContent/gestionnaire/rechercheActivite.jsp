@@ -169,13 +169,15 @@
 				<%
 					if (listActivite!=null)
 								for (Activite activite : listActivite) {
-									String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
-									
+									String lienDetailActivite =  "/waydplace/FrontalCommun?action="+
+								FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +
+									activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE;
+										
 									%>
 
 				<tr  onclick="document.location='<%=lienDetailActivite%>'">
 					<td>
-					<%=activite.getAdpaterListHtml() %>
+					<%=activite.getAdpaterListHtml(FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE) %>
 					</td>
 
 

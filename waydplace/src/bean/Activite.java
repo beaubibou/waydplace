@@ -157,6 +157,47 @@ public class Activite {
 				libelle;
 	}
 
+	public String getAdpaterListHtml(String from) {
+
+		switch (id_ref_type_organisateur) {
+		
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+		
+			String lienDetailParticipant = "/waydplace/FrontalCommun?action="
+					+ FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT
+					+ "&idmembre=" + getUid_membre()+"&from="+from;
+
+			return "<div class='clearfix'><a href='" + lienDetailParticipant
+					+ "'>	<img src='" + getURLPhoto()
+					+ "'  class='pull-left marge-droite img-thumbnail'  width='150'	height='150' ></a>"
+					+ "<h2 style='margin-top: 0px;'>" + getTitre() + "</h2>" + "<h4>"
+					+ getLibelleEllipis() + "</h4><h6 align='left'>"
+					+ getHoraireLigne() + "</h6></div>" ;
+
+		case Parametres.TYPE_ORGANISATEUR_SITE:
+			
+			String lienDetailSite = "/waydplace/FrontalCommun?action="
+					+ FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT
+					+ "&idmembre=" + getUid_membre()+"&from="+from;;
+
+			
+			return "<div class='clearfix'><a href='" + lienDetailSite
+					+ "'>	<img src='" + getURLPhoto()
+					+ "'  class='pull-left marge-droite img-thumbnail'  width=150'	height='150' ></a>"
+					+ "<h2 style='margin-top: 0px'>" + titre + "</h2>" + "<h4 >"
+					+ getLibelleEllipis() + "</h4><h6 align='left'>"
+					+ getHoraireLigne() + "</h6></div>" ;
+			
+	
+		}
+		
+		return"";
+		
+			
+		
+
+	}
+
 	public String getAdpaterListHtml() {
 
 		switch (id_ref_type_organisateur) {

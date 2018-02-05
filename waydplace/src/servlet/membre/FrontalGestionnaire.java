@@ -74,9 +74,16 @@ public class FrontalGestionnaire extends HttpServlet {
 	public static final String SUPPRIMER_PHOTO_SITE_GESTIONNAIRE = "supprimerPhotoSitegestionnaire";
 	public static final String REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE = "REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE";
 
+	public static final String ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
+			+ REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE;
+	
+	
+	
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger
 			.getLogger(FrontalGestionnaire.class);
+	public static final String ACTION_REDIRECTION_RECHERCHE_ACTIVITE_GESTIONNAIRE =  "/waydplace/FrontalGestionnaire?action="
+			+ REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
