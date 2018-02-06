@@ -217,7 +217,9 @@ public class Frontal extends HttpServlet {
 				break;
 
 			case REDIRECTION_MES_ACTIVITES_MEMBRE:
+				
 				response.sendRedirect("membre/mesactivites.jsp");
+			
 				break;
 
 			case REDIRECTION_COMPTE_MEMBRE:
