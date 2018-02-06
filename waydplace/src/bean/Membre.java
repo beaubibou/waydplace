@@ -88,12 +88,7 @@ public class Membre {
 
 	public String getDetailEnteteMembreHtml() {
 
-		// return
-		// "<div class='clearfix'><img src='"+getURLPhoto()+"'  class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
-		// "<div class='header'><h1>"+pseudo+" style='margin-top: 0px'>Lorem Ipsum</h1> <h4>Web Developer</h4><span>Neque porro quisquam est qui dolorem"
-		// +
-		// " ipsum quia dolor sit amet, consectetur, adipisci velit...There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...</span></div></div>";
-
+	
 		return "<div class='clearfix'><img src='"
 				+ getURLPhoto()
 				+ "'  class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"

@@ -3,7 +3,8 @@ package text.pageweb;
 public class MenuGestionnaireText {
 	public static String ACCUEIL="Accueil";
 	public static String PROPOSER="Proposer";
-	public static String GERER="Gérer";
+	public static String NEWS="News";
+	public static String GERER="Mes Activités";
 	public static String COMPTE="Compte";
 	
 	public static String CREER_ACTIVITE="Proposez une activité";

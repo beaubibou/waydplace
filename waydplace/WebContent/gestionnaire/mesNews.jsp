@@ -1,5 +1,9 @@
 
 
+<%@page import="pager.PagerNew"%>
+<%@page import="bean.New"%>
+<%@page import="pager.PagerActivite"%>
+<%@page import="text.pageweb.MesNewsText"%>
 <%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="dao.ActiviteDAO"%>
@@ -41,16 +45,15 @@
 <link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
 	type="text/css">
 
-
-
 </head>
 
 <body>
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-		FiltreRecherche filtre=profil.getFiltre();
-		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActiviteBySite(profil.getIdSite(), filtre.getCritereRechercheEtatMesActivite());
+			FiltreRecherche filtre=profil.getFiltre();
+			PagerNew pager=(PagerNew) request.getAttribute("pager");
+			ArrayList<New> listNews = pager.getListNew();
 	%>
 
 	<%@ include file="menuGestionnaire.jsp"%>
@@ -62,39 +65,12 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-sm-12">
-						<p class="text-tuto"><%=MesActivites.TUTO_LIGNE1%></p>
+						<p class="text-tuto"><%=MesNewsText.TUTO_LIGNE1%></p>
 						<br>
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="col-sm-3">
-						<form method="post" action="/waydplace/FrontalGestionnaire"
-							id="formulaire" class="form-inline">
-							<div class="form-group">
-								<label for="idEtatActivite">Status:</label> <select
-									class="form-control" id="idEtatActivite"
-									name="critereEtatMesActivite">
-
-									<%
-										for (CritereEtatActivite etatActivite:CacheDAO.getListCritereEtatActivite()) {
-									%>
-									<option value="<%=etatActivite.getId()%>"
-										<%=Outils.jspAdapterListSelected(etatActivite.getId(), filtre.getCritereRechercheEtatMesActivite())%>>
-										<%=etatActivite.getLibelle()%></option>
-									<%
-										}
-									%>
-
-								</select>
-
-							</div>
-							<input type="hidden" name='action'
-								value='<%=FrontalGestionnaire.REFRESH_MES_ACTIVITE_GESTIONNAIRE%>'>
-						</form>
-					</div>
-
-				</div>
+				<div class="row"></div>
 
 
 			</div>
@@ -103,52 +79,50 @@
 		<table class="table table-responsive " id="matable">
 			<thead class="entetetable" align="center">
 				<tr>
-					<th style="width: 10%;" class="text-center">Etat</th>
-					<th class="text-center">Titre</th>
-					<th class="text-center">Détail</th>
-					<th style="width: 20%;" class="text-center">Date</th>
-					<th style="width: 20%;" class="text-center">Action</th>
+
+	<th style="width: 85%;" class="text-center">News</th>
+					<th style="width: 15%;" class="text-center">Action</th>
+
+				
 
 				</tr>
 			</thead>
-			<tbody
-				style="background-color: #FFFFFF; text-align: center; vertical-align: middle;">
+			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 
 				<%
-					if (listMesActivite!=null)
-									for (Activite activite : listMesActivite)
-									{
-						String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE
-										+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_GESTIONNAIRE;;
-						String lienEffaceActivite = "/waydplace/FrontalGestionnaire?action="
-												+ FrontalGestionnaire.EFFACE_ACTIVITE_GESTIONNAIRE + "&idactivite=" + activite.getId();
-						String lienModifierActivite = "/waydplace/FrontalGestionnaire?action="
-												+ FrontalGestionnaire.REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE
-												+ "&idactivite=" + activite.getId();
+					if (listNews !=null)
+						for (New news : listNews)
+				{
+			String lienEffaceNew = "/waydplace/FrontalGestionnaire?action="
+									+ FrontalGestionnaire.EFFACE_NEWS_GESTIONNAIRE + "&idNew=" + news.getId();
+ 			String lienModifierNew = "/waydplace/FrontalGestionnaire?action="
+ 									+ FrontalGestionnaire.REDIRECTION_MODIFIER_NEWS_GESTIONNAIRE
+									+ "&idactivite=" + news.getId();			
 				%>
 
 
 				<tr>
-					<td onclick="document.location='<%=lienDetailActivite%>'"><%=activite.getEtatHtml()%></td>
-					<td class="idActivite" id=<%=activite.getId()%>
-						style="vertical-align: middle;"><%=activite.getTitre()%></td>
-					<td style="vertical-align: middle;"><%=activite.getLibelle()%></td>
-					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
+					<td>
+						<div class="jumbotron" style="margin-bottom: 0px;">
+							<h2 style="margin-top: 0px;"><%=news.getTitre()%></h2>
+							<p><%=news.getMessage()%></p>
+
+							<h6><%=news.getDateCreationStr()%></h6>
+						</div>
+
+					</td>
 					<td style="vertical-align: middle; text-align: center;">
 						<p>
-							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-sm'>
+							<a href='<%=lienModifierNew%>' class='btn btn-info btn-sm'>
 								<span class='glyphicon glyphicon-edit'></span>
 							</a>
-							<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
+							<button onclick="confirmEfface('<%=lienEffaceNew%>')"
 								class="btn btn-danger btn-sm">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
 						</p>
 					</td>
-					</td>
-
-
-				</tr>
+							</tr>
 				<%
 					}
 				%>
@@ -166,12 +140,12 @@
 	</script>
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		function confirmEfface(liensupprime) {
 
 			BootstrapDialog.show({
 				title : 'Confirmation',
-				message : 'Vous allez effacer votre activité',
+				message : 'Vous allez effacer votre news',
 				buttons : [ {
 					label : 'Oui',
 					action : function(dialog) {
@@ -187,6 +161,7 @@
 
 		}
 	</script>
+
 
 
 

@@ -25,6 +25,9 @@
 				<%=MenuMembre.get_LI_ACCEUIL((Profil) session
 					.getAttribute("profil"))%>
 
+			<%=MenuMembre.get_LI_SITE((Profil) session
+					.getAttribute("profil"))%>
+					
 				<%=MenuMembre.get_LI_MON_COMPTE((Profil) session
 					.getAttribute("profil"))%>
 

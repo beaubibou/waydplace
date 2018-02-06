@@ -15,11 +15,13 @@ import com.google.gson.Gson;
 
 import dao.ActiviteDAO;
 import dao.MembreDAO;
+import dao.SiteDAO;
 import pager.PagerActivite;
 import parametre.Parametres;
 import bean.Activite;
 import bean.Membre;
 import bean.Profil;
+import bean.Site;
 
 /**
  * Servlet implementation class FrontalCommun
@@ -29,6 +31,8 @@ public class FrontalCommun extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(FrontalCommun.class);
 	public static final String REDIRECTION_DETAIL_ACTIVITE = "redirectionDetailActivite";
 	public static final String REDIRECTION_DETAIL_PARTICIPANT = "redirectiondetailParticipantMembre";
+	public static final String REDIRECTION_DETAIL_SITE = "REDIRECTION_DETAIL_SITE";
+
 	public static final String AJAX_GET_MESSAGE_DIALOG = "AJAX_GET_MESSAGE_DIALOG";
 	public static final String FROM_MES_ACTIVITES_MEMBRES = "FROM_MES_ACTIVITES_MEMBRES";
 	public static final String FROM_MES_RECHERCHE_ACTIVITES_MEMBRES = "FROM_MES_RECHERCHE_ACTIVITES_MEMBRES";
@@ -43,6 +47,7 @@ public class FrontalCommun extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		doPost(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request,
@@ -52,98 +57,136 @@ public class FrontalCommun extends HttpServlet {
 		Profil profil = (Profil) session.getAttribute("profil");
 
 		String action = request.getParameter("action");
-		String from = request.getParameter("from");
 
 		LOG.info("Action" + action);
 
 		if (action == null || action.isEmpty())
 			return;
 
-		switch (action) {
+		try {
+			switch (action) {
 
-		case REDIRECTION_DETAIL_ACTIVITE:
+			case REDIRECTION_DETAIL_SITE:
 
-			Activite activite = getActivite(request);
-			request.setAttribute("activite", activite);
-
-			if (activite == null) {
-				profil.setMessageDialog("L'activite a été est supprimée.");
-				response.sendRedirect("membre/rechercheActivite.jsp");
-				return;
-			}
-
-			switch (activite.getId_ref_type_organisateur()) {
-
-			case Parametres.TYPE_ORGANISATEUR_SITE:
-
-				String lienRetour = getLienRetour(profil, from);
-				request.setAttribute("back", lienRetour);
-				request.getRequestDispatcher("commun/detailActiviteMembre.jsp")
-						.forward(request, response);
+				redirectionDetailSite(profil, request, response);
 
 				break;
 
-			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+			case REDIRECTION_DETAIL_ACTIVITE:
 
-				lienRetour =  getLienRetour(profil, from);
-				request.setAttribute("back", lienRetour);
-				request.getRequestDispatcher("commun/detailActiviteMembre.jsp")
-						.forward(request, response);
-
-				break;
-			}
-
-			break;
-
-		case AJAX_GET_MESSAGE_DIALOG:
-
-			String messageAlert = profil.getMessageDialog();
-			String monMessage = "null";
-
-			if (messageAlert != null)
-				monMessage = messageAlert;
-
-			response.setContentType("text/plain");
-			response.getWriter().write(monMessage);
-
-			break;
-
-		case REDIRECTION_DETAIL_PARTICIPANT:
-
-			Membre membre = getMembre(request, profil);
-			from = request.getParameter("from");
-
-			switch (membre.getId_ref_type_organisateur()) {
-
-			case Parametres.TYPE_ORGANISATEUR_SITE:
-
-				String lienRetour =  getLienRetour(profil, from);
-				request.setAttribute("back", lienRetour);
-				request.setAttribute("membre", membre);
-				request.getRequestDispatcher("commun/detailMembre.jsp")
-						.forward(request, response);
+				redirectionDetailActivite(profil, request, response);
 
 				break;
 
-			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+			case AJAX_GET_MESSAGE_DIALOG:
 
-				lienRetour =  getLienRetour(profil, from);
-				request.setAttribute("back", lienRetour);
-				request.setAttribute("membre", membre);
-				request.getRequestDispatcher("commun/detailMembre.jsp")
-						.forward(request, response);
+				ajaxGetMessageDialog(profil, request, response);
+
+				break;
+
+			case REDIRECTION_DETAIL_PARTICIPANT:
+
+				redirectionDetailParticipant(profil, request, response);
+
 				break;
 
 			default:
-			}
 
-			break;
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 	}
 
-	private String getLienRetour(Profil profil, String from) {
-		// TODO Auto-generated method stub
+	private void redirectionDetailParticipant(Profil profil,
+			HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
+		Membre membre = getMembre(request, profil);
+		String from = request.getParameter("from");
+
+		switch (membre.getId_ref_type_organisateur()) {
+
+		case Parametres.TYPE_ORGANISATEUR_SITE:
+
+			String lienRetour = getLienRetour(profil, from);
+			request.setAttribute("back", lienRetour);
+			request.setAttribute("membre", membre);
+			request.getRequestDispatcher("commun/detailMembre.jsp").forward(
+					request, response);
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+
+			lienRetour = getLienRetour(profil, from);
+			request.setAttribute("back", lienRetour);
+			request.setAttribute("membre", membre);
+			request.getRequestDispatcher("commun/detailMembre.jsp").forward(
+					request, response);
+			break;
+
+		default:
+		}
+	}
+
+	private void ajaxGetMessageDialog(Profil profil,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+
+		String messageAlert = profil.getMessageDialog();
+		String monMessage = "null";
+
+		if (messageAlert != null)
+			monMessage = messageAlert;
+
+		response.setContentType("text/plain");
+		response.getWriter().write(monMessage);
+
+	}
+
+	private void redirectionDetailActivite(Profil profil,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		Activite activite = getActivite(request);
+		request.setAttribute("activite", activite);
+		String from = request.getParameter("from");
+
+		if (activite == null) {
+			profil.setMessageDialog("L'activite a été est supprimée.");
+			response.sendRedirect("membre/rechercheActivite.jsp");
+			return;
+		}
+
+		
+		switch (activite.getId_ref_type_organisateur()) {
+
+		case Parametres.TYPE_ORGANISATEUR_SITE:
+
+			String lienRetour = getLienRetour(profil, from);
+			request.setAttribute("back", lienRetour);
+			request.getRequestDispatcher("commun/detailActiviteSite.jsp")
+					.forward(request, response);
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+
+			lienRetour = getLienRetour(profil, from);
+			request.setAttribute("back", lienRetour);
+			request.getRequestDispatcher("commun/detailActiviteMembre.jsp")
+					.forward(request, response);
+
+			break;
+		}
+
+	}
+
+	private String getLienRetour(Profil profil, String from) {
+	
 		String retour = "";
 
 		switch (profil.getTypeOrganisteur()) {
@@ -192,11 +235,60 @@ public class FrontalCommun extends HttpServlet {
 			break;
 
 		default:
+		
 			break;
 		}
-		
+
 		return retour;
 	}
+
+	private void redirectionDetailSite(Profil profil,
+			HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int idSite = profil.getIdSite();
+		Site site = SiteDAO.getSiteById(idSite);
+		
+		String lienRetour = getLienRetourAcceuil(profil);
+		request.setAttribute("back", lienRetour);
+		request.setAttribute("site", site);
+		request.getRequestDispatcher("commun/detailSite.jsp").forward(request,
+				response);
+
+	}
+
+	private String getLienRetourAcceuil(Profil profil) {
+	
+		String retour = "";
+
+		switch (profil.getTypeOrganisteur()) {
+
+		case Parametres.TYPE_ORGANISATEUR_VISITEUR :
+
+			retour = Frontal.ACTION_REDIRECTION_ACCEUIL;
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+
+			retour = Frontal.ACTION_REDIRECTION_ACCEUIL;
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_SITE:
+
+			retour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
+
+			break;
+
+		default:
+		
+			break;
+		}
+
+		return retour;
+	}
+
 
 	private Activite getActivite(HttpServletRequest request) {
 

@@ -1,24 +1,32 @@
 package tag;
 
-import dao.MessageDAO;
-import bean.Profil;
-import parametre.ActionPage;
 import parametre.Parametres;
 import servlet.membre.Frontal;
+import servlet.membre.FrontalCommun;
 import text.pageweb.MenuGestionnaireText;
+import bean.Profil;
+import dao.MessageDAO;
 
 public class MenuMembre {
 
-		private static String LIEN_CONNEXION = "<li><a href='/waydplace/index.jsp'><span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
-	private static String LIEN_DECONNEXION = "<li><a href='/waydplace/Frontal?action="
+	private static final String LIEN_DETAIL_SITE_MEMBRE = "<li><a href='/waydplace/FrontalCommun?action="
+			+ FrontalCommun.REDIRECTION_DETAIL_SITE+ "'>Site</a></li>";
+		
+	private static final  String LIEN_CONNEXION = "<li><a href='/waydplace/index.jsp'><span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
+	
+	private static final String LIEN_DECONNEXION = "<li><a href='/waydplace/Frontal?action="
 			+ Frontal.DECONNEXION_MEMBRE+ "'><span class='glyphicon glyphicon-log-in'></span> Deconnexion</a></li>";
-	private static String LIEN_ENVELLOPPE = "<li><a href='/waydplace/Frontal?action="
+	
+	private static final String LIEN_ENVELLOPPE = "<li><a href='/waydplace/Frontal?action="
 			+ Frontal.REDIRECTION_DISCUSSION_MEMBRE+ "'><span class='glyphicon glyphicon-envelope'></span> </a></li>";
-	private static String LIEN_ACCUEIL_MEMBRE = "<li><a href='/waydplace/Frontal?action="
+	
+	private static final String LIEN_ACCUEIL_MEMBRE = "<li><a href='/waydplace/Frontal?action="
 			+ Frontal.REDIRECTION_ACCUEIL_MEMBRE+ "'><span class='glyphicon glyphicon-home'></span> </a></li>";
 
 	public static String get_LI_GERER(Profil profil) {
+	
 		String lien = "";
+	
 		switch (profil.getTypeOrganisteur()) {
 
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
@@ -79,6 +87,7 @@ public class MenuMembre {
 	
 	public static String get_LI_ACCEUIL(Profil profil) {
 		String lien = "";
+		
 		switch (profil.getTypeOrganisteur()) {
 		
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
@@ -97,6 +106,14 @@ public class MenuMembre {
 		return lien;
 
 	}
+	
+	public static String get_LI_SITE(Profil profil) {
+	
+
+		return LIEN_DETAIL_SITE_MEMBRE;
+
+	}
+	
 
 	public static String get_LI_CONNEXION(Profil profil) {
 		String lien = "";
@@ -122,8 +139,12 @@ public class MenuMembre {
 		case Parametres.TYPE_ORGANISATEUR_SITE:
 
 			break;
+			
+	
 		}
 
+		
+		
 		return lien;
 
 	}

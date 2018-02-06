@@ -55,13 +55,13 @@
 				<div class="panel-title"><a
 							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE %>'
 							class='btn btnwayd btn-sm'> <span
-							class="glyphicon glyphicon-home"></span></a> Site</div>
+							class="glyphicon glyphicon-home"></span></a> <%=SiteText.TITRE_ONGLET %></div>
 			</div>
 			<div style="padding-top: 30px" class="panel-body">
 
 				<div style="border-bottom: 1px solid #888;">
 
-					<p class="text-tuto">Site</p>
+					<p class="text-tuto"><%=SiteText.MESSAGE_JUMBO_L1 %></p>
 
 				</div>
 
@@ -78,16 +78,16 @@
 						onsubmit="return valideFichier()">
 <br>
 						<div class="btn-group">
-							<label class="btn btn-default btn-file btn-primary btn-sm">
+							<label class="btn btnwayd btn-file btn-primary btn-sm">
 								.. <input name="file" size="50" type="file"
 								style="display: none;">
 							</label> <input type="submit" value="Envoyer la photo"
-								class="btn btn-primary btn-sm  " /> <a
+								class="btn btnwayd btn-sm  " /> <a
 								href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.SUPPRIMER_PHOTO_SITE_GESTIONNAIRE%>'
 								class='btn btn-danger btn-sm'> <span
 								class="glyphicon glyphicon-remove"></span></a> <a
 								href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE%>'
-								class="btn btn-info btn-sm"> <span
+								class="btn btnwayd btn-sm"> <span
 								class="glyphicon glyphicon-lock"></span></a>
 
 						</div>
@@ -101,7 +101,7 @@
 	
 <div class="form-group"></div>
 		<form action="/waydplace/FrontalGestionnaire" method="post"
-			onsubmit="return valideFormulaire()">
+			onsubmit="return valideFormulaire()" id='formulaire'>
 
 			<input name="action" type="hidden"
 				value=<%=FrontalGestionnaire.MODIFIER_SITE_GESTIONNAIRE%>>
@@ -150,7 +150,7 @@
 									type="text" class="form-control" id="jeton"
 									placeholder="<%=SiteText.HINT_TELEPHONE%>"
 									maxlength="<%=SiteText.TAILLE_TELEPHONNE_MAX%>"
-									name="jetonSite" required value="<%=site.getJeton()%>">
+									name="telephone" required value="<%=site.getTelephone()%>">
 							</div>
 						</div>
 
@@ -180,9 +180,13 @@
 				0 Caractére
 				<%=SiteText.TAILLE_DESCRIPTION_PROFIL_MAX%>
 			</h5>
-			<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
-
+		
 		</form>
+		
+		<button onclick="modifieSite()" class="btnwayd btn-lg">Sauvegarder</button>
+		
+		
+		
 </div>
 
 	</div>
@@ -204,6 +208,49 @@
 
 		}
 	</script>
+	
+		<script type="text/javascript">
+		
+		function modifieSite(){
+			
+			
+			$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
+					function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+						if (responseText == 'ok')
+						{
+							BootstrapDialog.show({
+					            title: 'Confirmation',
+					            message: 'Votre site a été modfiée',
+					            buttons: [{
+					                label: 'Ok',
+					                action: function(dialog) {
+					                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
+					                  //  dialog.setMessage('Message 1');
+					                }
+					            
+					            }]
+					        }); 
+							
+							
+						}
+						else
+						{
+							
+							BootstrapDialog.alert(responseText);
+						}
+
+						
+
+					});	
+			
+			
+			
+		}
+		
+		
+		</script>
+	
+	
 
 	<script>
 		$(document)

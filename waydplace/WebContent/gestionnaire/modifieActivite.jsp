@@ -73,7 +73,7 @@
 
 
 					<form action="/waydplace/FrontalGestionnaire"
-						onsubmit="return valideFormulaire()" method="post">
+						onsubmit="return valideFormulaire()" method="post" id="formulaire">
 		
 				<input  name="action" type="hidden"  value=<%=FrontalGestionnaire.MODIFIER_ACTIVITE_GESTIONNAIRE %> >
 				<input  name="idactivite" type="hidden"  value=<%=activite.getId() %> >
@@ -154,24 +154,14 @@
 
 							<%=ProposeActiviteMembre.initNbrCaracteres()%></h5>
 
-						
-
-						<button type="submit" class="btnwayd btn-lg">Modifier</button>
-
-
 					</form>
 
+		<button  onclick="modifieActivite()" class="btnwayd btn-lg">Modifier</button>
+			
 
 				</div>
 			</div>
 		</div>
-
-
-	</div>
-
-
-
-
 	
 	<script>
 		function dateDiff(date1, date2) {
@@ -208,10 +198,7 @@
 			var datedebut = $('#datedebut').data('DateTimePicker').date();
 			var datefin = $('#datefin').data('DateTimePicker').date();
 
-			// Verifie les positions
-			latitude = document.getElementById("latitude").value;
-			longitude = document.getElementById("longitude").value;
-
+	
 
 			if (datedebut > datefin) {
 				BootstrapDialog.show({
@@ -237,17 +224,61 @@
 				return false;
 			}
 
-			if (diffHeure <1) {
-				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DUREE_PAS_INFERIEURE_A%>"
-							});
-				return false;
-			}
+// 			if (diffHeure <1) {
+// 				BootstrapDialog.show({
+<%-- 					message:"<%=ProposeActiviteMembre.DUREE_PAS_INFERIEURE_A%>" --%>
+// 							});
+// 				return false;
+// 			}
 			return true;
 		}
 
 		
 		
+	</script>
+	
+	<script type="text/javascript">
+	
+	function modifieActivite(){
+		
+		if (valideFormulaire()==false)
+			return;
+		
+		
+		$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
+				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+
+					if (responseText == 'ok')
+					{
+						BootstrapDialog.show({
+				            title: 'Confirmation',
+				            message: 'Votre activité a été modfiée',
+				            buttons: [{
+				                label: 'Ok',
+				                action: function(dialog) {
+				                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
+				                  //  dialog.setMessage('Message 1');
+				                }
+				            
+				            }]
+				        }); 
+						
+						
+					}
+					else{
+						
+						BootstrapDialog.alert(responseText);
+					}
+
+					
+
+				});	
+		
+		
+		
+	}
+	
+	
 	</script>
 
 	<script>

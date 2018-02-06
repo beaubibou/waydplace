@@ -140,7 +140,8 @@ public class SiteDAO {
 				Date dateCreation = rs.getTimestamp("date_creation");
 				String description= rs.getString("description");
 				String photo= rs.getString("photo");
-				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton,description,photo)	;		
+				String telephone= rs.getString("telephone");
+				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton,description,photo,telephone)	;		
 			}
 
 		} catch (SQLException | NamingException e) {
@@ -180,7 +181,8 @@ public class SiteDAO {
 				Date dateCreation = rs.getTimestamp("date_creation");
 				String description= rs.getString("description");
 				String photo= rs.getString("photo");
-				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton,description,photo)	;		
+				String telephone= rs.getString("telephone");
+				site=new Site(nom, adresse, id, idEnseigne, dateCreation, jeton,description,photo,telephone)	;		
 			}
 
 		} catch (SQLException | NamingException e) {
@@ -196,21 +198,23 @@ public class SiteDAO {
 
 	}
 
-	public static MessageAction modifieSite(String nom, String description,
-			 int idSite) {
-		long debut = System.currentTimeMillis();
-LOG.info("met a jour site");
+	public static MessageAction modifieSite(String nom, String description,String adresse,String jetonSite,
+			String telephone, int idSite) {
+	
 		PreparedStatement preparedStatement = null;
 		Connection connexion = null;
 		try {
 	
 			connexion = CxoPool.getConnection();
 			connexion.setAutoCommit(false);
-			String requete = "UPDATE  site set nom=?, description=?	WHERE id=?";
+			String requete = "UPDATE  site set nom=?, description=?,adresse=?,jeton=?,telephone=?	WHERE id=?";
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setString(1, nom);
 			preparedStatement.setString(2, description);
-			preparedStatement.setInt(3, idSite);
+			preparedStatement.setString(3, adresse);
+			preparedStatement.setString(4, jetonSite);
+			preparedStatement.setString(5, telephone);
+			preparedStatement.setInt(6, idSite);
 			preparedStatement.execute();
 			preparedStatement.close();
 			connexion.commit();

@@ -61,6 +61,7 @@
 		Activite activite = (Activite) request.getAttribute("activite");
 		ArrayList<RefTypeActivite> listTypeActivite = CacheDAO
 				.getListRefTypeActivite();
+		String back=(String)request.getAttribute("back");
 	%>
 
 	<%
@@ -87,7 +88,7 @@
 	<%
 		if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_SITE) {
 	%>
-	<%@ include file="/membre/menuMembre.jsp"%>
+	<%@ include file="/gestionnaire/menuGestionnaire.jsp"%>
 
 	<%
 		}
@@ -100,9 +101,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
 
-					<div class="panel-title"><a href='<%=Frontal.ACTION_REDIRECTION_RECHERCHE_ACTIVITE_MEMBRE%>'
+					<div class="panel-title"><a href='<%=back%>'
 											class='btn btnwayd btn-sm'> <span
-											class="glyphicon glyphicon-arrow-left"></span></a>Détail Activite Site</div>
+											class="glyphicon glyphicon-arrow-left"></span></a> Détail Activite Site</div>
 
 				</div>
 

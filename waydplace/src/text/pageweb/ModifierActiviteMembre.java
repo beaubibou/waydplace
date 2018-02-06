@@ -34,6 +34,7 @@ public class ModifierActiviteMembre {
 	public static final String DUREE_PAS_INFERIEURE_A="La durée ne peut pas être inférieur à 8 heures";
 	
 	public static final String ERREUR_TITRE_TROP_COURT = "Le titre est trop court";
+	public static final String ERREUR_SELECTIONNER_UN_JOUR = "Vous devez selectionner au moins un jour";
 
 	public static String getHintTitreActivite() {
 

@@ -663,8 +663,7 @@ public class ActiviteDAO {
 
 	public static MessageAction supprimeActivite(int idactivite) {
 
-		long debut = System.currentTimeMillis();
-
+	
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 

@@ -81,34 +81,30 @@
 								<br>
 						
 									<div class="btn-group">
-										<label class="btn btn-default btn-file btn-primary btn-sm">
+										<label class="btn btnwayd btn-file btn-primary btn-sm">
 											.. <input name="file" size="50" type="file"
 											style="display: none;">
 										</label> <input type="submit" value="Envoyer la photo"
-											class="btn btn-primary btn-sm  " /> <a
+											class="btn btnwayd btn-sm  " /> <a
 											href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
-											class='btn btn-danger btn-sm'> <span
+											class='btn btnwayd btn-sm'> <span
 											class="glyphicon glyphicon-remove"></span></a> <a
 											href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
-											class="btn btn-info btn-sm"> <span
+											class="btn btnwayd btn-sm"> <span
 											class="glyphicon glyphicon-lock"></span></a>
 
 									</div>
 							
 							</form>
-
-
-					
-					
-
+	
 				</div>
 
 
-				<form action="/waydplace/Frontal" method="post"
+				<form action="/waydplace/Frontal" method="post" id='formulaire'
 					onsubmit="return valideFormulaire()">
 
 					<input name="action" type="hidden"
-						value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>>
+						value=<%=FrontalGestionnaire.MODIFIER_COMPTE_GESTIONNAIRE%>>
 
 					<div class="form-group">
 						<div class="row">
@@ -172,10 +168,14 @@
 						<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
 					</h5>
 
-					<button type="submit" class="btnwayd btn-lg">Sauvegarder</button>
-
+				
 				</form>
 
+		<button  onclick="modifieCompte()" class="btnwayd btn-lg">Sauvegarder</button>
+		<a	href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>'
+								class='btn btnwayd btn-lg'> <span
+								class="glyphicon glyphicon-home"></span></a>
+					
 			</div>
 		</div>
 	</div>
@@ -245,5 +245,47 @@
 		;
 		$('#nbr').text(msg);
 	</script>
+	
+	<script type="text/javascript">
+
+function modifieCompte(){
+	
+	$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
+			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+			
+		if (responseText == 'ok')
+				{
+					BootstrapDialog.show({
+			            title: 'Confirmation',
+			            message: 'Votre compte a été modfiée',
+			            buttons: [{
+			                label: 'Ok',
+			                action: function(dialog) {
+			                location.href='<%=FrontalGestionnaire.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>'
+			                  //  dialog.setMessage('Message 1');
+			                }
+			            
+			            }]
+			        }); 
+					
+				}
+				else
+				{
+					
+					BootstrapDialog.alert(responseText);
+				}
+
+				
+
+			});	
+	
+	
+	
+}
+
+</script>
+			
+	
+	
 
 </html>

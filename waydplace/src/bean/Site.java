@@ -14,7 +14,7 @@ public class Site {
 	String jeton;
 	String description;
 	String photo;
-	
+	String telephone;
 	
 	public String getDescription() {
 		return description;
@@ -23,7 +23,7 @@ public class Site {
 		this.description = description;
 	}
 	public Site(String nom, String adresse, int id, int id_enseigne,
-			Date date_creation, String jeton,String description,String photo) {
+			Date date_creation, String jeton,String description,String photo,String telephone) {
 		super();
 		this.nom = nom;
 		this.adresse = adresse;
@@ -33,8 +33,17 @@ public class Site {
 		this.jeton = jeton;
 		this.description=description;
 		this.photo=photo;
+		this.telephone=telephone;
+	
 	}
 	
+	
+	public String getTelephone() {
+		return telephone;
+	}
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 	public String getPhoto() {
 		return photo;
 	}
@@ -89,7 +98,13 @@ private String getURLPhoto() {
 
 	public String getDetailEnteteSiteHtml(){
 				
-		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"' class='pull-left marge-droite img-thumbnail' width='300'	height='300'>"+
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"' class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
+	"<h2 style='margin-top: 0px'>"+nom +"</h2></div>";
+		
+	}
+	public String getDetailSiteHtml(){
+		
+		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"' class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
 	"<h2 style='margin-top: 0px'>"+nom +"</h2></div>";
 		
 	}

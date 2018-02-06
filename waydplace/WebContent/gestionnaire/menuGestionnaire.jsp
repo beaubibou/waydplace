@@ -25,6 +25,10 @@
 				<li>
 					<li ><a
 					href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_SITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.SITE%></a></li>
+					<li>
+					<li ><a
+					href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_NEWS_GESTIONNAIRE%>"><%=MenuGestionnaireText.NEWS%></a></li>
+			
 				<li>
 					<a
 					href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.GERER%> </a></li>
@@ -48,7 +52,7 @@
 							href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.PLANIFIER_ACTIVITE%></a></li>
 					
 						<li><a style='color: black; background-color: #FFFFFF;'
-							href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE%>"><%=MenuGestionnaireText.AJOUTER_NOTIFICATION%></a></li>
+							href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PROPOSER_NEW_GESTIONNAIRE%>"><%=MenuGestionnaireText.AJOUTER_NOTIFICATION%></a></li>
 						
 
 					</ul></li>

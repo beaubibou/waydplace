@@ -283,19 +283,19 @@ public class Activite {
 
 	}
 
-	public Activite(String titre, String libelle, int id, int id_site,
+	public Activite(String titre, String libelle, int id, int idSite,
 			String photoOrganisateur, String pseudoOrganisateur,
-			int id_ref_type_organisateur, String uid_membre, Date datefin,
+			int id_ref_type_organisateur, String uidMembre, Date datefin,
 			Date datedebut, int id_ref_type_activite, String photoSite,String nomSite) {
 		super();
 		this.titre = titre;
 		this.libelle = libelle;
 		this.id = id;
-		this.id_site = id_site;
+		this.id_site = idSite;
 		this.photoOrganisateur = photoOrganisateur;
 		this.pseudoOrganisateur = pseudoOrganisateur;
 		this.id_ref_type_organisateur = id_ref_type_organisateur;
-		this.uid_membre = uid_membre;
+		this.uid_membre = uidMembre;
 		this.datefin = datefin;
 		this.datedebut = datedebut;
 		this.id_ref_type_activite = id_ref_type_activite;

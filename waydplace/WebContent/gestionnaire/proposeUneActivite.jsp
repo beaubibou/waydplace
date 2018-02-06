@@ -54,6 +54,7 @@
 				ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
 			// Defini le li a rendre actif
 		
+	
 	%>
 
 
@@ -74,7 +75,7 @@
 				
 				
 					<form action="/waydplace/FrontalGestionnaire"
-						onsubmit="return valideFormulaire()" method="post">
+						onsubmit="return valideFormulaire()" method="post" id='formulaire'>
 
 						<div class="form-group"   style="border-bottom: 1px solid #888;">
 
@@ -152,11 +153,11 @@
 							
 						<input type='hidden' name='action' value='<%=FrontalGestionnaire.AJOUTER_ACTIVITE_GESTIONNAIRE%>'>
 
-						<button type="submit" class="btnwayd btn-lg">Proposer</button>
-
+				
 						
 					</form>
-					
+						<button  onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
+				
 						
 				</div>
 			</div>
@@ -192,6 +193,7 @@
 	
 	</script>
 	<script>
+	
 		function dateDiff(date1, date2) {
 			var diff = {} // Initialisation du retour
 			var tmp = date2 - date1;
@@ -288,6 +290,47 @@
 		var nombreCaractere = $('#description').val().length;
 		var msg = nombreCaractere +   '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
 		$('#nbr').text(msg);
+	</script>
+	<script type="text/javascript">
+		
+	function ajouteActivite(){
+		
+		//if (valideFormulaire()==false)
+		//	return;
+		
+		$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
+				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+					if (responseText == 'ok')
+					{
+						BootstrapDialog.show({
+				            title: 'Confirmation',
+				            message: 'Votre activité a été ajoutée',
+				            buttons: [{
+				                label: 'Ok',
+				                action: function(dialog) {
+				                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
+				                  //  dialog.setMessage('Message 1');
+				                }
+				            
+				            }]
+				        }); 
+						
+						
+					}
+					else
+					{
+						
+						BootstrapDialog.alert(responseText);
+					}
+
+					
+
+				});	
+		
+		
+		
+	}
+	
 	</script>
 </body>
 </html>

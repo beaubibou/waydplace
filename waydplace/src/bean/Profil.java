@@ -163,6 +163,16 @@ public class Profil {
 	public void setDateNaissance(Date dateNaissance) {
 		membre.setDate_naissance(dateNaissance);
 	}
+	public void setAdresse(String adresse) {
+		site.setAdresse(adresse);
+	}
+	public void setJetonSite(String jetonSite) {
+		site.setJeton(jetonSite);
+		
+	}
+	public void setTelephone(String telephone) {
+	site.setTelephone(telephone);
+	}
 	
 	
 }
