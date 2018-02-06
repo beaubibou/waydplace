@@ -145,7 +145,7 @@ public class NewDAO {
 		try {
 
 			connexion = CxoPool.getConnection();
-			String requete = "select message,tire,id,date_creation from notification where id=?";
+			String requete = "select message,titre,id,date_creation from notification where id=?";
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setInt(1, idNew);

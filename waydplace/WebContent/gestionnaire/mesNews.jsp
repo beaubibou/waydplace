@@ -97,7 +97,7 @@
 									+ FrontalGestionnaire.EFFACE_NEWS_GESTIONNAIRE + "&idNew=" + news.getId();
  			String lienModifierNew = "/waydplace/FrontalGestionnaire?action="
  									+ FrontalGestionnaire.REDIRECTION_MODIFIER_NEWS_GESTIONNAIRE
-									+ "&idactivite=" + news.getId();			
+									+ "&idNew=" + news.getId();			
 				%>
 
 
