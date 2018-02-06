@@ -164,7 +164,7 @@
 						<textarea class="form-control" rows="5" id="description"
 							name="commentaire"
 							placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
-							maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=profil.getDescription()%></textarea>
+							maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=Outils.convertRequeteToString(profil.getDescription())%></textarea>
 					</div>
 
 					<h5 class="nbrcaracteremax" id="nbr">

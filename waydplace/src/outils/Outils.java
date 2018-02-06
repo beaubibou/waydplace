@@ -18,6 +18,8 @@ public class Outils {
 
 		return caldate.getTime();
 	}
+	
+	
 	public static String convertRequeteToString(Object requetAttribute) {
 
 		if (requetAttribute == null)
