@@ -1072,7 +1072,7 @@ public class FrontalGestionnaire extends HttpServlet {
 		jetonSite = jetonSite.trim();
 		telephone = telephone.trim();
 
-		MessageAction vpModifieSite = vpModifieSite(nom, description, adresse,
+		MessageAction vpModifieSite = vpModifieSite(nom, description, adresse,telephone,
 				profil);
 
 		if (vpModifieSite.isOk()) {
@@ -1101,18 +1101,19 @@ public class FrontalGestionnaire extends HttpServlet {
 	}
 
 	private MessageAction vpModifieSite(String nom, String description,
-			String adresse, Profil profil) {
+			String adresse,String telephone, Profil profil) {
 
 		if (nom.length() < 3)
 			return new MessageAction(false, "Le nom et trop court");
+	
+		if (!Outils.testTelephone(telephone))
+					 	return new MessageAction(false, "Numero de téléphonne non conforme");
 
 		return new MessageAction(true, "");
 	}
 
-	private void redirectionErreur(MessageAction modifierSite,
-			HttpServletRequest request, HttpServletResponse response) {
-
-	}
+	
+	
 
 	private MessageAction updateFiltreRecherche(HttpServletRequest request,
 			Profil profil) {

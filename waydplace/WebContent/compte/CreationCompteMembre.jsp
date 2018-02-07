@@ -37,23 +37,8 @@
 </head>
 <body>
 
-	<%
-		String pseudo = Outils.convertRequeteToString(request
-				.getParameter("nom"));
 
-		String email = Outils.convertRequeteToString(request
-				.getParameter("email"));
-		String pwd1 = Outils.convertRequeteToString(request
-				.getParameter("pwd1"));
-		String pwd = Outils.convertRequeteToString(request
-				.getParameter("pwd"));
 
-		String messageAlert = (String)request.getAttribute("messageAlert");	
-		
-		
-		%>
-
-		<%=AlertDialog.getAlertDialog(messageAlert) %>
 
 	<div class="container margedebut">
 		<div id="loginbox"
@@ -66,7 +51,7 @@
 
 				<div style="padding-top: 30px" class="panel-body">
 
-					<form action="/waydplace/ConnexionMembre" method="post"
+					<form id='formulaire' action="/waydplace/ConnexionMembre" method="post"
 						onsubmit="return valideFormulaire()">
 						<input name="action" type="hidden"
 							value=<%=ConnexionMembre.CREER_COMPTE_MEMBRE%>>
@@ -82,7 +67,7 @@
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-user"></i></span> <input
 									id="login-username" type="email" class="form-control"
-									name="email" required value="<%=email%>"
+									name="email" required 
 									placeholder="<%=CreationCompteMembre.HINT_EMAIL%>">
 							</div>
 
@@ -90,7 +75,7 @@
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-lock"></i></span> <input
 									id="login-password" type="password" class="form-control"
-									name="pwd" value="<%=pwd%>"
+									name="pwd"
 									placeholder="<%=CreationCompteMembre.HINT_MOT_DE_PASSE%>">
 							</div>
 
@@ -98,20 +83,16 @@
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-lock"></i></span> <input
 									id="login-password-bis" type="password" class="form-control"
-									name="pwd1" value="<%=pwd1%>"
+									name="pwd1"
 									placeholder="<%=CreationCompteMembre.HINT_MOT_DE_PASSE_BIS%>">
 							</div>
-							<div class="row">
-								<div class='col-md-4 col-md-offset-5'>
-									<h4>Renseignements</h4>
-								</div>
-							</div>
+							
 
 							<div class="form-group">
 								<label for="nom"><%=CreationCompteMembre.LABEL_PSEUDO_GESTIONNAIRE%></label>
 								<input type="text"
 									maxlength="<%=CreationCompteProText.TAILLE_PSEUDO_MAX%>"
-									value="<%=pseudo%>" class="form-control" id="nom"
+									 class="form-control" id="nom"
 									placeholder="<%=CreationCompteMembre.HINT_PSEUDO%>" name="nom"
 									required>
 							</div>
@@ -125,16 +106,15 @@
 							</div>
 
 							<br>
-							<button type="submit" class="btn btnwayd">Soumettre</button>
-							<a href='/waydplace/index.jsp' class="btn btnwayd" role="button"><span
-								class=" glyphicon glyphicon-home"></span> Accueil</a>
-
-
+			
 
 						</div>
 
 					</form>
 
+		<button onclick="creerCompte()" class="btnwayd btn-lg">Soumettre</button>
+					<a href="/wayd/Home" class="btnwayd btn-lg" role="button"><span
+						class="glyphicon glyphicon-home"></span> Accueil</a>
 
 				</div>
 			</div>
@@ -142,23 +122,64 @@
 	</div>
 
 	<script type="text/javascript">
-		function valideFormulaire() {
+	
+	function valideFormulaire() {
 
 			var pwd1 = document.getElementById("login-password").value;
 			var pwd2 = document.getElementById("login-password-bis").value;
 
+			if (pwd1=='')
+			{
+				BootstrapDialog.alert("Mot de passe obligatoire");
+				return false;
+			}
+			
 			if (pwd1 != pwd2) {
 				BootstrapDialog.alert("Mot de passe différents");
 				return false;
 			}
 			
-			
-			
-
+	
 			return true;
 		}
 		
 		
+	</script>
+
+	<script type="text/javascript">
+
+function creerCompte(){
+	
+var validation=valideFormulaire();
+	
+	if (validation==false)
+		return false;
+	
+	$.get("/waydplace/ConnexionMembre?"+$("#formulaire").serialize() ,
+			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+				if (responseText == 'ok')
+				{
+					BootstrapDialog.show({
+			            title: 'Confirmation',
+			            message: 'Votre compte a été crée un mail vous a été envoyé.',
+			            buttons: [{
+			                label: 'Ok',
+			                action: function(dialog) {
+			                location.href='waydplace/index.jsp'
+														//  dialog.setMessage('Message 1');
+													}
+
+												} ]
+											});
+
+								} else {
+
+									BootstrapDialog.alert(responseText);
+								}
+
+							});
+
+		}
 	</script>
 
 

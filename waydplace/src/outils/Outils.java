@@ -18,8 +18,7 @@ public class Outils {
 
 		return caldate.getTime();
 	}
-	
-	
+
 	public static String convertRequeteToString(Object requetAttribute) {
 
 		if (requetAttribute == null)
@@ -29,33 +28,35 @@ public class Outils {
 			return ((String) requetAttribute);
 
 	}
-	
-	public static String ellipsis(String chaine,int taille){
-		
-		if (chaine==null)
+
+	public static String ellipsis(String chaine, int taille) {
+
+		if (chaine == null)
 			return "";
-		
-		if (chaine.length()<=taille)
+
+		if (chaine.length() <= taille)
 			return chaine;
-		
-		StringBuilder retourStr=new StringBuilder(chaine);
-		
-		return retourStr.substring(0, taille)+"...";
-		
+
+		StringBuilder retourStr = new StringBuilder(chaine);
+
+		return retourStr.substring(0, taille) + "...";
+
 	}
+
 	public static String getUrlPhoto(String photo) {
 
 		if (photo == null)
 			photo = "";
-		
+
 		if (photo.contains("https:"))
 			return photo;
-		
+
 		byte[] bytes = Base64.decode(photo);
 		String urlPhoto = "data:image/jpeg;base64," + Base64.encode(bytes);
 
 		return urlPhoto;
 	}
+
 	public static Date getDateFromString(String datestr, String heurestr)
 			throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -70,6 +71,7 @@ public class Outils {
 		caldate.set(Calendar.MINUTE, calHeure.get(Calendar.MINUTE));
 		return caldate.getTime();
 	}
+
 	public static String jspAdapterCheked(boolean value) {
 
 		if (value)
@@ -86,18 +88,43 @@ public class Outils {
 		return "";
 
 	}
-	
-	public  static String getDateHtml(Date dateJava){
-		
-		Calendar cal=Calendar.getInstance();
+
+	public static String getDateHtml(Date dateJava) {
+
+		Calendar cal = Calendar.getInstance();
 		cal.setTime(dateJava);
-		int Heure=cal.get(Calendar.HOUR_OF_DAY);
-		int minutes=cal.get(Calendar.MINUTE);
-		int annee=cal.get(Calendar.YEAR);
-		int jour=cal.get(Calendar.DAY_OF_MONTH);
-		int mois=cal.get(Calendar.MONTH);
-		
-		return "new Date("+annee+","+mois+","+jour+","+Heure+","+minutes+")";
+		int Heure = cal.get(Calendar.HOUR_OF_DAY);
+		int minutes = cal.get(Calendar.MINUTE);
+		int annee = cal.get(Calendar.YEAR);
+		int jour = cal.get(Calendar.DAY_OF_MONTH);
+		int mois = cal.get(Calendar.MONTH);
+
+		return "new Date(" + annee + "," + mois + "," + jour + "," + Heure
+				+ "," + minutes + ")";
+	}
+
+	public static boolean testTelephone(String telephone) {
+
+		try {
+
+			int tel = Integer.parseInt(telephone);
+
+		} catch (Exception e) {
+
+			return false;
 		}
+
+		if (telephone == null)
+			return true;
+
+		if (telephone.isEmpty())
+			return true;
+
+		if (telephone.length() != 10)
+			return false;
+
+		return true;
+
+	}
 
 }

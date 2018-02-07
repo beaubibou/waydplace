@@ -24,6 +24,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
+import outils.Outils;
+
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -334,6 +336,7 @@ public class ConnexionMembre extends HttpServlet {
 
 			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
 				response.sendRedirect("membre/ecranPrincipal.jsp");
+		
 				break;
 
 			default:
@@ -351,15 +354,16 @@ public class ConnexionMembre extends HttpServlet {
 	private void creerCompteMembre(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		MessageAction creerCompteMembre = creerCompteMembre(request);
+		
 
 		if (creerCompteMembre.isOk()) {
-			request.getRequestDispatcher("compte/sendEmail.jsp").forward(
-					request, response);
-		} else {
-			request.setAttribute("messageAlert", creerCompteMembre.getMessage());
-			request.getRequestDispatcher("compte/CreationCompteMembre.jsp")
-					.forward(request, response);
+			response.setContentType("text/plain");
+			response.getWriter().write("ok");
 
+		} else {
+
+			response.setContentType("text/plain");
+			response.getWriter().write(creerCompteMembre.getMessage());
 		}
 	}
 
@@ -367,16 +371,16 @@ public class ConnexionMembre extends HttpServlet {
 			HttpServletResponse response) throws IOException, ServletException {
 
 		MessageAction creerComptePro = creerComptePro(request);
+	
 
 		if (creerComptePro.isOk()) {
-			response.sendRedirect("index.jsp");
+			response.setContentType("text/plain");
+			response.getWriter().write("ok");
 
 		} else {
 
-			request.setAttribute("messageAlert", creerComptePro.getMessage());
-			request.getRequestDispatcher("compte/CreationComptePro.jsp")
-					.forward(request, response);
-
+			response.setContentType("text/plain");
+			response.getWriter().write(creerComptePro.getMessage());
 		}
 	}
 
@@ -632,15 +636,24 @@ public class ConnexionMembre extends HttpServlet {
 		String description = request.getParameter("commentaire");
 		String siteweb = request.getParameter("siteweb");
 		String nomSite = request.getParameter("nomSite");
-
+		
+		MessageAction vpCreerComptePro=vpCreerComptePro(email, pseudoGestionnaire, nomSite, telephone, adresse,
+				siteweb, description);
+		
+		if (!vpCreerComptePro.isOk())
+				return vpCreerComptePro;
+			
 		String reponseCaptcha = request.getParameter("g-recaptcha-response");
-
+		
 		MessageAction iscaptcha = isCaptcha(reponseCaptcha);
 
 		if (!iscaptcha.isOk()) {
+			
+			LOG.info("erreur capcth captcha");
+			
 			return new MessageAction(false, iscaptcha.getMessage());
 		}
-
+		
 		MessageAction creerUserFireBase = creerUtilisateurFireBase(email, pwd,
 				pseudoGestionnaire);
 
@@ -662,17 +675,36 @@ public class ConnexionMembre extends HttpServlet {
 
 	}
 
+	private MessageAction vpCreerComptePro(String email,
+			String pseudoGestionnaire, String nomSite, String telephone,
+			String adresse, String siteweb, String description) {
+
+
+		if (pseudoGestionnaire.length() < 3)
+			return new MessageAction(false, "Le nom et trop court");
+	
+		if (!Outils.testTelephone(telephone))
+					 	return new MessageAction(false, "Numero de téléphonne non conforme");
+
+		return new MessageAction(true, "");		
+
+		
+		
+	}
+
 	private MessageAction creerUtilisateurFireBase(String email, String pwd,
 			String pseudo) {
 
-		if (FirebaseApp.getApps().isEmpty())
-			FirebaseApp.initializeApp(optionFireBase);
-
-		CreateRequest nouveauUser = new CreateRequest().setEmail(email)
-				.setEmailVerified(false).setPassword(pwd).setDisabled(false)
-				.setDisplayName(pseudo);
+	
 
 		try {
+			if (FirebaseApp.getApps().isEmpty())
+				FirebaseApp.initializeApp(optionFireBase);
+
+			
+			CreateRequest nouveauUser = new CreateRequest().setEmail(email)
+					.setEmailVerified(false).setPassword(pwd).setDisabled(false)
+					.setDisplayName(pseudo);
 
 			UserRecord userRecord = FirebaseAuth.getInstance()
 					.createUserAsync(nouveauUser).get();
@@ -701,7 +733,6 @@ public class ConnexionMembre extends HttpServlet {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 
-		// add header
 
 		List<BasicNameValuePair> urlParameters = new ArrayList<BasicNameValuePair>();
 
@@ -716,7 +747,7 @@ public class ConnexionMembre extends HttpServlet {
 					response.getEntity().getContent()));
 
 			StringBuffer result = new StringBuffer();
-			String line = "";
+			String line ="";
 			while ((line = rd.readLine()) != null) {
 				result.append(line);
 
@@ -728,7 +759,7 @@ public class ConnexionMembre extends HttpServlet {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, ExceptionUtils.getStackTrace(e));
 
