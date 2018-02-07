@@ -91,6 +91,7 @@
 									href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
 									class='btn btn-danger btn-sm'> <span
 									class="glyphicon glyphicon-remove"></span></a>
+									
 							</div>
 
 						</form>
