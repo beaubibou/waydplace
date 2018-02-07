@@ -22,21 +22,19 @@ import critere.FiltreRecherche;
 public class NewDAO {
 	private static final Logger LOG = Logger.getLogger(NewDAO.class);
 
-	
 	public static ArrayList<New> getListNotification(FiltreRecherche filtre,
 			int page, int maxResult) {
 
-	
 		int offset = (maxResult) * page;
-//
-//		int critereTypeActivite = filtre.getCritereTypeActivite();
-//		int critereTypeOrganisateur = filtre.getCritereTypeorganisateur();
-//		int critereEtatActivite = filtre.getCritereRechercheEtatActivite();
-//		DateTime critereDateDebut = filtre.getCritereDateDebutCreation();
-//		DateTime critereDateFin = filtre.getCritereDateFinCreation();
-//		String critereDateDebutStr = critereDateDebut.toString("dd/MM/yyyy");
-//		String critereDateFinStr = critereDateFin.toString("dd/MM/yyyy");
-	
+		//
+		// int critereTypeActivite = filtre.getCritereTypeActivite();
+		// int critereTypeOrganisateur = filtre.getCritereTypeorganisateur();
+		// int critereEtatActivite = filtre.getCritereRechercheEtatActivite();
+		// DateTime critereDateDebut = filtre.getCritereDateDebutCreation();
+		// DateTime critereDateFin = filtre.getCritereDateFinCreation();
+		// String critereDateDebutStr = critereDateDebut.toString("dd/MM/yyyy");
+		// String critereDateFinStr = critereDateFin.toString("dd/MM/yyyy");
+
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		ArrayList<New> retour = new ArrayList<New>();
@@ -49,20 +47,18 @@ public class NewDAO {
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setInt(1, maxResult);
 			preparedStatement.setInt(2, offset);
-			rs = preparedStatement.executeQuery();	
-			
+			rs = preparedStatement.executeQuery();
+
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String titre = rs.getString("titre");
 				String message = rs.getString("message");
 				Date date_creation = rs.getTimestamp("date_creation");
-						New notification = new New(id, titre, message, date_creation);
+				New notification = new New(id, titre, message, date_creation);
 				retour.add(notification);
 
 			}
 
-
-			
 		} catch (SQLException | NamingException e) {
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return retour;
@@ -70,41 +66,38 @@ public class NewDAO {
 
 			CxoPool.close(connexion, preparedStatement, rs);
 		}
-		
+
 		return retour;
 
 	}
 
+	public static MessageAction ajoute(String titre, String message, int id_site) {
 
-	public static MessageAction ajoute(String titre, String message,int id_site) {
-	
-		
-			Connection connexion = null;
-			PreparedStatement preparedStatement = null;
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
 
-			try {
-				connexion = CxoPool.getConnection();
-				connexion.setAutoCommit(false);
-				String requete = "INSERT INTO notification(titre,message,id_site)	values (?,?,?)";
-				preparedStatement = connexion.prepareStatement(requete);
-				preparedStatement.setString(1, titre);
-				preparedStatement.setString(2, message);
-				preparedStatement.setInt(3, id_site);
-				preparedStatement.execute();
-				connexion.commit();
+		try {
+			connexion = CxoPool.getConnection();
+			connexion.setAutoCommit(false);
+			String requete = "INSERT INTO notification(titre,message,id_site)	values (?,?,?)";
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setString(1, titre);
+			preparedStatement.setString(2, message);
+			preparedStatement.setInt(3, id_site);
+			preparedStatement.execute();
+			connexion.commit();
 
-			} catch (NamingException | SQLException e) {
-				
-				LOG.error(ExceptionUtils.getStackTrace(e));
-			} finally {
+		} catch (NamingException | SQLException e) {
 
-				CxoPool.close(connexion, preparedStatement);
+			LOG.error(ExceptionUtils.getStackTrace(e));
+		} finally {
 
-			}
+			CxoPool.close(connexion, preparedStatement);
 
-			return new MessageAction(true, "ok");
 		}
 
+		return new MessageAction(true, "ok");
+	}
 
 	public static MessageAction supprime(int idNews) {
 
@@ -133,9 +126,8 @@ public class NewDAO {
 		}
 	}
 
+	public static New getNew(int idNew) {
 
-	public static New getNew(int idNew ) {
-	
 		New news = null;
 
 		PreparedStatement preparedStatement = null;
@@ -149,7 +141,6 @@ public class NewDAO {
 
 			preparedStatement = connexion.prepareStatement(requete);
 			preparedStatement.setInt(1, idNew);
-			
 
 			rs = preparedStatement.executeQuery();
 
@@ -158,15 +149,12 @@ public class NewDAO {
 				String titre = rs.getString("titre");
 				String message = rs.getString("message");
 				Date date_creation = rs.getTimestamp("date_creation");
-						New notification = new New(id, titre, message, date_creation);
-				
-						news =new  New(id, titre, message, date_creation);
+				news = new New(id, titre, message, date_creation);
 
-			
 			}
 
 		} catch (SQLException | NamingException e) {
-			
+
 			LOG.error(ExceptionUtils.getStackTrace(e));
 
 		} finally {
@@ -176,5 +164,35 @@ public class NewDAO {
 		return news;
 
 	}
-	
+
+	public static MessageAction modifie(String titre, String message, int idNew) {
+		PreparedStatement preparedStatement = null;
+		Connection connexion = null;
+		try {
+			connexion = CxoPool.getConnection();
+			connexion.setAutoCommit(false);
+			String requete = "UPDATE  notification set titre=?, message=?  WHERE id=?";
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setString(1, titre);
+			preparedStatement.setString(2, message);
+			preparedStatement.setInt(3, idNew);
+			preparedStatement.execute();
+			preparedStatement.close();
+			connexion.commit();
+
+			return new MessageAction(true, "");
+
+		} catch (NamingException | SQLException e) {
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			CxoPool.rollBack(connexion);
+			return new MessageAction(false, e.getMessage());
+
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement);
+		}
+
+	}
+
 }

@@ -1,4 +1,5 @@
 
+<%@page import="bean.New"%>
 <%@page import="text.pageweb.ProposerNewText"%>
 <%@page import="parametre.ActionPage"%>
 <%@page import="dao.CacheDAO"%>
@@ -54,6 +55,11 @@
 	<%
 		Profil profil = (Profil) request.getSession()
 				.getAttribute("profil");
+	
+	New news=(New) request.getAttribute("news");
+	
+	
+	
 	%>
 
 
@@ -92,7 +98,7 @@
 							<input type="text" class="form-control" id="titre" required
 								placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
 								maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
-								name="titre" required>
+								name="titre" value="<%=news.getTitre() %> "required>
 						</div>
 
 
@@ -108,19 +114,19 @@
 								placeholder="<%=ProposerNewText.HINT_DESCRIPTION_MESSAGE%>"
 								maxlength="<%=ProposerNewText.TAILLE_DESCRIPTION_NEWS_MAX%>"
 								class="form-control" rows="5" id="description"
-								name="message"></textarea>
+								name="message"> value="<%=news.getMessage() %></textarea>
 						</div>
 						<h5 class="nbrcaracteremax" id="nbr">
 
 							<%=ProposerNewText.initNbrCaracteres()%></h5>
 
-						<input type='hidden' name='action'
-							value='<%=FrontalGestionnaire.AJOUTER_NEWS_GESTIONNAIRE%>'>
-
+							<input  name="action" type="hidden"  value=<%=FrontalGestionnaire.MODIFIER_NEWS_GESTIONNAIRE %> >
+							<input  name="idNew" type="hidden"  value=<%=news.getId() %> >
+		
 
 
 					</form>
-					<button onclick="ajouteNew()" class="btnwayd btn-lg">Proposer</button>
+					<button onclick="modifieNew()" class="btnwayd btn-lg">Proposer</button>
 
 
 				</div>
@@ -130,10 +136,49 @@
 
 	</div>
 
+	<script type="text/javascript">
+	
+	function modifieNew(){
+		
+		if (valideFormulaire()==false)
+			return;
+		
+		
+		$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
+				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 
+					if (responseText == 'ok')
+					{
+						BootstrapDialog.show({
+				            title: 'Confirmation',
+				            message: 'Votre activité a été modfiée',
+				            buttons: [{
+				                label: 'Ok',
+				                action: function(dialog) {
+				                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
+				                  //  dialog.setMessage('Message 1');
+				                }
+				            
+				            }]
+				        }); 
+						
+						
+					}
+					else{
+						
+						BootstrapDialog.alert(responseText);
+					}
 
+					
 
-	<script>
+				});	
+		
+		
+		
+	}
+	
+	
+	
 	
 	
 	
@@ -170,36 +215,7 @@
 	</script>
 	<script type="text/javascript">
 		
-	function ajouteNew(){
-		
-		if (valideFormulaire()==false)
-			return;
-		
-		$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
-				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-					if (responseText == 'ok')
-					{
-						BootstrapDialog.show({
-				            title: 'Confirmation',
-				            message: 'Votre news a été ajoutée',
-				            buttons: [{
-				                label: 'Ok',
-				                action: function(dialog) {
-				                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
-														//  dialog.setMessage('Message 1');
-													}
-
-												} ]
-											});
-
-								} else {
-
-									BootstrapDialog.alert(responseText);
-								}
-
-							});
-
-		}
+	
 	</script>
 </body>
 </html>

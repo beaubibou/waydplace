@@ -72,15 +72,15 @@ public class FrontalGestionnaire extends HttpServlet {
 	public static final String AJOUTER_ACTIVITE_GESTIONNAIRE = "ajouterActiviteGesionnaire";
 	public static final String EFFACE_ACTIVITE_GESTIONNAIRE = "effaceActiviteGestionnaire";
 	public static final String EFFACE_NEWS_GESTIONNAIRE = "EFFACE_NEWS_GESTIONNAIRE";
-	
+
 	public static final String MODIFIER_ACTIVITE_GESTIONNAIRE = "modifieractivitegestionnaire";
+	public static final String MODIFIER_NEWS_GESTIONNAIRE = "MODIFIER_NEWS_GESTIONNAIRE";
+
 	public static final String AJOUTER_PLUSIEURS_ACTIVITE_GESTIONNAIRE = "ajouterplsactivitegestionnaire";
 	public static final String AJOUTER_NEWS_GESTIONNAIRE = "AJOUTER_NEWS_GESTIONNAIRE";
 	public static final String REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE = "refreshrechercheactivitegestionnaire";
 	public static final String REFRESH_RECHERCHE_NEWS_GESTIONNAIRE = "REFRESH_RECHERCHE_NEWS_GESTIONNAIRE";
-	
-	
-	
+
 	public static final String MODIFIER_SITE_GESTIONNAIRE = "modifierSiteGetionnaire";
 	public static final String DECONNEXION_GESTIONNAIRE = "deconnexionGetionnaire";
 	public static final String SUPPRIMER_PHOTO_GESTIONNAIRE = "supprimerPhotoGestionnaire";
@@ -91,9 +91,6 @@ public class FrontalGestionnaire extends HttpServlet {
 	public static final String REDIRECTION_PROPOSER_NEW_GESTIONNAIRE = "REDIRECTION_PROPOSER_NEW_GESTIONNAIRE";
 	public static final String REDIRECTION_NEWS_GESTIONNAIRE = "REDIRECTION_NEWS_GESTIONNAIRE";
 
-	
-	
-	
 	public static final String ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
 			+ REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE;
 
@@ -102,7 +99,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			.getLogger(FrontalGestionnaire.class);
 	public static final String ACTION_REDIRECTION_RECHERCHE_ACTIVITE_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
 			+ REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE;
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -150,11 +147,11 @@ public class FrontalGestionnaire extends HttpServlet {
 				response.sendRedirect("gestionnaire/proposerNew.jsp");
 
 				break;
-				
+
 			case REDIRECTION_NEWS_GESTIONNAIRE:
 
-				redirectionNewsGestionnaire(profil,response,request);
-			
+				redirectionNewsGestionnaire(profil, response, request);
+
 				break;
 
 			case REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE:
@@ -163,11 +160,10 @@ public class FrontalGestionnaire extends HttpServlet {
 						request);
 
 				break;
-				
+
 			case REDIRECTION_MODIFIER_NEWS_GESTIONNAIRE:
 
-				redirectionModifierNewsGestionnaire(profil, response,
-						request);
+				redirectionModifierNewsGestionnaire(profil, response, request);
 
 				break;
 
@@ -186,6 +182,12 @@ public class FrontalGestionnaire extends HttpServlet {
 			case MODIFIER_ACTIVITE_GESTIONNAIRE:
 
 				modifierActiviteGestionnaire(profil, response, request);
+
+				break;
+
+			case MODIFIER_NEWS_GESTIONNAIRE:
+
+				modifierNewsGestionnaire(profil, response, request);
 
 				break;
 
@@ -277,7 +279,7 @@ public class FrontalGestionnaire extends HttpServlet {
 				refreshRechercheActiviteGestionnaire(profil, response, request);
 
 				break;
-				
+
 			case REFRESH_RECHERCHE_NEWS_GESTIONNAIRE:
 
 				refreshRechercheNewsGestionnaire(profil, response, request);
@@ -313,7 +315,7 @@ public class FrontalGestionnaire extends HttpServlet {
 				effaceActiviteGestionnaire(profil, response, request);
 
 				break;
-				
+
 			case EFFACE_NEWS_GESTIONNAIRE:
 
 				effaceNewsGestionnaire(profil, response, request);
@@ -331,43 +333,104 @@ public class FrontalGestionnaire extends HttpServlet {
 			}
 		} catch (Exception e) {
 
-			
 			LOG.error(e.getMessage());
 		}
 	}
 
+	private void modifierNewsGestionnaire(Profil profil,
+			HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+
+		MessageAction modifierNewsGestionnaire = modifierNewsGestionnaire(
+				request, profil);
+
+		if (modifierNewsGestionnaire.isOk()) {
+			response.setContentType("text/plain");
+			response.getWriter().write("ok");
+
+		} else {
+
+			response.setContentType("text/plain");
+			response.getWriter().write(modifierNewsGestionnaire.getMessage());
+		}
+	}
+
+	private MessageAction modifierNewsGestionnaire(HttpServletRequest request,
+			Profil profil) {
+		String titre = request.getParameter("titre");
+		String message = request.getParameter("message");
+
+		titre = titre.trim();
+		message = message.trim();
+
+		int idNew = 0;
+
+		try {
+			idNew = Integer.parseInt(request.getParameter("idNew"));
+
+		}
+
+		catch (Exception e) {
+			LOG.error(ExceptionUtils.getStackTrace(e));
+
+			return new MessageAction(false, e.getMessage());
+
+		}
+
+		MessageAction vpModifieNew = vpModifieNew(titre, message);
+
+		if (!vpModifieNew.isOk())
+			return new MessageAction(false, vpModifieNew.getMessage());
+
+		MessageAction modifieNewDAO = NewDAO.modifie(titre, message, idNew);
+
+		if (modifieNewDAO.isOk())
+			return new MessageAction(true, "");
+
+		return new MessageAction(false, modifieNewDAO.getMessage());
+
+	}
+
+	private MessageAction vpModifieNew(String titre, String message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private void redirectionModifierNewsGestionnaire(Profil profil,
-			HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
-	
+			HttpServletResponse response, HttpServletRequest request)
+			throws ServletException, IOException {
+
 		New news = getNew(request, profil);
 
 		request.setAttribute("news", news);
-		request.getRequestDispatcher("gestionnaire/modifierNew.jsp")
-				.forward(request, response);
-		
+		request.getRequestDispatcher("gestionnaire/modifierNew.jsp").forward(
+				request, response);
+
 	}
 
 	private void effaceNewsGestionnaire(Profil profil,
-			HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
+			HttpServletResponse response, HttpServletRequest request)
+			throws IOException, ServletException {
 
-		MessageAction effaceNewGestionnaire = effaceNewsGestionnaire(request, profil);
+		MessageAction effaceNewGestionnaire = effaceNewsGestionnaire(request,
+				profil);
 
 		if (effaceNewGestionnaire.isOk()) {
 
 			int page = 0;
 			PagerNew pager = new PagerNew(profil.getFiltre(), page);
 			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("gestionnaire/mesNews.jsp")
-					.forward(request, response);
+			request.getRequestDispatcher("gestionnaire/mesNews.jsp").forward(
+					request, response);
 
 		} else {
 
-		}	
+		}
 	}
 
 	private MessageAction effaceNewsGestionnaire(HttpServletRequest request,
 			Profil profil) {
-		
+
 		int idNews = 0;
 
 		try {
@@ -404,17 +467,19 @@ public class FrontalGestionnaire extends HttpServlet {
 	}
 
 	private void redirectionNewsGestionnaire(Profil profil,
-			HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+			HttpServletResponse response, HttpServletRequest request)
+			throws ServletException, IOException {
 		int page = 0;
 		PagerNew pager = new PagerNew(profil.getFiltre(), page);
 		request.setAttribute("pager", pager);
-		request.getRequestDispatcher("gestionnaire/mesNews.jsp")
-				.forward(request, response);
+		request.getRequestDispatcher("gestionnaire/mesNews.jsp").forward(
+				request, response);
 	}
 
 	private void refreshRechercheNewsGestionnaire(Profil profil,
-			HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
-	
+			HttpServletResponse response, HttpServletRequest request)
+			throws ServletException, IOException {
+
 		MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
 				request, profil);
 
@@ -425,13 +490,12 @@ public class FrontalGestionnaire extends HttpServlet {
 			if (request.getParameter("page") != null)
 				pageEncours = Integer.parseInt(request.getParameter("page"));
 
-			PagerNew pager = new PagerNew(profil.getFiltre(),
-					pageEncours);
+			PagerNew pager = new PagerNew(profil.getFiltre(), pageEncours);
 			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("gestionnaire/mesNews.jsp")
-					.forward(request, response);
+			request.getRequestDispatcher("gestionnaire/mesNews.jsp").forward(
+					request, response);
 
-		}	
+		}
 	}
 
 	private void chargePhotoSiteGestionnaire(Profil profil,
@@ -537,7 +601,8 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		if (vpAjouteNewGestionnaire.isOk()) {// Verification des parametres
 
-			MessageAction ajouteNewDAO = NewDAO.ajoute(titre, message,profil.getIdSite());
+			MessageAction ajouteNewDAO = NewDAO.ajoute(titre, message,
+					profil.getIdSite());
 
 			if (ajouteNewDAO.isOk()) {// Si l'activité ajouté
 
@@ -1363,7 +1428,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		return retour;
 	}
-	
+
 	private New getNew(HttpServletRequest request, Profil profil) {
 
 		New retour = null;

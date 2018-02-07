@@ -694,8 +694,7 @@ public class ActiviteDAO {
 			String commentaire, Date datedebut, Date datefin,
 			int idtypeactivite, int idactivite) {
 
-		long debut = System.currentTimeMillis();
-
+	
 		PreparedStatement preparedStatement = null;
 		Connection connexion = null;
 		try {

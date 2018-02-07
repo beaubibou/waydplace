@@ -81,7 +81,7 @@
 
 							<div class="btn-group">
 								<label class="btn btnwayd btn-file btn-primary btn-sm">
-									.. <input name="file" size="50" type="file"
+									.. <input name="file" size="50" type="file" id="file"
 									style="display: none;">
 								</label> <input type="submit" value="Envoyer la photo"
 									class="btn btnwayd btn-sm  " /> <a
@@ -103,7 +103,7 @@
 					<div style="border-top: 1px solid #888;">
 
 						<form action="/waydplace/Frontal" method="post"
-						id='formulaire'	onsubmit="return valideFormulaire()">
+						id='formulaire'	onsubmit="return valideFichier()">
 
 							<input name="action" type="hidden"
 								value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>> <br>
@@ -196,8 +196,7 @@
 			
 	function valideFichier(){
 		
-		var monfichier;
-		monfichier=latitude = document.getElementById("file").value;
+		monfichier= document.getElementById("file").value;
 		
 	if (monfichier==''){
 		BootstrapDialog
