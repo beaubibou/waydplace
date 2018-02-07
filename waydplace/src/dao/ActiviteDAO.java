@@ -719,14 +719,16 @@ public class ActiviteDAO {
 
 		} catch (NamingException | SQLException e) {
 
+			
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			CxoPool.rollBack(connexion);
+			return new MessageAction(false,e.getMessage());
 
 		} finally {
 
 			CxoPool.close(connexion, preparedStatement);
 		}
-		return new MessageAction(false, "");
+	
 
 	}
 

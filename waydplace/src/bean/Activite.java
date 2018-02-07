@@ -372,7 +372,15 @@ public class Activite {
 	public String getLibelle() {
 		return libelle;
 	}
+	
+	public String getLibelleEllipsis() {
+		return libelle;
+	
 
+	}
+
+	
+	
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}

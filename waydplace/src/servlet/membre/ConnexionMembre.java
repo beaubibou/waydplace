@@ -33,6 +33,7 @@ import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
 
 import dao.MembreDAO;
+import dao.NewDAO;
 import dao.SiteDAO;
 import parametre.ActionPage;
 import parametre.MessageText;
@@ -48,7 +49,7 @@ import bean.Site;
  */
 public class ConnexionMembre extends HttpServlet {
 	public static final String CONNEXION_SITE_MEMBRE_TEST = "connexionSiteTest";
-	public static final String CONNEXION_SITE_MEMBRE="connexionsitemembre";
+	public static final String CONNEXION_SITE_MEMBRE = "connexionsitemembre";
 	public static final String CREER_COMPTE_PRO = "creerComptePro";
 	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
 	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
@@ -57,19 +58,19 @@ public class ConnexionMembre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(ConnexionMembre.class);
 	public static FirebaseOptions optionFireBase;
-	public static final  String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
-	public static final  String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
-	public static final  String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
+	public static final String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
+	public static final String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
+	public static final String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
 	private static final String PAGE_CREATION_COMPTE_SITE = "compte/CreationComptePro.jsp";
 	private static final String PAGE_CREATION_COMPTE_MEMBRE = "compte/CreationCompteMembre.jsp";
-	
-	
-	public static final String ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE ="/waydplace/ConnexionMembre?action="+REDIRECTION_CREATION_COMPTE_MEMBRE;
-	public static final String ACTION_REDIRECTION_CREATION_COMPTE_PRO ="/waydplace/ConnexionMembre?action="+REDIRECTION_CREATION_COMPTE_PRO;
-	public static final String ACTION_REDIRECTION_CREATION_MDP_OUBLIE ="/waydplace/compte/motdepasseoublie.jsp";
 
-	
-	private static final String CLE_CAPTCHA="6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
+	public static final String ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE = "/waydplace/ConnexionMembre?action="
+			+ REDIRECTION_CREATION_COMPTE_MEMBRE;
+	public static final String ACTION_REDIRECTION_CREATION_COMPTE_PRO = "/waydplace/ConnexionMembre?action="
+			+ REDIRECTION_CREATION_COMPTE_PRO;
+	public static final String ACTION_REDIRECTION_CREATION_MDP_OUBLIE = "/waydplace/compte/motdepasseoublie.jsp";
+
+	private static final String CLE_CAPTCHA = "6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
 	static {
 		boolean chargement = false;
@@ -94,7 +95,6 @@ public class ConnexionMembre extends HttpServlet {
 				}
 			} catch (IOException e) {
 
-				
 				LOG.error(ExceptionUtils.getStackTrace(e));
 			}
 		}
@@ -118,7 +118,6 @@ public class ConnexionMembre extends HttpServlet {
 				}
 			} catch (IOException e) {
 
-			
 				LOG.error(ExceptionUtils.getStackTrace(e));
 			}
 		}
@@ -142,7 +141,6 @@ public class ConnexionMembre extends HttpServlet {
 				}
 			} catch (IOException e) {
 
-				
 				LOG.error(ExceptionUtils.getStackTrace(e));
 			}
 		}
@@ -153,7 +151,6 @@ public class ConnexionMembre extends HttpServlet {
 		}
 	}
 
-	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -193,154 +190,194 @@ public class ConnexionMembre extends HttpServlet {
 		LOG.info(action);
 		if (action == null || action.isEmpty())
 			return;
-		
-		String tokenFireBase;
-		String jetonSite;
-		
-		switch (action) {
-		
-		case ActionPage.CONNEXION_SITE_ADMIN:
+
+		try {
+
+			switch (action) {
+
+			case ActionPage.CONNEXION_SITE_ADMIN:
+
+				connexionSiteAdmin(request,response);
 			
-			 tokenFireBase = request.getParameter("token");
-			
-				
-			 MessageAction connexionSiteGestionnaire = connexionSiteGestionnaire(tokenFireBase,	request, response);
-		
-			 if (connexionSiteGestionnaire.isOk()){
-				 
-				 response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
-			 }else{
-				 
-				System.out.println(connexionSiteGestionnaire.getMessage());
-		
-			 }
-			break;
-		
-			
-		case CONNEXION_SITE_MEMBRE:
+				break;
 
-			 tokenFireBase = request.getParameter("token");
-			 jetonSite = request.getParameter("jetonSite");
-				 
-			 MessageAction connexionSiteMembre = connexionSiteMembre(tokenFireBase, jetonSite,
-					request, response);
+			case CONNEXION_SITE_MEMBRE:
 
-			if (connexionSiteMembre.isOk()) {
-
-				Profil profil = (Profil) connexionSiteMembre.getReponseObject();
-
-				switch (profil.getTypeOrganisteur()) {
-
-				case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-					response.sendRedirect("membre/ecranPrincipal.jsp");
-					break;
-
-				case Parametres.TYPE_ORGANISATEUR_SITE:
-					response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
-
-					break;
-
-				case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-					response.sendRedirect("membre/ecranPrincipal.jsp");
-					break;
-
-				default:
-					response.sendRedirect("erreur");
-					break;
-				}
-			} else {
-				LOG.error(connexionSiteMembre.getMessage());
-				response.sendRedirect("erreur");
-			}
-
-			break;
-		case CONNEXION_SITE_MEMBRE_TEST:
-
-			 tokenFireBase = request.getParameter("tokenFireBase");
-			 jetonSite = request.getParameter("jetonSite");
-			MessageAction connexionSiteMembreTest = connexionSiteMembreTest(tokenFireBase, jetonSite,
-					request, response);
-
-			if (connexionSiteMembreTest.isOk()) {
-
-				Profil profil = (Profil) connexionSiteMembreTest.getReponseObject();
-
-				switch (profil.getTypeOrganisteur()) {
-
-				case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-					response.sendRedirect("membre/ecranPrincipal.jsp");
-					break;
-
-				case Parametres.TYPE_ORGANISATEUR_SITE:
-					response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
-
-					break;
-
-				case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-					response.sendRedirect("membre/ecranPrincipal.jsp");
-					break;
-
-				default:
-					response.sendRedirect("erreur");
-					break;
-				}
-			} else {
-				System.out.println(connexionSiteMembreTest.getMessage());
-				response.sendRedirect("erreur");
-			}
-
-			break;
-
-		case REDIRECTION_CREATION_COMPTE_PRO:
-			response.sendRedirect(PAGE_CREATION_COMPTE_SITE);
-			break;
-		case REDIRECTION_CREATION_COMPTE_MEMBRE:
-			response.sendRedirect(PAGE_CREATION_COMPTE_MEMBRE);
-			break;
-		case REDIRECTION_LOGIN_PRO:
-			response.sendRedirect("compte/loginPro.jsp");
-			break;
-	
-		case CREER_COMPTE_PRO:
-
-			MessageAction creerComptePro = creerComptePro(request);
-
-			if (creerComptePro.isOk()) {
-				response.sendRedirect("index.jsp");
-			
-			} else {
-
-				request.setAttribute("messageAlert", creerComptePro.getMessage());
-				request.getRequestDispatcher("compte/CreationComptePro.jsp")
-				.forward(request, response);
-				
-				
-			}
-
-			break;
-		
-
-		case CREER_COMPTE_MEMBRE:
-
-				MessageAction creerCompteMembre = creerCompteMembre(request);
-
-				if (creerCompteMembre.isOk()) {
-					//response.sendRedirect("index.jsp");
-				request.getRequestDispatcher("compte/sendEmail.jsp").forward(request,
-							response);
-				} 
-				else 
-				{
-				request.setAttribute("messageAlert", creerCompteMembre.getMessage());
-				request.getRequestDispatcher("compte/CreationCompteMembre.jsp")
-				.forward(request, response);
-				
-				}
+				connexionSiteMembre(request, response);
 
 				break;
-			}
+			case CONNEXION_SITE_MEMBRE_TEST:
 
+				connexioSiteMembreTest(request, response);
+
+				break;
+
+			case REDIRECTION_CREATION_COMPTE_PRO:
+
+				response.sendRedirect(PAGE_CREATION_COMPTE_SITE);
+
+				break;
+
+			case REDIRECTION_CREATION_COMPTE_MEMBRE:
+
+				response.sendRedirect(PAGE_CREATION_COMPTE_MEMBRE);
+
+				break;
+
+			case REDIRECTION_LOGIN_PRO:
+
+				response.sendRedirect("compte/loginPro.jsp");
+
+				break;
+
+			case CREER_COMPTE_PRO:
+
+				creerComptePro(request, response);
+
+				break;
+
+			case CREER_COMPTE_MEMBRE:
+
+				creerCompteMembre(request, response);
+
+				break;
+		
+			default:
+			}
+		} catch (Exception e) {
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+
+		}
+
+	}
+
+	private void connexionSiteAdmin(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 	
+		String	tokenFireBase = request.getParameter("token");
+
+		MessageAction connexionSiteGestionnaire = connexionSiteGestionnaire(
+				tokenFireBase, request, response);
+
+		if (connexionSiteGestionnaire.isOk()) {
+
+			response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+		} else {
+
+			System.out.println(connexionSiteGestionnaire.getMessage());
+
+		}
+		
+	}
+
+	private void connexionSiteMembre(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		String tokenFireBase = request.getParameter("token");
+		String jetonSite = request.getParameter("jetonSite");
+
+		MessageAction connexionSiteMembre = connexionSiteMembre(tokenFireBase,
+				jetonSite, request, response);
+
+		if (connexionSiteMembre.isOk()) {
+
+			Profil profil = (Profil) connexionSiteMembre.getReponseObject();
+
+			switch (profil.getTypeOrganisteur()) {
+
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				response.sendRedirect("membre/ecranPrincipal.jsp");
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+				response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+				response.sendRedirect("membre/ecranPrincipal.jsp");
+				break;
+
+			default:
+				response.sendRedirect("erreur");
+				break;
+			}
+		} else {
+			LOG.error(connexionSiteMembre.getMessage());
+			response.sendRedirect("erreur");
+		}
+	}
+
+	private void connexioSiteMembreTest(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		String tokenFireBase = request.getParameter("tokenFireBase");
+		String jetonSite = request.getParameter("jetonSite");
+		MessageAction connexionSiteMembreTest = connexionSiteMembreTest(
+				tokenFireBase, jetonSite, request, response);
+
+		if (connexionSiteMembreTest.isOk()) {
+
+			Profil profil = (Profil) connexionSiteMembreTest.getReponseObject();
+
+			switch (profil.getTypeOrganisteur()) {
+
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				response.sendRedirect("membre/ecranPrincipal.jsp");
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+				response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+				response.sendRedirect("membre/ecranPrincipal.jsp");
+				break;
+
+			default:
+				response.sendRedirect("erreur");
+				break;
+			}
+		} else {
+
+			System.out.println(connexionSiteMembreTest.getMessage());
+			response.sendRedirect("erreur");
+		}
+
+	}
+
+	private void creerCompteMembre(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		MessageAction creerCompteMembre = creerCompteMembre(request);
+
+		if (creerCompteMembre.isOk()) {
+			request.getRequestDispatcher("compte/sendEmail.jsp").forward(
+					request, response);
+		} else {
+			request.setAttribute("messageAlert", creerCompteMembre.getMessage());
+			request.getRequestDispatcher("compte/CreationCompteMembre.jsp")
+					.forward(request, response);
+
+		}
+	}
+
+	private void creerComptePro(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+
+		MessageAction creerComptePro = creerComptePro(request);
+
+		if (creerComptePro.isOk()) {
+			response.sendRedirect("index.jsp");
+
+		} else {
+
+			request.setAttribute("messageAlert", creerComptePro.getMessage());
+			request.getRequestDispatcher("compte/CreationComptePro.jsp")
+					.forward(request, response);
+
+		}
 	}
 
 	private MessageAction creerCompteMembre(HttpServletRequest request) {
@@ -350,87 +387,106 @@ public class ConnexionMembre extends HttpServlet {
 		String pseudo = request.getParameter("nom");
 		String reponseCaptcha = request.getParameter("g-recaptcha-response");
 
-		MessageAction iscaptcha=isCaptcha(reponseCaptcha);
-		
-		if (!iscaptcha.isOk()) {
-		return new MessageAction(false, iscaptcha.getMessage());
-	
-		}
+		email = email.trim();
+		pseudo = pseudo.trim();
 
-		
+		MessageAction vpCreerCompteMembre = vpCreerCompteMembre(pwd, pwd1,
+				email, pseudo);
+
+		if (!vpCreerCompteMembre.isOk())
+			return new MessageAction(false, vpCreerCompteMembre.getMessage());
+
+		MessageAction iscaptcha = isCaptcha(reponseCaptcha);
+
+		if (!iscaptcha.isOk()) {
+			return new MessageAction(false, iscaptcha.getMessage());
+
+		}
 
 		MessageAction creerUserFireBase = creerUtilisateurFireBase(email, pwd,
 				pseudo);
 
 		if (creerUserFireBase.isOk()) {
 
-				return new MessageAction(true, "");
+			return new MessageAction(true, "");
+		} else {
+
+			return new MessageAction(false, creerUserFireBase.getMessage());
 		}
-		else{
-		
-		return new MessageAction(false, creerUserFireBase.getMessage());}
-		
+
+	}
+
+	private MessageAction vpCreerCompteMembre(String pwd, String pwd1,
+			String email, String pseudo) {
+
+		if (pseudo.length() < 3)
+			return new MessageAction(false, "Pseudo trop court");
+
+		return new MessageAction(true, "");
+
 	}
 
 	private MessageAction connexionSiteGestionnaire(String tokenFireBase,
-			 HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) {
 		final HttpSession session = request.getSession();
 
-		Membre membre=null;
+		Membre membre = null;
 		Profil profil = null;
-		
+
 		try {
 			if (FirebaseApp.getApps().isEmpty())
 				FirebaseApp.initializeApp(optionFireBase);
-			
+
 			FirebaseToken token = FirebaseAuth.getInstance()
 					.verifyIdTokenAsync(tokenFireBase).get();
 			String uid = token.getUid();
 			membre = MembreDAO.getMembreByUID(uid);
-			
 
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+
 			return new MessageAction(false, e.getMessage());
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+
 			return new MessageAction(false, e.getMessage());
 		}
-		
-		if (membre==null)
+
+		if (membre == null)
 			return new MessageAction(false, "Vous n'êtes pas dans la base");
 
-		int idSite=membre.getId_site();
-		
+		int idSite = membre.getId_site();
+
 		Site site = SiteDAO.getSiteById(idSite);
 
 		if (site == null)
-			return new MessageAction(false, "Le site n°"+idSite+" n existe pas");
-		
-		
-		if (membre != null && site != null) {
+			return new MessageAction(false, "Le site n°" + idSite
+					+ " n existe pas");
+
+		if (membre != null) {
 			profil = new Profil(site, membre);
 			session.setAttribute("profil", profil);
 			return new MessageAction(true, "", profil);
 		}
 
 		return new MessageAction(false, "Erreur inconnue");
-		
-		
+
 	}
 
-	private MessageAction connexionSiteMembreTest(String tokenFireBase, String jetonSite,
-			HttpServletRequest request, HttpServletResponse response) {
+	private MessageAction connexionSiteMembreTest(String tokenFireBase,
+			String jetonSite, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		final HttpSession session = request.getSession();
 
+		LOG.info(jetonSite);
 		Site site = SiteDAO.getSiteByJeton(jetonSite);
 
 		if (site == null)
-			return new MessageAction(false,"le jeton:"+jetonSite+"-"+  MessageText.JETON_SITE_INVALIDE);
+			return new MessageAction(false, "le jeton:" + jetonSite + "-"
+					+ MessageText.JETON_SITE_INVALIDE);
 
 		Membre membre;
 		if (tokenFireBase.equals("anonyme")) {
@@ -443,71 +499,31 @@ public class ConnexionMembre extends HttpServlet {
 
 			membre = MembreDAO.getMembreByUID(tokenFireBase);
 		}
-		
-		Profil profil = null;
 
-		if (membre != null && site != null) {
+		Profil profil;
+
+		if (membre != null) {
+
 			profil = new Profil(site, membre);
+			MembreDAO.updateSite(site.getId(), profil.getUID());
 			session.setAttribute("profil", profil);
-
+			NewDAO.ajouteCompteurNew(profil.getUID(), site.getId());
 			return new MessageAction(true, "", profil);
-		}
-
-		try {
-
-			FirebaseToken token = FirebaseAuth.getInstance()
-					.verifyIdTokenAsync(tokenFireBase).get();
-			String uid = token.getUid();
-			String mail = token.getEmail();
-			String pseudo = token.getName();
-			String photo = null;
-
-			membre = MembreDAO.getMembreByUID(uid);
-
-			if (membre == null) {
-
-				MessageAction ajouteMembre = MembreDAO.ajouteMembre(uid,
-						pseudo, mail, photo, site.getId(),Parametres.TYPE_ORGANISATEUR_MEMBRE);
-				if (ajouteMembre.isOk()) {
-
-					membre = MembreDAO.getMembreByUID(uid);
-				} else {
-
-					return ajouteMembre;
-				}
-			}
-
-			MembreDAO.updateSite(site.getId(), uid);
-
-			if (membre != null && site != null) {
-				profil = new Profil(site, membre);
-				session.setAttribute("profil", profil);
-				return new MessageAction(true, "");
-			}
-
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new MessageAction(false, e.getMessage());
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new MessageAction(false, e.getMessage());
 		}
 
 		return new MessageAction(false, "Erreur_inconnue");
 
 	}
 
-	private MessageAction connexionSiteMembre(String tokenFireBase, String jetonSite,
-			HttpServletRequest request, HttpServletResponse response) {
+	private MessageAction connexionSiteMembre(String tokenFireBase,
+			String jetonSite, HttpServletRequest request,
+			HttpServletResponse response) {
 
-			
-		
 		final HttpSession session = request.getSession();
+
 		Profil profil = null;
-		
-		if (jetonSite==null || jetonSite.isEmpty())
+
+		if (jetonSite == null || jetonSite.isEmpty())
 			return new MessageAction(false, MessageText.JETON_SITE_INVALIDE);
 
 		Site site = SiteDAO.getSiteByJeton(jetonSite);
@@ -516,33 +532,31 @@ public class ConnexionMembre extends HttpServlet {
 			return new MessageAction(false, MessageText.JETON_SITE_INVALIDE);
 
 		Membre membre;
-		
-		// *********************** GESTION ANONYME *********************************
+
+		// *********************** GESTION ANONYME
+		// *********************************
 		if (tokenFireBase.equals("anonyme")) {
 
 			membre = new Membre(0, "Visiteur", null, null, "Visiteur", null,
 					site.getId(), null, "Visiteur",
 					Parametres.TYPE_ORGANISATEUR_VISITEUR, 3);
 
-			if (membre != null && site != null) {
-				profil = new Profil(site, membre);
-				session.setAttribute("profil", profil);
-				return new MessageAction(true, "", profil);
-			}
-		
-		} 
-		
-		//**********************************************************
-		
-		
+			profil = new Profil(site, membre);
+			session.setAttribute("profil", profil);
+			return new MessageAction(true, "", profil);
 
-		//**************************** GESTION FIREBASE **************************
+		}
+
+		// **********************************************************
+
+		// **************************** GESTION FIREBASE
+		// **************************
 
 		try {
 
 			if (FirebaseApp.getApps().isEmpty())
 				FirebaseApp.initializeApp(optionFireBase);
-			
+
 			FirebaseToken token = FirebaseAuth.getInstance()
 					.verifyIdTokenAsync(tokenFireBase).get();
 			String uid = token.getUid();
@@ -552,57 +566,57 @@ public class ConnexionMembre extends HttpServlet {
 
 			membre = MembreDAO.getMembreByUID(uid);
 
-			//************** Si il n'existe pas *********************************
+			// ************** Si il n'existe pas
+			// *********************************
 			if (membre == null) {
 
 				MessageAction ajouteMembre = MembreDAO.ajouteMembre(uid,
-						pseudo, mail, photo, site.getId(),Parametres.TYPE_ORGANISATEUR_MEMBRE);
-				
+						pseudo, mail, photo, site.getId(),
+						Parametres.TYPE_ORGANISATEUR_MEMBRE);
+
 				if (ajouteMembre.isOk()) {
 
 					membre = MembreDAO.getMembreByUID(uid);
-			
+
 				} else {
 
 					return ajouteMembre;
 				}
 			}
-			
-			//********************* CAS d'un gestionnaire *********************************
-			
-			if (membre.getId_ref_type_organisateur()==Parametres.TYPE_ORGANISATEUR_SITE){
-				
-					if (membre.getId_site()!=site.getId()){
-						return new MessageAction(false, "Vous n êtes pas reconnu avec ce code site");
-					}
-					profil = new Profil(site, membre);
-					session.setAttribute("profil", profil);
-					return new MessageAction(true, "",profil);
-				}
-				
-				
-				
-			
-			MembreDAO.updateSite(site.getId(), uid);
 
-			if (membre != null && site != null) {
+			// ********************* CAS d'un gestionnaire
+			// *********************************
+
+			if (membre.getId_ref_type_organisateur() == Parametres.TYPE_ORGANISATEUR_SITE) {
+
+				if (membre.getId_site() != site.getId()) {
+					return new MessageAction(false,
+							"Vous n êtes pas reconnu avec ce code site");
+				}
 				profil = new Profil(site, membre);
 				session.setAttribute("profil", profil);
-				return new MessageAction(true, "",profil);
-			
+				return new MessageAction(true, "", profil);
 			}
 
+			// ********************* CAS d'un membre
+			// *********************************
+
+			MembreDAO.updateSite(site.getId(), uid);
+			profil = new Profil(site, membre);
+			session.setAttribute("profil", profil);
+			NewDAO.ajouteCompteurNew(profil.getUID(), site.getId());
+			return new MessageAction(true, "", profil);
+
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
+
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 		}
-
-		return new MessageAction(false, "Erreur_inconnue");
 
 	}
 
@@ -621,13 +635,12 @@ public class ConnexionMembre extends HttpServlet {
 
 		String reponseCaptcha = request.getParameter("g-recaptcha-response");
 
-		MessageAction iscaptcha=isCaptcha(reponseCaptcha);
-		
+		MessageAction iscaptcha = isCaptcha(reponseCaptcha);
+
 		if (!iscaptcha.isOk()) {
-				return new MessageAction(false, iscaptcha.getMessage());
+			return new MessageAction(false, iscaptcha.getMessage());
 		}
-		
-		
+
 		MessageAction creerUserFireBase = creerUtilisateurFireBase(email, pwd,
 				pseudoGestionnaire);
 
@@ -638,7 +651,7 @@ public class ConnexionMembre extends HttpServlet {
 			MessageAction ajouteSiteDAO = SiteDAO.ajouteComtePro(uidCree,
 					email, pseudoGestionnaire, nomSite, telephone, adresse,
 					siteweb, description);
-			
+
 			if (ajouteSiteDAO.isOk())
 				return new MessageAction(true, "");
 			else
@@ -667,7 +680,6 @@ public class ConnexionMembre extends HttpServlet {
 			return new MessageAction(true, userRecord.getUid());
 
 		} catch (InterruptedException | ExecutionException e) {
-			// TODO Auto-generated catch block
 
 			String s = ExceptionUtils.getStackTrace(e);
 			String erreur = "Erreur inconnue";
@@ -681,7 +693,7 @@ public class ConnexionMembre extends HttpServlet {
 		}
 
 	}
-	
+
 	private MessageAction isCaptcha(String reponseCaptcha) {
 
 		String url = "https://www.google.com/recaptcha/api/siteverify";
@@ -693,7 +705,7 @@ public class ConnexionMembre extends HttpServlet {
 
 		List<BasicNameValuePair> urlParameters = new ArrayList<BasicNameValuePair>();
 
-		urlParameters.add(new BasicNameValuePair("secret",CLE_CAPTCHA));
+		urlParameters.add(new BasicNameValuePair("secret", CLE_CAPTCHA));
 		urlParameters.add(new BasicNameValuePair("response", reponseCaptcha));
 
 		try {
@@ -716,18 +728,14 @@ public class ConnexionMembre extends HttpServlet {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
-			return new MessageAction(false,ExceptionUtils.getStackTrace(e));
-	
-		
+			return new MessageAction(false, ExceptionUtils.getStackTrace(e));
+
 		}
 
-		
-		 return new MessageAction(false,"Cochez je ne suis pas un robot");
+		return new MessageAction(false, "Cochez je ne suis pas un robot");
 
 	}
-	
 
 }

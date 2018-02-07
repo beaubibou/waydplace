@@ -1,4 +1,5 @@
 
+<%@page import="text.pageweb.ModifierNewText"%>
 <%@page import="bean.New"%>
 <%@page import="text.pageweb.ProposerNewText"%>
 <%@page import="parametre.ActionPage"%>
@@ -58,7 +59,8 @@
 	
 	New news=(New) request.getAttribute("news");
 	
-	
+
+
 	
 	%>
 
@@ -72,10 +74,10 @@
 				<div class="panel-heading panel-heading-custom">
 					<div class="panel-title">
 						<a
-							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
+							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_NEWS_GESTIONNAIRE%>'
 							class='btn btnwayd btn-sm'> <span
-							class="glyphicon glyphicon-home"></span></a>
-						<%=ProposerNewText.TITRE_PANEL%></div>
+							class="glyphicon glyphicon-arrow-left"></span></a>
+						<%=ModifierNewText.TITRE_PANEL%></div>
 				</div>
 
 				<div style="padding-top: 3" 0px" class="panel-body">
@@ -126,7 +128,7 @@
 
 
 					</form>
-					<button onclick="modifieNew()" class="btnwayd btn-lg">Proposer</button>
+					<button onclick="modifieNew()" class="btnwayd btn-lg">Modifier</button>
 
 
 				</div>
@@ -151,11 +153,11 @@
 					{
 						BootstrapDialog.show({
 				            title: 'Confirmation',
-				            message: 'Votre activité a été modfiée',
+				            message: 'Votre news a été modfiée',
 				            buttons: [{
 				                label: 'Ok',
 				                action: function(dialog) {
-				                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
+				                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_NEWS_GESTIONNAIRE%>'
 				                  //  dialog.setMessage('Message 1');
 				                }
 				            

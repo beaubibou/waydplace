@@ -27,13 +27,13 @@ public class PagerNew {
 	private boolean hasPrevious = false;
 	private FiltreRecherche filtre;
 
-	public PagerNew(FiltreRecherche filtre, int pageEnCours) {
+	public PagerNew(FiltreRecherche filtre, int pageEnCours,Profil profil) {
 
 		this.pageEnCours = pageEnCours;
 		this.filtre = filtre;
 
 		// On recherhce les maxresult+1 si on
-		listNew = NewDAO.getListNotification(filtre, pageEnCours,maxResult);
+		listNew = NewDAO.getListNotification(filtre, pageEnCours,maxResult,profil.getIdSite());
 
 		if (listNew.size() == maxResult) {
 			hasNext = true;

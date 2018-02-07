@@ -66,13 +66,13 @@
 				<div class="panel-heading panel-heading-custom">
 					<div class="panel-title">
 						<a
-							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
+							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_NEWS_GESTIONNAIRE%>'
 							class='btn btnwayd btn-sm'> <span
-							class="glyphicon glyphicon-home"></span></a>
+							class="glyphicon glyphicon-arrow-left"></span></a>
 						<%=ProposerNewText.TITRE_PANEL%></div>
 				</div>
 
-				<div style="padding-top: 3" 0px" class="panel-body">
+				<div style="padding-top: 3" class="panel-body">
 
 
 					<form action="/waydplace/FrontalGestionnaire"

@@ -30,6 +30,19 @@ public class Outils {
 
 	}
 	
+	public static String ellipsis(String chaine,int taille){
+		
+		if (chaine==null)
+			return "";
+		
+		if (chaine.length()<=taille)
+			return chaine;
+		
+		StringBuilder retourStr=new StringBuilder(chaine);
+		
+		return retourStr.substring(0, taille)+"...";
+		
+	}
 	public static String getUrlPhoto(String photo) {
 
 		if (photo == null)

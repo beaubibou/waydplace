@@ -102,11 +102,19 @@ private String getURLPhoto() {
 	"<h2 style='margin-top: 0px'>"+nom +"</h2></div>";
 		
 	}
-	public String getDetailSiteHtml(){
+	public String getTotalDetailSiteHtml(){
 		
 		return 	"<div class='clearfix'><img src='"+getURLPhoto()+"' class='pull-left marge-droite img-thumbnail' width='200'	height='200'>"+
-	"<h2 style='margin-top: 0px'>"+nom +"</h2></div>";
+	"<h2 style='margin-top: 0px'>"+nom +"</h2>"+
+	"<h5 style='margin-top: 0px'>"+adresse +"</h5>"+
+	"<h5 style='margin-top: 0px'>Tel:"+getTelephoneHtm() +"</h5>"
+			+ "</div>";
 		
+	}
+	private String getTelephoneHtm() {
+	if (telephone==null)
+		return "Non communiqué";
+	return telephone;
 	}
 	
 }

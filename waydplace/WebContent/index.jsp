@@ -68,7 +68,7 @@
 <body>
 
 	<div class="container">
-		<h2>Stacked form</h2>
+
 		<form id="formmasque" action="/waydplace/ConnexionMembre"
 			method="post">
 
@@ -89,7 +89,6 @@
 			id="btn_googl" onclick="signInTestMembre2()" class="btn btn-primary">Membre
 			2 </a> <a id="btn_googl" onclick="signInTestAnonyme()"
 			class="btn btn-primary">Anonyme </a>
-
 	</div>
 
 
@@ -219,7 +218,8 @@
 function signInTestMembre1(){
 	
 	var codeSite=document.getElementById("inputJetonSite").value;
-    document.getElementById("codeSiteMasque").value =codeSite;
+  
+	 document.getElementById("codeSiteMasque").value =codeSite;
 	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="membre1";
 	 document.getElementById("formmasque").submit();
@@ -228,11 +228,11 @@ function signInTestMembre1(){
 function signInTestAnonyme(){
 	
 	var codeSite=document.getElementById("inputJetonSite").value;
-    document.getElementById("codeSiteMasque").value =codeSite;
-	
+  
+	document.getElementById("codeSiteMasque").value =codeSite;
 	document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
-	 document.getElementById("token").value="anonyme";
-	 document.getElementById("formmasque").submit();
+	document.getElementById("token").value="anonyme";
+	document.getElementById("formmasque").submit();
 }
 
 

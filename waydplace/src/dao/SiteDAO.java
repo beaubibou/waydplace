@@ -225,12 +225,14 @@ public class SiteDAO {
 
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			CxoPool.rollBack(connexion);
+			return new MessageAction(false,e.getMessage());
+
 
 		} finally {
 
 			CxoPool.close(connexion, preparedStatement);
 		}
-		return new MessageAction(false, "");
+		
 	}
 
 	public static MessageAction updatePhoto(String stringPhoto, int id) {

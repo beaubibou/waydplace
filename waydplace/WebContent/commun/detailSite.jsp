@@ -1,4 +1,5 @@
 
+<%@page import="outils.Outils"%>
 <%@page import="bean.Site"%>
 <%@page import="parametre.Parametres"%>
 <%@page import="bean.Membre"%>
@@ -105,7 +106,7 @@
 						<div class="row">
 							<div class='col-sm-12'>
 
-								<%=site.getDetailSiteHtml() %>
+								<%=site.getTotalDetailSiteHtml() %>
 
 
 
@@ -119,9 +120,8 @@
 					<div class="form-group">
 						<label for="description">Description:</label>
 						<textarea disabled class="form-control" rows="10" id="description"
-							name="description"><%=site.getDescription()%></textarea>
+							name="description"><%=Outils.convertRequeteToString(site.getDescription())%></textarea>
 					</div>
-
 
 				</div>
 			</div>

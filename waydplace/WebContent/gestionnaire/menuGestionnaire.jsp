@@ -51,8 +51,8 @@
 						<li><a style='color: black; background-color: #FFFFFF;'
 							href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PROPOSER_PLUSIEURS_ACTIVITE_GESTIONNAIRE%>"><%=MenuGestionnaireText.PLANIFIER_ACTIVITE%></a></li>
 					
-						<li><a style='color: black; background-color: #FFFFFF;'
-							href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PROPOSER_NEW_GESTIONNAIRE%>"><%=MenuGestionnaireText.AJOUTER_NOTIFICATION%></a></li>
+<!-- 						<li><a style='color: black; background-color: #FFFFFF;' -->
+<%-- 							href="/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_PROPOSER_NEW_GESTIONNAIRE%>"><%=MenuGestionnaireText.AJOUTER_NOTIFICATION%></a></li> --%>
 						
 
 					</ul></li>

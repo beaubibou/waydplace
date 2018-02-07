@@ -30,6 +30,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import outils.Outils;
 import pager.PagerActivite;
+import pager.PagerNew;
 import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
@@ -48,6 +49,7 @@ import dao.ActiviteDAO;
 import dao.DiscussionDAO;
 import dao.MembreDAO;
 import dao.MessageDAO;
+import dao.NewDAO;
 import dao.SiteDAO;
 
 /**
@@ -84,6 +86,8 @@ public class Frontal extends HttpServlet {
 	public static final String ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES = "envoiMessageFromMessages";
 	public static final String REDIRECTION_ACCUEIL_MEMBRE = "REDIRECTION_ACCUEIL_MEMBRE";
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
+	public static final String REDIRECTION_NEWS_GESTIONNAIRE = "REDIRECTION_NEWS_GESTIONNAIRE";
+	
 
 	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="
 			+ REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
@@ -151,7 +155,8 @@ public class Frontal extends HttpServlet {
 				case REDIRECTION_INSCRIPTION_MEMBRE:
 					response.sendRedirect("index.jsp");
 					break;
-
+					
+				
 				case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
 
 					redirectionRechercheActiviteMembre(profil, request,
@@ -171,7 +176,12 @@ public class Frontal extends HttpServlet {
 
 			switch (action) {
 			
-		
+			case REDIRECTION_NEWS_GESTIONNAIRE:
+				updateLastNew(profil);
+				redirectionNewsGestionnaire(profil,request,response);
+				break;
+
+
 
 			case REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
 				response.sendRedirect("membre/proposeActiviteMembre.jsp");
@@ -323,6 +333,24 @@ public class Frontal extends HttpServlet {
 	}
 
 	
+
+	private void updateLastNew(Profil profil) {
+	
+		int idLastNew=NewDAO.getIdLastNew(profil.getIdSite());
+		NewDAO.updateLastNew(profil,idLastNew);
+	}
+
+	private void redirectionNewsGestionnaire(Profil profil,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+			int page = 0;
+			PagerNew pager = new PagerNew(profil.getFiltre(), page,profil);
+	
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("membre/mesNews.jsp").forward(
+					request, response);
+		
+	}
 
 	private void redirectionModifierActiviteMembre(Profil profil,
 			HttpServletRequest request, HttpServletResponse response)

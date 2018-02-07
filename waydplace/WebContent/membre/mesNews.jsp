@@ -23,7 +23,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Mes activités</title>
+<title>News</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -56,7 +56,7 @@
 			ArrayList<New> listNews = pager.getListNew();
 	%>
 
-	<%@ include file="menuGestionnaire.jsp"%>
+	<%@ include file="menuMembre.jsp"%>
 
 
 	<div class="container margedebut ">
@@ -65,8 +65,11 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-sm-12">
-						<p class="text-tuto"><%=MesNewsText.TUTO_LIGNE1%></p>
-				<a href="<%=FrontalGestionnaire.ACTION_REDIRECTION_PROPOSE_NEW_GESTIONNAIRE %>" class="btn btnwayd" role="button">Ajouter </a>		
+						<p class="text-tuto"><a
+								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+								class='btn btn-info btn-md btnwayd'> <span
+								class="glyphicon glyphicon-home"></span></a> Les dernières nouvelles du site</p>
+						<br>
 					</div>
 				</div>
 
@@ -77,27 +80,14 @@
 
 		</div>
 		<table class="table table-responsive " id="matable">
-			<thead class="entetetable" align="center">
-				<tr>
-
-	<th style="width: 85%;" class="text-center">News</th>
-					<th style="width: 15%;" class="text-center">Action</th>
-
-				
-
-				</tr>
-			</thead>
+	
 			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 
 				<%
 					if (listNews !=null)
 						for (New news : listNews)
 				{
-			String lienEffaceNew = "/waydplace/FrontalGestionnaire?action="
-									+ FrontalGestionnaire.EFFACE_NEWS_GESTIONNAIRE + "&idNew=" + news.getId();
- 			String lienModifierNew = "/waydplace/FrontalGestionnaire?action="
- 									+ FrontalGestionnaire.REDIRECTION_MODIFIER_NEWS_GESTIONNAIRE
-									+ "&idNew=" + news.getId();			
+			
 				%>
 
 
@@ -111,17 +101,7 @@
 						</div>
 
 					</td>
-					<td style="vertical-align: middle; text-align: center;">
-						<p>
-							<a href='<%=lienModifierNew%>' class='btn btn-info btn-lg'>
-								<span class='glyphicon glyphicon-edit'></span>
-							</a>
-							<button onclick="confirmEfface('<%=lienEffaceNew%>')"
-								class="btn btn-danger btn-lg">
-								<span class="glyphicon glyphicon-remove"></span>
-							</button>
-						</p>
-					</td>
+				
 							</tr>
 				<%
 					}

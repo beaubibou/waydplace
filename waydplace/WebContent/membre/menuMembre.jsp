@@ -25,9 +25,9 @@
 				<%=MenuMembre.get_LI_ACCEUIL((Profil) session
 					.getAttribute("profil"))%>
 
-			<%=MenuMembre.get_LI_SITE((Profil) session
+				<%=MenuMembre.get_LI_SITE((Profil) session
 					.getAttribute("profil"))%>
-					
+
 				<%=MenuMembre.get_LI_MON_COMPTE((Profil) session
 					.getAttribute("profil"))%>
 
@@ -36,11 +36,23 @@
 
 				<%=MenuMembre.get_LI_PROPOSE((Profil) session
 					.getAttribute("profil"))%>
+					
+				
+			
 
 				<li><a
 					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>">Rechercher
 				</a></li>
+				
+						<li><a
+					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_NEWS_GESTIONNAIRE%>">News
+				</a></li>
+				
+					<%=MenuMembre.get_LI_NEWS((Profil) session
+					.getAttribute("profil"))%>
+			
 				<li><a
+				
 					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_PLANING_MEMBRE%>">Planning
 				</a></li>
 
@@ -48,8 +60,6 @@
 					.getAttribute("profil"))%>
 				<%=MenuMembre.get_LI_BADGE((Profil) session
 					.getAttribute("profil"))%>
-
-
 
 			</ul>
 

@@ -93,6 +93,15 @@ public class FrontalGestionnaire extends HttpServlet {
 
 	public static final String ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
 			+ REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE;
+	
+	public static final String ACTION_REDIRECTION_MES_NEWS_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
+			+ REDIRECTION_NEWS_GESTIONNAIRE;
+	
+	public static final String ACTION_REDIRECTION_PROPOSE_NEW_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
+			+ REDIRECTION_PROPOSER_NEW_GESTIONNAIRE;
+
+	
+	
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger
@@ -392,8 +401,9 @@ public class FrontalGestionnaire extends HttpServlet {
 	}
 
 	private MessageAction vpModifieNew(String titre, String message) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		
+		return vpAjouteNewGestionnaire(titre, message);
 	}
 
 	private void redirectionModifierNewsGestionnaire(Profil profil,
@@ -418,7 +428,7 @@ public class FrontalGestionnaire extends HttpServlet {
 		if (effaceNewGestionnaire.isOk()) {
 
 			int page = 0;
-			PagerNew pager = new PagerNew(profil.getFiltre(), page);
+			PagerNew pager = new PagerNew(profil.getFiltre(), page,profil);
 			request.setAttribute("pager", pager);
 			request.getRequestDispatcher("gestionnaire/mesNews.jsp").forward(
 					request, response);
@@ -470,7 +480,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			HttpServletResponse response, HttpServletRequest request)
 			throws ServletException, IOException {
 		int page = 0;
-		PagerNew pager = new PagerNew(profil.getFiltre(), page);
+		PagerNew pager = new PagerNew(profil.getFiltre(), page,profil);
 		request.setAttribute("pager", pager);
 		request.getRequestDispatcher("gestionnaire/mesNews.jsp").forward(
 				request, response);
@@ -490,7 +500,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			if (request.getParameter("page") != null)
 				pageEncours = Integer.parseInt(request.getParameter("page"));
 
-			PagerNew pager = new PagerNew(profil.getFiltre(), pageEncours);
+			PagerNew pager = new PagerNew(profil.getFiltre(), pageEncours,profil);
 			request.setAttribute("pager", pager);
 			request.getRequestDispatcher("gestionnaire/mesNews.jsp").forward(
 					request, response);

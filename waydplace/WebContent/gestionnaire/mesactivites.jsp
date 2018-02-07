@@ -106,8 +106,8 @@
 					<th style="width: 10%;" class="text-center">Etat</th>
 					<th class="text-center">Titre</th>
 					<th class="text-center">Détail</th>
-					<th style="width: 20%;" class="text-center">Date</th>
-					<th style="width: 20%;" class="text-center">Action</th>
+					<th style="width: 15%;" class="text-center">Date</th>
+					<th style="width: 15%;" class="text-center">Action</th>
 
 				</tr>
 			</thead>
@@ -129,18 +129,18 @@
 
 
 				<tr>
-					<td onclick="document.location='<%=lienDetailActivite%>'"><%=activite.getEtatHtml()%></td>
+					<td style="vertical-align: middle;" onclick="document.location='<%=lienDetailActivite%>'"><%=activite.getEtatHtml()%></td>
 					<td class="idActivite" id=<%=activite.getId()%>
-						style="vertical-align: middle;"><%=activite.getTitre()%></td>
-					<td style="vertical-align: middle;"><%=activite.getLibelle()%></td>
+						style="vertical-align: middle;"><strong><%=activite.getTitre()%></strong></td>
+					<td style="vertical-align: middle;"><%=Outils.ellipsis(activite.getLibelle(), 50)%></td>
 					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
 					<td style="vertical-align: middle; text-align: center;">
 						<p>
-							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-sm'>
+							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-lg'>
 								<span class='glyphicon glyphicon-edit'></span>
 							</a>
 							<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
-								class="btn btn-danger btn-sm">
+								class="btn btn-danger btn-lg">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
 						</p>

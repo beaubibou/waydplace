@@ -67,14 +67,18 @@
 			<div class="panel-heading">
 				<form action='<%=listMessage.getDiscussion().getLienReponseHTML()%>'
 					method='post'>
-					
 
+				<a
+									href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_DISCUSSION_MEMBRE%>'
+									class='btn btn-info btn-md btnwayd'> <span
+									class="glyphicon glyphicon-arrow-left"></span></a>
 					<div class="row">
-					
+
+
 						<div class="col-sm-3">
 							<div class="form-group">
-
-							<%=listMessage.getEnteteAdaptaterHtml()%>
+				
+								<%=listMessage.getEnteteAdaptaterHtml()%>
 
 							</div>
 						</div>
@@ -88,7 +92,8 @@
 						</div>
 						<div class="col-sm-1">
 							<button type="submit" class="btn btnwayd">
-							<span class="glyphicon glyphicon-ok"></span></button>
+								<span class="glyphicon glyphicon-ok"></span>
+							</button>
 						</div>
 
 					</div>
@@ -101,7 +106,7 @@
 			</div>
 		</div>
 
-	
+
 		<table class="table table-striped table-responsive "
 			style='border: 5px solid #fff;' id='matable'>
 			<thead class="entetetable" align="center">
