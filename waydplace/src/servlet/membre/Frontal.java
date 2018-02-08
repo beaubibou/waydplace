@@ -88,7 +88,6 @@ public class Frontal extends HttpServlet {
 	public static final String REDIRECTION_ACCUEIL_MEMBRE = "REDIRECTION_ACCUEIL_MEMBRE";
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
 	public static final String REDIRECTION_NEWS_GESTIONNAIRE = "REDIRECTION_NEWS_GESTIONNAIRE";
-	
 
 	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="
 			+ REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
@@ -101,8 +100,8 @@ public class Frontal extends HttpServlet {
 
 	public static final String ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE = "/waydplace/Frontal?action="
 			+ REDIRECTION_MES_ACTIVITES_MEMBRE;
-	
-	public static final String ACTION_REDIRECTION_ACCEUIL =  "/waydplace/Frontal?action="
+
+	public static final String ACTION_REDIRECTION_ACCEUIL = "/waydplace/Frontal?action="
 			+ REDIRECTION_ACCUEIL_MEMBRE;
 
 	/**
@@ -137,13 +136,18 @@ public class Frontal extends HttpServlet {
 
 		String action = request.getParameter("action");
 
+		if (!valideProfilMembre(profil)) {
+			response.sendRedirect("index.jsp");
+			return;
+		}
+
 		LOG.info("Action" + action);
 
 		try {
 
 			if (action == null || action.isEmpty())
 				return;
-		
+
 			int TYPE_USER = 0;
 
 			if (profil != null)
@@ -156,8 +160,7 @@ public class Frontal extends HttpServlet {
 				case REDIRECTION_INSCRIPTION_MEMBRE:
 					response.sendRedirect("index.jsp");
 					break;
-					
-				
+
 				case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
 
 					redirectionRechercheActiviteMembre(profil, request,
@@ -176,13 +179,11 @@ public class Frontal extends HttpServlet {
 			}
 
 			switch (action) {
-			
+
 			case REDIRECTION_NEWS_GESTIONNAIRE:
 				updateLastNew(profil);
-				redirectionNewsGestionnaire(profil,request,response);
+				redirectionNewsGestionnaire(profil, request, response);
 				break;
-
-
 
 			case REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
 				response.sendRedirect("membre/proposeActiviteMembre.jsp");
@@ -233,7 +234,7 @@ public class Frontal extends HttpServlet {
 				refreshRechercheActiviteMembres(profil, request, response);
 
 				break;
-				
+
 			case REFRESH_MES_ACTIVITE_MEMBRES:
 
 				refreshMesActiviteMembre(profil, request, response);
@@ -242,8 +243,8 @@ public class Frontal extends HttpServlet {
 
 			case REDIRECTION_MES_ACTIVITES_MEMBRE:
 
-			redirectionMesActivitesMembre(profil,request,response);
-					break;
+				redirectionMesActivitesMembre(profil, request, response);
+				break;
 
 			case REDIRECTION_COMPTE_MEMBRE:
 				response.sendRedirect("membre/compteMembre.jsp");
@@ -260,7 +261,6 @@ public class Frontal extends HttpServlet {
 				redirectionModifierActiviteMembre(profil, request, response);
 
 				break;
-			
 
 			case EFFACE_ACTIVITE_MEMBRE:
 
@@ -314,8 +314,7 @@ public class Frontal extends HttpServlet {
 
 			case ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES:
 
-				envoiMessageMembreFromMesMessages(profil, request,
-						response);
+				envoiMessageMembreFromMesMessages(profil, request, response);
 
 				break;
 
@@ -334,33 +333,47 @@ public class Frontal extends HttpServlet {
 
 	}
 
-	
+	private boolean valideProfilMembre(Profil profil) {
+
+		if (profil == null)
+			return false;
+
+		if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE)
+			return true;
+
+		if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_VISITEUR)
+			return true;
+
+		return false;
+	}
 
 	private void redirectionMesActivitesMembre(Profil profil,
-			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int page = 0;
 		PagerMesActivites pager = new PagerMesActivites(profil, page);
 		request.setAttribute("pager", pager);
 		request.getRequestDispatcher("membre/mesactivites.jsp").forward(
-				request, response);	
+				request, response);
 	}
 
 	private void updateLastNew(Profil profil) {
-	
-		int idLastNew=NewDAO.getIdLastNew(profil.getIdSite());
-		NewDAO.updateLastNew(profil,idLastNew);
+
+		int idLastNew = NewDAO.getIdLastNew(profil.getIdSite());
+		NewDAO.updateLastNew(profil, idLastNew);
 	}
 
 	private void redirectionNewsGestionnaire(Profil profil,
-			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-			int page = 0;
-			PagerNew pager = new PagerNew(profil.getFiltre(), page,profil);
-	
-			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("membre/mesNews.jsp").forward(
-					request, response);
-		
+		int page = 0;
+		PagerNew pager = new PagerNew(profil.getFiltre(), page, profil);
+
+		request.setAttribute("pager", pager);
+		request.getRequestDispatcher("membre/mesNews.jsp").forward(request,
+				response);
+
 	}
 
 	private void redirectionModifierActiviteMembre(Profil profil,
@@ -379,7 +392,7 @@ public class Frontal extends HttpServlet {
 
 		MessageAction updateFiltreRecherche = updateFiltreRecherche(request,
 				profil);
-		
+
 		if (updateFiltreRecherche.isOk()) {
 
 			int pageEncours = 0;
@@ -387,15 +400,13 @@ public class Frontal extends HttpServlet {
 			if (request.getParameter("page") != null)
 				pageEncours = Integer.parseInt(request.getParameter("page"));
 
-			PagerMesActivites pager = new PagerMesActivites(profil,
-					pageEncours);
+			PagerMesActivites pager = new PagerMesActivites(profil, pageEncours);
 			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("membre/mesactivites.jsp")
-					.forward(request, response);
+			request.getRequestDispatcher("membre/mesactivites.jsp").forward(
+					request, response);
 
 		}
-		
-		
+
 	}
 
 	private void redirectionEnvoyerMessageMembre(Profil profil,
@@ -419,8 +430,8 @@ public class Frontal extends HttpServlet {
 
 		MessageAction effaceActivite = effaceActivite(request, profil);
 
-		updateFiltreRecherche(request,	profil);
-		
+		updateFiltreRecherche(request, profil);
+
 		if (effaceActivite.isOk()) {
 
 			int pageEncours = 0;
@@ -428,17 +439,13 @@ public class Frontal extends HttpServlet {
 			if (request.getParameter("page") != null)
 				pageEncours = Integer.parseInt(request.getParameter("page"));
 
-			PagerMesActivites pager = new PagerMesActivites(profil,
-					pageEncours);
+			PagerMesActivites pager = new PagerMesActivites(profil, pageEncours);
 			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("membre/mesactivites.jsp")
-					.forward(request, response);
+			request.getRequestDispatcher("membre/mesactivites.jsp").forward(
+					request, response);
 
 		}
-		
-		
-		
-	
+
 	}
 
 	private void chargePhotoProfilMembre(Profil profil,
@@ -853,7 +860,7 @@ public class Frontal extends HttpServlet {
 
 		String datedebut = request.getParameter("datenaissance");
 		DateTime datenaissanceDT = null;
-		
+
 		try {
 			datenaissanceDT = getDateFromString(datedebut);
 		} catch (ParseException e) {
@@ -904,10 +911,10 @@ public class Frontal extends HttpServlet {
 
 		String titre = request.getParameter("titre");
 		String libelle = request.getParameter("description");
-	
+
 		libelle = libelle.trim();
 		titre = titre.trim();
-		
+
 		int id_ref_type_activite = 0;
 		int idActivite = 0;
 
@@ -952,11 +959,11 @@ public class Frontal extends HttpServlet {
 			if (modifieActivieDAO.isOk())
 				return new MessageAction(true, "");
 			else
-				 	return new MessageAction(false, modifieActivieDAO.getMessage());
+				return new MessageAction(false, modifieActivieDAO.getMessage());
 
 		}
-		
-		return  new MessageAction(false, vpModifieActivite.getMessage());
+
+		return new MessageAction(false, vpModifieActivite.getMessage());
 
 	}
 
@@ -1142,11 +1149,11 @@ public class Frontal extends HttpServlet {
 			Profil profil) {
 
 		String titre = request.getParameter("titre");
-	
+
 		String libelle = request.getParameter("description");
 		libelle = libelle.trim();
 		titre = titre.trim();
-		
+
 		int id_ref_type_activite = 0;
 
 		try {

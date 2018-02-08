@@ -102,6 +102,10 @@ public class FrontalGestionnaire extends HttpServlet {
 			+ REDIRECTION_PROPOSER_NEW_GESTIONNAIRE;
 
 	
+	public static final String ACTION_REDIRECTION_PROPOSER_UNE_ACTIVITE = "/waydplace/FrontalGestionnaire?action="
+			+ REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE;
+
+	
 	
 
 	private static final long serialVersionUID = 1L;
@@ -136,6 +140,14 @@ public class FrontalGestionnaire extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Profil profil = (Profil) session.getAttribute("profil");
+		
+		if (!valideProfilGestionne(profil))
+		{
+			response.sendRedirect("index.jsp");
+			return;
+			
+		}
+		
 		String action = request.getParameter("action");
 
 		LOG.info("Action:" + action);
@@ -348,6 +360,20 @@ public class FrontalGestionnaire extends HttpServlet {
 		}
 	}
 
+	private boolean valideProfilGestionne(Profil profil) 
+	 {
+
+			if (profil == null)
+				return false;
+
+			if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_SITE)
+				return true;
+
+		
+			return false;
+		}
+
+	
 	private void redirectionGererActiviteGestionnaire(Profil profil,
 			HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
 	

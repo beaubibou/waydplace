@@ -35,9 +35,20 @@
 </head>
 <body>
 
+<div class="container">
+		<div class="page-header">
+
+			<h1>
+				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
+					class="img-rounded" alt="Cinque Terre" width="100" height="100"><%=CreationCompteProText.TITRE_JUMBO%>
+			</h1>
+		</div>
 
 
-	<div class="container margedebut">
+
+	</div>
+
+	<div class="container ">
 		<div id="loginbox"
 			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 			<div class="panel panel-default">
@@ -176,8 +187,8 @@
 
 					</form>
 
-					<button onclick="creerCompte()" class="btnwayd btn-lg">Soumettre</button>
-					<a href="/wayd/Home" class="btnwayd btn-lg" role="button"><span
+					<button onclick="creerCompte()" class="btnwayd btn">Soumettre</button>
+					<a href="<%=ConnexionMembre.ACTION_REDIRECTION_LOGIN %>" class="btnwayd btn" role="button"><span
 						class="glyphicon glyphicon-home"></span> Accueil</a>
 
 

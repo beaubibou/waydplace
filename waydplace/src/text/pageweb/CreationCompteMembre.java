@@ -19,7 +19,7 @@ public class CreationCompteMembre {
 	public static String HINT_TELEPHONE=CommunText.HINT_TELEPHONE;
 	public static String HINT_PSEUDO="Pseudo";
 	
-	public static String TITRE_JUMBO = "Bienvenue dans l'interface WAYD";
+	public static String TITRE_JUMBO = "Bienvenue dans la création du compte.";
 	public static String MESSAGE_JUMBO_LIGNE1 = "Proposez vos activités gratuites à la communauté. Une activité ne peut pas exéder 8 heures.";
 	public static String MESSAGE_JUMBO_LIGNE2 = "Vous pouvez planifier jusqu à 5 activités simultanément.";
 

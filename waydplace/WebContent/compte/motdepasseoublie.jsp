@@ -1,7 +1,7 @@
 
 <%@page import="text.pageweb.MotPasseOublie"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -65,15 +65,15 @@
 
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<div class="page-header">
 
 			<h1>
 				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
-					class="img-rounded" alt="Cinque Terre" width="100" height="100"><%=MotPasseOublie.JUMBO_TITRE %>
+					class="img-rounded" alt="Cinque Terre" width="100" height="100"><%=MotPasseOublie.JUMBO_TITRE%>
 			</h1>
 		</div>
-		
+
 
 
 	</div>
@@ -82,7 +82,7 @@
 			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title"><%=MotPasseOublie.TITRE_PANEL %></div>
+					<div class="panel-title"><%=MotPasseOublie.TITRE_PANEL%></div>
 
 				</div>
 
@@ -91,7 +91,7 @@
 					<div style="display: none" id="login-alert"
 						class="alert alert-danger col-sm-12"></div>
 
-					<form id="loginform" class="form-horizontal" >
+					<form id="loginform" class="form-horizontal">
 
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
@@ -111,9 +111,9 @@
 									class="btn btnwayd">Envoyer la demande </a> <a
 									href="/waydplace/index.jsp" class="btn btnwayd"><span
 									class="glyphicon glyphicon-home"></span> Accueil</a>
-							
+
 							</div>
-							
+
 						</div>
 				</div>
 

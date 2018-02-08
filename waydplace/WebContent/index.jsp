@@ -100,13 +100,18 @@
 			id="outputJetonSite" type="hidden" class="form-control"
 			name="jetonSite">
 
+	<div class="container">
 		<div class="page-header">
 
 			<h1>
 				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
-					class="img-rounded" alt="Cinque Terre" width="100" height="100">Bienvenue
+					class="img-rounded" alt="Cinque Terre" width="100" height="100"><%=LoginTxt.JUMBO_TITRE%>
 			</h1>
 		</div>
+
+
+
+	</div>
 	</form>
 
 	<div class="container">

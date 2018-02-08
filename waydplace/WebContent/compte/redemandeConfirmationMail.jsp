@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+<%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="text.pageweb.RedemandeConfirmationMail"%>
 
@@ -124,7 +125,7 @@
 						
 									<a id="btn-password" onclick="envoiDemande()"
 									class="btn btnwayd ">Envoyer la demande</a>
-								 <a href="/wayd/Home"  class="btn btnwayd"><span
+								 <a href="<%=ConnexionMembre.ACTION_REDIRECTION_LOGIN %>"  class="btn btnwayd"><span
 								  class="glyphicon glyphicon-home" ></span> Accueil</a>
 									</div>
 

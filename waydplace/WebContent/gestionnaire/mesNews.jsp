@@ -51,9 +51,9 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-			FiltreRecherche filtre=profil.getFiltre();
-			PagerNew pager=(PagerNew) request.getAttribute("pager");
-			ArrayList<New> listNews = pager.getListNew();
+		FiltreRecherche filtre=profil.getFiltre();
+		PagerNew pager=(PagerNew) request.getAttribute("pager");
+		ArrayList<New> listNews = pager.getListNew();
 	%>
 
 	<%@ include file="menuGestionnaire.jsp"%>
@@ -66,7 +66,13 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<p class="text-tuto"><%=MesNewsText.TUTO_LIGNE1%></p>
-				<a href="<%=FrontalGestionnaire.ACTION_REDIRECTION_PROPOSE_NEW_GESTIONNAIRE %>" class="btn btnwayd" role="button">Ajouter </a>		
+
+						<a
+							href='<%=FrontalGestionnaire.ACTION_REDIRECTION_PROPOSE_NEW_GESTIONNAIRE%>'
+							class='btn btn-info btn-md btnwayd'> <span
+							class="glyphicon glyphicon-plus"> </span>
+
+						</a>
 					</div>
 				</div>
 
@@ -80,10 +86,10 @@
 			<thead class="entetetable" align="center">
 				<tr>
 
-	<th style="width: 85%;" class="text-center">News</th>
+					<th style="width: 85%;" class="text-center">News</th>
 					<th style="width: 15%;" class="text-center">Action</th>
 
-				
+
 
 				</tr>
 			</thead>
@@ -91,13 +97,13 @@
 
 				<%
 					if (listNews !=null)
-						for (New news : listNews)
-				{
-			String lienEffaceNew = "/waydplace/FrontalGestionnaire?action="
-									+ FrontalGestionnaire.EFFACE_NEWS_GESTIONNAIRE + "&idNew=" + news.getId();
- 			String lienModifierNew = "/waydplace/FrontalGestionnaire?action="
- 									+ FrontalGestionnaire.REDIRECTION_MODIFIER_NEWS_GESTIONNAIRE
-									+ "&idNew=" + news.getId();			
+								for (New news : listNews)
+						{
+					String lienEffaceNew = "/waydplace/FrontalGestionnaire?action="
+											+ FrontalGestionnaire.EFFACE_NEWS_GESTIONNAIRE + "&idNew=" + news.getId();
+				 			String lienModifierNew = "/waydplace/FrontalGestionnaire?action="
+				 									+ FrontalGestionnaire.REDIRECTION_MODIFIER_NEWS_GESTIONNAIRE
+											+ "&idNew=" + news.getId();
 				%>
 
 
@@ -113,8 +119,8 @@
 					</td>
 					<td style="vertical-align: middle; text-align: center;">
 						<p>
-							<a href='<%=lienModifierNew%>' class='btn btn-info btn-lg'>
-								<span class='glyphicon glyphicon-edit'></span>
+							<a href='<%=lienModifierNew%>' class='btn btn-info btn-lg'> <span
+								class='glyphicon glyphicon-edit'></span>
 							</a>
 							<button onclick="confirmEfface('<%=lienEffaceNew%>')"
 								class="btn btn-danger btn-lg">
@@ -122,7 +128,7 @@
 							</button>
 						</p>
 					</td>
-							</tr>
+				</tr>
 				<%
 					}
 				%>
@@ -140,7 +146,7 @@
 	</script>
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 		function confirmEfface(liensupprime) {
 
 			BootstrapDialog.show({

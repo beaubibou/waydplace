@@ -92,6 +92,10 @@
 								</select>
 
 							</div>
+							<a	 href='<%=FrontalGestionnaire.ACTION_REDIRECTION_PROPOSER_UNE_ACTIVITE %>'
+								class='btn btn-info btn-md btnwayd'> <span
+								class="glyphicon glyphicon-plus"> </span>
+								</a>
 							<input type="hidden" name='action'
 								value='<%=FrontalGestionnaire.REFRESH_MES_ACTIVITE_GESTIONNAIRE%>'>
 						</form>

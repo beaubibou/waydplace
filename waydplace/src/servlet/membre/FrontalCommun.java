@@ -63,6 +63,13 @@ public class FrontalCommun extends HttpServlet {
 		if (action == null || action.isEmpty())
 			return;
 
+		if (!valide(profil)){
+			response.sendRedirect("index.jsp");
+			return;
+		}
+		
+				
+	
 		try {
 			switch (action) {
 
@@ -95,9 +102,17 @@ public class FrontalCommun extends HttpServlet {
 			}
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			
 			LOG.error(e.getMessage());
 		}
+	}
+
+	private boolean valide(Profil profil) {
+	
+		if (profil==null)
+			return false;
+		
+		return true;
 	}
 
 	private void redirectionDetailParticipant(Profil profil,
