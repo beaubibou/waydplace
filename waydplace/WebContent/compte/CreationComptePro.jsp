@@ -257,7 +257,7 @@ function creerCompte(){
 			            buttons: [{
 			                label: 'Ok',
 			                action: function(dialog) {
-			                location.href='waydplace/index.jsp'
+			                location.href='/waydplace/index.jsp'
 														//  dialog.setMessage('Message 1');
 													}
 

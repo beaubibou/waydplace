@@ -62,16 +62,17 @@ public class ConnexionMembre extends HttpServlet {
 	public static FirebaseOptions optionFireBase;
 	public static final String CHEMIN_UNIX_BOULOT = "/home/devel/perso/cle.json";
 	public static final String CHEMIN_WINDOWS_MAISON = "d:/Dropbox/waydPlace/cle.json";
-	public static final String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/cle.json";
+	public static final String CHEMIN_PROD_CLE = "/usr/lib/jvm/java-8-openjdk-amd64/jre/cle/clewaydplace.json";
 	private static final String PAGE_CREATION_COMPTE_SITE = "compte/CreationComptePro.jsp";
 	private static final String PAGE_CREATION_COMPTE_MEMBRE = "compte/CreationCompteMembre.jsp";
-
 	public static final String ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE = "/waydplace/ConnexionMembre?action="
 			+ REDIRECTION_CREATION_COMPTE_MEMBRE;
 	public static final String ACTION_REDIRECTION_CREATION_COMPTE_PRO = "/waydplace/ConnexionMembre?action="
 			+ REDIRECTION_CREATION_COMPTE_PRO;
 	public static final String ACTION_REDIRECTION_CREATION_MDP_OUBLIE = "/waydplace/compte/motdepasseoublie.jsp";
-
+	public static final String ACTION_REDIRECTION_DEMANDE_CONFIRMATION_MAIL="/waydplace/compte/redemandeConfirmationMail.jsp";
+	public static final String ACTION_REDIRECTION_LOGIN="/waydplace/index.jsp";
+	 	
 	private static final String CLE_CAPTCHA = "6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
 	static {

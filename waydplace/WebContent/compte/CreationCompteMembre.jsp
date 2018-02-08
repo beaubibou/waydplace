@@ -94,7 +94,7 @@
 									maxlength="<%=CreationCompteProText.TAILLE_PSEUDO_MAX%>"
 									 class="form-control" id="nom"
 									placeholder="<%=CreationCompteMembre.HINT_PSEUDO%>" name="nom"
-									required>
+									required >
 							</div>
 
 
@@ -165,7 +165,7 @@ var validation=valideFormulaire();
 			            buttons: [{
 			                label: 'Ok',
 			                action: function(dialog) {
-			                location.href='waydplace/index.jsp'
+			                location.href='/waydplace/index.jsp'
 														//  dialog.setMessage('Message 1');
 													}
 

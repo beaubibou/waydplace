@@ -100,6 +100,13 @@
 			id="outputJetonSite" type="hidden" class="form-control"
 			name="jetonSite">
 
+<div class="page-header">
+
+			<h1>
+				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
+					class="img-rounded" alt="Cinque Terre" width="100" height="100">Bienvenue
+			</h1>
+		</div>
 	</form>
 
 	<div class="container">
@@ -156,7 +163,7 @@
 					 -->
 							<a id="btn-password" onclick="signPassword()"
 								class="btn  btnwayd">Se connecter</a> <a id="btn-primary"
-								href="/wayd/auth/redemandeConfirmationMail.jsp"
+								href="<%=ConnexionMembre.ACTION_REDIRECTION_DEMANDE_CONFIRMATION_MAIL%>"
 								class="btn  btnwayd">Mail de confirmation non reçu?</a>
 
 
