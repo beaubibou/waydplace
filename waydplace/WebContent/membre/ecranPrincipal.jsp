@@ -1,3 +1,4 @@
+<%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="parametre.Parametres"%>
 <%@page import="dao.MessageDAO"%>
 <%@page import="servlet.membre.FrontalCommun"%>
@@ -128,7 +129,7 @@
 					<div class="col-sm-4 col-sm-offset-4 ">
 
 						<a
-							href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_INSCRIPTION_MEMBRE%>"
+							href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE %>"
 							class="btn btn-info  btn-block btn-lg btnwayd"  >S'inscrire</a>
 					</div>
 

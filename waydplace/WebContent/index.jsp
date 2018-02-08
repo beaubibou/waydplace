@@ -1,3 +1,4 @@
+<%@page import="servlet.membre.FrontalGestionnaire"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="text.pageweb.LoginTxt"%>
@@ -407,13 +408,13 @@ function connexionTest(){
 			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 			
 		if (responseText == 'membre'){
-			      location.href='/waydplace/membre/ecranPrincipal.jsp';
+			      location.href='<%=Frontal.ACTION_REDIRECTION_ACCEUIL%>';
 					return;
 				
 		} 
 					
 		if (responseText == 'gestionnaire'){
-				      location.href='/waydplace/gestionnaire/ecranPrincipalGestionnaire.jsp';
+				      location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>';
 						return;
 						} 
 			
@@ -430,17 +431,16 @@ function connexionTest(){
 function connexionFireBase(){
 	
 	
-	$.get("/waydplace/ConnexionMembre?"+$("#formlogin").serialize() ,
-			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+	$.get("/waydplace/ConnexionMembre?"+$("#formlogin").serialize() ,function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 			
 		if (responseText == 'membre'){
-			      location.href='/waydplace/membre/ecranPrincipal.jsp';
+			      location.href='<%=Frontal.ACTION_REDIRECTION_ACCEUIL%>';
 					return;
 				
 		} 
 					
 		if (responseText == 'gestionnaire'){
-				      location.href='/waydplace/gestionnaire/ecranPrincipalGestionnaire.jsp';
+				      location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>';
 						return;
 						} 
 			
