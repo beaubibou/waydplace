@@ -30,6 +30,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import outils.Outils;
 import pager.PagerActivite;
+import pager.PagerMesActivites;
 import pager.PagerNew;
 import parametre.ActionPage;
 import parametre.MessageText;
@@ -232,12 +233,17 @@ public class Frontal extends HttpServlet {
 				refreshRechercheActiviteMembres(profil, request, response);
 
 				break;
+				
+			case REFRESH_MES_ACTIVITE_MEMBRES:
+
+				refreshMesActiviteMembre(profil, request, response);
+
+				break;
 
 			case REDIRECTION_MES_ACTIVITES_MEMBRE:
 
-				response.sendRedirect("membre/mesactivites.jsp");
-
-				break;
+			redirectionMesActivitesMembre(profil,request,response);
+					break;
 
 			case REDIRECTION_COMPTE_MEMBRE:
 				response.sendRedirect("membre/compteMembre.jsp");
@@ -254,11 +260,7 @@ public class Frontal extends HttpServlet {
 				redirectionModifierActiviteMembre(profil, request, response);
 
 				break;
-			case REFRESH_MES_ACTIVITE_MEMBRES:
-
-				refreshMesActiviteMembre(profil, request, response);
-
-				break;
+			
 
 			case EFFACE_ACTIVITE_MEMBRE:
 
@@ -312,7 +314,7 @@ public class Frontal extends HttpServlet {
 
 			case ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES:
 
-				envoi_message_membre_from_mes_messages(profil, request,
+				envoiMessageMembreFromMesMessages(profil, request,
 						response);
 
 				break;
@@ -333,6 +335,15 @@ public class Frontal extends HttpServlet {
 	}
 
 	
+
+	private void redirectionMesActivitesMembre(Profil profil,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int page = 0;
+		PagerMesActivites pager = new PagerMesActivites(profil, page);
+		request.setAttribute("pager", pager);
+		request.getRequestDispatcher("membre/mesactivites.jsp").forward(
+				request, response);	
+	}
 
 	private void updateLastNew(Profil profil) {
 	
@@ -364,13 +375,27 @@ public class Frontal extends HttpServlet {
 
 	private void refreshMesActiviteMembre(Profil profil,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
+			throws IOException, ServletException {
 
 		MessageAction updateFiltreRecherche = updateFiltreRecherche(request,
 				profil);
+		
 		if (updateFiltreRecherche.isOk()) {
-			response.sendRedirect("membre/mesactivites.jsp");
+
+			int pageEncours = 0;
+
+			if (request.getParameter("page") != null)
+				pageEncours = Integer.parseInt(request.getParameter("page"));
+
+			PagerMesActivites pager = new PagerMesActivites(profil,
+					pageEncours);
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("membre/mesactivites.jsp")
+					.forward(request, response);
+
 		}
+		
+		
 	}
 
 	private void redirectionEnvoyerMessageMembre(Profil profil,
@@ -390,18 +415,30 @@ public class Frontal extends HttpServlet {
 
 	private void effaceActiviteMembre(Profil profil,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
+			throws IOException, ServletException {
 
 		MessageAction effaceActivite = effaceActivite(request, profil);
 
+		updateFiltreRecherche(request,	profil);
+		
 		if (effaceActivite.isOk()) {
 
-			profil.setMessageDialog("Votre activité a été est supprimée.");
-			response.sendRedirect("membre/mesactivites.jsp");
+			int pageEncours = 0;
 
-		} else {
+			if (request.getParameter("page") != null)
+				pageEncours = Integer.parseInt(request.getParameter("page"));
+
+			PagerMesActivites pager = new PagerMesActivites(profil,
+					pageEncours);
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("membre/mesactivites.jsp")
+					.forward(request, response);
 
 		}
+		
+		
+		
+	
 	}
 
 	private void chargePhotoProfilMembre(Profil profil,
@@ -602,7 +639,7 @@ public class Frontal extends HttpServlet {
 				request, response);
 	}
 
-	private void envoi_message_membre_from_mes_messages(Profil profil,
+	private void envoiMessageMembreFromMesMessages(Profil profil,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

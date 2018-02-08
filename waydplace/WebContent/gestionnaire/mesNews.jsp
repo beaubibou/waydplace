@@ -147,14 +147,14 @@
 				title : 'Confirmation',
 				message : 'Vous allez effacer votre news',
 				buttons : [ {
-					label : 'Oui',
-					action : function(dialog) {
-						document.location = liensupprime;
-					}
-				}, {
 					label : 'Non',
 					action : function(dialog) {
 						dialog.close();
+					}
+				}, {
+					label : 'Oui',
+					action : function(dialog) {
+						document.location = liensupprime;
 					}
 				} ]
 			});

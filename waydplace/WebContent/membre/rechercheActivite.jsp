@@ -232,7 +232,6 @@
 		<li <%=pager.isNextHtml()%>><a
 			href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
 
-
 	</ul>
 		<%}
 else

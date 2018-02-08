@@ -1,5 +1,6 @@
 
 
+<%@page import="pager.PagerMesActivites"%>
 <%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="dao.ActiviteDAO"%>
@@ -50,8 +51,10 @@
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
 		FiltreRecherche filtre=profil.getFiltre();
-		ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActiviteBySite(profil.getIdSite(), filtre.getCritereRechercheEtatMesActivite());
-	%>
+		PagerMesActivites pager=(PagerMesActivites) request.getAttribute("pager");
+		ArrayList<Activite> listMesActivite = pager.getListActivite();
+		
+		%>
 
 	<%@ include file="menuGestionnaire.jsp"%>
 
@@ -154,6 +157,15 @@
 				%>
 			</tbody>
 		</table>
+				<ul class="pager">
+
+			<li <%=pager.isPreviousHtml()%>><a
+				href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
+			<li>Page N° <%=pager.getPageEnCours()%></li>
+			<li <%=pager.isNextHtml()%>><a
+				href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
+
+		</ul>
 
 	</div>
 
@@ -172,17 +184,17 @@
 			BootstrapDialog.show({
 				title : 'Confirmation',
 				message : 'Vous allez effacer votre activité',
-				buttons : [ {
-					label : 'Oui',
-					action : function(dialog) {
-						document.location = liensupprime;
-					}
-				}, {
+				buttons : [{
 					label : 'Non',
 					action : function(dialog) {
 						dialog.close();
 					}
-				} ]
+				} , {
+					label : 'Oui',
+					action : function(dialog) {
+						document.location = liensupprime;
+					}
+				}]
 			});
 
 		}

@@ -32,6 +32,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import outils.Outils;
 import pager.PagerActivite;
+import pager.PagerMesActivites;
 import pager.PagerNew;
 import parametre.ActionPage;
 import parametre.MessageText;
@@ -248,8 +249,9 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			case REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE:
 
-				request.getRequestDispatcher("gestionnaire/mesactivites.jsp")
-						.forward(request, response);
+				redirectionGererActiviteGestionnaire(profil, response, request);
+				
+				
 
 				break;
 
@@ -344,6 +346,18 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			LOG.error(e.getMessage());
 		}
+	}
+
+	private void redirectionGererActiviteGestionnaire(Profil profil,
+			HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+	
+		int page = 0;
+		PagerMesActivites pager = new PagerMesActivites(profil, page);
+		request.setAttribute("pager", pager);
+		
+		request.getRequestDispatcher("gestionnaire/mesactivites.jsp").forward(
+				request, response);	
+		
 	}
 
 	private void modifierNewsGestionnaire(Profil profil,
@@ -526,15 +540,24 @@ public class FrontalGestionnaire extends HttpServlet {
 
 	private void effaceActiviteGestionnaire(Profil profil,
 			HttpServletResponse response, HttpServletRequest request)
-			throws IOException {
+			throws IOException, ServletException {
 
 		MessageAction effaceActivite = effaceActivite(request, profil);
 
+		updateFiltreRecherche(request,	profil);
+		
 		if (effaceActivite.isOk()) {
 
-			response.sendRedirect("gestionnaire/mesactivites.jsp");
+			int pageEncours = 0;
 
-		} else {
+			if (request.getParameter("page") != null)
+				pageEncours = Integer.parseInt(request.getParameter("page"));
+
+			PagerMesActivites pager = new PagerMesActivites(profil,
+					pageEncours);
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("gestionnaire/mesactivites.jsp")
+					.forward(request, response);
 
 		}
 	}
@@ -648,13 +671,28 @@ public class FrontalGestionnaire extends HttpServlet {
 
 	private void refreshMesActiviteGestionnaire(Profil profil,
 			HttpServletResponse response, HttpServletRequest request)
-			throws IOException {
+			throws IOException, ServletException {
 
 		MessageAction updateFiltreRecherche = updateFiltreRecherche(request,
 				profil);
+		
 		if (updateFiltreRecherche.isOk()) {
-			response.sendRedirect("gestionnaire/mesactivites.jsp");
+
+			int pageEncours = 0;
+
+			if (request.getParameter("page") != null)
+				pageEncours = Integer.parseInt(request.getParameter("page"));
+
+			PagerMesActivites pager = new PagerMesActivites(profil,
+					pageEncours);
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("gestionnaire/mesactivites.jsp")
+					.forward(request, response);
+
 		}
+		
+		
+	
 	}
 
 	private void refreshRechercheActiviteGestionnaire(Profil profil,

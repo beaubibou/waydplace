@@ -100,7 +100,7 @@
 			id="outputJetonSite" type="hidden" class="form-control"
 			name="jetonSite">
 
-<div class="page-header">
+		<div class="page-header">
 
 			<h1>
 				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
@@ -136,7 +136,7 @@
 						<span class="input-group-addon"><i
 							class="glyphicon glyphicon-user"></i></span> <input id="login-username"
 							type="email" class="form-control" name="email"
-							value="moi@wayd.fr" placeholder="<%=LoginTxt.HINT_EMAIL%>">
+							value="moi@wayd.fr" placeholder="<%=LoginTxt.HINT_EMAIL%> required">
 					</div>
 
 					<div style="margin-bottom: 25px" class="input-group">
@@ -229,7 +229,7 @@ function signInTestMembre1(){
 	 document.getElementById("codeSiteMasque").value =codeSite;
 	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="membre1";
-	 document.getElementById("formmasque").submit();
+		connexionTest();
 }
 
 function signInTestAnonyme(){
@@ -239,7 +239,7 @@ function signInTestAnonyme(){
 	document.getElementById("codeSiteMasque").value =codeSite;
 	document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	document.getElementById("token").value="anonyme";
-	document.getElementById("formmasque").submit();
+	connexionTest();
 }
 
 
@@ -250,7 +250,7 @@ function signInTestMembre2(){
 	
 	document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="membre2";
-	 document.getElementById("formmasque").submit();
+	 connexionTest();
 }
 
 
@@ -260,7 +260,7 @@ function signInTestGestionnaire(){
 
 	 document.getElementById("action").value ='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE_TEST%>';
 	 document.getElementById("token").value="gestionnaire";
-	 document.getElementById("formmasque").submit();
+	 connexionTest();
 }
 
 function signInTest(){
@@ -280,12 +280,9 @@ function signInGoogle(){
 			  document.getElementById("tokenfb").value =idToken;
 			    document.getElementById("pwd").value ="0";
 			    document.getElementById("outputJetonSite").value =codeSite;
-			    
-			  
-				document.getElementById("formlogin").submit();
-			
 				
-				
+				  connexionFireBase();
+					
 		  }).catch(function(error) {
 			  var errorMessage = error.message;
 
@@ -321,7 +318,7 @@ function signInFB(){
 			   document.getElementById("tokenfb").value =idToken;
 			    document.getElementById("pwd").value ="0";
 			    document.getElementById("outputJetonSite").value =codeSite;
-				document.getElementById("formlogin").submit();
+			    connexionFireBase();
 		 
 		  }).catch(function(error) {
 			  var errorMessage = error.message;
@@ -362,7 +359,7 @@ function signPassword(){
 			    document.getElementById("pwd").value ="1";
 			    document.getElementById("outputJetonSite").value =codeSite;
 				   
-				document.getElementById("formlogin").submit();
+			    connexionFireBase();
 		  
 		  }).catch(function(error) {
 			
@@ -395,6 +392,59 @@ function signPassword(){
 		});
 	
 }
-
 </script>
+<script type="text/javascript">
+
+function connexionTest(){
+	
+	
+	$.get("/waydplace/ConnexionMembre?"+$("#formmasque").serialize() ,
+			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+			
+		if (responseText == 'membre'){
+			      location.href='/waydplace/membre/ecranPrincipal.jsp';
+					return;
+				
+		} 
+					
+		if (responseText == 'gestionnaire'){
+				      location.href='/waydplace/gestionnaire/ecranPrincipalGestionnaire.jsp';
+						return;
+						} 
+			
+			BootstrapDialog.alert(responseText);
+								
+
+							});
+
+		}
+	</script>
+
+<script type="text/javascript">
+
+function connexionFireBase(){
+	
+	
+	$.get("/waydplace/ConnexionMembre?"+$("#formlogin").serialize() ,
+			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+			
+		if (responseText == 'membre'){
+			      location.href='/waydplace/membre/ecranPrincipal.jsp';
+					return;
+				
+		} 
+					
+		if (responseText == 'gestionnaire'){
+				      location.href='/waydplace/gestionnaire/ecranPrincipalGestionnaire.jsp';
+						return;
+						} 
+			
+			BootstrapDialog.alert(responseText);
+								
+
+							});
+
+		}
+	</script>
+
 </html>

@@ -276,12 +276,12 @@
 				return false;
 			}
 
-			if (diffHeure <1) {
-				BootstrapDialog.show({
-					message:"<%=ModifierActiviteMembre.DUREE_PAS_INFERIEURE_A%>"
-							});
-				return false;
-			}
+// 			if (diffHeure <1) {
+// 				BootstrapDialog.show({
+<%-- 					message:"<%=ModifierActiviteMembre.DUREE_PAS_INFERIEURE_A%>" --%>
+// 							});
+// 				return false;
+// 			}
 			
 			return true;
 		}

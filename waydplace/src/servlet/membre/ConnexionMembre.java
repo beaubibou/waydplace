@@ -70,9 +70,9 @@ public class ConnexionMembre extends HttpServlet {
 	public static final String ACTION_REDIRECTION_CREATION_COMPTE_PRO = "/waydplace/ConnexionMembre?action="
 			+ REDIRECTION_CREATION_COMPTE_PRO;
 	public static final String ACTION_REDIRECTION_CREATION_MDP_OUBLIE = "/waydplace/compte/motdepasseoublie.jsp";
-	public static final String ACTION_REDIRECTION_DEMANDE_CONFIRMATION_MAIL="/waydplace/compte/redemandeConfirmationMail.jsp";
-	public static final String ACTION_REDIRECTION_LOGIN="/waydplace/index.jsp";
-	 	
+	public static final String ACTION_REDIRECTION_DEMANDE_CONFIRMATION_MAIL = "/waydplace/compte/redemandeConfirmationMail.jsp";
+	public static final String ACTION_REDIRECTION_LOGIN = "/waydplace/index.jsp";
+
 	private static final String CLE_CAPTCHA = "6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
 	static {
@@ -200,8 +200,8 @@ public class ConnexionMembre extends HttpServlet {
 
 			case ActionPage.CONNEXION_SITE_ADMIN:
 
-				connexionSiteAdmin(request,response);
-			
+				connexionSiteAdmin(request, response);
+
 				break;
 
 			case CONNEXION_SITE_MEMBRE:
@@ -244,7 +244,7 @@ public class ConnexionMembre extends HttpServlet {
 				creerCompteMembre(request, response);
 
 				break;
-		
+
 			default:
 			}
 		} catch (Exception e) {
@@ -257,8 +257,8 @@ public class ConnexionMembre extends HttpServlet {
 
 	private void connexionSiteAdmin(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-	
-		String	tokenFireBase = request.getParameter("token");
+
+		String tokenFireBase = request.getParameter("token");
 
 		MessageAction connexionSiteGestionnaire = connexionSiteGestionnaire(
 				tokenFireBase, request, response);
@@ -271,7 +271,7 @@ public class ConnexionMembre extends HttpServlet {
 			System.out.println(connexionSiteGestionnaire.getMessage());
 
 		}
-		
+
 	}
 
 	private void connexionSiteMembre(HttpServletRequest request,
@@ -283,6 +283,9 @@ public class ConnexionMembre extends HttpServlet {
 		MessageAction connexionSiteMembre = connexionSiteMembre(tokenFireBase,
 				jetonSite, request, response);
 
+		
+		
+		
 		if (connexionSiteMembre.isOk()) {
 
 			Profil profil = (Profil) connexionSiteMembre.getReponseObject();
@@ -290,26 +293,59 @@ public class ConnexionMembre extends HttpServlet {
 			switch (profil.getTypeOrganisteur()) {
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-				response.sendRedirect("membre/ecranPrincipal.jsp");
+			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+
+				response.setContentType("text/plain");
+				response.getWriter().write("membre");
 				break;
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
-				response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
-
-				break;
-
-			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-				response.sendRedirect("membre/ecranPrincipal.jsp");
+		
+				response.setContentType("text/plain");
+				response.getWriter().write("gestionnaire");
+		
 				break;
 
 			default:
-				response.sendRedirect("erreur");
-				break;
+					break;
 			}
 		} else {
-			LOG.error(connexionSiteMembre.getMessage());
-			response.sendRedirect("erreur");
+
+			System.out.println(connexionSiteMembre.getMessage());
+			response.setContentType("text/plain");
+			response.getWriter().write(connexionSiteMembre.getMessage());
+	
 		}
+		
+		
+		
+//		if (connexionSiteMembre.isOk()) {
+//
+//			Profil profil = (Profil) connexionSiteMembre.getReponseObject();
+//
+//			switch (profil.getTypeOrganisteur()) {
+//
+//			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+//				response.sendRedirect("membre/ecranPrincipal.jsp");
+//				break;
+//
+//			case Parametres.TYPE_ORGANISATEUR_SITE:
+//				response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
+//
+//				break;
+//
+//			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+//				response.sendRedirect("membre/ecranPrincipal.jsp");
+//				break;
+//
+//			default:
+//				response.sendRedirect("erreur");
+//				break;
+//			}
+//		} else {
+//			LOG.error(connexionSiteMembre.getMessage());
+//			response.sendRedirect("erreur");
+//		}
 	}
 
 	private void connexioSiteMembreTest(HttpServletRequest request,
@@ -320,6 +356,8 @@ public class ConnexionMembre extends HttpServlet {
 		MessageAction connexionSiteMembreTest = connexionSiteMembreTest(
 				tokenFireBase, jetonSite, request, response);
 
+			
+		
 		if (connexionSiteMembreTest.isOk()) {
 
 			Profil profil = (Profil) connexionSiteMembreTest.getReponseObject();
@@ -327,27 +365,28 @@ public class ConnexionMembre extends HttpServlet {
 			switch (profil.getTypeOrganisteur()) {
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-				response.sendRedirect("membre/ecranPrincipal.jsp");
+			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+
+				response.setContentType("text/plain");
+				response.getWriter().write("membre");
 				break;
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
-				response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
-
-				break;
-
-			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-				response.sendRedirect("membre/ecranPrincipal.jsp");
+		
+				response.setContentType("text/plain");
+				response.getWriter().write("gestionnaire");
 		
 				break;
 
 			default:
-				response.sendRedirect("erreur");
-				break;
+					break;
 			}
 		} else {
 
 			System.out.println(connexionSiteMembreTest.getMessage());
-			response.sendRedirect("erreur");
+			response.setContentType("text/plain");
+			response.getWriter().write(connexionSiteMembreTest.getMessage());
+	
 		}
 
 	}
@@ -355,7 +394,6 @@ public class ConnexionMembre extends HttpServlet {
 	private void creerCompteMembre(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		MessageAction creerCompteMembre = creerCompteMembre(request);
-		
 
 		if (creerCompteMembre.isOk()) {
 			response.setContentType("text/plain");
@@ -372,7 +410,6 @@ public class ConnexionMembre extends HttpServlet {
 			HttpServletResponse response) throws IOException, ServletException {
 
 		MessageAction creerComptePro = creerComptePro(request);
-	
 
 		if (creerComptePro.isOk()) {
 			response.setContentType("text/plain");
@@ -637,24 +674,25 @@ public class ConnexionMembre extends HttpServlet {
 		String description = request.getParameter("commentaire");
 		String siteweb = request.getParameter("siteweb");
 		String nomSite = request.getParameter("nomSite");
-		
-		MessageAction vpCreerComptePro=vpCreerComptePro(email, pseudoGestionnaire, nomSite, telephone, adresse,
-				siteweb, description);
-		
+
+		MessageAction vpCreerComptePro = vpCreerComptePro(email,
+				pseudoGestionnaire, nomSite, telephone, adresse, siteweb,
+				description);
+
 		if (!vpCreerComptePro.isOk())
-				return vpCreerComptePro;
-			
+			return vpCreerComptePro;
+
 		String reponseCaptcha = request.getParameter("g-recaptcha-response");
-		
+
 		MessageAction iscaptcha = isCaptcha(reponseCaptcha);
 
 		if (!iscaptcha.isOk()) {
-			
+
 			LOG.info("erreur capcth captcha");
-			
+
 			return new MessageAction(false, iscaptcha.getMessage());
 		}
-		
+
 		MessageAction creerUserFireBase = creerUtilisateurFireBase(email, pwd,
 				pseudoGestionnaire);
 
@@ -680,32 +718,26 @@ public class ConnexionMembre extends HttpServlet {
 			String pseudoGestionnaire, String nomSite, String telephone,
 			String adresse, String siteweb, String description) {
 
-
 		if (pseudoGestionnaire.length() < 3)
 			return new MessageAction(false, "Le nom et trop court");
-	
+
 		if (!Outils.testTelephone(telephone))
-					 	return new MessageAction(false, "Numero de téléphonne non conforme");
+			return new MessageAction(false, "Numero de téléphonne non conforme");
 
-		return new MessageAction(true, "");		
+		return new MessageAction(true, "");
 
-		
-		
 	}
 
 	private MessageAction creerUtilisateurFireBase(String email, String pwd,
 			String pseudo) {
 
-	
-
 		try {
 			if (FirebaseApp.getApps().isEmpty())
 				FirebaseApp.initializeApp(optionFireBase);
 
-			
 			CreateRequest nouveauUser = new CreateRequest().setEmail(email)
-					.setEmailVerified(false).setPassword(pwd).setDisabled(false)
-					.setDisplayName(pseudo);
+					.setEmailVerified(false).setPassword(pwd)
+					.setDisabled(false).setDisplayName(pseudo);
 
 			UserRecord userRecord = FirebaseAuth.getInstance()
 					.createUserAsync(nouveauUser).get();
@@ -734,7 +766,6 @@ public class ConnexionMembre extends HttpServlet {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 
-
 		List<BasicNameValuePair> urlParameters = new ArrayList<BasicNameValuePair>();
 
 		urlParameters.add(new BasicNameValuePair("secret", CLE_CAPTCHA));
@@ -748,7 +779,7 @@ public class ConnexionMembre extends HttpServlet {
 					response.getEntity().getContent()));
 
 			StringBuffer result = new StringBuffer();
-			String line ="";
+			String line = "";
 			while ((line = rd.readLine()) != null) {
 				result.append(line);
 
@@ -760,7 +791,7 @@ public class ConnexionMembre extends HttpServlet {
 			}
 
 		} catch (IOException e) {
-			
+
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, ExceptionUtils.getStackTrace(e));
 

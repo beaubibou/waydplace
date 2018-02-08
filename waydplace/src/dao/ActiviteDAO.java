@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+
 import javax.naming.NamingException;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+
 import parametre.Parametres;
 import poolconnexion.CxoPool;
 import bean.Activite;
@@ -270,6 +273,7 @@ public class ActiviteDAO {
 		try {
 			connexion = CxoPool.getConnection();
 			String requete = "";
+		
 			switch (etatActivite)
 
 			{
@@ -629,10 +633,10 @@ public class ActiviteDAO {
 				int id = rs.getInt("idactivite");
 				String libelle = rs.getString("libelle");
 				String titre = rs.getString("titre");
-				String uid_membre = rs.getString("uid_membre");
-				int id_site = rs.getInt("id_site");
-				int id_ref_type_activite = rs.getInt("id_ref_type_activite");
-				int id_ref_type_organisateur = rs
+				String uidMembre = rs.getString("uid_membre");
+				int idSite = rs.getInt("id_site");
+				int idRefTypeActivite = rs.getInt("id_ref_type_activite");
+				int idRefTypeOrganisateur = rs
 						.getInt("id_ref_type_organisateur");
 				String photoOrganisateur = rs.getString("photoOrganisateur");
 				Date datedebut = rs.getTimestamp("date_debut");
@@ -640,17 +644,16 @@ public class ActiviteDAO {
 				String pseudoOrganisateur = rs.getString("pseudo");
 				String photoSite = rs.getString("photoSite");
 				String nomSite = rs.getString("nomSite");
-					LOG.info("liiiiiii"+libelle);
-				activite = new Activite(titre, libelle, id, id_site,
+		
+				activite = new Activite(titre, libelle, id, idSite,
 						photoOrganisateur, pseudoOrganisateur,
-						id_ref_type_organisateur, uid_membre, datefin,
-						datedebut, id_ref_type_activite,photoSite,nomSite);
+						idRefTypeOrganisateur, uidMembre, datefin,
+						datedebut, idRefTypeActivite,photoSite,nomSite);
 
 			
 			}
 
 		} catch (SQLException | NamingException e) {
-			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 
 		} finally {
@@ -730,6 +733,170 @@ public class ActiviteDAO {
 		}
 	
 
+	}
+
+	public static ArrayList<Activite> getMesActivite(String uid,
+			FiltreRecherche filtre, int page, int maxResult) {
+	
+		int offset = (maxResult) * page;
+		Activite activite = null;
+		ArrayList<Activite> retour = new ArrayList<Activite>();
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		int etatActivite=filtre.getCritereRechercheEtatMesActivite();
+		
+		Connection connexion = null;
+		try {
+			connexion = CxoPool.getConnection();
+			String requete = "";
+			switch (etatActivite)
+
+			{
+			case CritereEtatActivite.ENCOURS:
+
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
+						+ "activite.id_site,"
+						+ "activite.id_ref_type_organisateur,"
+						+ "activite.date_debut," + "activite.date_fin,"
+						+ "activite.titre," + "activite.libelle,"
+						+ "activite.date_creation,"
+						+ "activite.id_ref_type_activite,"
+						+ "activite.uid_membre,"
+						+ "membre.photo as photoOrganisateur,"
+						+ "membre.pseudo " + "from " + "activite,membre,site "
+						+ "WHERE " + "membre.uid = activite.uid_membre "
+						+ "and activite.uid_membre=? "
+						+ "and ?  between date_debut and date_fin and site.id=membre.id_site "
+						+ "ORDER BY date_debut DESC  limit ?  offset ?";
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setString(1, uid);
+				preparedStatement.setTimestamp(2, new java.sql.Timestamp(
+						new Date().getTime()));
+				preparedStatement.setInt(3, maxResult);
+				preparedStatement.setInt(4, offset);
+				rs = preparedStatement.executeQuery();
+
+				break;
+			case CritereEtatActivite.TERMINEE:
+
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
+						+ "activite.id_site,"
+						+ "activite.id_ref_type_organisateur,"
+						+ "activite.date_debut," + "activite.date_fin,"
+						+ "activite.titre," + "activite.libelle,"
+						+ "activite.date_creation,"
+						+ "activite.id_ref_type_activite,"
+						+ "activite.uid_membre,"
+						+ "membre.photo as photoOrganisateur,"
+						+ "membre.pseudo " + "from " + "activite,membre,site "
+						+ "WHERE " + "membre.uid = activite.uid_membre "
+						+ "and activite.uid_membre=? " + "and date_fin<? and site.id=membre.id_site "
+						+ "ORDER BY date_debut DESC  limit ?  offset ?";
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setString(1, uid);
+				preparedStatement.setTimestamp(2, new java.sql.Timestamp(
+						new Date().getTime()));
+				preparedStatement.setInt(3, maxResult);
+				preparedStatement.setInt(4, offset);
+		
+				rs = preparedStatement.executeQuery();
+
+				break;
+
+			case CritereEtatActivite.TOUTES:
+
+				requete = " SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
+						+ "activite.id_site,"
+						+ "activite.id_ref_type_organisateur,"
+						+ "activite.date_debut," + "activite.date_fin,"
+						+ "activite.titre," + "activite.libelle,"
+						+ "activite.date_creation,"
+						+ "activite.id_ref_type_activite,"
+						+ "activite.uid_membre,"
+						+ "membre.photo as photoOrganisateur,"
+						+ "membre.pseudo " + "from " + "activite,membre,site "
+						+ "WHERE " + "membre.uid = activite.uid_membre "
+						+ "and activite.uid_membre=? and site.id=membre.id_site "
+						+ "ORDER BY date_debut DESC  limit ?  offset ?";
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setString(1, uid);
+				preparedStatement.setInt(2, maxResult);
+				preparedStatement.setInt(3, offset);
+		
+				rs = preparedStatement.executeQuery();
+				break;
+
+			case CritereEtatActivite.PLANIFIEE:
+				requete = "SELECT site.photo as photoSite,site.nom as nomSite,activite.id as idactivite,"
+						+ "activite.id_site,"
+						+ "activite.id_ref_type_organisateur,"
+						+ "activite.date_debut," + "activite.date_fin,"
+						+ "activite.titre," + "activite.libelle,"
+						+ "activite.date_creation,"
+						+ "activite.id_ref_type_activite,"
+						+ "activite.uid_membre,site,"
+						+ "membre.photo as photoOrganisateur,"
+						+ "membre.pseudo " + "from activite,membre,site "
+						+ "WHERE membre.uid = activite.uid_membre "
+						+ "and activite.uid_membre=? "
+						+ "and date_debut>? "
+						+ "and site.id=membre.id_site "
+						+ "ORDER BY date_debut desc limit ?  offset ?";
+
+				preparedStatement = connexion.prepareStatement(requete);
+				preparedStatement.setString(1, uid);
+				preparedStatement.setTimestamp(2, new java.sql.Timestamp(
+						new Date().getTime()));
+				preparedStatement.setInt(3, maxResult);
+				preparedStatement.setInt(4, offset);
+				rs = preparedStatement.executeQuery();
+
+				break;
+
+			}
+
+			while (rs.next()) {
+
+				int id = rs.getInt("idactivite");
+				String libelle = rs.getString("libelle");
+				String titre = rs.getString("titre");
+				int idSite = rs.getInt("id_site");
+				int id_ref_type_activite = rs.getInt("id_ref_type_activite");
+				int id_ref_type_organisateur = rs
+						.getInt("id_ref_type_organisateur");
+				String photoOrganisateur = rs.getString("photoOrganisateur");
+				Date datedebut = rs.getTimestamp("date_debut");
+				Date datefin = rs.getTimestamp("date_fin");
+				String pseudoOrganisateur = rs.getString("pseudo");
+				String photoSite = rs.getString("photoSite");
+				String nomSite = rs.getString("nomSite");
+
+				activite = new Activite(titre, libelle, id, idSite,
+						photoOrganisateur, pseudoOrganisateur,
+						id_ref_type_organisateur, uid, datefin, datedebut,
+						id_ref_type_activite,photoSite,nomSite);
+			
+				retour.add(activite);
+
+			}
+
+			preparedStatement.close();
+			rs.close();
+
+		} catch (NamingException | SQLException e) {
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return retour;
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement, rs);
+		}
+
+		return retour;
+
+		
+		
 	}
 
 }

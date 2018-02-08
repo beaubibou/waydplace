@@ -1,5 +1,7 @@
 
 
+<%@page import="pager.PagerMesActivites"%>
+<%@page import="pager.PagerActivite"%>
 <%@page import="java.util.Date"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.FrontalCommun"%>
@@ -51,9 +53,11 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-			FiltreRecherche filtre=profil.getFiltre();
-			ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
-			String afficheMessage=(String)request.getAttribute("alertMessage");
+		FiltreRecherche filtre=profil.getFiltre();
+		//ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
+			
+		PagerMesActivites pager=(PagerMesActivites) request.getAttribute("pager");
+		ArrayList<Activite> listMesActivite = pager.getListActivite();
 	%>
 
 
@@ -138,32 +142,50 @@
 
 				<%
 					if (listMesActivite!=null)
-								
-					for (Activite activite : listMesActivite)
-							{String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
-																	+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
-				
-							String lienEffaceActivite = "/waydplace/Frontal?action="
-									+ Frontal.EFFACE_ACTIVITE_MEMBRE + "&idactivite=" + activite.getId();
-							String lienModifierActivite = "/waydplace/Frontal?action="
-									+ Frontal.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE
-									+ "&idactivite=" + activite.getId();
-				
+										
+							for (Activite activite : listMesActivite)
+									{String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
+																			+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
+						
+									String lienEffaceActivite = "/waydplace/Frontal?action="
+											+ Frontal.EFFACE_ACTIVITE_MEMBRE + "&idactivite=" + activite.getId();
+									String lienModifierActivite = "/waydplace/Frontal?action="
+											+ Frontal.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE
+											+ "&idactivite=" + activite.getId();
 				%>
 
 				<tr>
-					<td  onclick="document.location='<%=lienDetailActivite%>'"><%=activite.getAdpaterListHtml(FrontalCommun.FROM_MES_ACTIVITES_MEMBRES)%></td>
+					<td onclick="document.location='<%=lienDetailActivite%>'"><%=activite.getAdpaterListHtml(FrontalCommun.FROM_MES_ACTIVITES_MEMBRES)%></td>
 					<td style="vertical-align: middle; text-align: center;">
-					<p ><a href='<%=lienModifierActivite%>' class='btn btn-info btn-sm'> <span class='glyphicon glyphicon-edit'></span></a>
-					<button  onclick="confirmEfface('<%=lienEffaceActivite %>')" 	class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></button></p>
+						<p>
+							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-sm'>
+								<span class='glyphicon glyphicon-edit'></span>
+							</a>
+							<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove"></span>
+							</button>
+						</p>
 					</td>
-					
+
 				</tr>
+
+
 				<%
 					}
 				%>
 			</tbody>
 		</table>
+	
+		<ul class="pager">
+
+			<li <%=pager.isPreviousHtml()%>><a
+				href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
+			<li>Page N° <%=pager.getPageEnCours()%></li>
+			<li <%=pager.isNextHtml()%>><a
+				href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
+
+		</ul>
 		<%
 			} else
 			{
@@ -190,20 +212,18 @@
 		});
 	</script>
 
-	
+
 
 	<script type="text/javascript">
-	
-	function confirmEfface(liensupprime) {
+		function confirmEfface(liensupprime) {
 
-		
 			BootstrapDialog.show({
 				title : 'Confirmation',
 				message : 'Vous allez effacer votre activité',
 				buttons : [ {
 					label : 'Oui',
 					action : function(dialog) {
-						document.location=liensupprime;
+						document.location = liensupprime;
 					}
 				}, {
 					label : 'Non',

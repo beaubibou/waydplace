@@ -44,18 +44,18 @@
 <script src="js/alertdialog.js"></script>
 
 </head>
-<body>
+<body style='background: url(/waydplace/img/waydfond.jpg) center top #000;'>
 	<%
 		Profil profil = (Profil) request.getSession()
 			.getAttribute("profil");
 	%>
 	<%@include file="menuMembre.jsp"%>
 
-	<div class="container">
+	<div class="container"   >
 		<div id="loginbox"
-			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
-			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-custom">
+			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut ">
+			<div class="panel panel-default" >
+				<div class="panel-heading panel-heading-custom"  >
 					<div class="panel-title">
 						<a
 							href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
@@ -63,7 +63,7 @@
 							class="glyphicon glyphicon-home"></span></a> Mon compte
 					</div>
 				</div>
-				<div style="padding-top: 30px" class="panel-body">
+				<div style="padding-top: 30px;" class="panel-body">
 
 
 
