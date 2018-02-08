@@ -18,7 +18,7 @@
 
 .jumbotron-style{
 	
-	background-color: #ffbf00;
+	background-color: #ffe6b3;
 	
 }
 
@@ -81,6 +81,7 @@ background-color:#ffAD40;
 border: 2px solid #ffe699 ;
 color:white;
 text-decoration:none
+
 }
 .btnwayd:hover{
 color:white;	
@@ -97,7 +98,7 @@ background-color:#ffBD45
 
 .barrerecherche{
 	
-	background-color: #ffe699;
+	background-color: #ffbf00;
 	border: 5px solid #fff;
 	
 }

@@ -34,7 +34,7 @@
 
 <script src="/waydplace/js/agenda.js"></script>
 <link href="/waydplace/css/agenda.css" rel="stylesheet" type="text/css">
-<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"	type="text/css">
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"	type="text/css">
 
 <%
 Profil profil = (Profil) request.getSession().getAttribute("profil");

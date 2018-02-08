@@ -50,7 +50,7 @@
 	media="all" type="text/css">
 	
 	
-<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
 	type="text/css">
 	
 </head>

@@ -39,7 +39,7 @@
 
 <script src="js/alertdialog.js"></script>
 
-<link href="/waydplace/css/styleWaydGestionnaire.css" rel="stylesheet"
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
 	type="text/css">
 
 
@@ -123,11 +123,8 @@
 									{
 						String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE
 										+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_GESTIONNAIRE;;
-						String lienEffaceActivite = "/waydplace/FrontalGestionnaire?action="
-												+ FrontalGestionnaire.EFFACE_ACTIVITE_GESTIONNAIRE + "&idactivite=" + activite.getId();
-						String lienModifierActivite = "/waydplace/FrontalGestionnaire?action="
-												+ FrontalGestionnaire.REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE
-												+ "&idactivite=" + activite.getId();
+										String lienEffaceActivite = activite.getLienSupprimerGestionnaire(profil);
+										String lienModifierActivite =activite.getLienModifierGestionnaire(profil);
 				%>
 
 
@@ -139,17 +136,25 @@
 					<td style="vertical-align: middle;"><%=activite.getHoraireLeA()%></td>
 					<td style="vertical-align: middle; text-align: center;">
 						<p>
+						<%
+								if (lienModifierActivite!=null) {
+							%>
 							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-lg'>
 								<span class='glyphicon glyphicon-edit'></span>
 							</a>
+							<%} %>
+							
+								<%
+								if (lienEffaceActivite!=null) {
+							%>
 							<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
 								class="btn btn-danger btn-lg">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
+							<%} %>
 						</p>
 					</td>
-					</td>
-
+			
 
 				</tr>
 				<%

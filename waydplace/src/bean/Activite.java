@@ -57,6 +57,70 @@ public class Activite {
 			return true;
 		return false;
 	}
+	
+	public String getLienModifierMembre(Profil profil){
+		if (profil.isAnonyme())
+			return null;
+
+		if (!isOrganistateur(profil.getUID()))
+			return null;
+
+		if (isTerminee())
+			return null;
+			
+		return "/waydplace/Frontal?action="
+				+ Frontal.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE
+				+ "&idactivite=" + id;
+		
+	}
+	
+	public String getLienModifierGestionnaire(Profil profil){
+		if (profil.isAnonyme())
+			return null;
+
+		if (!isOrganistateur(profil.getUID()))
+			return null;
+
+		if (isTerminee())
+			return null;
+			
+		return "/waydplace/FrontalGestionnaire?action="
+				+ FrontalGestionnaire.REDIRECTION_MODIFIER_ACTIVITE_GESTIONNAIRE
+				+ "&idactivite=" + id;
+		
+	}
+	
+	public String getLienSupprimerMembre(Profil profil){
+		if (profil.isAnonyme())
+			return null;
+
+		if (!isOrganistateur(profil.getUID()))
+			return null;
+
+		if (isTerminee())
+			return null;
+			
+		return "/waydplace/Frontal?action="
+		+ Frontal.EFFACE_ACTIVITE_MEMBRE + "&idactivite=" + id;
+		
+	}
+	
+	public String getLienSupprimerGestionnaire(Profil profil){
+	
+		if (profil.isAnonyme())
+			return null;
+
+		if (!isOrganistateur(profil.getUID()))
+			return null;
+
+		if (isTerminee())
+			return null;
+			
+		return "/waydplace/FrontalGestionnaire?action="
+		+ FrontalGestionnaire.EFFACE_ACTIVITE_GESTIONNAIRE + "&idactivite=" + id;
+		
+	}
+
 
 	public String getLienMessage(Profil profil, int idActivite,
 			String uidEmetteur) {

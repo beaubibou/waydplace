@@ -53,16 +53,15 @@
 
 	<%
 		Profil profil = (Profil) request.getSession().getAttribute("profil");
-		FiltreRecherche filtre=profil.getFiltre();
-		//ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
-			
-		PagerMesActivites pager=(PagerMesActivites) request.getAttribute("pager");
-		ArrayList<Activite> listMesActivite = pager.getListActivite();
+			FiltreRecherche filtre=profil.getFiltre();
+			//ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
+		
+			PagerMesActivites pager=(PagerMesActivites) request.getAttribute("pager");
+			ArrayList<Activite> listMesActivite = pager.getListActivite();
 	%>
 
 
 	<%@ include file="menuMembre.jsp"%>
-
 
 	<div class="container margedebut ">
 		<div class="panel barrerecherche">
@@ -108,8 +107,11 @@
 								</select>
 
 							</div>
-
-
+							
+						<a	 href='<%=Frontal.ACTION_REDIRECTION_PROPOSER %>'
+								class='btn btn-info btn-md btnwayd'> <span
+								class="glyphicon glyphicon-plus"> </span>
+</a>
 							<input type="hidden" name='action'
 								value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
 						</form>
@@ -142,29 +144,40 @@
 
 				<%
 					if (listMesActivite!=null)
-										
-							for (Activite activite : listMesActivite)
-									{String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
-																			+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
-						
-									String lienEffaceActivite = "/waydplace/Frontal?action="
-											+ Frontal.EFFACE_ACTIVITE_MEMBRE + "&idactivite=" + activite.getId();
-									String lienModifierActivite = "/waydplace/Frontal?action="
-											+ Frontal.REDIRECTION_MODIFIER_ACTIVITE_MEMBRE
-											+ "&idactivite=" + activite.getId();
+												
+									for (Activite activite : listMesActivite)
+											{String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
+																					+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
+								
+											String lienEffaceActivite = activite.getLienSupprimerMembre(profil);
+											String lienModifierActivite =activite.getLienModifierMembre(profil);
 				%>
 
 				<tr>
 					<td onclick="document.location='<%=lienDetailActivite%>'"><%=activite.getAdpaterListHtml(FrontalCommun.FROM_MES_ACTIVITES_MEMBRES)%></td>
 					<td style="vertical-align: middle; text-align: center;">
 						<p>
+							<%
+								if (lienModifierActivite!=null) {
+							%>
 							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-sm'>
 								<span class='glyphicon glyphicon-edit'></span>
 							</a>
+							<%
+								}
+							%>
+
+							<%
+								if (lienEffaceActivite!=null) {
+							%>
+
 							<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
 								class="btn btn-danger btn-sm">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
+							<%
+								}
+							%>
 						</p>
 					</td>
 
@@ -176,7 +189,7 @@
 				%>
 			</tbody>
 		</table>
-	
+
 		<ul class="pager">
 
 			<li <%=pager.isPreviousHtml()%>><a
@@ -195,7 +208,7 @@
 			<h1>Pas de résultats</h1>
 			<h3>
 				Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas
-				à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
+				à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'><strong>proposer.</strong></a>
 			</h3>
 		</div>
 
@@ -221,14 +234,14 @@
 				title : 'Confirmation',
 				message : 'Vous allez effacer votre activité',
 				buttons : [ {
-					label : 'Oui',
-					action : function(dialog) {
-						document.location = liensupprime;
-					}
-				}, {
 					label : 'Non',
 					action : function(dialog) {
 						dialog.close();
+					}
+				}, {
+					label : 'Oui',
+					action : function(dialog) {
+						document.location = liensupprime;
 					}
 				} ]
 			});
