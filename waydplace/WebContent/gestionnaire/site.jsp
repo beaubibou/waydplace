@@ -225,6 +225,7 @@
 					            buttons: [{
 					                label: 'Ok',
 					                action: function(dialog) {
+					                	dialog.close();
 					                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
 					                  //  dialog.setMessage('Message 1');
 					                }

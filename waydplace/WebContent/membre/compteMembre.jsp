@@ -257,6 +257,7 @@ function modifieCompte(){
 			            buttons: [{
 			                label: 'Ok',
 			                action: function(dialog) {
+			               	dialog.close();
 			                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
 			                  //  dialog.setMessage('Message 1');
 			                }

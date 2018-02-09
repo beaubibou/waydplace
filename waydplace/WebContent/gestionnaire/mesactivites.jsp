@@ -202,6 +202,7 @@
 				} , {
 					label : 'Oui',
 					action : function(dialog) {
+						dialog.close();
 						document.location = liensupprime;
 					}
 				}]

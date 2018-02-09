@@ -593,8 +593,7 @@ public class Frontal extends HttpServlet {
 		MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
 				request, profil);
 
-		LOG.info("kkkkkkkkkkk");
-
+		
 		if (updateFiltreRechercheActivite.isOk()) {
 
 			int pageEncours = 0;

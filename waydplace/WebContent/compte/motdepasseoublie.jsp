@@ -144,6 +144,7 @@ auth.sendPasswordResetEmail(email).then(function() {
             buttons: [{
                 label: 'Ok',
                 action: function(dialog) {
+                dialog.close();
                 location.href="/waydplace/index.jsp"
                   //  dialog.setMessage('Message 1');
                 }
