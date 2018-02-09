@@ -66,7 +66,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<p class="text-tuto"><a
-								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+								href='<%=Frontal.ACTION_REDIRECTION_ACCEUIL%>'
 								class='btn btn-info btn-md btnwayd'> <span
 								class="glyphicon glyphicon-home"></span></a> Les dernières nouvelles du site</p>
 						<br>
@@ -79,7 +79,7 @@
 			</div>
 
 		</div>
-		<table class="table table-responsive " id="matable">
+		<table class="table table-responsive table-striped " id="matable">
 	
 			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
 
@@ -93,11 +93,16 @@
 
 				<tr>
 					<td>
-						<div class="jumbotron" style="margin-bottom: 0px;">
+							<div class="row">
+					<div class="col-sm-12">
+			
+						<div class="jumbotron" style="margin: 0px;padding:20px;">
 							<h2 style="margin-top: 0px;"><%=news.getTitre()%></h2>
-							<p><%=news.getMessage()%></p>
+							<textarea  readonly="readonly" style='background-color: white;'  class="form-control" rows="5" ><%=news.getMessage()%></textarea>
 
 							<h6><%=news.getDateCreationStr()%></h6>
+						</div>
+						</div>
 						</div>
 
 					</td>
@@ -125,6 +130,7 @@
 
 			BootstrapDialog.show({
 				title : 'Confirmation',
+				 closable: false,
 				message : 'Vous allez effacer votre news',
 				buttons : [ {
 					label : 'Oui',

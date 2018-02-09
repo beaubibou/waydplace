@@ -107,6 +107,14 @@ public class Frontal extends HttpServlet {
 	public static final String ACTION_REDIRECTION_NEWS = "/waydplace/Frontal?action="
 			+ REDIRECTION_NEWS_MEMBRE;
 
+	public static final String ACTION_CHARGE_PHOTO_MEMBRE = "/waydplace/Frontal?action="
+			+ CHARGE_PHOTO_PROFIL_MEMBRE;
+
+	public static final String ACTION_REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE = "/waydplace/Frontal?action="
+			+ REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE;
+
+	
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -884,7 +892,7 @@ public class Frontal extends HttpServlet {
 		String pseudo = request.getParameter("pseudo");
 		pseudo = pseudo.trim();
 		String description = request.getParameter("commentaire");
-		description = description.trim();
+	//	description = description.trim();
 
 		String uid = request.getParameter("uid");
 		String idtypeGenreStr = request.getParameter("typeGenre");
@@ -943,7 +951,7 @@ public class Frontal extends HttpServlet {
 		String titre = request.getParameter("titre");
 		String libelle = request.getParameter("description");
 
-		libelle = libelle.trim();
+	//	libelle = libelle.trim();
 		titre = titre.trim();
 
 		int id_ref_type_activite = 0;
@@ -1182,7 +1190,7 @@ public class Frontal extends HttpServlet {
 		String titre = request.getParameter("titre");
 
 		String libelle = request.getParameter("description");
-		libelle = libelle.trim();
+	//	libelle = libelle.trim();
 		titre = titre.trim();
 
 		int id_ref_type_activite = 0;

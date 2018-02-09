@@ -196,6 +196,10 @@ public class Activite {
 
 		if (isTerminee())
 			return "";
+		
+		
+		if (profil.getTypeOrganisteur()==Parametres.TYPE_ORGANISATEUR_SITE)
+			return "";
 	
 		if (id_ref_type_organisateur==Parametres.TYPE_ORGANISATEUR_SITE)
 			return "";

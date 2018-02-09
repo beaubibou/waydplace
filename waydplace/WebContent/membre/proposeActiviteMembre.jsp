@@ -200,6 +200,7 @@
 					{
 						BootstrapDialog.show({
 				            title: 'Confirmation',
+				            closable: false,
 				            message: 'Votre activité a été ajoutée',
 				            buttons: [{
 				                label: 'Ok',

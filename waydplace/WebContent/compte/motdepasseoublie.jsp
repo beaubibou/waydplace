@@ -139,6 +139,7 @@ auth.sendPasswordResetEmail(email).then(function() {
     
  BootstrapDialog.show({
             title: 'Confirmation',
+            closable: false,
             message: 'Un mail de confirmation vous a été envoyé',
             buttons: [{
                 label: 'Ok',

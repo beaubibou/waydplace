@@ -56,6 +56,10 @@ import dao.SiteDAO;
  * Servlet implementation class FrontalGestionnaire
  */
 public class FrontalGestionnaire extends HttpServlet {
+	
+	private static final long serialVersionUID = 1L;
+	private static final Logger LOG = Logger
+			.getLogger(FrontalGestionnaire.class);
 
 	public static final String REFRESH_MES_ACTIVITE_GESTIONNAIRE = "refreshMesActiviteGestionnaire";
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE = "redirectionproposeractivite";
@@ -91,12 +95,15 @@ public class FrontalGestionnaire extends HttpServlet {
 	public static final String REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE = "REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE";
 	public static final String REDIRECTION_PROPOSER_NEW_GESTIONNAIRE = "REDIRECTION_PROPOSER_NEW_GESTIONNAIRE";
 	public static final String REDIRECTION_NEWS_GESTIONNAIRE = "REDIRECTION_NEWS_GESTIONNAIRE";
+	
 
 	public static final String ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
 			+ REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE;
 	
+	
 	public static final String ACTION_REDIRECTION_MES_NEWS_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
 			+ REDIRECTION_NEWS_GESTIONNAIRE;
+	
 	
 	public static final String ACTION_REDIRECTION_PROPOSE_NEW_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
 			+ REDIRECTION_PROPOSER_NEW_GESTIONNAIRE;
@@ -106,14 +113,22 @@ public class FrontalGestionnaire extends HttpServlet {
 			+ REDIRECTION_PROPOSER_ACTIVITE_GESTIONNAIRE;
 
 	
-	
+	public static final String ACTION_SUPPRIMER_PHOTO_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
+			+ SUPPRIMER_PHOTO_GESTIONNAIRE;
 
-	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = Logger
-			.getLogger(FrontalGestionnaire.class);
+	
 	public static final String ACTION_REDIRECTION_RECHERCHE_ACTIVITE_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
 			+ REDIRECTION_RECHERCHER_ACTIVITE_GESTIONNAIRE;
 
+	public static final String ACTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
+			+ REDIRECTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE;
+
+	
+	public static final String ACTION_CHARGE_PHOTO_PROFIL_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
+			+ CHARGE_PHOTO_PROFIL_GESTIONNAIRE;
+
+	
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -410,7 +425,7 @@ public class FrontalGestionnaire extends HttpServlet {
 		String message = request.getParameter("message");
 
 		titre = titre.trim();
-		message = message.trim();
+	//	message = message.trim();
 
 		int idNew = 0;
 
@@ -652,7 +667,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		String titre = request.getParameter("titre");
 		String message = request.getParameter("message");
-		message = message.trim();
+	//	message = message.trim();
 		titre = titre.trim();
 
 		MessageAction vpAjouteNewGestionnaire = vpAjouteNewGestionnaire(titre,
@@ -937,7 +952,7 @@ public class FrontalGestionnaire extends HttpServlet {
 		String idtypeGenreStr = request.getParameter("typeGenre");
 
 		pseudo = pseudo.trim();
-		description = description.trim();
+	//	description = description.trim();
 
 		String datedebut = request.getParameter("datenaissance");
 		DateTime datenaissanceDT = null;
@@ -1128,7 +1143,7 @@ public class FrontalGestionnaire extends HttpServlet {
 		String telephone = request.getParameter("telephone");
 
 		nom = nom.trim();
-		description = description.trim();
+	//	description = description.trim();
 		adresse = adresse.trim();
 		jetonSite = jetonSite.trim();
 		telephone = telephone.trim();
@@ -1571,7 +1586,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		String titre = request.getParameter("titre");
 		String libelle = request.getParameter("description");
-		libelle = libelle.trim();
+	//	libelle = libelle.trim();
 		titre = titre.trim();
 		int idRefTypeActivite = 0;
 
@@ -1603,6 +1618,8 @@ public class FrontalGestionnaire extends HttpServlet {
 			LOG.error(ExceptionUtils.getStackTrace(e));
 			return new MessageAction(false, e.getMessage());
 		}
+		LOG.info("taille"+libelle.length());
+		LOG.info(libelle);
 
 		MessageAction vpAjouteActivite = vpAjouteActiviteGestionnaire(titre,
 				libelle, dateDebut, dateFin);
@@ -1644,7 +1661,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			return new MessageAction(false,
 					ModifierActiviteMembre.DATEDEBUT_SUP_DATEFIN);
 
-		if (titre.length() <= 4)
+		if (titre.length() <=4 )
 			return new MessageAction(false,
 					ModifierActiviteMembre.ERREUR_TITRE_TROP_COURT);
 

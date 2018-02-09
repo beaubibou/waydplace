@@ -42,7 +42,7 @@
 
 			<h1>
 				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
-					class="img-rounded" alt="Cinque Terre" width="100" height="100"><%=CreationCompteMembre.TITRE_JUMBO%>
+					class="img-rounded" alt="Cinque Terre" width="100" height="100">kkk<%=CreationCompteMembre.TITRE_JUMBO%>
 			</h1>
 		</div>
 
@@ -172,6 +172,7 @@ var validation=valideFormulaire();
 				{
 					BootstrapDialog.show({
 			            title: 'Confirmation',
+			            closable: false,
 			            message: 'Votre compte a été crée un mail vous a été envoyé.',
 			            buttons: [{
 			                label: 'Ok',

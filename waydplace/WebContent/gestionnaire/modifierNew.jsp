@@ -100,7 +100,7 @@
 							<input type="text" class="form-control" id="titre" required
 								placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
 								maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
-								name="titre" value="<%=news.getTitre() %> "required>
+								name="titre" value="<%=news.getTitre()%> "required>
 						</div>
 
 
@@ -116,7 +116,7 @@
 								placeholder="<%=ProposerNewText.HINT_DESCRIPTION_MESSAGE%>"
 								maxlength="<%=ProposerNewText.TAILLE_DESCRIPTION_NEWS_MAX%>"
 								class="form-control" rows="5" id="description"
-								name="message"> value="<%=news.getMessage() %></textarea>
+								name="message"><%=news.getMessage()%></textarea>
 						</div>
 						<h5 class="nbrcaracteremax" id="nbr">
 
@@ -153,6 +153,7 @@
 					{
 						BootstrapDialog.show({
 				            title: 'Confirmation',
+				            closable: false,
 				            message: 'Votre news a été modfiée',
 				            buttons: [{
 				                label: 'Ok',

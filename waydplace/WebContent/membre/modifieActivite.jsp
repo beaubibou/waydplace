@@ -190,6 +190,7 @@
 					{
 						BootstrapDialog.show({
 				            title: 'Confirmation',
+				            closable: false,
 				            message: 'Votre activité a été modfiée',
 				            buttons: [{
 				                label: 'Ok',

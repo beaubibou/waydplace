@@ -143,7 +143,7 @@
 						<%
 								if (lienModifierActivite!=null) {
 							%>
-							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-lg'>
+							<a href='<%=lienModifierActivite%>' class='btn btnwayd'>
 								<span class='glyphicon glyphicon-edit'></span>
 							</a>
 							<%} %>
@@ -152,7 +152,7 @@
 								if (lienEffaceActivite!=null) {
 							%>
 							<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
-								class="btn btn-danger btn-lg">
+								class="btn btn-danger btn">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
 							<%} %>
@@ -192,6 +192,7 @@
 
 			BootstrapDialog.show({
 				title : 'Confirmation',
+				closable: false,
 				message : 'Vous allez effacer votre activité',
 				buttons : [{
 					label : 'Non',

@@ -58,7 +58,7 @@
 		<div class="page-header">
 
 			<h1>
-				<img src="/wayd/img/waydLogoHD.png" style="margin-right: 50px;"
+				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
 					class="img-rounded" alt="Cinque Terre" width="100" height="100"><%=ChangemetMotDePasse.JUMBO_TITRE%></h1>
 		</div>
 

@@ -58,7 +58,7 @@
 				<div class="panel-heading panel-heading-custom"  >
 					<div class="panel-title">
 						<a
-							href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+							href='<%=Frontal.ACTION_REDIRECTION_ACCEUIL%>'
 							class='btn btnwayd btn-sm'> <span
 							class="glyphicon glyphicon-home"></span></a> Mon compte
 					</div>
@@ -73,7 +73,7 @@
 
 
 						<form
-							action="/waydplace/Frontal?action=<%=Frontal.CHARGE_PHOTO_PROFIL_MEMBRE%>"
+							action="<%=Frontal.ACTION_CHARGE_PHOTO_MEMBRE%>"
 							method="post" enctype="multipart/form-data"
 							onsubmit="return valideFichier()">
 
@@ -85,7 +85,7 @@
 									style="display: none;">
 								</label> <input type="submit" value="Envoyer la photo"
 									class="btn btnwayd btn-sm  " /> <a
-									href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
+									href='<%=Frontal.ACTION_REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
 									class="btn btnwayd btn-sm"> <span
 									class="glyphicon glyphicon-lock"></span></a> <a
 									href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
@@ -252,6 +252,7 @@ function modifieCompte(){
 				{
 					BootstrapDialog.show({
 			            title: 'Confirmation',
+			            closable: false,
 			            message: 'Votre compte a été modfiée',
 			            buttons: [{
 			                label: 'Ok',

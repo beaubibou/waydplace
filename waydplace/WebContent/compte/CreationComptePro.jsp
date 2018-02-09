@@ -264,6 +264,7 @@ function creerCompte(){
 				{
 					BootstrapDialog.show({
 			            title: 'Confirmation',
+			            closable: false,
 			            message: 'Votre compte a été crée un mail vous a été envoyé.',
 			            buttons: [{
 			                label: 'Ok',

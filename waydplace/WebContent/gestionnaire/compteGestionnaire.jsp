@@ -74,7 +74,7 @@
 						<%=profil.getMembre().getDetailEnteteMembreHtml()%>
 
 							<form
-								action="/waydplace/Frontal?action=<%=Frontal.CHARGE_PHOTO_PROFIL_MEMBRE%>"
+								action="<%=FrontalGestionnaire.ACTION_CHARGE_PHOTO_PROFIL_GESTIONNAIRE%>"
 								method="post" enctype="multipart/form-data"
 								onsubmit="return valideFichier()">
 
@@ -86,10 +86,10 @@
 											style="display: none;">
 										</label> <input type="submit" value="Envoyer la photo"
 											class="btn btnwayd btn-sm  " /> <a
-											href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
+											href='<%=FrontalGestionnaire.ACTION_SUPPRIMER_PHOTO_GESTIONNAIRE%>'
 											class='btn btnwayd btn-sm'> <span
 											class="glyphicon glyphicon-remove"></span></a> <a
-											href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
+											href='<%=FrontalGestionnaire.ACTION_CHANGE_MOT_DE_PASSE_GESTIONNAIRE%>'
 											class="btn btnwayd btn-sm"> <span
 											class="glyphicon glyphicon-lock"></span></a>
 
@@ -172,7 +172,7 @@
 				</form>
 
 		<button  onclick="modifieCompte()" class="btnwayd btn-lg">Sauvegarder</button>
-		<a	href='/waydplace/FrontalGestionnaire?action=<%=FrontalGestionnaire.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>'
+		<a	href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
 								class='btn btnwayd btn-lg'> <span
 								class="glyphicon glyphicon-home"></span></a>
 					
@@ -257,11 +257,12 @@ function modifieCompte(){
 				{
 					BootstrapDialog.show({
 			            title: 'Confirmation',
+			            closable: false,
 			            message: 'Votre compte a été modfiée',
 			            buttons: [{
 			                label: 'Ok',
 			                action: function(dialog) {
-			                location.href='<%=FrontalGestionnaire.REDIRECTION_GERER_ACTIVITE_GESTIONNAIRE%>'
+			                location.href='<%=FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE%>'
 			                  //  dialog.setMessage('Message 1');
 			                }
 			            

@@ -220,6 +220,7 @@
 						{
 							BootstrapDialog.show({
 					            title: 'Confirmation',
+					            closable: false,
 					            message: 'Votre site a été modfiée',
 					            buttons: [{
 					                label: 'Ok',

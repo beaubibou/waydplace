@@ -86,9 +86,8 @@
 			<thead class="entetetable" align="center">
 				<tr>
 
-					<th style="width: 85%;" class="text-center">News</th>
-					<th style="width: 15%;" class="text-center">Action</th>
-
+					<th style="width: 100%;" class="text-center">News</th>
+				
 
 
 				</tr>
@@ -109,25 +108,24 @@
 
 				<tr>
 					<td>
-						<div class="jumbotron" style="margin-bottom: 0px;">
+						<div class="jumbotron" style="margin: 0px;padding:20px;">
 							<h2 style="margin-top: 0px;"><%=news.getTitre()%></h2>
-							<p><%=news.getMessage()%></p>
+							<textarea  readonly="readonly" style='background-color: white;'  class="form-control" rows="5"><%=news.getMessage()%></textarea>
 
 							<h6><%=news.getDateCreationStr()%></h6>
-						</div>
-
-					</td>
-					<td style="vertical-align: middle; text-align: center;">
-						<p>
-							<a href='<%=lienModifierNew%>' class='btn btn-info btn-lg'> <span
+						<p align="right">	
+							<a href='<%=lienModifierNew%>' class='btn btnwayd '> <span
 								class='glyphicon glyphicon-edit'></span>
 							</a>
 							<button onclick="confirmEfface('<%=lienEffaceNew%>')"
-								class="btn btn-danger btn-lg">
+								class="btn btn-danger btn">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
 						</p>
+						</div>
+
 					</td>
+			
 				</tr>
 				<%
 					}
@@ -151,6 +149,7 @@
 
 			BootstrapDialog.show({
 				title : 'Confirmation',
+				 closable: false,
 				message : 'Vous allez effacer votre news',
 				buttons : [ {
 					label : 'Non',

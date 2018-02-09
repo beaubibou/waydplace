@@ -232,6 +232,7 @@
 
 			BootstrapDialog.show({
 				title : 'Confirmation',
+				 closable: false,
 				message : 'Vous allez effacer votre activité',
 				buttons : [ {
 					label : 'Non',
