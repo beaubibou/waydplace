@@ -45,16 +45,16 @@
 				</a></li>
 				
 						<li><a
-					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_NEWS_GESTIONNAIRE%>">News
+					href="<%=Frontal.ACTION_REDIRECTION_NEWS%>">News
 				</a></li>
 				
 					<%=MenuMembre.get_LI_NEWS((Profil) session
 					.getAttribute("profil"))%>
 			
-				<li><a
+<!-- 				<li><a -->
 				
-					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_PLANING_MEMBRE%>">Planning
-				</a></li>
+<%-- 					href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_PLANING_MEMBRE%>">Planning --%>
+<!-- 				</a></li> -->
 
 				<%=MenuMembre.get_LI_ENVELOPPE((Profil) session
 					.getAttribute("profil"))%>

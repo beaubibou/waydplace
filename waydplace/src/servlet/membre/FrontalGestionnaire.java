@@ -760,11 +760,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			HttpServletResponse response, HttpServletRequest request)
 			throws ServletException, IOException {
 
-		ArrayList<ActiviteAgenda> listActivite = ActiviteDAO
-				.getActiviteAgendaBySite(profil.getIdSite());
-
-		AdapterAgenda adapterAgenda = new AdapterAgenda(listActivite);
-
+			
 		request.getRequestDispatcher(
 				"gestionnaire/ecranPrincipalGestionnaire.jsp").forward(request,
 				response);
@@ -927,6 +923,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			return new MessageAction(true, "");
 
 		} else
+			
 			return new MessageAction(false, updateSitePhoto.getMessage());
 
 	}
@@ -949,7 +946,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			datenaissanceDT = getDateFromString(datedebut);
 		} catch (ParseException e) {
 
-			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
 		}
 
 		Date dateNaissance = datenaissanceDT.toDate();
@@ -1250,8 +1247,8 @@ public class FrontalGestionnaire extends HttpServlet {
 	public DateTime getDateFromString(String datestr) throws ParseException {
 
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-		DateTime dt = formatter.parseDateTime(datestr);
-		return dt;
+	
+		return  formatter.parseDateTime(datestr);
 	}
 
 	private MessageAction ajouterPlusieursActiviteGestionnaire(
@@ -1266,10 +1263,10 @@ public class FrontalGestionnaire extends HttpServlet {
 		libelle = libelle.trim();
 		titre = titre.trim();
 
-		int id_ref_type_activite = 0;
+		int idRefTypeActivite = 0;
 		int duree;
 		try {
-			id_ref_type_activite = Integer.parseInt(request
+			idRefTypeActivite = Integer.parseInt(request
 					.getParameter("typeactivite"));
 			duree = Integer.parseInt(request.getParameter("duree"));
 		}
@@ -1327,7 +1324,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 			ajouteActivites(profil.getIdSite(),
 					Parametres.TYPE_ORGANISATEUR_SITE, dateDebut, dateFin,
-					titre, libelle, profil.getUID(), id_ref_type_activite,
+					titre, libelle, profil.getUID(), idRefTypeActivite,
 					joursVoulus, duree);
 
 			return new MessageAction(true, "");
@@ -1337,9 +1334,9 @@ public class FrontalGestionnaire extends HttpServlet {
 		return new MessageAction(false, vpAjouteActivite.getMessage());
 	}
 
-	private int ajouteActivites(int idSite, int id_ref_type_organisateur,
+	private int ajouteActivites(int idSite, int iRefTypeOrganisateur,
 			Date dateDebut, Date dateFin, String titre, String libelle,
-			String uid, int id_ref_type_activite,
+			String uid, int idRefTypeActivite,
 			HashMap<Integer, String> joursVoulus, int duree) {
 
 		int nbrAjout = 0;
@@ -1362,9 +1359,9 @@ public class FrontalGestionnaire extends HttpServlet {
 				calFin.add(Calendar.MINUTE, duree);
 				calFin.add(Calendar.DAY_OF_MONTH, f);
 
-				ActiviteDAO.AjouteActivite(idSite, id_ref_type_organisateur,
+				ActiviteDAO.AjouteActivite(idSite, iRefTypeOrganisateur,
 						calDebut.getTime(), calFin.getTime(), titre, libelle,
-						uid, id_ref_type_activite);
+						uid, idRefTypeActivite);
 				nbrAjout++;
 			}
 
@@ -1406,11 +1403,11 @@ public class FrontalGestionnaire extends HttpServlet {
 		titre = titre.trim();
 		libelle = libelle.trim();
 
-		int id_ref_type_activite = 0;
+		int idRefTypeActivite = 0;
 		int idActivite = 0;
 
 		try {
-			id_ref_type_activite = Integer.parseInt(request
+			idRefTypeActivite = Integer.parseInt(request
 					.getParameter("typeactivite"));
 			idActivite = Integer.parseInt(request.getParameter("idactivite"));
 		}
@@ -1443,7 +1440,7 @@ public class FrontalGestionnaire extends HttpServlet {
 		if (vpModifieActivite.isOk()) {
 
 			MessageAction modifieActivieDAO = ActiviteDAO.modifieActivite(
-					titre, libelle, dateDebut, dateFin, id_ref_type_activite,
+					titre, libelle, dateDebut, dateFin, idRefTypeActivite,
 					idActivite);
 
 			if (modifieActivieDAO.isOk())
@@ -1493,8 +1490,9 @@ public class FrontalGestionnaire extends HttpServlet {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
-
+			
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			
 			return retour;
 
 		}
@@ -1515,8 +1513,9 @@ public class FrontalGestionnaire extends HttpServlet {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
-
+		
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			
 			return retour;
 
 		}
@@ -1574,10 +1573,10 @@ public class FrontalGestionnaire extends HttpServlet {
 		String libelle = request.getParameter("description");
 		libelle = libelle.trim();
 		titre = titre.trim();
-		int id_ref_type_activite = 0;
+		int idRefTypeActivite = 0;
 
 		try {
-			id_ref_type_activite = Integer.parseInt(request
+			idRefTypeActivite = Integer.parseInt(request
 					.getParameter("typeactivite"));
 		}
 
@@ -1613,7 +1612,7 @@ public class FrontalGestionnaire extends HttpServlet {
 			MessageAction ajouteActivite = ActiviteDAO.AjouteActivite(
 					profil.getIdSite(), Parametres.TYPE_ORGANISATEUR_SITE,
 					dateDebut, dateFin, titre, libelle, profil.getUID(),
-					id_ref_type_activite);
+					idRefTypeActivite);
 
 			if (ajouteActivite.isOk()) {// Si l'activité ajouté
 

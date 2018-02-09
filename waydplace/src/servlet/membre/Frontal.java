@@ -87,7 +87,7 @@ public class Frontal extends HttpServlet {
 	public static final String ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES = "envoiMessageFromMessages";
 	public static final String REDIRECTION_ACCUEIL_MEMBRE = "REDIRECTION_ACCUEIL_MEMBRE";
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
-	public static final String REDIRECTION_NEWS_GESTIONNAIRE = "REDIRECTION_NEWS_GESTIONNAIRE";
+	public static final String REDIRECTION_NEWS_MEMBRE = "REDIRECTION_NEWS_MEMBRE";
 
 	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="
 			+ REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
@@ -103,6 +103,9 @@ public class Frontal extends HttpServlet {
 
 	public static final String ACTION_REDIRECTION_ACCEUIL = "/waydplace/Frontal?action="
 			+ REDIRECTION_ACCUEIL_MEMBRE;
+
+	public static final String ACTION_REDIRECTION_NEWS = "/waydplace/Frontal?action="
+			+ REDIRECTION_NEWS_MEMBRE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -148,181 +151,15 @@ public class Frontal extends HttpServlet {
 			if (action == null || action.isEmpty())
 				return;
 
-			int TYPE_USER = 0;
+			if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
 
-			if (profil != null)
-				TYPE_USER = profil.getTypeOrganisteur();
+				gestionVisiteur(session, action, profil, request, response);
 
-			if (TYPE_USER == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
-
-				switch (action) {
-
-				case REDIRECTION_INSCRIPTION_MEMBRE:
-					response.sendRedirect("index.jsp");
-					break;
-
-				case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
-
-					redirectionRechercheActiviteMembre(profil, request,
-							response);
-
-					break;
-
-				default:
-
-					response.sendRedirect("membre/ecranPrincipal.jsp");
-
-					break;
-
-				}
-				return;
 			}
 
-			switch (action) {
+			if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
 
-			case REDIRECTION_NEWS_GESTIONNAIRE:
-				updateLastNew(profil);
-				redirectionNewsGestionnaire(profil, request, response);
-				break;
-
-			case REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
-				response.sendRedirect("membre/proposeActiviteMembre.jsp");
-				break;
-
-			case REDIRECTION_INSCRIPTION_MEMBRE:
-				response.sendRedirect("index.jsp");
-				break;
-
-			case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
-
-				redirectionRechercherActiviteMembre(profil, request, response);
-
-				break;
-
-			case REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE:
-
-				response.sendRedirect("membre/changementmotdepasse.jsp");
-
-				break;
-
-			case REDIRECTION_DISCUSSION_MEMBRE:
-
-				response.sendRedirect("membre/mesDiscussion.jsp");
-
-				break;
-
-			case REDIRECTION_ACCUEIL_MEMBRE:
-
-				response.sendRedirect("membre/ecranPrincipal.jsp");
-
-				break;
-
-			case REDIRECTION_MESSAGE_MEMBRE:
-
-				redirectionMessageMembre(profil, request, response);
-
-				break;
-
-			case REDIRECTION_PLANING_MEMBRE:
-
-				response.sendRedirect("membre/planing.jsp");
-
-				break;
-
-			case REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
-
-				refreshRechercheActiviteMembres(profil, request, response);
-
-				break;
-
-			case REFRESH_MES_ACTIVITE_MEMBRES:
-
-				refreshMesActiviteMembre(profil, request, response);
-
-				break;
-
-			case REDIRECTION_MES_ACTIVITES_MEMBRE:
-
-				redirectionMesActivitesMembre(profil, request, response);
-				break;
-
-			case REDIRECTION_COMPTE_MEMBRE:
-				response.sendRedirect("membre/compteMembre.jsp");
-				break;
-
-			case REDIRECTION_ENVOYER_MESSAGE_MEMBRE:
-
-				redirectionEnvoyerMessageMembre(profil, request, response);
-
-				break;
-
-			case REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
-
-				redirectionModifierActiviteMembre(profil, request, response);
-
-				break;
-
-			case EFFACE_ACTIVITE_MEMBRE:
-
-				effaceActiviteMembre(profil, request, response);
-
-				break;
-
-			case CHARGE_PHOTO_PROFIL_MEMBRE:
-
-				chargePhotoProfilMembre(profil, request, response);
-
-				break;
-
-			case SUPPRIMER_PHOTO_MEMBRE:
-
-				supprimePhotoMembre(profil, request, response);
-
-				break;
-
-			case MODIFIER_ACTIVITE_MEMBRE:
-
-				modifierActiviteMembre(profil, request, response);
-
-				break;
-
-			case MODIFIER_COMPTE_MEMBRE:
-
-				modifierCompteMembre(profil, request, response);
-
-				break;
-
-			case DECONNEXION_MEMBRE:
-
-				session.invalidate();
-
-				request.getRequestDispatcher("index.jsp").forward(request,
-						response);
-				break;
-
-			case AJOUTER_ACTIVITE_MEMBRE:
-
-				ajouteActiviteMembre(profil, request, response);
-
-				break;
-
-			case ENVOI_MESSAGE_MEMBRE:
-
-				envoiMessageMembre(profil, request, response);
-
-				break;
-
-			case ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES:
-
-				envoiMessageMembreFromMesMessages(profil, request, response);
-
-				break;
-
-			case ENVOI_REPONSE_MEMBRE:
-
-				envoiReponseMembre(profil, request, response);
-
-				break;
+				gestionMembre(session, action, profil, request, response);
 
 			}
 
@@ -330,6 +167,197 @@ public class Frontal extends HttpServlet {
 
 			e.printStackTrace();
 		}
+
+	}
+
+	private void gestionMembre(HttpSession session, String action,
+			Profil profil, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		switch (action) {
+
+		case REDIRECTION_NEWS_MEMBRE:
+			updateLastNew(profil);
+			redirectionNewsGestionnaire(profil, request, response);
+			break;
+
+		case REDIRECTION_PROPOSER_ACTIVITE_MEMBRE:
+			response.sendRedirect("membre/proposeActiviteMembre.jsp");
+			break;
+
+		case REDIRECTION_INSCRIPTION_MEMBRE:
+			response.sendRedirect("index.jsp");
+			break;
+
+		case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
+
+			redirectionRechercherActiviteMembre(profil, request, response);
+
+			break;
+
+		case REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE:
+
+			response.sendRedirect("membre/changementmotdepasse.jsp");
+
+			break;
+
+		case REDIRECTION_DISCUSSION_MEMBRE:
+
+			response.sendRedirect("membre/mesDiscussion.jsp");
+
+			break;
+
+		case REDIRECTION_ACCUEIL_MEMBRE:
+
+			response.sendRedirect("membre/ecranPrincipal.jsp");
+
+			break;
+
+		case REDIRECTION_MESSAGE_MEMBRE:
+
+			redirectionMessageMembre(profil, request, response);
+
+			break;
+
+		case REDIRECTION_PLANING_MEMBRE:
+
+			response.sendRedirect("membre/planing.jsp");
+
+			break;
+
+		case REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
+
+			refreshRechercheActiviteMembres(profil, request, response);
+
+			break;
+
+		case REFRESH_MES_ACTIVITE_MEMBRES:
+
+			refreshMesActiviteMembre(profil, request, response);
+
+			break;
+
+		case REDIRECTION_MES_ACTIVITES_MEMBRE:
+
+			redirectionMesActivitesMembre(profil, request, response);
+			break;
+
+		case REDIRECTION_COMPTE_MEMBRE:
+			response.sendRedirect("membre/compteMembre.jsp");
+			break;
+
+		case REDIRECTION_ENVOYER_MESSAGE_MEMBRE:
+
+			redirectionEnvoyerMessageMembre(profil, request, response);
+
+			break;
+
+		case REDIRECTION_MODIFIER_ACTIVITE_MEMBRE:
+
+			redirectionModifierActiviteMembre(profil, request, response);
+
+			break;
+
+		case EFFACE_ACTIVITE_MEMBRE:
+
+			effaceActiviteMembre(profil, request, response);
+
+			break;
+
+		case CHARGE_PHOTO_PROFIL_MEMBRE:
+
+			chargePhotoProfilMembre(profil, request, response);
+
+			break;
+
+		case SUPPRIMER_PHOTO_MEMBRE:
+
+			supprimePhotoMembre(profil, request, response);
+
+			break;
+
+		case MODIFIER_ACTIVITE_MEMBRE:
+
+			modifierActiviteMembre(profil, request, response);
+
+			break;
+
+		case MODIFIER_COMPTE_MEMBRE:
+
+			modifierCompteMembre(profil, request, response);
+
+			break;
+
+		case DECONNEXION_MEMBRE:
+
+			session.invalidate();
+
+			request.getRequestDispatcher("index.jsp")
+					.forward(request, response);
+			break;
+
+		case AJOUTER_ACTIVITE_MEMBRE:
+
+			ajouteActiviteMembre(profil, request, response);
+
+			break;
+
+		case ENVOI_MESSAGE_MEMBRE:
+
+			envoiMessageMembre(profil, request, response);
+
+			break;
+
+		case ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES:
+
+			envoiMessageMembreFromMesMessages(profil, request, response);
+
+			break;
+
+		case ENVOI_REPONSE_MEMBRE:
+
+			envoiReponseMembre(profil, request, response);
+
+			break;
+
+		}
+	}
+
+	private void gestionVisiteur(HttpSession session, String action,
+			Profil profil, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+
+		switch (action) {
+
+		case REDIRECTION_INSCRIPTION_MEMBRE:
+			response.sendRedirect("index.jsp");
+			break;
+
+		case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
+
+			redirectionRechercheActiviteMembre(profil, request, response);
+
+			break;
+
+		case REDIRECTION_NEWS_MEMBRE:
+	
+			redirectionNewsGestionnaire(profil, request, response);
+			break;
+
+		case REFRESH_RECHERCHE_ACTIVITE_MEMBRES:
+
+			refreshRechercheActiviteMembres(profil, request, response);
+
+			break;
+
+		default:
+
+			response.sendRedirect("membre/ecranPrincipal.jsp");
+
+			break;
+
+		}
+		return;
 
 	}
 
@@ -517,8 +545,11 @@ public class Frontal extends HttpServlet {
 	private void refreshRechercheActiviteMembres(Profil profil,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
 				request, profil);
+
+		LOG.info("kkkkkkkkkkk");
 
 		if (updateFiltreRechercheActivite.isOk()) {
 
@@ -638,7 +669,7 @@ public class Frontal extends HttpServlet {
 	private void redirectionRechercheActiviteMembre(Profil profil,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		LOG.info("zeeeee");
 		int page = 0;
 		PagerActivite pager = new PagerActivite(profil.getFiltre(), page);
 		request.setAttribute("pager", pager);
