@@ -48,6 +48,7 @@
 	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet" media="all"
 	type="text/css">
+	<script src="/waydplace/js/valideform.js"></script>
 </head>
 <body>
 <%
@@ -194,77 +195,26 @@
 	</script>
 	<script>
 	
-		function dateDiff(date1, date2) {
-			var diff = {} // Initialisation du retour
-			var tmp = date2 - date1;
+		
 
-			tmp = Math.floor(tmp / 1000); // Nombre de secondes entre les 2 dates
-			diff.sec = tmp % 60; // Extraction du nombre de secondes
+	function valideFormulaire() {
+		
+		var description=document.getElementById("description").value;
+		var titre=document.getElementById("titre").value;
+		var datedebut = $('#datedebut').data('DateTimePicker').date();
+		var datefin = $('#datefin').data('DateTimePicker').date();
 
-			tmp = Math.floor((tmp - diff.sec) / 60); // Nombre de minutes (partie entiÃ¨re)
-			diff.min = tmp % 60; // Extraction du nombre de minutes
-
-			tmp = Math.floor((tmp - diff.min) / 60); // Nombre d'heures (entiÃ¨res)
-			diff.hour = tmp % 24; // Extraction du nombre d'heures
-
-			tmp = Math.floor((tmp - diff.hour) / 24); // Nombre de jours restants
-			diff.day = tmp;
-
-			return diff;
+		
+		var isOk=valideActivite (description,titre,datedebut,datefin);
+		
+		if (isOk!='ok'){
+			BootstrapDialog.alert(isOk);
+			return false;
 		}
-
-		function heureDiff(date1, date2) {
-
-			var tmp = date2 - date1;
-
-			tmp = Math.floor(tmp / 1000) / 3600;
-
-			return tmp;
-
-		}
-
-		function valideFormulaire() {
-			
-			var datedebut = $('#datedebut').data('DateTimePicker').date();
-			var datefin = $('#datefin').data('DateTimePicker').date();
-
-			// Verifie les positions
-			latitude = document.getElementById("latitude").value;
-			longitude = document.getElementById("longitude").value;
-
-
-			if (datedebut > datefin) {
-				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DATEDEBUT_SUP_DATEFIN%>"
-							});
-				return false;
-			}
-			if (datefin < new Date()) {
-				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DATEFIN_INF_NOW%>"
-							});
-				return false;
-			}
-
-			diffHeure = heureDiff(new Date(datedebut).getTime(), new Date(
-					datefin).getTime());
-			// Condition Ã  rajouter pour le nbr d'heure max de l'activitÃ©
-
-			if (diffHeure > 8) {
-				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DUREE_PAS_SUPERIEUR_A%>"
-							});
-				return false;
-			}
-
-			if (diffHeure <1) {
-				BootstrapDialog.show({
-					message:"<%=ProposeActiviteMembre.DUREE_PAS_INFERIEURE_A%>"
-							});
-				return false;
-			}
-			return true;
-		}
+		
+		return true;
+		
+	}
 
 	
 	</script>
@@ -295,8 +245,8 @@
 		
 	function ajouteActivite(){
 		
-		//if (valideFormulaire()==false)
-		//	return;
+		if (valideFormulaire()==false)
+			return;
 		
 		$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
 				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...

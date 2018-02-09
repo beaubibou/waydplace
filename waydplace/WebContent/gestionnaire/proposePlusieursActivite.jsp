@@ -43,6 +43,7 @@
 	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet" media="all"
 	type="text/css">
+	<script src="/waydplace/js/valideform.js"></script>
 </head>
 
 
@@ -250,58 +251,27 @@
 	</script>
 	<script>
 		
-		function valideFormulaire() {
-
+function valideFormulaire() {
 		
+		var description=document.getElementById("description").value;
+		var titre=document.getElementById("titre").value;
 		var datedebut = $('#datedebut').data('DateTimePicker').date();
 		var datefin = $('#datefin').data('DateTimePicker').date();
 
 		
-		// Verifie les positions
-		latitude = document.getElementById("latitude").value;
-		longitude = document.getElementById("longitude").value;
-
+		var isOk=valideActivite (description,titre,datedebut,datefin);
 		
-
-	
-
-		if (datedebut > datefin) {
-		
-
- 			BootstrapDialog.show({
-<%-- 				message:"<%=Erreur_HTML.DATEDEBUT_SUP_DATEFIN%>" --%>
- 						});
-
-			
+		if (isOk!='ok'){
+			BootstrapDialog.alert(isOk);
 			return false;
 		}
-		var aujourdui=new Date();
-		aujourdui.setHours(0, 0, 0, 0);
-// 		if (datefin < aujourdui) {
-			
-// 			BootstrapDialog.show({
-<%-- 				message:"<%=Erreur_HTML.DATEFIN_INF_NOW%>" --%>
-// 						});
-// 			return false;
-// 		}
-
 		
-
 		var nbrCheck = getNbrJourCheck();
-
-// 		if (nbrCheck == 0) {
-// 			BootstrapDialog.show({
-<%-- 	//	message:"<%=Erreur_HTML.AU_MOINS_UN_JOUR_SELECTIONNE%>" --%>
-// 				});
-// 			return false;
-// 		}
 		
-		
-		
-	
 		return true;
 		
-		}
+	}
+
 
 		function getNbrJourCheck() {
 
@@ -319,14 +289,7 @@
 			return nbrLigne;
 		}
 
-		function initPosition() {
-
-			latitude = 0;
-			longitude = 0;
-			document.getElementById("latitude").value = 0;
-			longitude = document.getElementById("longitude").value = 0;
-
-		}
+		
 	</script>
 
 	<script>

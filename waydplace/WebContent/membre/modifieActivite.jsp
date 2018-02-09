@@ -54,6 +54,7 @@
 	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
 	media="all" type="text/css">
+<script src="/waydplace/js/valideform.js"></script>
 </head>
 <body>
 	<%
@@ -218,76 +219,27 @@
 		
 	}
 	
-		function dateDiff(date1, date2) {
-			var diff = {} // Initialisation du retour
-			var tmp = date2 - date1;
-
-			tmp = Math.floor(tmp / 1000); // Nombre de secondes entre les 2 dates
-			diff.sec = tmp % 60; // Extraction du nombre de secondes
-
-			tmp = Math.floor((tmp - diff.sec) / 60); // Nombre de minutes (partie entiÃ¨re)
-			diff.min = tmp % 60; // Extraction du nombre de minutes
-
-			tmp = Math.floor((tmp - diff.min) / 60); // Nombre d'heures (entiÃ¨res)
-			diff.hour = tmp % 24; // Extraction du nombre d'heures
-
-			tmp = Math.floor((tmp - diff.hour) / 24); // Nombre de jours restants
-			diff.day = tmp;
-
-			return diff;
-		}
-
-		function heureDiff(date1, date2) {
-
-			var tmp = date2 - date1;
-
-			tmp = Math.floor(tmp / 1000) / 3600;
-
-			return tmp;
-
-		}
-
-		function valideFormulaire() {
-			
-			var datedebut = $('#datedebut').data('DateTimePicker').date();
-			var datefin = $('#datefin').data('DateTimePicker').date();
-
+		
 		
 
-			if (datedebut > datefin) {
-				BootstrapDialog.show({
-					message:"<%=ModifierActiviteMembre.DATEDEBUT_SUP_DATEFIN%>"
-							});
-				return false;
-			}
-			if (datefin < new Date()) {
-				BootstrapDialog.show({
-					message:"<%=ModifierActiviteMembre.DATEFIN_INF_NOW%>"
-							});
-				return false;
-			}
+	function valideFormulaire() {
+	
+		var description=document.getElementById("description").value;
+		var titre=document.getElementById("titre").value;
+		var datedebut = $('#datedebut').data('DateTimePicker').date();
+		var datefin = $('#datefin').data('DateTimePicker').date();
 
-			diffHeure = heureDiff(new Date(datedebut).getTime(), new Date(
-					datefin).getTime());
-			// Condition Ã  rajouter pour le nbr d'heure max de l'activitÃ©
-
-			if (diffHeure > 8) {
-				BootstrapDialog.show({
-					message:"<%=ModifierActiviteMembre.DUREE_PAS_SUPERIEUR_A%>"
-							});
-				return false;
-			}
-
-// 			if (diffHeure <1) {
-// 				BootstrapDialog.show({
-<%-- 					message:"<%=ModifierActiviteMembre.DUREE_PAS_INFERIEURE_A%>" --%>
-// 							});
-// 				return false;
-// 			}
-			
-			return true;
+		
+		var isOk=valideActivite (description,titre,datedebut,datefin);
+		
+		if (isOk!='ok'){
+			BootstrapDialog.alert(isOk);
+			return false;
 		}
-
+		
+		return true;
+		
+	}
 		
 		
 	</script>
