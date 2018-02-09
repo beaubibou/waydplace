@@ -132,7 +132,15 @@
 				%>
 			</tbody>
 		</table>
+	<ul class="pager">
 
+			<li <%=pager.isPreviousHtml()%>><a
+				href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
+			<li>Page N° <%=pager.getPageEnCours()%></li>
+			<li <%=pager.isNextHtml()%>><a
+				href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
+
+		</ul>
 	</div>
 
 

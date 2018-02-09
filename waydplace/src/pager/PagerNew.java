@@ -9,11 +9,9 @@ import org.apache.log4j.Logger;
 import parametre.Parametres;
 import servlet.membre.Frontal;
 import servlet.membre.FrontalGestionnaire;
-import bean.Activite;
 import bean.New;
 import bean.Profil;
 import critere.FiltreRecherche;
-import dao.ActiviteDAO;
 import dao.NewDAO;
 
 public class PagerNew {
@@ -22,7 +20,7 @@ public class PagerNew {
 
 	private ArrayList<New> listNew;
 	private int pageEnCours = 0;
-	private final int maxResult = 35;
+	private final int maxResult = 2;
 	private boolean hasNext = false;
 	private boolean hasPrevious = false;
 	private FiltreRecherche filtre;
@@ -109,8 +107,20 @@ public class PagerNew {
 		if (hasNext) {
 			int suivant = pageEnCours + 1;
 
-				lien="/waydplace/FrontalGestionnaire?action="+FrontalGestionnaire.REFRESH_RECHERCHE_NEWS_GESTIONNAIRE+"&page="+suivant;
+			switch (profil.getTypeOrganisteur()) {
+
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
 			
+				lien="/waydplace/Frontal?action="+Frontal.REFRESH_RECHERCHE_NEWS_MEMBRE+"&page="+suivant;
+				break;
+				
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+				
+				lien="/waydplace/FrontalGestionnaire?action="+FrontalGestionnaire.REFRESH_RECHERCHE_NEWS_GESTIONNAIRE+"&page="+suivant;
+			break;
+		
+			}
 			}
 
 		
@@ -135,15 +145,14 @@ public class PagerNew {
 			switch (profil.getTypeOrganisteur()) {
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-				lien="/waydplace/Frontal?action="+Frontal.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
-				break;
-				
 			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-				lien="/waydplace/Frontal?action="+Frontal.REFRESH_RECHERCHE_ACTIVITE_MEMBRES+"&page="+suivant;
+				lien="/waydplace/Frontal?action="+Frontal.REFRESH_RECHERCHE_NEWS_MEMBRE+"&page="+suivant;
+	
 				break;
+			
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
-				lien="/waydplace/FrontalGestionnaire?action="+FrontalGestionnaire.REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE+"&page="+suivant;
+				lien="/waydplace/FrontalGestionnaire?action="+FrontalGestionnaire.REFRESH_RECHERCHE_NEWS_GESTIONNAIRE+"&page="+suivant;
 				
 				break;
 

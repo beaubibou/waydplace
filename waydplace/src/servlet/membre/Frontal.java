@@ -88,6 +88,8 @@ public class Frontal extends HttpServlet {
 	public static final String REDIRECTION_ACCUEIL_MEMBRE = "REDIRECTION_ACCUEIL_MEMBRE";
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
 	public static final String REDIRECTION_NEWS_MEMBRE = "REDIRECTION_NEWS_MEMBRE";
+	public static final String REFRESH_RECHERCHE_NEWS_MEMBRE = "REFRESH_RECHERCHE_NEWS_MEMBRE";
+
 
 	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="
 			+ REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
@@ -183,6 +185,12 @@ public class Frontal extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		switch (action) {
+		
+		case REFRESH_RECHERCHE_NEWS_MEMBRE:
+
+			refreshRechercheNewsMembre(profil, response, request);
+
+			break;
 
 		case REDIRECTION_NEWS_MEMBRE:
 			updateLastNew(profil);
@@ -357,6 +365,12 @@ public class Frontal extends HttpServlet {
 			refreshRechercheActiviteMembres(profil, request, response);
 
 			break;
+			
+		case REFRESH_RECHERCHE_NEWS_MEMBRE:
+
+			refreshRechercheNewsMembre(profil, response, request);
+
+			break;
 
 		default:
 
@@ -367,6 +381,28 @@ public class Frontal extends HttpServlet {
 		}
 		return;
 
+	}
+
+	private void refreshRechercheNewsMembre(Profil profil,
+			HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+		
+		MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
+				request, profil);
+
+		if (updateFiltreRechercheActivite.isOk()) {
+
+			int pageEncours = 0;
+
+			if (request.getParameter("page") != null)
+				pageEncours = Integer.parseInt(request.getParameter("page"));
+
+			PagerNew pager = new PagerNew(profil.getFiltre(), pageEncours,profil);
+			request.setAttribute("pager", pager);
+			request.getRequestDispatcher("membre/mesNews.jsp").forward(
+					request, response);
+
+		}
+		
 	}
 
 	private boolean valideProfilMembre(Profil profil) {
