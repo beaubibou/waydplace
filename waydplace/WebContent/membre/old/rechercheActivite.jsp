@@ -1,48 +1,37 @@
 
-<%@page import="pager.PagerActivite"%>
-<%@page import="critere.CritereTypeActivite"%>
-<%@page import="critere.CritereTypeOrganisateur"%>
-<%@page import="critere.CritereEtatActivite"%>
-<%@page import="servlet.membre.FrontalCommun"%>
-<%@page import="text.pageweb.MesActivites"%>
-<%@page import="bean.Activite"%>
-<%@page import="pager.PagerMesActivites"%>
-<%@page import="critere.FiltreRecherche"%>
-<%@page import="outils.Outils"%>
+
 <%@page import="servlet.membre.Frontal"%>
-<%@page import="parametre.ActionPage"%>
-<%@page import="dao.CacheDAO"%>
-<%@page import="bean.RefTypeActivite"%>
-<%@page import="text.pageweb.ProposeActiviteMembre"%>
+<%@page import="servlet.membre.FrontalCommun"%>
+<%@page import="com.sun.accessibility.internal.resources.accessibility"%>
+<%@page import="pager.PagerActivite"%>
+<%@page import="critere.CritereTypeOrganisateur"%>
+<%@page import="critere.CritereTypeActivite"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
+<%@page import="dao.ActiviteDAO"%>
+<%@page import="parametre.ActionPage"%>
+<%@page import="critere.FiltreRecherche"%>
+<%@page import="bean.Profil"%>
+<%@page import="bean.Activite"%>
+<%@page import="outils.Outils"%>
+<%@page import="dao.CacheDAO"%>
+<%@page import="critere.CritereEtatActivite"%>
+<%@page import="text.pageweb.RechercheActiviteMembre"%>
 <%@page import="java.util.ArrayList"%>
-
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
-
+<title>Liste activités</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/css/bootstrap-dialog.min.css"
-	rel="stylesheet" type="text/css" />
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="/waydplace/js/moment.js"></script>
 <link
@@ -50,72 +39,51 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
 	type="text/css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
-	rel="stylesheet" type="text/css" />
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
-
-	
-	<script src="/waydplace/js/slide.js"></script>
-	
+<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
+	media="all" type="text/css">
 </head>
+
 <body>
 
-<%
+	<%
+		Profil profil = (Profil) request.getSession().getAttribute("profil");
+			FiltreRecherche filtre=profil.getFiltre();
+		
+			ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
+			ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
+			ArrayList<CritereTypeOrganisateur> listCritereTypeOrganisateur=CacheDAO.getListCritereTypeOrganisateurs();
+		
+			PagerActivite pager=(PagerActivite) request.getAttribute("pager");
+			ArrayList<Activite> listActivite = pager.getListActivite();
+	%>
 
-Profil profil = (Profil) request.getSession().getAttribute("profil");
-FiltreRecherche filtre=profil.getFiltre();
+	<%@ include file="menuMembre.jsp"%>
 
-ArrayList<CritereTypeActivite> listCritereTypeActivite=CacheDAO.getListCrtitereTypeActivite();
-ArrayList<CritereEtatActivite> listCritereEtatActivite=CacheDAO.getListCritereEtatActivite();
-ArrayList<CritereTypeOrganisateur> listCritereTypeOrganisateur=CacheDAO.getListCritereTypeOrganisateurs();
+	<div class="container margedebut ">
+		<div class="panel barrerecherche">
+			<div class="panel-heading">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-1">
+							<a 
+								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
+								class='btn btnwayd btn-md'> <span
+								class="glyphicon glyphicon-home"></span></a>
 
-PagerActivite pager=(PagerActivite) request.getAttribute("pager");
-ArrayList<Activite> listActivite = pager.getListActivite();
-%>
+						</div>
+						<div class="col-sm-11">
+							<p class="text-tuto"><%=RechercheActiviteMembre.TUTO_LIGNE1%></p>
 
 
+						</div>
+
+					</div>
+				</div>
 
 
-<div class="row">
-    <!-- uncomment code for absolute positioning tweek see top comment in css -->
-    <!-- <div class="absolute-wrapper"> </div> -->
-    <!-- Menu -->
-    <div class="side-menu">
-    
-    <nav class="navbar navbar-default" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <div class="brand-wrapper">
-            <!-- Hamburger -->
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Brand -->
-            <div class="brand-name-wrapper">
-                <a class="navbar-brand" href="#">
-                    Brand
-                </a>
-            </div>
-
-            <!-- Search -->
-            <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
-                <span class="glyphicon glyphicon-search"></span>
-            </a>
-
-            <!-- Search body -->
-            <div id="search" class="panel-collapse collapse">
-             	<div class="row">
-					<div class="col-sm-3">
-						<form class="form-inline" id="formulaire" method="post"
+				<form class="form-inline" id="formulaire" method="post"
 					action="/waydplace/Frontal">
 
 					<input type="hidden" name='action'
@@ -216,34 +184,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 			</div>
 
 		</div>
-
-				</div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Main Menu -->
-    <div class="side-menu-container">
-        <ul class="nav navbar-nav">
-
-<%@ include file="menuMembreTest.jsp"%>
-
-         
-
-        </ul>
-    </div><!-- /.navbar-collapse -->
-</nav>
-    
-    </div>
-</div>
-
-    <!-- Main Content -->
-    <div class="container-fluid">
-        <div class="side-body">
-       
-
-	<%if (listActivite!=null && !listActivite.isEmpty()){ %>
+<%if (listActivite!=null && !listActivite.isEmpty()){ %>
 		
 
 		<table class="table table-striped  table-responsive  "
@@ -352,4 +293,5 @@ else
 		});
 	</script>
 </body>
+
 </html>

@@ -1,35 +1,33 @@
 
-
-<%@page import="pager.PagerMesActivites"%>
-<%@page import="pager.PagerActivite"%>
-<%@page import="java.util.Date"%>
-<%@page import="servlet.membre.Frontal"%>
-<%@page import="servlet.membre.FrontalCommun"%>
-<%@page import="outils.AlertDialog"%>
-<%@page import="dao.ActiviteDAO"%>
-<%@page import="parametre.ActionPage"%>
-<%@page import="critere.FiltreRecherche"%>
-<%@page import="bean.Profil"%>
-<%@page import="bean.Activite"%>
-<%@page import="outils.Outils"%>
-<%@page import="dao.CacheDAO"%>
 <%@page import="critere.CritereEtatActivite"%>
+<%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="text.pageweb.MesActivites"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="bean.Activite"%>
+<%@page import="pager.PagerMesActivites"%>
+<%@page import="critere.FiltreRecherche"%>
+<%@page import="outils.Outils"%>
+<%@page import="servlet.membre.Frontal"%>
+<%@page import="parametre.ActionPage"%>
+<%@page import="dao.CacheDAO"%>
+<%@page import="bean.RefTypeActivite"%>
+<%@page import="text.pageweb.ProposeActiviteMembre"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
+<%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-<title>Mes activités</title>
+<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
@@ -43,49 +41,74 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<script src="/waydplace/js/moment.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
 
-
+	
+	<script src="/waydplace/js/slide.js"></script>
+	
 </head>
+<body>
 
-<body">
-
-	<%
-		Profil profil = (Profil) request.getSession().getAttribute("profil");
-			FiltreRecherche filtre=profil.getFiltre();
-			//ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
-		
-			PagerMesActivites pager=(PagerMesActivites) request.getAttribute("pager");
-			ArrayList<Activite> listMesActivite = pager.getListActivite();
-	%>
+<%
 
 
-	<%@ include file="menuMembre.jsp"%>
+Profil profil = (Profil) request.getSession().getAttribute("profil");
+	FiltreRecherche filtre=profil.getFiltre();
+	//ArrayList<Activite> listMesActivite=ActiviteDAO.getMesActivite(profil.getUID(), filtre.getCritereRechercheEtatMesActivite());
 
-	<div class="container margedebut ">
-		<div class="panel barrerecherche">
-			<div class="panel-heading">
-				<div class="form-group">
-
-					<div class="row">
-						<div class="col-sm-1">
-							<a
-								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-								class='btn btn-info btn-md btnwayd'> <span
-								class="glyphicon glyphicon-home"></span></a>
-
-						</div>
-						<div class="col-sm-11">
-							<p class="text-tuto"><%=MesActivites.TUTO_LIGNE1%></p>
+	PagerMesActivites pager=(PagerMesActivites) request.getAttribute("pager");
+	ArrayList<Activite> listMesActivite = pager.getListActivite();
+%>
 
 
-						</div>
 
-					</div>
-				</div>
 
-				<div class="row">
+<div class="row">
+    <!-- uncomment code for absolute positioning tweek see top comment in css -->
+    <!-- <div class="absolute-wrapper"> </div> -->
+    <!-- Menu -->
+    <div class="side-menu">
+    
+    <nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <div class="brand-wrapper">
+            <!-- Hamburger -->
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Brand -->
+            <div class="brand-name-wrapper">
+                <a class="navbar-brand" href="#">
+                    Brand
+                </a>
+            </div>
+
+            <!-- Search -->
+            <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
+                <span class="glyphicon glyphicon-search"></span>
+            </a>
+
+            <!-- Search body -->
+            <div id="search" class="panel-collapse collapse">
+             	<div class="row">
 					<div class="col-sm-3">
 						<form method="post" action="/waydplace/Frontal" id="formulaire"
 							class="form-inline">
@@ -118,11 +141,32 @@
 					</div>
 
 				</div>
+            </div>
+        </div>
 
+    </div>
 
-			</div>
+    <!-- Main Menu -->
+    <div class="side-menu-container">
+        <ul class="nav navbar-nav">
 
-		</div>
+<%@ include file="menuMembreTest.jsp"%>
+
+         
+
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+    
+    </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div class="side-body">
+       
+
+	
 		<%
 			if (listMesActivite!=null && !listMesActivite.isEmpty()){
 		%>
@@ -215,8 +259,7 @@
 		<%
 			}
 		%>
-	</div>
-
+	
 
 	<script type="text/javascript">
 		$('select').on('change', function() {
@@ -250,8 +293,7 @@
 
 		}
 	</script>
-
-
-
+</div>
+</div>
 </body>
 </html>

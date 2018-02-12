@@ -41,45 +41,94 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	<link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
+	<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
-<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet" media="all"
-	type="text/css">
-	
+<link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
+
 	<script src="/waydplace/js/valideform.js"></script>
+	<script src="/waydplace/js/slide.js"></script>
 	
 </head>
 <body>
+
 <%
-				ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
-			// Defini le li a rendre actif
-		
-		String titre = Outils.convertRequeteToString(request
-				.getParameter("titre"));
 
-		String description = Outils.convertRequeteToString(request
-				.getParameter("description"));
-		
+Profil profil = (Profil) request.getSession().getAttribute("profil");
+ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
+// Defini le li a rendre actif
 
-		String messageAlert = (String)request.getAttribute("messageAlert");	
-		
-		
-	
-	
-	%>
+String titre = Outils.convertRequeteToString(request
+	.getParameter("titre"));
 
-	<%@ include file="menuMembre.jsp"%>
+String description = Outils.convertRequeteToString(request
+	.getParameter("description"));
 
-	<div class="container">
-		<div id="loginbox"
-			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
 
+String messageAlert = (String)request.getAttribute("messageAlert");	
+
+
+
+%>
+<div class="row">
+    <!-- uncomment code for absolute positioning tweek see top comment in css -->
+    <!-- <div class="absolute-wrapper"> </div> -->
+    <!-- Menu -->
+    <div class="side-menu">
+    
+    <nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <div class="brand-wrapper">
+            <!-- Hamburger -->
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Brand -->
+          
+
+            <!-- Search body -->
+            <div id="search" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form class="navbar-form" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default "><span class="glyphicon glyphicon-ok"></span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main Menu -->
+    <div class="side-menu-container">
+        <ul class="nav navbar-nav">
+
+<%@ include file="menuMembreTest.jsp"%>
+
+         
+
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+    
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div class="side-body">
+       
+     
 			<div class="panel panel-default">
 						<div class="panel-heading panel-heading-custom">
 					<div class="panel-title"><a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
@@ -299,6 +348,8 @@
 		var nombreCaractere = $('#description').val().length;
 		var msg = nombreCaractere +   '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
 		$('#nbr').text(msg);
-	</script>
+	</script>         
+        </div>
+   
 </body>
 </html>
