@@ -67,7 +67,7 @@
 				<div class="form-group">
 					<div class="row">
 						<div class="col-sm-1">
-							<a
+							<a 
 								href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
 								class='btn btnwayd btn-md'> <span
 								class="glyphicon glyphicon-home"></span></a>

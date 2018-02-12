@@ -1,18 +1,14 @@
-<%@page import="text.pageweb.LoginTxt"%>
 <%@page import="servlet.membre.FrontalGestionnaire"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="text.pageweb.LoginTxt"%>
+<%@page import="parametre.ActionPage"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-<link href="/waydplace/css/indexcss.css" rel="stylesheet"
-	type="text/css">
-	
-	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -69,16 +65,13 @@
 	media="all" type="text/css">
 <link href="/waydplace/css/boutton.css" rel="stylesheet" media="all"
 	type="text/css">
-
+	
 </head>
 <body>
-	<a id="btn_googl" onclick="signInTestGestionnaire()"
-			class="btn btn-primary">Gestionnaire </a> <a id="btn_googl"
-			onclick="signInTestMembre1()" class="btn btn-primary">Membre 1 </a> <a
-			id="btn_googl" onclick="signInTestMembre2()" class="btn btn-primary">Membre
-			2 </a> <a id="btn_googl" onclick="signInTestAnonyme()"
-			class="btn btn-primary">Anonyme </a>
-<form id="formmasque" action="/waydplace/ConnexionMembre"
+
+	<div class="container">
+
+		<form id="formmasque" action="/waydplace/ConnexionMembre"
 			method="post">
 
 			<input id='action' type="hidden" name='action'> <input
@@ -90,90 +83,141 @@
 
 		</form>
 
-<form id="formlogin" action="/waydplace/ConnexionMembre" method="post">
+
+
+		<a id="btn_googl" onclick="signInTestGestionnaire()"
+			class="btn btn-primary">Gestionnaire </a> <a id="btn_googl"
+			onclick="signInTestMembre1()" class="btn btn-primary">Membre 1 </a> <a
+			id="btn_googl" onclick="signInTestMembre2()" class="btn btn-primary">Membre
+			2 </a> <a id="btn_googl" onclick="signInTestAnonyme()"
+			class="btn btn-primary">Anonyme </a>
+	</div>
+
+
+	<form id="formlogin" action="/waydplace/ConnexionMembre" method="post">
 		<input id="tokenfb" type="hidden" class="form-control" name="token">
 		<input id="pwd" type="hidden" class="form-control" name="pwd">
 		<input type="hidden" name='action'
 			value='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE%>'> <input
 			id="outputJetonSite" type="hidden" class="form-control"
 			name="jetonSite">
-</form>
-<div class="container">
-    
 
+		<div class="container">
+			<div class="page-header">
 
-
-    <div class="omb_login">
-    	<h3 class="omb_authTitle">Login or <a href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>">Sign up</a></h3>
-		<div class="row omb_row-sm-offset-3 omb_socialButtons">
-    	    <div class="col-xs-4 col-sm-2">
-		        <a href="#" class="btn btn-lg btn-block omb_btn-facebook">
-			        <i class="fa fa-facebook visible-xs"></i>
-			        <span class="hidden-xs">Facebook</span>
-		        </a>
-	        </div>
-        	<div class="col-xs-4 col-sm-2">
-		        <a href="#" class="btn btn-lg btn-block omb_btn-twitter">
-			        <i class="fa fa-twitter visible-xs"></i>
-			        <span class="hidden-xs">Twitter</span>
-		        </a>
-	        </div>	
-        	<div class="col-xs-4 col-sm-2">
-		        <a onclick="signInGoogle()" class="btn btn-lg btn-block omb_btn-google">
-			        <i class="fa fa-google-plus visible-xs"></i>
-			        <span class="hidden-xs">Google+</span>
-		        </a>
-	        </div>	
-		</div>
-
-		<div class="row omb_row-sm-offset-3 omb_loginOr">
-			<div class="col-xs-12 col-sm-6">
-				<hr class="omb_hrOr">
-				<span class="omb_spanOr">or</span>
+				<h1>
+					<img src="/waydplace/img/waydLogoHD.png"
+						style="margin-right: 50px;" class="img-rounded" alt="Cinque Terre"
+						width="100" height="100"><%=LoginTxt.JUMBO_TITRE%>
+				</h1>
 			</div>
-		</div>
 
-		<div class="row omb_row-sm-offset-3">
-			<div class="col-xs-12 col-sm-6">	
-			    <form  class="omb_loginForm" action="" autocomplete="off" method="POST">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text" class="form-control" name="email" placeholder="email address" id="login-username">
+
+
+		</div>
+	</form>
+
+	<div class="container">
+		<div id="loginbox"
+			class="mainbox col-md-10 col-md-offset-0 col-sm-10 col-sm-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading panel-heading-custom">
+
+					<div class="panel-title"><%=LoginTxt.TITRE_PANEL%></div>
+					<div
+						style="float: right; font-size: 80%; position: relative; top: -10px">
+						<a
+							href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot
+							de passe oubliÃ©?</a>
 					</div>
-					<span class="help-block"></span>
-										
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<input id="login-password" type="password" class="form-control" name="password" placeholder="Password">
+				</div>
+
+
+
+				<div style="padding-top: 30px" class="panel-body">
+
+					<div style="display: none" id="login-alert"
+						class="alert alert-danger col-sm-12"></div>
+
+
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-user"></i></span> <input id="login-username"
+							type="email" class="form-control" name="email"
+							
+							placeholder="<%=LoginTxt.HINT_EMAIL%> required">
 					</div>
-					<br>
-					<div class="input-group">
+
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-lock"></i></span> <input id="login-password"
+							type="password" class="form-control" name="pwd" value='azerty'
+							placeholder="<%=LoginTxt.HINT_MOT_DE_PASSE%>">
+					</div>
+
+					<div style="margin-bottom: 25px" class="input-group">
 						<span class="input-group-addon"><i
 							class="glyphicon glyphicon-home"></i></span> <input id="inputJetonSite"
 							type="text" class="form-control" value="aaaa"
 							placeholder="<%=LoginTxt.CODE_SITE%>">
 					</div>
-                  <br>
-				</form>
-						<button   onclick="signPassword()"  class="btn btn-lg btn-primary btn-block" >Login</button>
-			
-			</div> 
-    	</div>
-		<div class="row omb_row-sm-offset-3">
-			<div class="col-xs-12 col-sm-3">
-				<label class="checkbox">
-					<input type="checkbox" value="remember-me">Remember Me
-				</label>
+					
+					<div style="margin-bottom: 25px" class="input-group">
+						<a id="btn-password" onclick="signPassword()" class="btn  btnwayd">Se
+							connecter</a> 
+					</div>
+		
+					<div style="margin-bottom: 25px" class="input-group">
+						<span>
+							<button onclick="signInFB()" class="loginBtn loginBtn--facebook">Facebook</button>
+							<button onclick="signInGoogle()"
+								class="loginBtn loginBtn--google">Google+</button>
+
+						</span>
+
+					</div>
+
+
+
+
+
+					<div class="form-group">
+						<div style="padding-top: 15px;" class="col-md-12 control">
+
+							<div
+								style="border-top: 1px solid #888; padding-top: 15px; padding-left: 15px; font-size: 85%">
+								Particulier pas de compte? <a
+									href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>'>
+									Inscrivez-vous. </a>
+							</div>
+							<div
+								style="padding-top: 15px; padding-left: 15px; font-size: 85%">
+								Professionnel pas de compte? <a
+									href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>'>
+									Inscrivez-vous. </a>
+							</div>
+
+							<div style="padding-top: 15px; padding-left: 15px; font-size: 85%">
+								<a id="btn-primary"		href="<%=ConnexionMembre.ACTION_REDIRECTION_DEMANDE_CONFIRMATION_MAIL%>">Mail de confirmation non reÃ§u?</a>
+							</div>
+
+						</div>
+
+
+					</div>
+
+
+				</div>
+
 			</div>
-			<div class="col-xs-12 col-sm-3">
-				<p class="omb_forgotPwd">
-					<a href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot de passe oublié?</a>
-				</p>
-			</div>
-		</div>	    	
+		</div>
 	</div>
-	
-	<script>
+
+
+</body>
+
+
+<script>
 
 function signInTestMembre1(){
 	
@@ -223,7 +267,6 @@ function signInTest(){
 function signInGoogle(){
 
 	var codeSite=document.getElementById("inputJetonSite").value;
-	
 	var provider = new firebase.auth.GoogleAuthProvider();
 		firebase.auth().signInWithPopup(provider).then(function(result) {
 		var token = result.credential.accessToken;
@@ -232,8 +275,8 @@ function signInGoogle(){
 		  firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function(idToken) {
 			
 			  document.getElementById("tokenfb").value =idToken;
-			    document.getElementById("pwd").value ="0";
-			    document.getElementById("outputJetonSite").value =codeSite;
+			  document.getElementById("pwd").value ="0";
+			  document.getElementById("outputJetonSite").value =codeSite;
 				
 				  connexionFireBase();
 					
@@ -337,7 +380,7 @@ function signPassword(){
 
 		  else
 			  if (errorCode=="auth/user-disabled")
-				  BootstrapDialog.alert("Le compte est désactivé.");
+				  BootstrapDialog.alert("Le compte est dÃ©sactivÃ©.");
 			  else
 			  BootstrapDialog.alert(errorMessage);
 		 
@@ -399,8 +442,5 @@ function connexionFireBase(){
 
 		}
 	</script>
-	
-
-</body>
 
 </html>
