@@ -48,6 +48,7 @@ import bean.Profil;
 import bean.Site;
 import dao.ActiviteDAO;
 import dao.DiscussionDAO;
+import dao.InteretDAO;
 import dao.MembreDAO;
 import dao.MessageDAO;
 import dao.NewDAO;
@@ -89,7 +90,7 @@ public class Frontal extends HttpServlet {
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
 	public static final String REDIRECTION_NEWS_MEMBRE = "REDIRECTION_NEWS_MEMBRE";
 	public static final String REFRESH_RECHERCHE_NEWS_MEMBRE = "REFRESH_RECHERCHE_NEWS_MEMBRE";
-
+	public static final String AJOUTER_INTERET_MEMBRE = "AJOUTER_INTERET_GESTIONNAIRE";
 
 	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="
 			+ REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
@@ -115,8 +116,6 @@ public class Frontal extends HttpServlet {
 	public static final String ACTION_REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE = "/waydplace/Frontal?action="
 			+ REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE;
 
-	
-	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -175,7 +174,7 @@ public class Frontal extends HttpServlet {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
 		}
 
 	}
@@ -185,10 +184,16 @@ public class Frontal extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		switch (action) {
-		
+
 		case REFRESH_RECHERCHE_NEWS_MEMBRE:
 
 			refreshRechercheNewsMembre(profil, response, request);
+
+			break;
+
+		case AJOUTER_INTERET_MEMBRE:
+
+			ajouteInteretMembre(profil, response, request);
 
 			break;
 
@@ -339,6 +344,26 @@ public class Frontal extends HttpServlet {
 		}
 	}
 
+	private MessageAction ajouteInteretMembre(Profil profil,
+			HttpServletResponse response, HttpServletRequest request) {
+
+		String uid = request.getParameter("uid");
+		int idActivite = Integer.parseInt(request.getParameter("idActivite"));
+
+		if (!InteretDAO.isInteret(uid, idActivite)) {
+
+			return new MessageAction(false,
+					"Vous avez déja like cette activité");
+
+		} else {
+
+			InteretDAO.ajouteInteret(idActivite, uid, 0);
+			return new MessageAction(true, "ok");
+
+		}
+
+	}
+
 	private void gestionVisiteur(HttpSession session, String action,
 			Profil profil, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -356,7 +381,7 @@ public class Frontal extends HttpServlet {
 			break;
 
 		case REDIRECTION_NEWS_MEMBRE:
-	
+
 			redirectionNewsGestionnaire(profil, request, response);
 			break;
 
@@ -365,7 +390,7 @@ public class Frontal extends HttpServlet {
 			refreshRechercheActiviteMembres(profil, request, response);
 
 			break;
-			
+
 		case REFRESH_RECHERCHE_NEWS_MEMBRE:
 
 			refreshRechercheNewsMembre(profil, response, request);
@@ -384,8 +409,9 @@ public class Frontal extends HttpServlet {
 	}
 
 	private void refreshRechercheNewsMembre(Profil profil,
-			HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
-		
+			HttpServletResponse response, HttpServletRequest request)
+			throws ServletException, IOException {
+
 		MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
 				request, profil);
 
@@ -396,13 +422,14 @@ public class Frontal extends HttpServlet {
 			if (request.getParameter("page") != null)
 				pageEncours = Integer.parseInt(request.getParameter("page"));
 
-			PagerNew pager = new PagerNew(profil.getFiltre(), pageEncours,profil);
+			PagerNew pager = new PagerNew(profil.getFiltre(), pageEncours,
+					profil);
 			request.setAttribute("pager", pager);
-			request.getRequestDispatcher("membre/mesNews.jsp").forward(
-					request, response);
+			request.getRequestDispatcher("membre/mesNews.jsp").forward(request,
+					response);
 
 		}
-		
+
 	}
 
 	private boolean valideProfilMembre(Profil profil) {
@@ -593,7 +620,6 @@ public class Frontal extends HttpServlet {
 		MessageAction updateFiltreRechercheActivite = updateFiltreRecherche(
 				request, profil);
 
-		
 		if (updateFiltreRechercheActivite.isOk()) {
 
 			int pageEncours = 0;
@@ -712,7 +738,6 @@ public class Frontal extends HttpServlet {
 	private void redirectionRechercheActiviteMembre(Profil profil,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LOG.info("zeeeee");
 		int page = 0;
 		PagerActivite pager = new PagerActivite(profil.getFiltre(), page);
 		request.setAttribute("pager", pager);
@@ -906,9 +931,7 @@ public class Frontal extends HttpServlet {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
-
 			return new MessageAction(false, e.getMessage());
 
 		}
@@ -927,8 +950,7 @@ public class Frontal extends HttpServlet {
 		String pseudo = request.getParameter("pseudo");
 		pseudo = pseudo.trim();
 		String description = request.getParameter("commentaire");
-	//	description = description.trim();
-
+	
 		String uid = request.getParameter("uid");
 		String idtypeGenreStr = request.getParameter("typeGenre");
 
@@ -939,7 +961,7 @@ public class Frontal extends HttpServlet {
 			datenaissanceDT = getDateFromString(datedebut);
 		} catch (ParseException e) {
 
-			e.printStackTrace();
+			LOG.error(ExceptionUtils.getStackTrace(e));
 		}
 
 		Date dateNaissance = datenaissanceDT.toDate();
@@ -986,7 +1008,6 @@ public class Frontal extends HttpServlet {
 		String titre = request.getParameter("titre");
 		String libelle = request.getParameter("description");
 
-	//	libelle = libelle.trim();
 		titre = titre.trim();
 
 		int id_ref_type_activite = 0;
@@ -999,7 +1020,6 @@ public class Frontal extends HttpServlet {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
 			LOG.error(ExceptionUtils.getStackTrace(e));
 
 			return new MessageAction(false, e.getMessage());
@@ -1225,13 +1245,12 @@ public class Frontal extends HttpServlet {
 		String titre = request.getParameter("titre");
 
 		String libelle = request.getParameter("description");
-	//	libelle = libelle.trim();
 		titre = titre.trim();
 
-		int id_ref_type_activite = 0;
+		int idRefTypeActivite = 0;
 
 		try {
-			id_ref_type_activite = Integer.parseInt(request
+			idRefTypeActivite = Integer.parseInt(request
 					.getParameter("typeactivite"));
 		}
 
@@ -1267,7 +1286,7 @@ public class Frontal extends HttpServlet {
 			MessageAction ajouteActivite = ActiviteDAO.AjouteActivite(
 					profil.getIdSite(), Parametres.TYPE_ORGANISATEUR_MEMBRE,
 					dateDebut, dateFin, titre, libelle, profil.getUID(),
-					id_ref_type_activite);
+					idRefTypeActivite);
 
 			if (ajouteActivite.isOk()) {// Si l'activité ajouté
 
@@ -1322,8 +1341,7 @@ public class Frontal extends HttpServlet {
 	public DateTime getDateFromString(String datestr) throws ParseException {
 
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-		DateTime dt = formatter.parseDateTime(datestr);
-		return dt;
+		return formatter.parseDateTime(datestr);
 	}
 
 }

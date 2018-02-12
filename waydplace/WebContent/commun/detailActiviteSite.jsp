@@ -117,11 +117,7 @@
 
 								<%=activite.getDetailEnteteMembreHtml()%>
 
-
-
 							</div>
-
-
 
 						</div>
 
@@ -131,7 +127,8 @@
 						<textarea disabled class="form-control" rows="10" id="description"
 							name="description"><%=activite.getLibelle()%></textarea>
 					</div>
-
+					
+						<%=activite.getInteretHTML(profil) %>
 
 				</div>
 			</div>

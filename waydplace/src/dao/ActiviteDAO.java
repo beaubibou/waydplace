@@ -29,8 +29,7 @@ public class ActiviteDAO {
 
 	public static ArrayList<ActiviteAgenda> getActiviteAgendaBySite(int idSite) {
 
-		long debut = System.currentTimeMillis();
-
+	
 		ActiviteAgenda activite = null;
 		ArrayList<ActiviteAgenda> retour = new ArrayList<ActiviteAgenda>();
 		PreparedStatement preparedStatement = null;

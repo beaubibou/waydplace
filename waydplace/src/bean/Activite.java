@@ -526,4 +526,12 @@ public String getDetailEnteteMembreHtml(){
 		
 	}
 
+public String getInteretHTML(Profil profil){
+	
+	String lien="/waydplace/Frontal?action="+Frontal.AJOUTER_INTERET_MEMBRE+"&uid="+profil.getUID()+"&idActivite="+id;
+	
+	return "<p align='right'>Intéressé ? <a href='"+lien+"'<button type='button' class='btn btn-info'>   <span class='glyphicon glyphicon-thumbs-up'></span> "
+			+ " </button></a></p>";
+}
+
 }
