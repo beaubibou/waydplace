@@ -1,4 +1,5 @@
 
+<%@page import="bean.Profil"%>
 <%@page import="pager.PagerActivite"%>
 <%@page import="critere.CritereTypeActivite"%>
 <%@page import="critere.CritereTypeOrganisateur"%>
@@ -102,7 +103,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
             <!-- Brand -->
             <div class="brand-name-wrapper">
                 <a class="navbar-brand" href="#">
-                    Brand
+                    Filtre
                 </a>
             </div>
 
@@ -113,9 +114,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 
             <!-- Search body -->
             <div id="search" class="panel-collapse collapse">
-             	<div class="row">
-					<div class="col-sm-3">
-						<form class="form-inline" id="formulaire" method="post"
+             				<form style='padding:10px;' id="formulaire" method="post"
 					action="/waydplace/Frontal">
 
 					<input type="hidden" name='action'
@@ -213,13 +212,11 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 					</div>
 				</form>
 
-			</div>
-
-		</div>
+		
 
 				</div>
             </div>
-        </div>
+    
 
     </div>
 
@@ -233,10 +230,10 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 
         </ul>
     </div><!-- /.navbar-collapse -->
-</nav>
-    
+
+    </nav>
     </div>
-</div>
+
 
     <!-- Main Content -->
     <div class="container-fluid">

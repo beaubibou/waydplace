@@ -1010,11 +1010,11 @@ public class Frontal extends HttpServlet {
 
 		titre = titre.trim();
 
-		int id_ref_type_activite = 0;
+		int idRefTypeActivite = 0;
 		int idActivite = 0;
 
 		try {
-			id_ref_type_activite = Integer.parseInt(request
+			idRefTypeActivite = Integer.parseInt(request
 					.getParameter("typeactivite"));
 			idActivite = Integer.parseInt(request.getParameter("idactivite"));
 		}
@@ -1048,7 +1048,7 @@ public class Frontal extends HttpServlet {
 		if (vpModifieActivite.isOk()) {
 
 			MessageAction modifieActivieDAO = ActiviteDAO.modifieActivite(
-					titre, libelle, dateDebut, dateFin, id_ref_type_activite,
+					titre, libelle, dateDebut, dateFin, idRefTypeActivite,
 					idActivite);
 			if (modifieActivieDAO.isOk())
 				return new MessageAction(true, "");

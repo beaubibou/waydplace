@@ -96,10 +96,6 @@
 
 						</form>
 
-
-
-
-
 					</div>
 					<div style="border-top: 1px solid #888;">
 
