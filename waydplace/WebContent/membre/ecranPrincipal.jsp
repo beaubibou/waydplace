@@ -1,48 +1,132 @@
+
+<%@page import="text.pageweb.EcranPrincipal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
-<%@page import="parametre.Parametres"%>
 <%@page import="dao.MessageDAO"%>
+<%@page import="parametre.Parametres"%>
+<%@page import="bean.New"%>
+<%@page import="pager.PagerNew"%>
+<%@page import="critere.CritereEtatActivite"%>
 <%@page import="servlet.membre.FrontalCommun"%>
+<%@page import="text.pageweb.MesActivites"%>
+<%@page import="bean.Activite"%>
+<%@page import="pager.PagerMesActivites"%>
+<%@page import="critere.FiltreRecherche"%>
+<%@page import="outils.Outils"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="parametre.ActionPage"%>
-<%@page import="text.pageweb.EcranPrincipal"%>
+<%@page import="dao.CacheDAO"%>
+<%@page import="bean.RefTypeActivite"%>
+<%@page import="text.pageweb.ProposeActiviteMembre"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<%@page import="java.util.ArrayList"%>
+
+<!DOCTYPE html>
+<html lang="fr">
 <head>
+<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/css/bootstrap-dialog.min.css"
 	rel="stylesheet" type="text/css" />
-
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<script src="/waydplace/js/moment.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
-<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
-	media="all" type="text/css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
+
+	
+	<script src="/waydplace/js/slide.js"></script>
+	
 </head>
 <body>
 
 
-	<%@include file="menuMembre.jsp"%>
+<div class="row">
+    <!-- uncomment code for absolute positioning tweek see top comment in css -->
+    <!-- <div class="absolute-wrapper"> </div> -->
+    <!-- Menu -->
+    <div class="side-menu">
+    
+    <nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <div class="brand-wrapper">
+            <!-- Hamburger -->
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-	<div class="container">
-		<div id="loginbox"
-			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
-			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-custom">
+            <!-- Brand -->
+            <div class="brand-name-wrapper">
+                <a class="navbar-brand" href="#">
+                    Brand
+                </a>
+            </div>
+
+            <!-- Search -->
+            <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
+                <span class="glyphicon glyphicon-search"></span>
+            </a>
+
+            <!-- Search body -->
+            <div id="search" class="panel-collapse collapse">
+             
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main Menu -->
+    <div class="side-menu-container">
+        <ul class="nav navbar-nav">
+
+<%@ include file="menuMembreTest.jsp"%>
+
+         
+
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+    
+    </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div class="side-body">
+<div style="display: flex;
+  justify-content: center;" class=" col-sm-6 col-sm-push-3 monBlock">
 					<div class="panel-title"><%=EcranPrincipal.TITRE_PAGE%></div>
 				</div>
 				<%
@@ -144,7 +228,5 @@
 
 		</div>
 	</div>
-
-
 </body>
 </html>

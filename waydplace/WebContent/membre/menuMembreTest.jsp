@@ -5,7 +5,6 @@
 <%@page import="text.pageweb.MenuGestionnaireText"%>
 
 
-
 	
 
 				<%=MenuMembre.get_LI_ACCEUIL((Profil) session

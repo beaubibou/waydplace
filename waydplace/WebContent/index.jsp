@@ -99,10 +99,7 @@
 			name="jetonSite">
 </form>
 <div class="container">
-    
-
-
-
+ 
     <div class="omb_login">
     	<h3 class="omb_authTitle">Login or <a href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>">Sign up</a></h3>
 		<div class="row omb_row-sm-offset-3 omb_socialButtons">
@@ -172,7 +169,7 @@
 			</div>
 		</div>	    	
 	</div>
-	
+	</div>
 	<script>
 
 function signInTestMembre1(){

@@ -179,13 +179,7 @@ public class MenuMembre {
 
 			break;
 
-		case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-
-			break;
-
-		case Parametres.TYPE_ORGANISATEUR_SITE:
-
-			break;
+	
 		}
 
 		return lien;
@@ -210,13 +204,9 @@ public class MenuMembre {
 
 			break;
 
-		case Parametres.TYPE_ORGANISATEUR_VISITEUR:
+	
 
-			break;
-
-		case Parametres.TYPE_ORGANISATEUR_SITE:
-
-			break;
+		
 		}
 
 		return lien;
