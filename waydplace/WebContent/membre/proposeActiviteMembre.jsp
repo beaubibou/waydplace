@@ -1,4 +1,6 @@
 
+<%@page import="bean.RefTypeGenre"%>
+<%@page import="text.pageweb.CompteMembre"%>
 <%@page import="outils.Outils"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="parametre.ActionPage"%>
@@ -14,6 +16,15 @@
 <html lang="fr">
 <head>
 <title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +52,7 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
@@ -50,196 +61,206 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
 
-	<script src="/waydplace/js/valideform.js"></script>
-	<script src="/waydplace/js/slide.js"></script>
-	
+<script src="/waydplace/js/valideform.js"></script>
+<script src="/waydplace/js/slide.js"></script>
+
 </head>
 <body>
 
-<%
+	<%
+		ArrayList<RefTypeActivite> listTypeActivite = CacheDAO
+				.getListRefTypeActivite();
+		// Defini le li a rendre actif
 
-Profil profil = (Profil) request.getSession().getAttribute("profil");
-ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
-// Defini le li a rendre actif
+		String titre = Outils.convertRequeteToString(request
+				.getParameter("titre"));
 
-String titre = Outils.convertRequeteToString(request
-	.getParameter("titre"));
+		String description = Outils.convertRequeteToString(request
+				.getParameter("description"));
 
-String description = Outils.convertRequeteToString(request
-	.getParameter("description"));
+		String messageAlert = (String) request.getAttribute("messageAlert");
+	%>
+	<div class="row">
+		<!-- uncomment code for absolute positioning tweek see top comment in css -->
+		<!-- <div class="absolute-wrapper"> </div> -->
+		<!-- Menu -->
+		<div class="side-menu">
+
+			<nav class="navbar navbar-default" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<div class="brand-wrapper">
+						<!-- Hamburger -->
+						<button type="button" class="navbar-toggle">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+
+						<!-- Brand -->
 
 
-String messageAlert = (String)request.getAttribute("messageAlert");	
+						<!-- Search body -->
+						<div id="search" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form class="navbar-form" role="search">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Search">
+									</div>
+									<button type="submit" class="btn btn-default ">
+										<span class="glyphicon glyphicon-ok"></span>
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
 
-
-
-%>
-<div class="row">
-    <!-- uncomment code for absolute positioning tweek see top comment in css -->
-    <!-- <div class="absolute-wrapper"> </div> -->
-    <!-- Menu -->
-    <div class="side-menu">
-    
-    <nav class="navbar navbar-default" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <div class="brand-wrapper">
-            <!-- Hamburger -->
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Brand -->
-          
-
-            <!-- Search body -->
-            <div id="search" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <form class="navbar-form" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default "><span class="glyphicon glyphicon-ok"></span></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Main Menu -->
-    <div class="side-menu-container">
-        <ul class="nav navbar-nav">
-
-<%@ include file="menuMembreTest.jsp"%>
-
-         
-
-        </ul>
-    </div><!-- /.navbar-collapse -->
-</nav>
-    
-    </div>
-
-    <!-- Main Content -->
-    <div class="container-fluid">
-        <div class="side-body">
-       
-     
-			<div class="panel panel-default">
-						<div class="panel-heading panel-heading-custom">
-					<div class="panel-title"><a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btnwayd btn-sm'> <span
-											class="glyphicon glyphicon-home"></span></a> <%=ProposeActiviteMembre.TITRE_PANEL%></div>
 				</div>
 
-				<div style="padding-top: 30px" class="panel-body">
-				
-				
+				<!-- Main Menu -->
+				<div class="side-menu-container">
+					<ul class="nav navbar-nav">
+
+						<%@ include file="menuMembreTest.jsp"%>
+
+
+					</ul>
+				</div>
+
+			</nav>
+
+		</div>
+	</div>
+	<!-- Main Content -->
+	<div class="container-fluid">
+		<div class="side-body">
+
+
+			<div class="jumbotron vertical-center">
+
+
+				<div class="container ">
+
+
 					<form action="/waydplace/Frontal"
 						onsubmit="return valideFormulaire()" method="post" id='formulaire'>
 
-						<div class="form-group"   style="border-bottom: 1px solid #888;">
 
-							<p class="text-tuto"><%=ProposeActiviteMembre.MESSAGE_JUMBO_LIGNE1%></p>
-						
+
+						<input type='hidden' name='action'
+							value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
+
+
+
+						<div class="form-group row">
+
+							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+
+								<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
+								<input type="text" class="form-control" id="titre" required
+									placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
+									maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
+									name="titre" required value='<%=titre%>'>
+
+							</div>
 						</div>
-					<br>	
+						<div class="form-group row">
 
-						<div class="form-group">
-							<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
-							<input type="text" class="form-control" id="titre" required
-								placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
-								maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
-								name="titre" required value='<%=titre%>'>
+							<div class="col-xs-10 col-xs-offset-1 col-md-3 col-md-offset-3 ">
+								<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
+								<div class='input-group date' id='datedebut'>
+									<input type='text' class="form-control" id="iddatedebut"
+										required name="debut" /> <span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+
+							</div>
+
+							<div class="col-xs-10 col-xs-offset-1 col-md-3 col-md-offset-0 ">
+
+								<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
+								<div class='input-group date' id="datefin">
+									<input type='text' class="form-control" id="iddatefin" required
+										name="fin" /> <span class="input-group-addon"> <span
+										class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+
 						</div>
 
 
-						<div class="form-group">
-							<div class="row">
+						<div class="form-group row">
 
-								<div class='col-sm-4'>
-									<div class="form-group">
-										<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
-										<div class='input-group date' id='datedebut'>
-											<input type='text' class="form-control" id="iddatedebut" required
-												name="debut" /> <span class="input-group-addon"> <span
-												class="glyphicon glyphicon-calendar"></span>
-											</span>
-										</div>
-									</div>
-								</div>
+							<div class="col-xs-10 col-xs-offset-1 col-md-3 col-md-offset-3 ">
+								<label for="typeactivite"><%=ProposeActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
+								<select class="form-control" id="type" name="typeactivite">
+									<%
+										for (RefTypeActivite typeactivite : listTypeActivite) {
+									%>
+									<option value="<%=typeactivite.getId()%>"><%=typeactivite.getLibelle()%></option>
+									<%
+										}
+									%>
+								</select>
 
-								<div class='col-sm-4'>
-									<div class="form-group">
-										<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
-										<div class='input-group date' id="datefin">
-											<input type='text' class="form-control" id="iddatefin" required
-												name="fin" /> <span class="input-group-addon"> <span
-												class="glyphicon glyphicon-calendar"></span>
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class='col-sm-4'>
-									<label for="typeactivite"><%=ProposeActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
-									<select class="form-control" id="type" name="typeactivite">
-										<%
-											for (RefTypeActivite typeactivite:listTypeActivite) {
-										%>
-										<option value="<%=typeactivite.getId()%>"><%=typeactivite.getLibelle()%></option>
-										<%
-											}
-										%>
-									</select>
-
-								</div>
 							</div>
 						</div>
 
-						
 
-						<div class="form-group">
-							<label for="description"><%=ProposeActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
-							<textarea
-								placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
-								maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
-								class="form-control" rows="5" id="description"
-								name="description" value='<%=description%>'></textarea>
+						<div class="form-group row">
+
+							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+								<label for="description"><%=ProposeActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
+								<textarea
+									placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
+									maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
+									class="form-control" rows="5" id="description"
+									name="description" value='<%=description%>'></textarea>
+
+							</div>
 						</div>
-						<h5 class="nbrcaracteremax" id="nbr">
 
-							<%=ProposeActiviteMembre.initNbrCaracteres()%></h5>
-							
-						<input type='hidden' name='action' value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
 
-					
-						
-						
-						
+
 					</form>
-					
-					
-					<button  onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
-					
-						<a href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_ACCUEIL_MEMBRE%>'
-											class='btn btnwayd btn-lg'> <span
-											class="glyphicon glyphicon-home"></span></a> 
-						
+
+					<div class="form-group row">
+
+						<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
+
+							<h5 class="nbrcaracteremax" id="nbr">
+								0 Caractére
+								<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+							</h5>
+
+						</div>
+					</div>
+
+					<div class="form-group row">
+
+						<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+							<button onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
+						</div>
+					</div>
+
+
+
+
+
 				</div>
+
 			</div>
+
+
+
 		</div>
-
-
 	</div>
 
-	
+</body>
 
-	
-	<script>
+<script>
 	
 	function ajouteActivite(){
 		
@@ -348,8 +369,6 @@ String messageAlert = (String)request.getAttribute("messageAlert");
 		var nombreCaractere = $('#description').val().length;
 		var msg = nombreCaractere +   '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
 		$('#nbr').text(msg);
-	</script>         
-        </div>
-   
-</body>
+	</script>
+
 </html>
