@@ -1,4 +1,6 @@
 
+<%@page import="text.pageweb.ModifierActiviteMembre"%>
+<%@page import="bean.Activite"%>
 <%@page import="bean.RefTypeGenre"%>
 <%@page import="text.pageweb.CompteMembre"%>
 <%@page import="outils.Outils"%>
@@ -68,17 +70,8 @@
 <body>
 
 	<%
-		ArrayList<RefTypeActivite> listTypeActivite = CacheDAO
-				.getListRefTypeActivite();
-		// Defini le li a rendre actif
-
-		String titre = Outils.convertRequeteToString(request
-				.getParameter("titre"));
-
-		String description = Outils.convertRequeteToString(request
-				.getParameter("description"));
-
-		String messageAlert = (String) request.getAttribute("messageAlert");
+		Activite activite=(Activite) request.getAttribute("activite");
+			ArrayList<RefTypeActivite> listTypeActivite=CacheDAO.getListRefTypeActivite();
 	%>
 	<div class="row">
 		<!-- uncomment code for absolute positioning tweek see top comment in css -->
@@ -138,144 +131,142 @@
 
 
 
-					<form action="/waydplace/Frontal"
-						onsubmit="return valideFormulaire()" method="post" id='formulaire'>
+
+			<form action="/waydplace/Frontal" id='formulaire'
+				onsubmit="return valideFormulaire()" method="post">
+
+				<input name="action" type="hidden"
+					value=<%=Frontal.MODIFIER_ACTIVITE_MEMBRE%>> <input
+					name="idactivite" type="hidden" value=<%=activite.getId()%>>
 
 
 
-						<input type='hidden' name='action'
-							value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
+				<div class="form-group row">
 
+					<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 
+						<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
+						<input type="text" class="form-control" id="titre" required
+							placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
+							maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
+							name="titre" required value='<%=activite.getTitre()%>'>
 
-						<div class="form-group row">
+					</div>
+				</div>
+				<div class="form-group row">
 
-							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
-
-								<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
-								<input type="text" class="form-control" id="titre" required
-									placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
-									maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
-									name="titre" required value='<%=titre%>'>
-
-							</div>
-						</div>
-						<div class="form-group row">
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
-								<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
-								<div class='input-group date' id='datedebut'>
-									<input type='text' class="form-control" id="iddatedebut"
-										required name="debut" /> <span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-
-							</div>
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-0 ">
-
-								<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
-								<div class='input-group date' id="datefin">
-									<input type='text' class="form-control" id="iddatefin" required
-										name="fin" /> <span class="input-group-addon"> <span
-										class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
-
-						</div>
-
-
-						<div class="form-group row">
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
-								<label for="typeactivite"><%=ProposeActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
-								<select class="form-control" id="type" name="typeactivite">
-									<%
-										for (RefTypeActivite typeactivite : listTypeActivite) {
-									%>
-									<option value="<%=typeactivite.getId()%>"><%=typeactivite.getLibelle()%></option>
-									<%
-										}
-									%>
-								</select>
-
+					<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
+						<div class="form-group">
+							<label for="iddatedebut"><%=ModifierActiviteMembre.LABEL_DATE_DEBUT%></label>
+							<div class='input-group date' id='datedebut'>
+								<input type='text' class="form-control" id="iddatedebut"
+									name="debut" /> <span class="input-group-addon"> <span
+									class="glyphicon glyphicon-calendar"></span>
+								</span>
 							</div>
 						</div>
 
-
-						<div class="form-group row">
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
-								<label for="description"><%=ProposeActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
-								<textarea
-									placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
-									maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
-									class="form-control" rows="5" id="description"
-									name="description" ></textarea>
-
-							</div>
-						</div>
-
-
-
-					</form>
-
-					<div class="form-group row">
-
-						<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
-
-							<h5 class="nbrcaracteremax" id="nbr">
-								0 Caractére
-								<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-							</h5>
-
-						</div>
 					</div>
 
-					<div class="form-group row">
-
-						<div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-3 ">
-							<button onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
+					<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-0 ">
+						<div class="form-group">
+							<label for="iddatefin"><%=ModifierActiviteMembre.LABEL_DATE_FIN%></label>
+							<div class='input-group date' id="datefin">
+								<input type='text' class="form-control" id="iddatefin"
+									name="fin" /> <span class="input-group-addon"> <span
+									class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
 						</div>
 					</div>
-
-
-
-
 
 				</div>
 
+
+				<div class="form-group row">
+
+					<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
+						<label for="typeactivite"><%=ModifierActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
+						<select class="form-control" id="type" name="typeactivite">
+							<%
+								for (RefTypeActivite typeactivite:listTypeActivite) {
+							%>
+							<option value="<%=typeactivite.getId()%>"><%=typeactivite.getLibelle()%></option>
+							<%
+								}
+							%>
+						</select>
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+	<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
+				
+					<label for="description"><%=ModifierActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
+					<textarea
+						placeholder="<%=ModifierActiviteMembre.getHintDescriptionActivite()%>"
+						maxlength="<%=ModifierActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
+						class="form-control" rows="5" id="description" name="description"><%=activite.getLibelle()%></textarea>
+				</div>
+</div>
+
+
+			</form>
+
+			<div class="form-group row">
+
+				<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
+
+					<h5 class="nbrcaracteremax" id="nbr">
+						0 Caractére
+						<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+					</h5>
+
+				</div>
+			</div>
+
+			<div class="form-group row">
+
+				<div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+					<button onclick="modifieActivite()" class="btnwayd btn-lg">Modifier</button>
+				</div>
 			</div>
 
 
 
-	
+
+
+		</div>
+
+	</div>
+
+
+
+
 
 </body>
 
-<script>
+	<script>
+	function modifieActivite(){
 	
-	function ajouteActivite(){
-		
 		if (valideFormulaire()==false)
 			return;
 		
+		
 		$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,
 				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+
 					if (responseText == 'ok')
 					{
 						BootstrapDialog.show({
 				            title: 'Confirmation',
 				            closable: false,
-				            message: 'Votre activité a été ajoutée',
+				            message: 'Votre activité a été modfiée',
 				            buttons: [{
 				                label: 'Ok',
 				                action: function(dialog) {
-				                	
 				               	dialog.close();
-				               	document.getElementById("formulaire").reset(); 
 				                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
 				                  //  dialog.setMessage('Message 1');
 				                }
@@ -285,8 +276,7 @@
 						
 						
 					}
-					else
-					{
+					else{
 						
 						BootstrapDialog.alert(responseText);
 					}
@@ -299,51 +289,56 @@
 		
 	}
 	
-		$(function() {
+		
+		
 
-			$('#datedebut').datetimepicker({
-				defaultDate : new Date,
-				format : 'DD/MM/YYYY HH:mm'
+	function valideFormulaire() {
+	
+		var description=document.getElementById("description").value;
+		var titre=document.getElementById("titre").value;
+		var datedebut = $('#datedebut').data('DateTimePicker').date();
+		var datefin = $('#datefin').data('DateTimePicker').date();
 
-			});
+		
+		var isOk=valideActivite (description,titre,datedebut,datefin);
+		
+		if (isOk!='ok'){
+			BootstrapDialog.alert(isOk);
+			return false;
+		}
+		
+		return true;
+		
+	}
+		
+		
+	</script>
 
-			var heure = new Date().getHours() + 3;
+	<script>
+	
 
-			$('#datefin').datetimepicker(
-					{
-						defaultDate : moment(new Date()).hours(heure)
-								.minutes(0).seconds(0).milliseconds(0),
-						format : 'DD/MM/YYYY HH:mm'
+	$(function() {
 
-					});
+		var dateDebut =<%=Outils.getDateHtml(activite.getDatedebut())%>;
+		var dateFin =<%=Outils.getDateHtml(activite.getDatefin())%>;
+		$('#datedebut').datetimepicker({
+			defaultDate : dateDebut,
+			format : 'DD/MM/YYYY HH:mm'
 
 		});
-	
-	</script>
-	<script>
-	
 
-		function valideFormulaire() {
-			
-			var description=document.getElementById("description").value;
-			var titre=document.getElementById("titre").value;
-			var datedebut = $('#datedebut').data('DateTimePicker').date();
-			var datefin = $('#datefin').data('DateTimePicker').date();
-	
-			
-			var isOk=valideActivite (description,titre,datedebut,datefin);
-			
-			if (isOk!='ok'){
-				BootstrapDialog.alert(isOk);
-				return false;
-			}
-			
-		}
+		$('#datefin').datetimepicker({
+			defaultDate : dateFin,
+			format : 'DD/MM/YYYY HH:mm'
 
-	
-	</script>
+		});
 
-	<script>
+	});
+	
+	
+	
+	
+	
 		$(document).ready(function(e) {
 
 			$('#description').keyup(function() {
@@ -351,18 +346,18 @@
 				var nombreCaractere = $(this).val().length;
 				//alert(nombreCaractere);
 
-				var msg = nombreCaractere + '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
+				var msg = nombreCaractere + '<%=ModifierActiviteMembre.getNbrCarateresDescription()%>';
 
 				$('#nbr').text(msg);
 				// Le script qui devra calculer et afficher le nombre de mots et de caractères
 
 			})
- 
+
 		});
 
 		// Init le nombre de caraterces	
 		var nombreCaractere = $('#description').val().length;
-		var msg = nombreCaractere +   '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
+		var msg = nombreCaractere +   '<%=ModifierActiviteMembre.getNbrCarateresDescription()%>';
 		$('#nbr').text(msg);
 	</script>
 

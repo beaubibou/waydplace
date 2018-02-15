@@ -55,9 +55,22 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
-
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
 
 <script src="/waydplace/js/slide.js"></script>
+
+<style type="text/css">
+
+.user_name{
+    font-size:14px;
+    font-weight: bold;
+}
+.comments-list .media{
+    border-bottom: 1px dotted #ccc;
+}
+
+</style>
+
 
 </head>
 <body>
@@ -93,12 +106,12 @@
 
 						<!-- Brand -->
 						<div class="brand-name-wrapper">
-							<a class="navbar-brand" href="#"> Brand </a>
+							<a class="navbar-brand" href="#"> Mes activités </a>
 						</div>
 
 						<!-- Search -->
 						<a data-toggle="collapse" href="#search" class="btn btn-default"
-							id="search-trigger"> <span class="glyphicon glyphicon-search"></span>
+							id="search-trigger"> <span class="glyphicon glyphicon-filter"></span>
 						</a>
 
 						<!-- Search body -->
@@ -125,12 +138,9 @@
 											</select>
 
 										</div>
+											<input type="hidden" name='action'
+								value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
 
-										<a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'
-											class='btn btn-info btn-md btnwayd'> <span
-											class="glyphicon glyphicon-plus"> </span>
-										</a> <input type="hidden" name='action'
-											value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
 									</form>
 								</div>
 
@@ -159,14 +169,15 @@
 	<!-- Main Content -->
 	<div class="container-fluid">
 		<div class="side-body">
-
+	<div class="container">
+     
 
 
 			<%
 				if (listMesActivite!=null && !listMesActivite.isEmpty()){
 			%>
 
-			<table class="table">
+		
 				<%
 					if (listMesActivite!=null)
 																		
@@ -178,22 +189,24 @@
 																	String lienModifierActivite =activite.getLienModifierMembre(profil);
 				%>
 
-			    <tbody>
-   
-        <td>
-    <div class="row">
-      <div class="col-xs-4 col-md-2 col-lg-1">
-        <img 
-        class="img-responsive" src='<%=activite.getURLPhoto() %>' alt="Chania" alt="" />
-        <p align="center" >date</p>
-      </div>
-      <div class="col-xs-6 col-md-8 col-lg-9">
-       <p>sdfmsldfk</p>
-    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet</p>
-      </div>
-      <div class="col-xs-2 col-md-2 col-lg-2">
-    <p>
+		
+	       <div class="row">
+                <div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+                  <div class="page-header">
+                    <h1><small class="pull-right"></small> <%=activite.getTitre() %> </h1>
+                  </div> 
+                   <div class="comments-list">
+                       <div class="media">
+                           <p class="pull-right"><small><%=activite.getHoraireLeA()%></small></p>
+                            <a  class="media-left " >
+                              <img style="width:60px" src="<%=activite.getURLPhoto()%>">
+                            </a>
+                            <div class="media-body">
+                                
+                              <h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur() %></h4>
+                             <%=activite.getLibelleEllipis() %>
+                              
+                             <p align='right'>
 							<%
 								if (lienModifierActivite!=null) {
 							%>
@@ -216,20 +229,23 @@
 								}
 							%>
 						</p>
-      </div>
-    </div>
- </td>
-       
-    </tbody>
-			</table>
+                            </div>
+                          </div>
+                       
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+	
 
 
 			<%
 				}
 			%>
-			</tbody>
-			</table>
-
+		
+		<br>
 			<ul class="pager">
 
 				<li <%=pager.isPreviousHtml()%>><a
@@ -239,6 +255,7 @@
 					href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
 
 			</ul>
+			
 			<%
 				} else
 						{
@@ -256,7 +273,7 @@
 				}
 			%>
 
-
+</div>
 			<script type="text/javascript">
 				$('select').on('change', function() {
 

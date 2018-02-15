@@ -177,6 +177,7 @@ public class MenuMembre {
 		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 			lien = LIEN_ENVELLOPPE;
 
+		
 			break;
 
 	

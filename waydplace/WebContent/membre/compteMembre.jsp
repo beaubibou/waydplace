@@ -90,20 +90,19 @@
 
 						<!-- Brand -->
 
+<!-- Brand -->
+						<div class="brand-name-wrapper">
+							<a class="navbar-brand" href="#"> Mon Compte </a>
+						</div>
+		 				
+						
+						<a  href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL %>" class="btn btn-default"
+							id="search-trigger"> <span class="glyphicon glyphicon-home"></span>
+						</a>
+						
 
 						<!-- Search body -->
-						<div id="search" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form class="navbar-form" role="search">
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Search">
-									</div>
-									<button type="submit" class="btn btn-default ">
-										<span class="glyphicon glyphicon-ok"></span>
-									</button>
-								</form>
-							</div>
-						</div>
+						
 					</div>
 
 				</div>
@@ -123,7 +122,8 @@
 		</div>
 	</div>
 	<!-- Main Content -->
-	<div class="container-fluid">
+	
+	<div style="padding-top: 30px;" class="container-fluid well well-sm">
 		<div class="side-body">
 
 
@@ -137,9 +137,9 @@
 
 						<div class="form-group row">
 							<div align="center"
-								class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 ">
+								class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
 
-								<img width='50%' src='<%=profil.getMembre().getUrlPhoto()%>'
+								<img src='<%=profil.getMembre().getUrlPhoto()%>'
 									class="img-rounded img-responsive">
 							</div>
 						</div>

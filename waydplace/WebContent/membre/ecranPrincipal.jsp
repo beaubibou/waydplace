@@ -53,7 +53,7 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
@@ -62,159 +62,128 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
 
-	
-	<script src="/waydplace/js/slide.js"></script>
-	
+
+<script src="/waydplace/js/slide.js"></script>
+
 </head>
 <body>
 
 
-<div class="row">
-    <!-- uncomment code for absolute positioning tweek see top comment in css -->
-    <!-- <div class="absolute-wrapper"> </div> -->
-    <!-- Menu -->
-    <div class="side-menu">
-    
-    <nav class="navbar navbar-default" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <div class="brand-wrapper">
-            <!-- Hamburger -->
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+	<div class="row">
+		<!-- uncomment code for absolute positioning tweek see top comment in css -->
+		<!-- <div class="absolute-wrapper"> </div> -->
+		<!-- Menu -->
+		<div class="side-menu">
 
-            <!-- Brand -->
-            <div class="brand-name-wrapper">
-                <a class="navbar-brand" href="#">
-                    Brand
-                </a>
-            </div>
+			<nav class="navbar navbar-default" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<div class="brand-wrapper">
+						<!-- Hamburger -->
+						<button type="button" class="navbar-toggle">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
 
-            <!-- Search -->
-            <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
-                <span class="glyphicon glyphicon-search"></span>
-            </a>
+						<!-- Brand -->
+						<div class="brand-name-wrapper">
+							<a class="navbar-brand" href="#"> Menu </a>
+						</div>
 
-            <!-- Search body -->
-            <div id="search" class="panel-collapse collapse">
-             
-            </div>
-        </div>
+						<!-- Search -->
+						
 
-    </div>
+						<!-- Search body -->
+						<div id="search" class="panel-collapse collapse"></div>
+					</div>
 
-    <!-- Main Menu -->
-    <div class="side-menu-container">
-        <ul class="nav navbar-nav">
-
-<%@ include file="menuMembreTest.jsp"%>
-
-         
-
-        </ul>
-    </div><!-- /.navbar-collapse -->
-</nav>
-    
-    </div>
-</div>
-
-    <!-- Main Content -->
-    <div class="container-fluid">
-        <div class="side-body">
-<div style="display: flex;
-  justify-content: center;" class=" col-sm-6 col-sm-push-3 monBlock">
-					<div class="panel-title"><%=EcranPrincipal.TITRE_PAGE%></div>
 				</div>
+
+				<!-- Main Menu -->
+				<div class="side-menu-container">
+					<ul class="nav navbar-nav">
+
+						<%@ include file="menuMembreTest.jsp"%>
+
+
+
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</nav>
+
+		</div>
+	</div>
+
+	<!-- Main Content -->
+	<div class="container-fluid">
+		<div class="side-body">
+			
+			<%
+				Profil profilTmp = (Profil) request.getSession().getAttribute(
+						"profil");
+			%>
+			<div style="padding-top: 30px" class="panel-body">
+
+				<div class="row">
+
+					<%
+						if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
+					%>
+					<div class="col-sm-4 col-sm-offset-4 ">
+
+						<a
+							href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE%>"
+							class="btn btn-info btn-block btn-lg btnwayd">Propose</a>
+					</div>
+
+				</div>
+
+				<br>
 				<%
-					Profil profilTmp = (Profil) request.getSession().getAttribute(
-							"profil");
+					}
 				%>
-				<div style="padding-top: 30px" class="panel-body">
 
-					<div class="row">
-
-						<%
-							if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
-						%>
-						<div class="col-sm-4 col-sm-offset-4 ">
-
-							<a
-								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_PROPOSER_ACTIVITE_MEMBRE%>"
-								class="btn btn-info btn-block btn-lg btnwayd">Propose</a>
-						</div>
-
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-4 ">
+						<a
+							href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>"
+							class="btn btn-info  btn-block  btn-lg btnwayd">Rechercher</a>
 					</div>
 
-					<br>
-					<%
-						}
-					%>
+				</div>
 
-					<div class="row">
-						<div class="col-sm-4 col-sm-offset-4 ">
-							<a
-								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE%>"
-								class="btn btn-info  btn-block  btn-lg btnwayd">Rechercher</a>
-						</div>
 
+				<br>
+				<%
+					if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
+				%>
+
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-4 ">
+						<a
+							href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_MES_ACTIVITES_MEMBRE%>"
+							class="btn btn-info  btn-block btn-lg btnwayd">Mes activités</a>
 					</div>
-
-
-					<br>
-					<%
-						if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
-					%>
-
-					<div class="row">
-						<div class="col-sm-4 col-sm-offset-4 ">
-							<a
-								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_MES_ACTIVITES_MEMBRE%>"
-								class="btn btn-info  btn-block btn-lg btnwayd">Mes
-								activités</a>
-						</div>
-
-					</div>
-					<br>
-					<%
-						}
-					%>
-					<%
-						if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
-					%>
-
-					<div class="row">
-						<div class="col-sm-4 col-sm-offset-4 ">
-
-							<a
-								href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_DISCUSSION_MEMBRE%>"
-								class="btn btn-info  btn-block btn-lg btnwayd" >Mes
-								messages (<%=MessageDAO.getNbrMessageNonLu(profilTmp.getUID())%>)
-							</a>
-						</div>
-
-					</div>
-
 
 				</div>
 				<br>
 				<%
 					}
 				%>
-
 				<%
-					if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
+					if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
 				%>
 
 				<div class="row">
 					<div class="col-sm-4 col-sm-offset-4 ">
 
 						<a
-							href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE %>"
-							class="btn btn-info  btn-block btn-lg btnwayd"  >S'inscrire</a>
+							href="/waydplace/Frontal?action=<%=Frontal.REDIRECTION_DISCUSSION_MEMBRE%>"
+							class="btn btn-info  btn-block btn-lg btnwayd">Mes messages
+							(<%=MessageDAO.getNbrMessageNonLu(profilTmp.getUID())%>)
+						</a>
 					</div>
 
 				</div>
@@ -226,7 +195,28 @@
 				}
 			%>
 
+			<%
+				if (profilTmp.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
+			%>
+
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-4 ">
+
+					<a
+						href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>"
+						class="btn btn-info  btn-block btn-lg btnwayd">S'inscrire</a>
+				</div>
+
+			</div>
+
+
 		</div>
+		<br>
+		<%
+			}
+		%>
+
 	</div>
+
 </body>
 </html>

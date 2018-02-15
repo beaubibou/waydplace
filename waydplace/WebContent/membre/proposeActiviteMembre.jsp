@@ -69,16 +69,16 @@
 
 	<%
 		ArrayList<RefTypeActivite> listTypeActivite = CacheDAO
-				.getListRefTypeActivite();
-		// Defini le li a rendre actif
+			.getListRefTypeActivite();
+			// Defini le li a rendre actif
 
-		String titre = Outils.convertRequeteToString(request
-				.getParameter("titre"));
+			String titre = Outils.convertRequeteToString(request
+			.getParameter("titre"));
 
-		String description = Outils.convertRequeteToString(request
-				.getParameter("description"));
+			String description = Outils.convertRequeteToString(request
+			.getParameter("description"));
 
-		String messageAlert = (String) request.getAttribute("messageAlert");
+			String messageAlert = (String) request.getAttribute("messageAlert");
 	%>
 	<div class="row">
 		<!-- uncomment code for absolute positioning tweek see top comment in css -->
@@ -99,6 +99,13 @@
 
 						<!-- Brand -->
 
+						<div class="brand-name-wrapper">
+							<a class="navbar-brand" href="#"> Proposer </a>
+						</div>
+
+	<a  href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL %>" class="btn btn-default"
+							id="search-trigger"> <span class="glyphicon glyphicon-home"></span>
+						</a>
 
 						<!-- Search body -->
 						<div id="search" class="panel-collapse collapse">
@@ -132,126 +139,124 @@
 		</div>
 	</div>
 	<!-- Main Content -->
-	<div class="container-fluid">
+	<div style="padding-top: 30px;" class="container-fluid">
 		<div class="side-body">
 
 
 
 
-					<form action="/waydplace/Frontal"
-						onsubmit="return valideFormulaire()" method="post" id='formulaire'>
+			<form action="/waydplace/Frontal"
+				onsubmit="return valideFormulaire()" method="post" id='formulaire'>
 
 
 
-						<input type='hidden' name='action'
-							value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
+				<input type='hidden' name='action'
+					value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
 
 
 
-						<div class="form-group row">
+				<div class="form-group row">
 
-							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
+					<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 
-								<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
-								<input type="text" class="form-control" id="titre" required
-									placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
-									maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
-									name="titre" required value='<%=titre%>'>
+						<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
+						<input type="text" class="form-control" id="titre" required
+							placeholder="<%=ProposeActiviteMembre.getHintTitreActivite()%>"
+							maxLength="<%=ProposeActiviteMembre.TAILLE_TITRE_ACTIVITE_MAX%>"
+							name="titre" required value='<%=titre%>'>
 
-							</div>
-						</div>
-						<div class="form-group row">
+					</div>
+				</div>
+				<div class="form-group row">
 
-							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
-								<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
-								<div class='input-group date' id='datedebut'>
-									<input type='text' class="form-control" id="iddatedebut"
-										required name="debut" /> <span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-
-							</div>
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-0 ">
-
-								<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
-								<div class='input-group date' id="datefin">
-									<input type='text' class="form-control" id="iddatefin" required
-										name="fin" /> <span class="input-group-addon"> <span
-										class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
-
+					<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
+						<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
+						<div class='input-group date' id='datedebut'>
+							<input type='text' class="form-control" id="iddatedebut" required
+								name="debut" /> <span class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
 						</div>
 
-
-						<div class="form-group row">
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
-								<label for="typeactivite"><%=ProposeActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
-								<select class="form-control" id="type" name="typeactivite">
-									<%
-										for (RefTypeActivite typeactivite : listTypeActivite) {
-									%>
-									<option value="<%=typeactivite.getId()%>"><%=typeactivite.getLibelle()%></option>
-									<%
-										}
-									%>
-								</select>
-
-							</div>
-						</div>
-
-
-						<div class="form-group row">
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
-								<label for="description"><%=ProposeActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
-								<textarea
-									placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
-									maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
-									class="form-control" rows="5" id="description"
-									name="description" ></textarea>
-
-							</div>
-						</div>
-
-
-
-					</form>
-
-					<div class="form-group row">
-
-						<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
-
-							<h5 class="nbrcaracteremax" id="nbr">
-								0 Caractére
-								<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-							</h5>
-
-						</div>
 					</div>
 
-					<div class="form-group row">
+					<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-0 ">
 
-						<div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-3 ">
-							<button onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
+						<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
+						<div class='input-group date' id="datefin">
+							<input type='text' class="form-control" id="iddatefin" required
+								name="fin" /> <span class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
 						</div>
-					</div>
-
-
-
-
+					</div><link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
+	type="text/css">
 
 				</div>
 
+
+				<div class="form-group row">
+
+					<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
+						<label for="typeactivite"><%=ProposeActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
+						<select class="form-control" id="type" name="typeactivite">
+							<%
+								for (RefTypeActivite typeactivite : listTypeActivite) {
+							%>
+							<option value="<%=typeactivite.getId()%>"><%=typeactivite.getLibelle()%></option>
+							<%
+								}
+								%>
+						</select>
+
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+
+					<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
+						<label for="description"><%=ProposeActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
+						<textarea
+							placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
+							maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
+							class="form-control" rows="5" id="description" name="description"></textarea>
+
+					</div>
+				</div>
+
+
+
+			</form>
+
+
+			<div class="col-xs-4 col-xs-offset-10 col-md-2 col-md-offset-8 ">
+
+				<h5 class="nbrcaracteremax" id="nbr">
+					0 Caractére
+					<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+				</h5>
+
+			</div>
+
+			<div class="form-group row">
+
+				<div class="col-xs-4 col-xs-offset-0 col-md-6 col-md-offset-3 ">
+					<button onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
+				</div>
 			</div>
 
 
 
-	
+
+
+		</div>
+
+	</div>
+
+
+
+
 
 </body>
 
@@ -320,7 +325,7 @@
 		});
 	
 	</script>
-	<script>
+<script>
 	
 
 		function valideFormulaire() {
@@ -343,7 +348,7 @@
 	
 	</script>
 
-	<script>
+<script>
 		$(document).ready(function(e) {
 
 			$('#description').keyup(function() {
@@ -362,8 +367,8 @@
 
 		// Init le nombre de caraterces	
 		var nombreCaractere = $('#description').val().length;
-		var msg = nombreCaractere +   '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
-		$('#nbr').text(msg);
-	</script>
+		var msg = nombreCaractere +'<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
+	$('#nbr').text(msg);
+</script>
 
 </html>

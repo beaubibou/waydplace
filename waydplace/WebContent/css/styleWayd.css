@@ -11,14 +11,14 @@
   margin-right: 10px; 
 }
 
-.panel-default{
 
-	
-}
 
 .jumbotron-style{
 	
-	background-color: #ffe6b3;
+	background-color: #ffeecc ;
+	border: 5px solid #fff;
+	
+	margin: 5px;padding:20px;
 	
 }
 
@@ -29,6 +29,14 @@
 .dropdown-toggle:active,.open .dropdown-toggle {
 	background: #e6ac00 !important;
 	color: #000 !important;
+}
+.user_name{
+    font-size:14px;
+    font-weight: bold;
+}
+.comments-list .media{
+    border-bottom: 1px dotted #ccc;
+   
 }
 
 
@@ -45,7 +53,7 @@ body {
 }
 /*Couleur de la barre de navigation */
 .navbar {
-	background-color: #ffbf00;
+	background-color: #ffffff;
 		color: #FF0000;
 }
 

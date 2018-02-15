@@ -1,133 +1,329 @@
 
-<%@page import="outils.Outils"%>
-<%@page import="bean.Site"%>
 <%@page import="parametre.Parametres"%>
-<%@page import="bean.Membre"%>
-<%@page import="bean.Profil"%>
+<%@page import="bean.Site"%>
+<%@page import="bean.RefTypeGenre"%>
+<%@page import="text.pageweb.CompteMembre"%>
+<%@page import="outils.Outils"%>
+<%@page import="servlet.membre.Frontal"%>
+<%@page import="parametre.ActionPage"%>
+<%@page import="dao.CacheDAO"%>
+<%@page import="bean.RefTypeActivite"%>
+<%@page import="text.pageweb.ProposeActiviteMembre"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@page import="java.util.ArrayList"%>
+
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-<title>>Détail Membre</title>
+<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
 
-
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<link
-	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<script
-	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<!-- <script src="src/bootstrap-rating-input.js"></script> -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rating-input/0.4.0/bootstrap-rating-input.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script src="js/moment.js"></script>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/css/bootstrap-dialog.min.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+
+<script src="/waydplace/js/moment.js"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript">
-	var lastIndex = 0;
-</script>
-<style>
-.vcenter {
-	display: inline-block;
-	vertical-align: middle;
-	float: none;
-}
+<script src="/waydplace/js/valideform.js"></script>
+<script src="/waydplace/js/slide.js"></script>
 
-.vertical-align {
-	display: flex;
-	align-items: center;
-}
-</style>
 </head>
 <body>
 
-
 	<%
-	
-	Profil profil = (Profil) request.getSession().getAttribute("profil");
-	
-		Site site=(Site)request.getAttribute("site");
-		String back=(String)request.getAttribute("back");
-		
+		Profil profil = (Profil) request.getSession()
+				.getAttribute("profil");
+
+		Site site = (Site) request.getAttribute("site");
+		String back = (String) request.getAttribute("back");
 	%>
+	<div class="row">
+		<!-- uncomment code for absolute positioning tweek see top comment in css -->
+		<!-- <div class="absolute-wrapper"> </div> -->
+		<!-- Menu -->
+		<div class="side-menu">
 
-	<%if (profil.getTypeOrganisteur()==Parametres.TYPE_ORGANISATEUR_MEMBRE){ %>
-	
-	<%@ include file="/membre/menuMembre.jsp"%>
-	
-	<%} %>
-	
-	<%if (profil.getTypeOrganisteur()==Parametres.TYPE_ORGANISATEUR_VISITEUR){ %>
-	
-	<%@ include file="/membre/menuMembre.jsp"%>
-	
-	<%} %>
-	
-	
-	<%if (profil.getTypeOrganisteur()==Parametres.TYPE_ORGANISATEUR_SITE){ %>
-	<%@ include file="/membre/menuMembre.jsp"%>
+			<nav class="navbar navbar-default" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<div class="brand-wrapper">
+						<!-- Hamburger -->
+						<button type="button" class="navbar-toggle">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
 
-	<%} %>
-
-	<div class="container">
-		<div id="loginbox"
-			class="mainbox col-md-8 col-md-offset-2 col-sm-8 margedebut">
-		<div class="panel panel-default">
-	
-				<div class="panel-heading panel-heading-custom">
-
-					<div class="panel-title"><a href='<%=back%>'
-											class='btn btnwayd btn-sm'> <span
-											class="glyphicon glyphicon-arrow-left"></span></a> Site</div>
-
-				</div>
-
-				<div style="padding-top: 30px" class="panel-body">
-
-
-					<div class="form-group">
-
-						<div class="row">
-							<div class='col-sm-12'>
-
-								<%=site.getTotalDetailSiteHtml() %>
-
-
-
-							</div>
-
-
-
+						<!-- Brand -->
+<div class="brand-name-wrapper">
+							<a class="navbar-brand" href="#"> Site </a>
 						</div>
 
-					</div>
-					<div class="form-group">
-						<label for="description">Description:</label>
-						<textarea disabled class="form-control" rows="10" id="description"
-							name="description"><%=Outils.convertRequeteToString(site.getDescription())%></textarea>
+						<!-- Search body -->
+						<div id="search" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form class="navbar-form" role="search">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Search">
+									</div>
+									<button type="submit" class="btn btn-default ">
+										<span class="glyphicon glyphicon-ok"></span>
+									</button>
+								</form>
+							</div>
+						</div>
 					</div>
 
 				</div>
-			</div>
-		</div>
 
+				<!-- Main Menu -->
+				<div class="side-menu-container">
+					<ul class="nav navbar-nav">
+
+
+						<%
+							if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
+						%>
+
+						<%@ include file="/membre/menuMembreTest.jsp"%>
+
+						<%
+							}
+						%>
+
+						<%
+							if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
+						%>
+
+						<%@ include file="/membre/menuMembreTest.jsp"%>
+
+						<%
+							}
+						%>
+
+
+						<%
+							if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_SITE) {
+						%>
+						<%@ include file="/membre/menuMembre.jsp"%>
+
+						<%
+							}
+						%>
+
+
+					</ul>
+				</div>
+
+			</nav>
+
+		</div>
 	</div>
+	<!-- Main Content -->
+	<div style="padding-top: 30px;" class="container-fluid well well-sm">
+		<div class="side-body">
+
+
+			<div class="row">
+				<div align="center"
+					class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
+
+					<img  src='<%=profil.getMembre().getUrlPhoto()%>'
+						class="img-rounded img-responsive">
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="form-group">
+					<div class="form-group">
+
+						<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
+
+							<h3 align='center'><%=site.getNom().toUpperCase()%></h3>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="form-group">
+					<div class="form-group">
+						<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
+						<label for="tel">Tèl:</label>
+						<input  style='background-color: white;' disabled  type="text" class="form-control" id="tel" 
+							value="<%=site.getTelephone()%>">
+					
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+					<div class="form-group">
+					<div class="form-group">
+						<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
+						<label for="adresse">Tèl:</label>
+						<input  style='background-color: white;' disabled  type="text" class="form-control" id="adresse" 
+							  value="<%=site.getAdresse()%>">
+					
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="row">
+				<div class="form-group">
+					<div class="form-group">
+							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
+							<label for="description">Description</label>
+								<textarea  id='description' disabled
+								style='background-color: white;'  class="form-control" rows="5" ><%=site.getDescription()%></textarea>
+							
+						
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+		</div>
+	</div>
+</body>
+
+<script>
+	
+			$('#datenaissance').datetimepicker({
+				defaultDate : new Date(<%=profil.getDateNaissance().getYear()%>,<%=profil.getDateNaissance().getMonthOfYear() - 1%>,<%=profil.getDateNaissance().getDayOfMonth()%>),
+				format : 'DD/MM/YYYY'
+
+			});
+
+			
+	function valideFichier(){
+		
+		monfichier= document.getElementById("file").value;
+		
+	if (monfichier==''){
+		BootstrapDialog
+		.alert("<%=CompteMembre.AUCUN_FICHIER_SELECTIONNE%>");
+			return false;
+		}
+
+	}
+</script>
+
+<script>
+	$(document)
+			.ready(
+					function(e) {
+
+						$('#description')
+								.keyup(
+										function() {
+
+											var nombreCaractere = $(this).val().length;
+											//alert(nombreCaractere);
+
+											var msg = nombreCaractere
+													+ '/'
+													+<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+	;
+											$('#nbr').text(msg);
+											// Le script qui devra calculer et afficher le nombre de mots et de caractères
+
+										})
+
+					});
+
+	// Init le nombre de caraterces	
+	var nombreCaractere = $('#description').val().length;
+	var msg = nombreCaractere + "/"	+<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+	;
+	$('#nbr').text(msg);
+</script>
+
+<script type="text/javascript">
+
+function modifieCompte(){
+		$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+				if (responseText == 'ok')
+				{
+					BootstrapDialog.show({
+			            title: 'Confirmation',
+			            closable: false,
+			            message: 'Votre compte a été modfiée',
+			            buttons: [{
+			                label: 'Ok',
+			                action: function(dialog) {
+			               	dialog.close();
+			                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
+													//  dialog.setMessage('Message 1');
+												}
+
+											} ]
+										});
+
+							} else {
+
+								BootstrapDialog.alert(responseText);
+							}
+
+						});
+
+	}
+</script>
+
 
 </body>
 </html>

@@ -40,8 +40,8 @@
 
 				<%=MenuMembre.get_LI_ENVELOPPE((Profil) session
 					.getAttribute("profil"))%>
-				<%=MenuMembre.get_LI_BADGE((Profil) session
-					.getAttribute("profil"))%>
+<%-- 				<%=MenuMembre.get_LI_BADGE((Profil) session --%>
+<%-- 					.getAttribute("profil"))%> --%>
 
 		
 

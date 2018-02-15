@@ -57,9 +57,10 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
+<script src="/waydplace/js/slide.js"></script>
+<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
 
-	
-	<script src="/waydplace/js/slide.js"></script>
+ 
 	
 </head>
 <body>
@@ -96,54 +97,13 @@ ArrayList<New> listNews = pager.getListNew();
             <!-- Brand -->
             <div class="brand-name-wrapper">
                 <a class="navbar-brand" href="#">
-                    Brand
+                    News
                 </a>
             </div>
 
-            <!-- Search -->
-            <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
-                <span class="glyphicon glyphicon-search"></span>
-            </a>
+        
 
-            <!-- Search body -->
-            <div id="search" class="panel-collapse collapse">
-             	<div class="row">
-					<div class="col-sm-3">
-						<form method="post" action="/waydplace/Frontal" id="formulaire"
-							class="form-inline">
-							<div class="form-group">
-								<label for="idEtatActivite">Status:</label> <select
-									class="form-control" id="idEtatActivite"
-									name="critereEtatMesActivite">
-
-									<%
-										for (CritereEtatActivite etatActivite:CacheDAO.getListCritereEtatActivite()) {
-									%>
-									<option value="<%=etatActivite.getId()%>"
-										<%=Outils.jspAdapterListSelected(etatActivite.getId(), filtre.getCritereRechercheEtatMesActivite())%>>
-										<%=etatActivite.getLibelle()%></option>
-									<%
-										}
-									%>
-
-								</select>
-
-							</div>
-							
-						<a	 href='<%=Frontal.ACTION_REDIRECTION_PROPOSER %>'
-								class='btn btn-info btn-md btnwayd'> <span
-								class="glyphicon glyphicon-plus"> </span>
-</a>
-							<input type="hidden" name='action'
-								value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
-						</form>
-					</div>
-
-				</div>
-            </div>
-        </div>
-
-    </div>
+         
 
     <!-- Main Menu -->
     <div class="side-menu-container">
@@ -166,10 +126,7 @@ ArrayList<New> listNews = pager.getListNew();
        
 
 	
-			<table class="table table-responsive table-striped " id="matable">
 	
-			<tbody style="background-color: #FFFFFF; vertical-align: middle;">
-
 				<%
 					if (listNews !=null)
 						for (New news : listNews)
@@ -178,28 +135,23 @@ ArrayList<New> listNews = pager.getListNew();
 				%>
 
 
-				<tr>
-					<td>
-							<div class="row">
-					<div class="col-sm-12">
-			
-						<div class="jumbotron" style="margin: 0px;padding:20px;">
-							<h2 style="margin-top: 0px;"><%=news.getTitre()%></h2>
-							<textarea  readonly="readonly" style='background-color: white;'  class="form-control" rows="5" ><%=news.getMessage()%></textarea>
+			 <div class="row">
+                <div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+          	
+						<div class="jumbotron jumbotron-style">
+							<h1 style="margin-top: 10px;"><%=news.getTitre()%></h1>
+							<p><%=news.getMessage()%></p>
 
 							<h6><%=news.getDateCreationStr()%></h6>
 						</div>
 						</div>
 						</div>
+						
 
-					</td>
-				
-							</tr>
 				<%
 					}
 				%>
-			</tbody>
-		</table>
+	
 	<ul class="pager">
 
 			<li <%=pager.isPreviousHtml()%>><a
