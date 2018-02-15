@@ -182,18 +182,40 @@
    
         <td>
     <div class="row">
-      <div class="col-xs-3 col-md-2 col-lg-1">
+      <div class="col-xs-4 col-md-2 col-lg-1">
         <img 
         class="img-responsive" src='<%=activite.getURLPhoto() %>' alt="Chania" alt="" />
         <p align="center" >date</p>
       </div>
-      <div class="col-xs-7 col-md-8 col-lg-9">
+      <div class="col-xs-6 col-md-8 col-lg-9">
        <p>sdfmsldfk</p>
     <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                        Product description... Lorem ipsum dolor sit amet</p>
       </div>
       <div class="col-xs-2 col-md-2 col-lg-2">
-        <button>lqsd</button>
+    <p>
+							<%
+								if (lienModifierActivite!=null) {
+							%>
+							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-sm'>
+								<span class='glyphicon glyphicon-edit'></span>
+							</a>
+							<%
+								}
+							%>
+
+							<%
+								if (lienEffaceActivite!=null) {
+							%>
+
+							<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove"></span>
+							</button>
+							<%
+								}
+							%>
+						</p>
       </div>
     </div>
  </td>

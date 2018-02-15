@@ -136,10 +136,6 @@
 		<div class="side-body">
 
 
-			<div class="jumbotron vertical-center">
-
-
-				<div class="container ">
 
 
 					<form action="/waydplace/Frontal"
@@ -154,7 +150,7 @@
 
 						<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 
 								<label for="titre"><%=ProposeActiviteMembre.LABEL_TITRE%></label>
 								<input type="text" class="form-control" id="titre" required
@@ -166,7 +162,7 @@
 						</div>
 						<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-3 col-md-offset-3 ">
+							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
 								<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
 								<div class='input-group date' id='datedebut'>
 									<input type='text' class="form-control" id="iddatedebut"
@@ -177,7 +173,7 @@
 
 							</div>
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-3 col-md-offset-0 ">
+							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-0 ">
 
 								<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
 								<div class='input-group date' id="datefin">
@@ -193,7 +189,7 @@
 
 						<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-3 col-md-offset-3 ">
+							<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
 								<label for="typeactivite"><%=ProposeActiviteMembre.LABEL_TYPE_ACTIVITE%></label>
 								<select class="form-control" id="type" name="typeactivite">
 									<%
@@ -211,13 +207,13 @@
 
 						<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 								<label for="description"><%=ProposeActiviteMembre.LABEL_DESCRIPTION_ACTIVITE%></label>
 								<textarea
 									placeholder="<%=ProposeActiviteMembre.getHintDescriptionActivite()%>"
 									maxlength="<%=ProposeActiviteMembre.TAILLE_DESCRIPTION_ACTIVITE_MAX%>"
 									class="form-control" rows="5" id="description"
-									name="description" value='<%=description%>'></textarea>
+									name="description" ></textarea>
 
 							</div>
 						</div>
@@ -240,7 +236,7 @@
 
 					<div class="form-group row">
 
-						<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+						<div class="col-xs-4 col-xs-offset-1 col-md-6 col-md-offset-3 ">
 							<button onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
 						</div>
 					</div>
@@ -255,8 +251,7 @@
 
 
 
-		</div>
-	</div>
+	
 
 </body>
 

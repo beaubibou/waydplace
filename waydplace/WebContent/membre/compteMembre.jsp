@@ -127,9 +127,7 @@
 		<div class="side-body">
 
 
-			<div class="jumbotron vertical-center">
-				<div class="container ">
-
+		
 
 					<form action="/waydplace/Frontal" method="post" id='formulaire'
 						onsubmit="return valideFichier()">
@@ -139,7 +137,7 @@
 
 						<div class="form-group row">
 							<div align="center"
-								class="col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-3 ">
+								class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 ">
 
 								<img width='50%' src='<%=profil.getMembre().getUrlPhoto()%>'
 									class="img-rounded img-responsive">
@@ -148,7 +146,7 @@
 
 						<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 
 								<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
 									type="text" class="form-control" id="nom"
@@ -160,7 +158,7 @@
 						</div>
 						<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 								<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
 								<div class='input-group date' id='datenaissance'>
 									<input type='text' class="form-control" id="datenaissance"
@@ -173,7 +171,7 @@
 						</div>
 						<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+							<div class="col-xs-12 col-xs-offset- col-md-6 col-md-offset-3 ">
 								<label for="typeUser">Genre</label> <select
 									data-style="btn-primary" class="form-control" id="typeGenre"
 									name="typeGenre">
@@ -194,7 +192,7 @@
 
 						<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 								<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
 								<textarea class="form-control" rows="5" id="description"
 									name="commentaire"
@@ -237,8 +235,7 @@
 
 
 
-		</div>
-	</div>
+	
 
 </body>
 
