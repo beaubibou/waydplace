@@ -22,6 +22,37 @@ import bean.MessageActivite;
 public class MessageDAO {
 	private static final Logger LOG = Logger.getLogger(MessageDAO.class);
 
+	
+	public static MessageAction supprime(int idMessage) {
+
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+
+			connexion = CxoPool.getConnection();
+			String requete = "DELETE FROM messages where ( id=? );";
+			preparedStatement = connexion.prepareStatement(requete);
+			preparedStatement.setInt(1, idMessage);
+			preparedStatement.execute();
+			preparedStatement.close();
+
+			return new MessageAction(true, "");
+
+		} catch (SQLException | NamingException e) {
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return new MessageAction(true, e.getMessage());
+
+		} finally {
+
+			CxoPool.close(connexion, preparedStatement);
+		}
+
+	}
+	
+	
 	public static HashMap<String, String> getPhotoMessages(String uid) {
 
 		HashMap<String, String> retour = new HashMap<String, String>();
@@ -222,7 +253,7 @@ public class MessageDAO {
 
 	}
 
-	public static String getNbrMessageNonLu(String uid) {
+	public static int getNbrMessageNonLu(String uid) {
 
 		long debut = System.currentTimeMillis();
 		Connection connexion = null;
@@ -243,7 +274,7 @@ public class MessageDAO {
 				nbrmessagenonlu = rs.getInt("nbrmessagenonlu");
 			}
 
-			return Integer.toString(nbrmessagenonlu);
+			return nbrmessagenonlu;
 
 		} catch (NamingException | SQLException e) {
 
@@ -255,7 +286,7 @@ public class MessageDAO {
 
 		}
 
-		return Integer.toString(nbrmessagenonlu);
+		return nbrmessagenonlu;
 
 	}
 

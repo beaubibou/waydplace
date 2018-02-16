@@ -10,8 +10,8 @@ import dao.NewDAO;
 
 public class MenuMembre {
 
-	private static final String LIEN_DETAIL_SITE_MEMBRE = "<li><a href='/waydplace/FrontalCommun?action="
-			+ FrontalCommun.REDIRECTION_DETAIL_SITE + "'>Site</a></li>";
+	private static final String LIEN_DETAIL_SITE_MEMBRE = "<li><a href='/waydplace/Frontal?action="
+			+ Frontal.REDIRECTION_DETAIL_SITE + "'>Site</a></li>";
 
 	private static final String LIEN_CONNEXION = "<li><a href='/waydplace/index.jsp'><span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
 
@@ -21,10 +21,7 @@ public class MenuMembre {
 			+ Frontal.DECONNEXION_MEMBRE
 			+ "'><span class='glyphicon glyphicon-log-in'></span> Deconnexion</a></li>";
 
-	private static final String LIEN_ENVELLOPPE = "<li><a href='/waydplace/Frontal?action="
-			+ Frontal.REDIRECTION_DISCUSSION_MEMBRE
-			+ "'><span class='glyphicon glyphicon-envelope'></span> </a></li>";
-
+	
 	private static final String LIEN_ACCUEIL_MEMBRE = "<li><a href='/waydplace/Frontal?action="
 			+ Frontal.REDIRECTION_ACCUEIL_MEMBRE
 			+ "'><span class='glyphicon glyphicon-home'></span> </a></li>";
@@ -84,6 +81,15 @@ public class MenuMembre {
 		
 		return lien;
 		
+	}
+	
+	
+	public static String getBadgeNew(Profil profil){
+		
+		if (!NewDAO.isNewaJour(profil.getUID(), profil.getIdSite()))
+		return "<span class='badge'>!</span>";
+		else 
+			return "";
 	}
 
 	public static String get_LI_MON_COMPTE(Profil profil) {
@@ -172,19 +178,22 @@ public class MenuMembre {
 			return LIEN_CONNEXION;
 		}
 
-		switch (profil.getTypeOrganisteur()) {
+		int nbrMessage = MessageDAO.getNbrMessageNonLu(profil.getUID());
 
-		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-			lien = LIEN_ENVELLOPPE;
-
-		
-			break;
-
+		if (nbrMessage==0)
 	
-		}
+			return	 "<li><a href='/waydplace/Frontal?action="
+				+ Frontal.REDIRECTION_DISCUSSION_MEMBRE
+				+ "'>Message </a></li>";
 
-		return lien;
+		else
+			
+			return	 "<li><a href='/waydplace/Frontal?action="
+			+ Frontal.REDIRECTION_DISCUSSION_MEMBRE
+			+ "'> Message <span class='badge'>" +nbrMessage+"</span></a></li>";
 
+			
+		
 	}
 
 	public static String get_LI_BADGE(Profil profil) {
@@ -195,7 +204,7 @@ public class MenuMembre {
 			return LIEN_CONNEXION;
 		}
 
-		String nbrMessage = MessageDAO.getNbrMessageNonLu(profil.getUID());
+		int nbrMessage = MessageDAO.getNbrMessageNonLu(profil.getUID());
 
 		switch (profil.getTypeOrganisteur()) {
 

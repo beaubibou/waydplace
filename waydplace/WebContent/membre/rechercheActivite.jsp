@@ -219,7 +219,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 			<div class="side-menu-container">
 				<ul class="nav navbar-nav">
 
-					<%@ include file="menuMembreTest.jsp"%>
+					<%@ include file="menuMembre.jsp"%>
 
 
 
@@ -234,93 +234,90 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 <!-- Main Content -->
 <div class="container-fluid">
 	<div class="side-body">
-	
-
-			<%
-				if (listActivite!=null && !listActivite.isEmpty()){
-			%>
 
 
+		<%
+			if (listActivite!=null && !listActivite.isEmpty()){
+		%>
 
-			<%
-				if (listActivite!=null )
+
+
+		<%
+			if (listActivite!=null )
 							for (Activite activite : listActivite) {
-											String lienDetailActivite =  "/waydplace/FrontalCommun?action="
-																+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
+											String lienDetailActivite =  "/waydplace/Frontal?action="
+																+Frontal.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
 																+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES;
 							String lienDetailParticipant = "/waydplace/FrontalCommun?action="+
 								FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES;
-			%>
+		%>
+
+
+		<div class="row" onclick="document.location='<%=lienDetailActivite%>'">
+			<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+				<div class="page-header">
+					<h1>
+						<small class="pull-right"> <%=activite.getPanelActionParticipationHtml(profil, activite.getUid_membre())%></small>
+						<%=activite.getTitre()%>
+					</h1>
+				</div>
+				<div class="comments-list">
+					<div class="media">
+						<p class="pull-right">
+							<small><%=activite.getHoraireLeA()%></small>
+						</p>
+						<a class="media-left "> <img style="width: 60px"
+							src="<%=activite.getURLPhoto()%>">
+						</a>
+						<div class="media-body">
+
+							<h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur()%></h4>
+							<%=activite.getLibelleEllipis()%>
 
 
 
-
-			<div class="row"
-				onclick="document.location='<%=lienDetailActivite%>'">
-				<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
-					<div class="page-header">
-						<h1>
-							<small class="pull-right"> <%=activite.getPanelActionParticipationHtml(profil, activite.getUid_membre())%></small>
-							<%=activite.getTitre()%>
-						</h1>
-					</div>
-					<div class="comments-list">
-						<div class="media">
-							<p class="pull-right">
-								<small><%=activite.getHoraireLeA()%></small>
-							</p>
-							<a class="media-left "> <img style="width: 60px"
-								src="<%=activite.getURLPhoto()%>">
-							</a>
-							<div class="media-body">
-
-								<h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur()%></h4>
-								<%=activite.getLibelleEllipis()%>
-
-
-
-							</div>
-							<p></p>
 						</div>
-
+						<p></p>
 					</div>
 
 				</div>
+
 			</div>
+		</div>
 
-			<%
-				}
-			%>
-</div>
-			<ul class="pager">
-
-				<li <%=pager.isPreviousHtml()%>><a
-					href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
-				<li>Page N° <%=pager.getPageEnCours()%></li>
-				<li <%=pager.isNextHtml()%>><a
-					href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
-
-			</ul>
-			<%
-				}
-					else
-							{
-			%>
-			<div class="jumbotron jumbotron-style">
-				<h1>Pas de résultats</h1>
-				<h3>
-					Aucune de vos activités ne corresponde à vos critéres. N'hésitez
-					pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
-				</h3>
-			</div>
-
-			<%
-				}
-			%>
-
-		
-
+		<%
+			}
+		%>
 	</div>
+	<ul class="pager">
+
+		<li <%=pager.isPreviousHtml()%>><a
+			href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
+		<li>Page N° <%=pager.getPageEnCours()%></li>
+		<li <%=pager.isNextHtml()%>><a
+			href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
+
+	</ul>
+	<%
+		}
+				else
+						{
+	%>
+	<div class="jumbotron jumbotron-style">
+		<h1>Pas de résultats</h1>
+		<h3>
+			Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas
+			à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
+		</h3>
+	</div>
+
+	<%
+		}
+	%>
+
+
+
+</div>
 </div>
 
 

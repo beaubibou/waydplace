@@ -44,10 +44,19 @@ public class MessageActivite {
 		if (date_creation == null)
 			return "";
 		else
-
 			return formatStr.format(date_creation);
-
 	}
+	
+	public String getLienSupprime(Profil profil){
+	
+		if (profil.isAnonyme())
+			return null;
+			
+		return "/waydplace/Frontal?action="
+		+ Frontal.EFFACE_MESSAGE_MEMBRE + "&idMessage=" + id+"&uidDiscussion="+uid_discussion;
+		
+	}
+	
 
 	public void setUid_avec(String uid_avec) {
 		this.uid_avec = uid_avec;

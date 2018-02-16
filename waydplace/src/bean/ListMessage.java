@@ -20,6 +20,12 @@ public class ListMessage {
 		
 		
 	}
+	
+	public String getPhotoURL(String uidEmetteur){
+		
+		return discussion.getPhotoInterlocuteurURL(uidEmetteur);
+		
+	}
 
 	public Discussion getDiscussion() {
 		return discussion;
@@ -73,6 +79,22 @@ public class ListMessage {
 			return 	"<div align='left' ><p><strong>Moi</strong></p><h5 style='margin-top: 0px'>" + message.getMessage() + "</h5>" + "<h6 >"
 					+ message.getDateCreationStr() + "</h6></div>"
 					 ;
+			
+		}
+		
+	}
+	
+	public String getEmetteur(MessageActivite message){
+
+		if (message.isRecu()){
+		
+			
+	 	return 	discussion.getPseudoInterlocuteur(profil);
+			
+		}
+		
+		else{
+			return  "Moi";
 			
 		}
 		

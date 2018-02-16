@@ -31,7 +31,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
 <script src="/waydplace/js/moment.js"></script>
 <link
@@ -169,8 +169,8 @@
 				<%
 					if (listActivite!=null)
 								for (Activite activite : listActivite) {
-									String lienDetailActivite =  "/waydplace/FrontalCommun?action="+
-								FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +
+									String lienDetailActivite =  "/waydplace/FrontalGestionnaire?action="+
+								FrontalGestionnaire.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +
 									activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE;
 										
 									%>

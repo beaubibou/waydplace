@@ -29,10 +29,8 @@ import bean.Site;
 public class FrontalCommun extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(FrontalCommun.class);
-	public static final String REDIRECTION_DETAIL_ACTIVITE = "redirectionDetailActivite";
 	public static final String REDIRECTION_DETAIL_PARTICIPANT = "redirectiondetailParticipantMembre";
-	public static final String REDIRECTION_DETAIL_SITE = "REDIRECTION_DETAIL_SITE";
-
+	
 	public static final String AJAX_GET_MESSAGE_DIALOG = "AJAX_GET_MESSAGE_DIALOG";
 	public static final String FROM_MES_ACTIVITES_MEMBRES = "FROM_MES_ACTIVITES_MEMBRES";
 	public static final String FROM_MES_RECHERCHE_ACTIVITES_MEMBRES = "FROM_MES_RECHERCHE_ACTIVITES_MEMBRES";
@@ -73,17 +71,7 @@ public class FrontalCommun extends HttpServlet {
 		try {
 			switch (action) {
 
-			case REDIRECTION_DETAIL_SITE:
-
-				redirectionDetailSite(profil, request, response);
-
-				break;
-
-			case REDIRECTION_DETAIL_ACTIVITE:
-
-				redirectionDetailActivite(profil, request, response);
-
-				break;
+	
 
 			case AJAX_GET_MESSAGE_DIALOG:
 
@@ -257,52 +245,9 @@ public class FrontalCommun extends HttpServlet {
 		return retour;
 	}
 
-	private void redirectionDetailSite(Profil profil,
-			HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		int idSite = profil.getIdSite();
-		Site site = SiteDAO.getSiteById(idSite);
-		
-		String lienRetour = getLienRetourAcceuil(profil);
-		request.setAttribute("back", lienRetour);
-		request.setAttribute("site", site);
-		request.getRequestDispatcher("commun/detailSite.jsp").forward(request,
-				response);
-
-	}
-
-	private String getLienRetourAcceuil(Profil profil) {
 	
-		String retour = "";
 
-		switch (profil.getTypeOrganisteur()) {
-
-		case Parametres.TYPE_ORGANISATEUR_VISITEUR :
-
-			retour = Frontal.ACTION_REDIRECTION_ACCEUIL;
-
-			break;
-
-		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-
-			retour = Frontal.ACTION_REDIRECTION_ACCEUIL;
-
-			break;
-
-		case Parametres.TYPE_ORGANISATEUR_SITE:
-
-			retour = FrontalGestionnaire.ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE;
-
-			break;
-
-		default:
-		
-			break;
-		}
-
-		return retour;
-	}
+	
 
 
 	private Activite getActivite(HttpServletRequest request) {

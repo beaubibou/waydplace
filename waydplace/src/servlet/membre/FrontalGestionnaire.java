@@ -85,6 +85,7 @@ public class FrontalGestionnaire extends HttpServlet {
 	public static final String AJOUTER_NEWS_GESTIONNAIRE = "AJOUTER_NEWS_GESTIONNAIRE";
 	public static final String REFRESH_RECHERCHE_ACTIVITE_GESTIONNAIRE = "refreshrechercheactivitegestionnaire";
 	public static final String REFRESH_RECHERCHE_NEWS_GESTIONNAIRE = "REFRESH_RECHERCHE_NEWS_GESTIONNAIRE";
+	public static final String REDIRECTION_DETAIL_ACTIVITE = "redirectionDetailActivite";
 
 	public static final String MODIFIER_SITE_GESTIONNAIRE = "modifierSiteGetionnaire";
 	public static final String DECONNEXION_GESTIONNAIRE = "deconnexionGetionnaire";
@@ -363,6 +364,12 @@ public class FrontalGestionnaire extends HttpServlet {
 			case CHARGE_PHOTO_SITE_GESTIONNAIRE:
 
 				chargePhotoSiteGestionnaire(profil, response, request);
+
+				break;
+				
+			case REDIRECTION_DETAIL_ACTIVITE:
+
+				redirectionDetailActivite(profil, request, response);
 
 				break;
 
@@ -1674,6 +1681,69 @@ public class FrontalGestionnaire extends HttpServlet {
 					ProposeActiviteMembre.ERREUR_DESCRIPTION_ACTIVITE_TROP_LONG);
 
 		return new MessageAction(true, "");
+	}
+	
+	private void redirectionDetailActivite(Profil profil,
+			HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+
+			Activite activite = getActivite(request);
+			request.setAttribute("activite", activite);
+			String from = request.getParameter("from");
+
+			if (activite == null) {
+				profil.setMessageDialog("L'activite a été est supprimée.");
+				response.sendRedirect("gestionnaire/rechercheActivite.jsp");
+				return;
+			}
+
+			
+			switch (activite.getId_ref_type_organisateur()) {
+
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+
+			//	String lienRetour = getLienRetour(profil, from);
+				String lienRetour ="";
+				request.setAttribute("back", lienRetour);
+				request.getRequestDispatcher("gestionnaire/detailActiviteSite.jsp")
+						.forward(request, response);
+
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				lienRetour="";
+				//lienRetour = getLienRetour(profil, from);
+				request.setAttribute("back", lienRetour);
+				request.getRequestDispatcher("gestionnaire/detailActiviteMembre.jsp")
+						.forward(request, response);
+
+				break;
+			
+
+		}
+	
+	}
+	
+	private Activite getActivite(HttpServletRequest request) {
+
+		Activite retour = null;
+		int idActivite = 0;
+
+		try {
+
+			idActivite = Integer.parseInt(request.getParameter("idactivite"));
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+
+			return retour;
+
+		}
+		String uidMembre = request.getParameter("idmembre");
+		retour = ActiviteDAO.getActivite(idActivite, uidMembre);
+
+		return retour;
 	}
 
 }

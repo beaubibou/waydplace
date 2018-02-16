@@ -20,7 +20,7 @@ public class PagerNew {
 
 	private ArrayList<New> listNew;
 	private int pageEnCours = 0;
-	private final int maxResult = 2;
+	private final int maxResult = 20;
 	private boolean hasNext = false;
 	private boolean hasPrevious = false;
 	private FiltreRecherche filtre;

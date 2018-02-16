@@ -1,4 +1,5 @@
 
+<%@page import="bean.Profil"%>
 <%@page import="bean.RefTypeGenre"%>
 <%@page import="text.pageweb.CompteMembre"%>
 <%@page import="outils.Outils"%>
@@ -52,14 +53,15 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
-	type="text/css">
+
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
+	type="text/css">
 
 <script src="/waydplace/js/valideform.js"></script>
 <script src="/waydplace/js/slide.js"></script>
@@ -90,7 +92,7 @@
 
 						<!-- Brand -->
 
-<!-- Brand -->
+<!-- Brand -->	
 						<div class="brand-name-wrapper">
 							<a class="navbar-brand" href="#"> Mon Compte </a>
 						</div>
@@ -111,7 +113,7 @@
 				<div class="side-menu-container">
 					<ul class="nav navbar-nav">
 
-						<%@ include file="menuMembreTest.jsp"%>
+						<%@ include file="menuMembre.jsp"%>
 
 
 					</ul>

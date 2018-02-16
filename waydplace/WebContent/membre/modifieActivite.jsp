@@ -109,7 +109,7 @@
 				<div class="side-menu-container">
 					<ul class="nav navbar-nav">
 
-						<%@ include file="menuMembreTest.jsp"%>
+						<%@ include file="menuMembre.jsp"%>
 
 
 					</ul>

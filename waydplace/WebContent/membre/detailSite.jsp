@@ -1,4 +1,5 @@
 
+<%@page import="bean.Profil"%>
 <%@page import="parametre.Parametres"%>
 <%@page import="bean.Site"%>
 <%@page import="bean.RefTypeGenre"%>
@@ -94,23 +95,14 @@
 						</button>
 
 						<!-- Brand -->
-<div class="brand-name-wrapper">
+						<div class="brand-name-wrapper">
 							<a class="navbar-brand" href="#"> Site </a>
 						</div>
 
-						<!-- Search body -->
-						<div id="search" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form class="navbar-form" role="search">
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Search">
-									</div>
-									<button type="submit" class="btn btn-default ">
-										<span class="glyphicon glyphicon-ok"></span>
-									</button>
-								</form>
-							</div>
-						</div>
+						<a href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL%>"
+							class="btn btn-default" id="search-trigger"> <span
+							class="glyphicon glyphicon-home"></span>
+						</a>
 					</div>
 
 				</div>
@@ -120,36 +112,8 @@
 					<ul class="nav navbar-nav">
 
 
-						<%
-							if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_MEMBRE) {
-						%>
 
 						<%@ include file="/membre/menuMembre.jsp"%>
-
-						<%
-							}
-						%>
-
-						<%
-							if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_VISITEUR) {
-						%>
-
-						<%@ include file="/membre/menuMembre.jsp"%>
-
-						<%
-							}
-						%>
-
-
-						<%
-							if (profil.getTypeOrganisteur() == Parametres.TYPE_ORGANISATEUR_SITE) {
-						%>
-						<%@ include file="/membre/menuMembre.jsp"%>
-
-						<%
-							}
-						%>
-
 
 					</ul>
 				</div>
@@ -167,7 +131,7 @@
 				<div align="center"
 					class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
 
-					<img  src='<%=site.getURLPhoto()%>'
+					<img src='<%=site.getURLPhoto()%>'
 						class="img-rounded img-responsive">
 				</div>
 			</div>
@@ -190,24 +154,26 @@
 			<div class="row">
 				<div class="form-group">
 					<div class="form-group">
-						<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
-						<label for="tel">Tèl:</label>
-						<input  style='background-color: white;' disabled  type="text" class="form-control" id="tel" 
-							value="<%=site.getTelephone()%>">
-					
+						<div
+							class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
+							<label for="tel">Tèl:</label> <input
+								style='background-color: white;' disabled type="text"
+								class="form-control" id="tel" value="<%=site.getTelephone()%>">
+
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
+				<div class="form-group">
 					<div class="form-group">
-					<div class="form-group">
-						<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
-						<label for="adresse">Tèl:</label>
-						<input  style='background-color: white;' disabled  type="text" class="form-control" id="adresse" 
-							  value="<%=site.getAdresse()%>">
-					
+						<div
+							class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
+							<label for="adresse">Tèl:</label> <input
+								style='background-color: white;' disabled type="text"
+								class="form-control" id="adresse" value="<%=site.getAdresse()%>">
+
 						</div>
 					</div>
 				</div>
@@ -218,12 +184,13 @@
 			<div class="row">
 				<div class="form-group">
 					<div class="form-group">
-							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
+						<div
+							class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
 							<label for="description">Description</label>
-								<textarea  id='description' disabled
-								style='background-color: white;'  class="form-control" rows="5" ><%=site.getDescription()%></textarea>
-							
-						
+							<textarea id='description' disabled
+								style='background-color: white;' class="form-control" rows="5"><%=site.getDescription()%></textarea>
+
+
 						</div>
 					</div>
 				</div>
@@ -277,7 +244,8 @@
 
 											var msg = nombreCaractere
 													+ '/'
-													+<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+													+
+<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
 	;
 											$('#nbr').text(msg);
 											// Le script qui devra calculer et afficher le nombre de mots et de caractères
@@ -288,26 +256,30 @@
 
 	// Init le nombre de caraterces	
 	var nombreCaractere = $('#description').val().length;
-	var msg = nombreCaractere + "/"	+<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+	var msg = nombreCaractere + "/"
+			+
+<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
 	;
 	$('#nbr').text(msg);
 </script>
 
 <script type="text/javascript">
-
-function modifieCompte(){
-		$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-				if (responseText == 'ok')
-				{
-					BootstrapDialog.show({
-			            title: 'Confirmation',
-			            closable: false,
-			            message: 'Votre compte a été modfiée',
-			            buttons: [{
-			                label: 'Ok',
-			                action: function(dialog) {
-			               	dialog.close();
-			                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
+	function modifieCompte() {
+		$
+				.get(
+						"/waydplace/Frontal?" + $("#formulaire").serialize(),
+						function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+							if (responseText == 'ok') {
+								BootstrapDialog
+										.show({
+											title : 'Confirmation',
+											closable : false,
+											message : 'Votre compte a été modfiée',
+											buttons : [ {
+												label : 'Ok',
+												action : function(dialog) {
+													dialog.close();
+													location.href = "'"	+<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>+ "'";
 													//  dialog.setMessage('Message 1');
 												}
 

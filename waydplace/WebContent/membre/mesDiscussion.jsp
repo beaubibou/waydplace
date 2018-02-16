@@ -1,4 +1,5 @@
 
+<%@page import="bean.Profil"%>
 <%@page import="bean.Discussion"%>
 <%@page import="bean.ListDiscussion"%>
 <%@page import="bean.New"%>
@@ -110,7 +111,7 @@
 				<div class="side-menu-container">
 					<ul class="nav navbar-nav">
 
-						<%@ include file="menuMembreTest.jsp"%>
+						<%@ include file="menuMembre.jsp"%>
 
 					</ul>
 				</div>

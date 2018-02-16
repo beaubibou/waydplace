@@ -42,7 +42,7 @@
 
 <script src="js/alertdialog.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
 
 </head>

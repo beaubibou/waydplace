@@ -120,10 +120,15 @@ background-color:#ffBD45
 		 
 
 	}
-.jumbotronwayd{
+
+
+
+.jumbotron-style{
 	
-	background-color:#ffffff;
-	border: 5px solid #ffe699;
+	background-color: #ffeecc ;
+	border: 5px solid #fff;
+	
+	margin: 5px;padding:20px;
 	
 }
 

@@ -1,4 +1,5 @@
 
+<%@page import="bean.Profil"%>
 <%@page import="bean.New"%>
 <%@page import="pager.PagerNew"%>
 <%@page import="critere.CritereEtatActivite"%>
@@ -113,7 +114,7 @@ ArrayList<New> listNews = pager.getListNew();
     <div class="side-menu-container">
         <ul class="nav navbar-nav">
 
-<%@ include file="menuMembreTest.jsp"%>
+<%@ include file="menuMembre.jsp"%>
 
          
 

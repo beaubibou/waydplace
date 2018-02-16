@@ -1,4 +1,5 @@
 
+<%@page import="bean.Profil"%>
 <%@page import="critere.CritereEtatActivite"%>
 <%@page import="servlet.membre.FrontalCommun"%>
 <%@page import="text.pageweb.MesActivites"%>
@@ -59,16 +60,7 @@
 
 <script src="/waydplace/js/slide.js"></script>
 
-<style type="text/css">
-.user_name {
-	font-size: 14px;
-	font-weight: bold;
-}
 
-.comments-list .media {
-	border-bottom: 1px dotted #ccc;
-}
-</style>
 
 
 </head>
@@ -153,7 +145,7 @@
 				<div class="side-menu-container">
 					<ul class="nav navbar-nav">
 
-						<%@ include file="menuMembreTest.jsp"%>
+						<%@ include file="menuMembre.jsp"%>
 
 
 
@@ -180,7 +172,8 @@
 				if (listMesActivite!=null)
 																				
 																	for (Activite activite : listMesActivite)
-																			{String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
+																			{
+				String lienDetailActivite =  "/waydplace/Frontal?action="+Frontal.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
 																													+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
 																
 																			String lienEffaceActivite = activite.getLienSupprimerMembre(profil);

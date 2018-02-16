@@ -38,7 +38,7 @@
 
 <script src="js/alertdialog.js"></script>
 
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
 
 
@@ -118,7 +118,7 @@
 					if (listMesActivite!=null)
 							for (Activite activite : listMesActivite)
 							{
-						String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
+						String lienDetailActivite =  "/waydplace/FrontalGestionnaire?action="+FrontalGestionnaire.REDIRECTION_DETAIL_ACTIVITE+"&idactivite=" +activite.getId()+"&idmembre=" +activite.getUid_membre();
 				%>
 
 

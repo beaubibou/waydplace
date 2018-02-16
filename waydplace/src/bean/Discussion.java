@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import outils.Outils;
 import parametre.Parametres;
 import servlet.membre.Frontal;
-import servlet.membre.FrontalCommun;
 
 public class Discussion {
 	
@@ -45,6 +44,18 @@ public class Discussion {
 		
 		return "/waydplace/Frontal?action="+Frontal.ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES+"&idactivite="
 		+idActivite+"&uid_pour="+uid_pour+"&uid_avec="+uid_avec+"&uidDiscussion="+uid;
+		
+	}
+	
+	public String getLienReponseHTML(Profil profil){
+		
+		
+		String uidAvec=profil.getUID();
+		String uidPour=getUIDInterlocuteur(profil);
+		
+		
+		return "/waydplace/Frontal?action="+Frontal.ENVOI_MESSAGE_MEMBRE_FROM_MES_MESSAGES+"&idactivite="
+		+idActivite+"&uid_pour="+uidPour+"&uid_avec="+uidAvec+"&uidDiscussion="+uid;
 		
 	}
 
@@ -142,6 +153,8 @@ public class Discussion {
 		return null;
 	}
 	
+	
+	
 public String getPhotoInterlocuteurURL(Profil profil) {
 
 		String photo=getPhotoInterlocuteurStr(profil);
@@ -153,12 +166,46 @@ public String getPhotoInterlocuteurURL(Profil profil) {
 
 	}
 
+public String getPhotoInterlocuteurURL(String uid) {
+
+	String photo=getPhotoInterlocuteurStr(uid);
+		
+	
+	if (photo == null)	
+			return Parametres.IMAGE_INCONNUE;
+		else
+			return Outils.getUrlPhoto(photo);
+	
+
+}
+
+private String getPhotoInterlocuteurStr(String uid) {
+	
+	MembreDiscussion membre=membreDiscussion.get(uid);
+	
+	if (membre==null)
+		return null;
+	
+	return membre.getPhoto();
+}
+
 public  String getPseudoInterlocuteur(Profil profil){
 
 	for (MembreDiscussion membre : new ArrayList<MembreDiscussion>(
 			membreDiscussion.values()))
 		if (!membre.getUid().equals(profil.getUID()))
 			return membre.getPseudo();
+	
+	return null;
+	
+}
+
+public  String getUIDInterlocuteur(Profil profil){
+
+	for (MembreDiscussion membre : new ArrayList<MembreDiscussion>(
+			membreDiscussion.values()))
+		if (!membre.getUid().equals(profil.getUID()))
+			return membre.getUid();
 	
 	return null;
 	

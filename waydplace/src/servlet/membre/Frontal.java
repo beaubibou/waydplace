@@ -72,6 +72,10 @@ public class Frontal extends HttpServlet {
 	public static final String REDIRECTION_COMPTE_MEMBRE = "redirectionprofilmembre";
 	public static final String REDIRECTION_MODIFIER_ACTIVITE_MEMBRE = "redirectionmodifieractivitemembre";
 	public static final String EFFACE_ACTIVITE_MEMBRE = "effaceActiviteMembre";
+	public static final String EFFACE_MESSAGE_MEMBRE = "EFFACE_MESSAGE_MEMBRE";
+	public static final String REDIRECTION_DETAIL_SITE = "REDIRECTION_DETAIL_SITE";
+	public static final String REDIRECTION_DETAIL_ACTIVITE = "redirectionDetailActivite";
+	
 	public static final String MODIFIER_ACTIVITE_MEMBRE = "modifierActiviteMembre";
 	public static final String MODIFIER_COMPTE_MEMBRE = "modifiercompteMembre";
 	public static final String ENVOI_MESSAGE_MEMBRE = "envoiMessageMembre";
@@ -209,10 +213,22 @@ public class Frontal extends HttpServlet {
 		case REDIRECTION_INSCRIPTION_MEMBRE:
 			response.sendRedirect("index.jsp");
 			break;
+			
+		case REDIRECTION_DETAIL_SITE:
+
+			redirectionDetailSite(profil, request, response);
+
+			break;
 
 		case REDIRECTION_RECHERCHER_ACTIVITE_MEMBRE:
 
 			redirectionRechercherActiviteMembre(profil, request, response);
+
+			break;
+			
+		case REDIRECTION_DETAIL_ACTIVITE:
+
+			redirectionDetailActivite(profil, request, response);
 
 			break;
 
@@ -285,6 +301,11 @@ public class Frontal extends HttpServlet {
 
 			break;
 
+		case EFFACE_MESSAGE_MEMBRE:
+
+			effaceMessageMembre(profil, request, response);
+
+			break;
 		case CHARGE_PHOTO_PROFIL_MEMBRE:
 
 			chargePhotoProfilMembre(profil, request, response);
@@ -342,6 +363,154 @@ public class Frontal extends HttpServlet {
 			break;
 
 		}
+	}
+
+	private void redirectionDetailActivite(Profil profil,
+			HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+
+			Activite activite = getActivite(request);
+			request.setAttribute("activite", activite);
+			String from = request.getParameter("from");
+
+			if (activite == null) {
+				profil.setMessageDialog("L'activite a été est supprimée.");
+				response.sendRedirect("membre/rechercheActivite.jsp");
+				return;
+			}
+
+			
+			switch (activite.getId_ref_type_organisateur()) {
+
+			case Parametres.TYPE_ORGANISATEUR_SITE:
+
+			//	String lienRetour = getLienRetour(profil, from);
+				String lienRetour ="";
+				request.setAttribute("back", lienRetour);
+				request.getRequestDispatcher("membre/detailActiviteSite.jsp")
+						.forward(request, response);
+
+				break;
+
+			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+				lienRetour="";
+				//lienRetour = getLienRetour(profil, from);
+				request.setAttribute("back", lienRetour);
+				request.getRequestDispatcher("membre/detailActiviteMembre.jsp")
+						.forward(request, response);
+
+				break;
+			
+
+		}
+	
+	}
+	
+	
+
+	
+
+	private void redirectionDetailSite(Profil profil,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+			int idSite = profil.getIdSite();
+			Site site = SiteDAO.getSiteById(idSite);
+			
+			String lienRetour = getLienRetourAcceuil(profil);
+			request.setAttribute("back", lienRetour);
+			request.setAttribute("site", site);
+			request.getRequestDispatcher("membre/detailSite.jsp").forward(request,
+					response);
+
+		
+
+		
+	}
+	
+	private String getLienRetourAcceuil(Profil profil) {
+		
+		String retour = "";
+
+		switch (profil.getTypeOrganisteur()) {
+
+		case Parametres.TYPE_ORGANISATEUR_VISITEUR :
+
+			retour = Frontal.ACTION_REDIRECTION_ACCEUIL;
+
+			break;
+
+		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
+
+			retour = Frontal.ACTION_REDIRECTION_ACCEUIL;
+
+			break;
+
+	
+
+		default:
+		
+			break;
+		}
+
+		return retour;
+	}
+
+
+	private void effaceMessageMembre(Profil profil, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		MessageAction effaceMessageMembre = effaceMessageMembre(request, profil);
+
+		if (effaceMessageMembre.isOk()) {
+			String uidDiscussion = request.getParameter("uidDiscussion");
+			MessageDAO.litMessage(uidDiscussion, profil.getUID());
+			ListMessage listMessage = new ListMessage(profil, uidDiscussion);
+			request.setAttribute("listMessage", listMessage);
+			request.getRequestDispatcher("membre/mesMessages.jsp").forward(request,
+					response);
+			
+		} else {
+
+		}
+
+	}
+
+	private MessageAction effaceMessageMembre(HttpServletRequest request,
+			Profil profil) {
+		int idMessage = 0;
+
+		try {
+
+			idMessage = Integer.parseInt(request.getParameter("idMessage"));
+
+		}
+
+		catch (Exception e) {
+
+			LOG.error(ExceptionUtils.getStackTrace(e));
+			return new MessageAction(false, e.getMessage());
+
+		}
+
+		MessageAction vpEffaceMessage = vpEffaceMessage(profil, idMessage);
+
+		if (vpEffaceMessage.isOk()) {
+
+			MessageAction effaceDAOMessage = MessageDAO.supprime(idMessage);
+
+			if (effaceDAOMessage.isOk())
+				return new MessageAction(true,
+						MessageText.SUPPRIME_ACTIVITE_SUCCESS);
+			else
+				return effaceDAOMessage;
+		}
+
+		return vpEffaceMessage;
+	}
+
+	private MessageAction vpEffaceMessage(Profil profil, int idMessage) {
+		return new MessageAction(true, "ok");
 	}
 
 	private MessageAction ajouteInteretMembre(Profil profil,
@@ -950,7 +1119,7 @@ public class Frontal extends HttpServlet {
 		String pseudo = request.getParameter("pseudo");
 		pseudo = pseudo.trim();
 		String description = request.getParameter("commentaire");
-	
+
 		String uid = request.getParameter("uid");
 		String idtypeGenreStr = request.getParameter("typeGenre");
 
