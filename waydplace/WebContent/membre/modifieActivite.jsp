@@ -90,22 +90,17 @@
 								class="icon-bar"></span>
 						</button>
 
-						<!-- Brand -->
-
+						<div class="brand-name-wrapper">
+							<a class="navbar-brand" href="#"> Modifier </a>
+						</div>
+		 				
+						
+						<a  href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL %>" class="btn btn-default"
+							id="search-trigger"> <span class="glyphicon glyphicon-home"></span>
+						</a>
 
 						<!-- Search body -->
-						<div id="search" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form class="navbar-form" role="search">
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Search">
-									</div>
-									<button type="submit" class="btn btn-default ">
-										<span class="glyphicon glyphicon-ok"></span>
-									</button>
-								</form>
-							</div>
-						</div>
+						
 					</div>
 
 				</div>
@@ -125,7 +120,7 @@
 		</div>
 	</div>
 	<!-- Main Content -->
-	<div class="container-fluid">
+	<div  style="padding-top: 30px;" class="container-fluid">
 		<div class="side-body">
 
 

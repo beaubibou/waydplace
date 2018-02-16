@@ -62,7 +62,8 @@
 
 
 <script src="/waydplace/js/slide.js"></script>
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
+	type="text/css">
 
 </head>
 
@@ -156,9 +157,6 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 								</select>
 							</div>
 
-
-
-
 							<div class="form-group">
 								<label for="etatActivite">Etat</label> <select
 									data-style="btn-primary" class="form-control" id="etatActivite"
@@ -231,151 +229,144 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 
 		</nav>
 	</div>
+</div>
 
+<!-- Main Content -->
+<div class="container-fluid">
+	<div class="side-body">
+	
 
-	<!-- Main Content -->
-	<div class="container-fluid">
-		<div class="side-body">
-			<div class="container">
-
-
-				<%
-					if (listActivite!=null && !listActivite.isEmpty()){
-				%>
-
-
-
-				<%
-					if (listActivite!=null )
-						for (Activite activite : listActivite) {
-										String lienDetailActivite =  "/waydplace/FrontalCommun?action="
-															+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
-															+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES;
-						String lienDetailParticipant = "/waydplace/FrontalCommun?action="+
-							FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES;
-				%>
+			<%
+				if (listActivite!=null && !listActivite.isEmpty()){
+			%>
 
 
 
+			<%
+				if (listActivite!=null )
+							for (Activite activite : listActivite) {
+											String lienDetailActivite =  "/waydplace/FrontalCommun?action="
+																+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
+																+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES;
+							String lienDetailParticipant = "/waydplace/FrontalCommun?action="+
+								FrontalCommun.REDIRECTION_DETAIL_PARTICIPANT+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_RECHERCHE_ACTIVITES_MEMBRES;
+			%>
 
-				<div class="row"
-					onclick="document.location='<%=lienDetailActivite%>'">
-					<div  class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
-						<div class="page-header">
-							<h1>
-								<small class="pull-right"> <%=activite.getPanelActionParticipationHtml(profil, activite.getUid_membre())%></small>
-								<%=activite.getTitre()%>
-							</h1>
-						</div>
-						<div class="comments-list">
-							<div class="media">
-								<p class="pull-right">
-									<small><%=activite.getHoraireLeA()%></small>
-								</p>
-								<a class="media-left "> <img style="width: 60px"
-									src="<%=activite.getURLPhoto()%>">
-								</a>
-								<div class="media-body">
 
-									<h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur()%></h4>
-									<%=activite.getLibelleEllipis()%>
-								
-								
 
-								</div>
-								<p></p>
+
+			<div class="row"
+				onclick="document.location='<%=lienDetailActivite%>'">
+				<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+					<div class="page-header">
+						<h1>
+							<small class="pull-right"> <%=activite.getPanelActionParticipationHtml(profil, activite.getUid_membre())%></small>
+							<%=activite.getTitre()%>
+						</h1>
+					</div>
+					<div class="comments-list">
+						<div class="media">
+							<p class="pull-right">
+								<small><%=activite.getHoraireLeA()%></small>
+							</p>
+							<a class="media-left "> <img style="width: 60px"
+								src="<%=activite.getURLPhoto()%>">
+							</a>
+							<div class="media-body">
+
+								<h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur()%></h4>
+								<%=activite.getLibelleEllipis()%>
+
+
+
 							</div>
-
-
-
+							<p></p>
 						</div>
 
 					</div>
+
 				</div>
-
-
-
-
-
-				<%
-					}
-				%>
-
-				<ul class="pager">
-
-					<li <%=pager.isPreviousHtml()%>><a
-						href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
-					<li>Page N° <%=pager.getPageEnCours()%></li>
-					<li <%=pager.isNextHtml()%>><a
-						href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
-
-				</ul>
-				<%
-					}
-				else
-						{
-				%>
-				<div class="jumbotron jumbotron-style">
-					<h1>Pas de résultats</h1>
-					<h3>
-						Aucune de vos activités ne corresponde à vos critéres. N'hésitez
-						pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
-					</h3>
-				</div>
-
-				<%
-					}
-				%>
-
 			</div>
 
-		</div>
+			<%
+				}
+			%>
+</div>
+			<ul class="pager">
+
+				<li <%=pager.isPreviousHtml()%>><a
+					href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
+				<li>Page N° <%=pager.getPageEnCours()%></li>
+				<li <%=pager.isNextHtml()%>><a
+					href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
+
+			</ul>
+			<%
+				}
+					else
+							{
+			%>
+			<div class="jumbotron jumbotron-style">
+				<h1>Pas de résultats</h1>
+				<h3>
+					Aucune de vos activités ne corresponde à vos critéres. N'hésitez
+					pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
+				</h3>
+			</div>
+
+			<%
+				}
+			%>
+
+		
+
 	</div>
+</div>
 
 
 
 
-	<script>
-		$(function() {
+<script>
+	$(function() {
 
-			$('select').change(function() {
+		$('select').change(function() {
 
-				document.getElementById("formulaire").submit();
-			});
-
-			$('#datedebut')
-					.datetimepicker(
-							{
-								defaultDate : new Date(
-	<%=filtre.getCritereDateDebutCreation().getYear()%>
-		,
-	<%=filtre.getCritereDateDebutCreation().getMonthOfYear()-1%>
-		,
-	<%=filtre.getCritereDateDebutCreation().getDayOfMonth()%>
-		),
-								format : 'DD/MM/YYYY'
-
-							}).on('dp.change', function(e) {
-						document.getElementById("formulaire").submit();
-					});
-
-			$('#datefin')
-					.datetimepicker(
-							{
-								defaultDate : new Date(
-	<%=filtre.getCritereDateFinCreation().getYear()%>
-		,
-	<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>
-		,
-	<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>
-		),
-								format : 'DD/MM/YYYY'
-
-							}).on('dp.change', function(e) {
-						document.getElementById("formulaire").submit();
-					});
-
+			document.getElementById("formulaire").submit();
 		});
-	</script>
-	</body>
+
+		$('#datedebut')
+				.datetimepicker(
+						{
+							defaultDate : new Date(
+<%=filtre.getCritereDateDebutCreation().getYear()%>
+	,
+<%=filtre.getCritereDateDebutCreation().getMonthOfYear()-1%>
+	,
+<%=filtre.getCritereDateDebutCreation().getDayOfMonth()%>
+	),
+							format : 'DD/MM/YYYY'
+
+						}).on('dp.change', function(e) {
+					document.getElementById("formulaire").submit();
+				});
+
+		$('#datefin')
+				.datetimepicker(
+						{
+							defaultDate : new Date(
+<%=filtre.getCritereDateFinCreation().getYear()%>
+	,
+<%=filtre.getCritereDateFinCreation().getMonthOfYear()-1%>
+	,
+<%=filtre.getCritereDateFinCreation().getDayOfMonth()%>
+	),
+							format : 'DD/MM/YYYY'
+
+						}).on('dp.change', function(e) {
+					document.getElementById("formulaire").submit();
+				});
+
+	});
+</script>
+</body>
 </html>

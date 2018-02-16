@@ -47,6 +47,8 @@ public class Site {
 	public String getPhoto() {
 		return photo;
 	}
+	
+	
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
@@ -87,7 +89,7 @@ public class Site {
 		this.jeton = jeton;
 	}
 	
-private String getURLPhoto() {
+public String getURLPhoto() {
 		
 		if (photo==null)
 			return Parametres.IMAGE_INCONNUE;

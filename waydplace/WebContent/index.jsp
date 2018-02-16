@@ -63,7 +63,7 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
 	media="all" type="text/css">

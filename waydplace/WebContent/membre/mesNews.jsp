@@ -58,7 +58,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
 <script src="/waydplace/js/slide.js"></script>
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet" type="text/css">
 
  
 	
@@ -99,10 +99,14 @@ ArrayList<New> listNews = pager.getListNew();
                 <a class="navbar-brand" href="#">
                     News
                 </a>
+                <a  href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL %>" class="btn btn-default"
+							id="search-trigger"> <span class="glyphicon glyphicon-home"></span>
+						</a>
             </div>
 
         
-
+</div>
+</div>
          
 
     <!-- Main Menu -->
@@ -121,11 +125,9 @@ ArrayList<New> listNews = pager.getListNew();
 </div>
 
     <!-- Main Content -->
-    <div class="container-fluid">
+    <div style="padding-top: 30px;" class="container-fluid">
         <div class="side-body">
-       
-
-	
+    
 	
 				<%
 					if (listNews !=null)
@@ -139,7 +141,7 @@ ArrayList<New> listNews = pager.getListNew();
                 <div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
           	
 						<div class="jumbotron jumbotron-style">
-							<h1 style="margin-top: 10px;"><%=news.getTitre()%></h1>
+							<h2 style="margin-top: 10px;"><%=news.getTitre()%></h2>
 							<p><%=news.getMessage()%></p>
 
 							<h6><%=news.getDateCreationStr()%></h6>
@@ -151,6 +153,8 @@ ArrayList<New> listNews = pager.getListNew();
 				<%
 					}
 				%>
+				</div>
+				
 	
 	<ul class="pager">
 
@@ -161,8 +165,7 @@ ArrayList<New> listNews = pager.getListNew();
 				href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
 
 		</ul>
-	</div>
-
+	
 
 	<script type="text/javascript">
 		$('select').on('change', function() {

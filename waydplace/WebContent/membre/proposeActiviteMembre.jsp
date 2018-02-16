@@ -189,8 +189,7 @@
 								class="glyphicon glyphicon-calendar"></span>
 							</span>
 						</div>
-					</div><link href="/wayd/css/styleWaydAdmin.css" rel="stylesheet"
-	type="text/css">
+					</div>
 
 				</div>
 

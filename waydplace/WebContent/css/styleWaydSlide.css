@@ -15,6 +15,20 @@
 
 	
 }
+.comments-list .media{
+    border-bottom: 1px dotted #ccc;
+   
+}
+
+.user_name {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.comments-list .media {
+	border-bottom: 1px dotted #ccc;
+}
+
 
 .jumbotron-style{
 	
@@ -112,5 +126,6 @@ background-color:#ffBD45
 	border: 5px solid #ffe699;
 	
 }
+
 
 	

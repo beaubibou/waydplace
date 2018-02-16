@@ -55,20 +55,19 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet" type="text/css">
+
 
 <script src="/waydplace/js/slide.js"></script>
 
 <style type="text/css">
-
-.user_name{
-    font-size:14px;
-    font-weight: bold;
-}
-.comments-list .media{
-    border-bottom: 1px dotted #ccc;
+.user_name {
+	font-size: 14px;
+	font-weight: bold;
 }
 
+.comments-list .media {
+	border-bottom: 1px dotted #ccc;
+}
 </style>
 
 
@@ -138,8 +137,8 @@
 											</select>
 
 										</div>
-											<input type="hidden" name='action'
-								value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
+										<input type="hidden" name='action'
+											value='<%=Frontal.REFRESH_MES_ACTIVITE_MEMBRES%>'>
 
 									</form>
 								</div>
@@ -167,146 +166,151 @@
 	</div>
 
 	<!-- Main Content -->
-	<div class="container-fluid">
+	<div style="padding-top: 30px;" class="container-fluid">
 		<div class="side-body">
-	<div class="container">
-     
+
 
 
 			<%
 				if (listMesActivite!=null && !listMesActivite.isEmpty()){
 			%>
 
-		
-				<%
-					if (listMesActivite!=null)
-																		
-															for (Activite activite : listMesActivite)
-																	{String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
-																											+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
-														
-																	String lienEffaceActivite = activite.getLienSupprimerMembre(profil);
-																	String lienModifierActivite =activite.getLienModifierMembre(profil);
-				%>
 
-		
-	       <div class="row">
-                <div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
-                  <div class="page-header">
-                    <h1><small class="pull-right"></small> <%=activite.getTitre() %> </h1>
-                  </div> 
-                   <div class="comments-list">
-                       <div class="media">
-                           <p class="pull-right"><small><%=activite.getHoraireLeA()%></small></p>
-                            <a  class="media-left " >
-                              <img style="width:60px" src="<%=activite.getURLPhoto()%>">
-                            </a>
-                            <div class="media-body">
-                                
-                              <h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur() %></h4>
-                             <%=activite.getLibelleEllipis() %>
-                              
-                             <p align='right'>
-							<%
-								if (lienModifierActivite!=null) {
-							%>
-							<a href='<%=lienModifierActivite%>' class='btn btn-info btn-sm'>
-								<span class='glyphicon glyphicon-edit'></span>
+			<%
+				if (listMesActivite!=null)
+																				
+																	for (Activite activite : listMesActivite)
+																			{String lienDetailActivite =  "/waydplace/FrontalCommun?action="+FrontalCommun.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
+																													+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
+																
+																			String lienEffaceActivite = activite.getLienSupprimerMembre(profil);
+																			String lienModifierActivite =activite.getLienModifierMembre(profil);
+			%>
+
+
+			<div class="row">
+				<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+					<div class="page-header">
+						<h1>
+							<small class="pull-right"></small>
+							<%=activite.getTitre()%>
+						</h1>
+					</div>
+					<div class="comments-list">
+						<div class="media">
+							<p class="pull-right">
+								<small><%=activite.getHoraireLeA()%></small>
+							</p>
+							<a class="media-left "> <img style="width: 60px"
+								src="<%=activite.getURLPhoto()%>">
 							</a>
-							<%
-								}
-							%>
+							<div class="media-body">
 
-							<%
-								if (lienEffaceActivite!=null) {
-							%>
+								<h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur()%></h4>
+								<%=activite.getLibelleEllipis()%>
 
-							<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
-								class="btn btn-danger btn-sm">
-								<span class="glyphicon glyphicon-remove"></span>
-							</button>
-							<%
-								}
-							%>
-						</p>
-                            </div>
-                          </div>
-                       
-                    
-                    
-                    
-                </div>
-            </div>
-        </div>
-	
+							</div>
 
+							<p align='right'>
+								<%
+									if (lienModifierActivite!=null) {
+								%>
+								<a href='<%=lienModifierActivite%>' class='btn btn-info btn-sm'>
+									<span class='glyphicon glyphicon-edit'></span>
+								</a>
+								<%
+									}
+								%>
 
-			<%
-				}
-			%>
+								<%
+									if (lienEffaceActivite!=null) {
+								%>
+
+								<button onclick="confirmEfface('<%=lienEffaceActivite%>')"
+									class="btn btn-danger btn-sm">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
+								<%
+									}
+								%>
+							</p>
+
+						</div>
+					</div>
+				</div>
+			</div>
 		
-		<br>
-			<ul class="pager">
 
-				<li <%=pager.isPreviousHtml()%>><a
-					href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
-				<li>Page N° <%=pager.getPageEnCours()%></li>
-				<li <%=pager.isNextHtml()%>><a
-					href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
+		<%
+			}
+		%>
+	</div>
+	
+	<ul style="padding-bottom: 40px;" class="pager">
 
-			</ul>
-			
-			<%
-				} else
-						{
-			%>
+		<li <%=pager.isPreviousHtml()%>><a
+			href="<%=pager.getLienPrevioustHtml(profil)%>">Previous</a></li>
+		<li>Page N° <%=pager.getPageEnCours()%></li>
+		<li <%=pager.isNextHtml()%>><a
+			href="<%=pager.getLienNextHtml(profil)%>">Next</a></li>
+
+	</ul>
+
+	<%
+		} else
+					{
+	%>
+
+	<div class="row">
+		<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+
 			<div class="jumbotron jumbotron-style">
 
-				<h1>Pas de résultats</h1>
-				<h3>
+				<h2>Pas de résultats</h2>
+				<p>
 					Aucune de vos activités ne corresponde à vos critéres. N'hésitez
 					pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'><strong>proposer.</strong></a>
-				</h3>
+				<p>
 			</div>
-
-			<%
-				}
-			%>
-
-</div>
-			<script type="text/javascript">
-				$('select').on('change', function() {
-
-					document.getElementById("formulaire").submit();
-				});
-			</script>
-
-
-
-			<script type="text/javascript">
-				function confirmEfface(liensupprime) {
-
-					BootstrapDialog.show({
-						title : 'Confirmation',
-						closable : false,
-						message : 'Vous allez effacer votre activité',
-						buttons : [ {
-							label : 'Non',
-							action : function(dialog) {
-								dialog.close();
-							}
-						}, {
-							label : 'Oui',
-							action : function(dialog) {
-								dialog.close();
-								document.location = liensupprime;
-							}
-						} ]
-					});
-
-				}
-			</script>
 		</div>
 	</div>
+	<%
+		}
+	%>
+</div>
+
+
+	<script type="text/javascript">
+		$('select').on('change', function() {
+
+			document.getElementById("formulaire").submit();
+		});
+	</script>
+
+
+
+	<script type="text/javascript">
+		function confirmEfface(liensupprime) {
+
+			BootstrapDialog.show({
+				title : 'Confirmation',
+				closable : false,
+				message : 'Vous allez effacer votre activité',
+				buttons : [ {
+					label : 'Non',
+					action : function(dialog) {
+						dialog.close();
+					}
+				}, {
+					label : 'Oui',
+					action : function(dialog) {
+						dialog.close();
+						document.location = liensupprime;
+					}
+				} ]
+			});
+
+		}
+	</script>
 </body>
 </html>
