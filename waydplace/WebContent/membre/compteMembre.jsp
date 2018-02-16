@@ -128,7 +128,6 @@
 	<div style="padding-top: 30px;" class="container-fluid well well-sm">
 		<div class="side-body">
 
-
 		
 
 					<form action="/waydplace/Frontal" method="post" id='formulaire'
@@ -137,8 +136,8 @@
 						<input name="action" type="hidden"
 							value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>>
 
-						<div class="form-group row">
-							<div align="center"
+						<div  class="form-group row">
+							<div  align="center"
 								class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
 
 								<img src='<%=profil.getMembre().getUrlPhoto()%>'
