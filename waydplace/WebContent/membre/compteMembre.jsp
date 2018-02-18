@@ -84,27 +84,27 @@
 				<div class="navbar-header">
 					<div class="brand-wrapper">
 						<!-- Hamburger -->
-						<button type="button" class="navbar-toggle">
+						<button type="button" class="navbar-toggle ">
 							<span class="sr-only">Toggle navigation</span> <span
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
 
-						<!-- Brand -->
 
-<!-- Brand -->	
+
 						<div class="brand-name-wrapper">
 							<a class="navbar-brand" href="#"> Mon Compte </a>
 						</div>
-		 				
-						
-						<a  href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL %>" class="btn btn-default"
-							id="search-trigger"> <span class="glyphicon glyphicon-home"></span>
+
+
+						<a href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL%>"
+							class="btn btn-default" id="search-trigger"> <span
+							class="glyphicon glyphicon-home"></span>
 						</a>
-						
+
 
 						<!-- Search body -->
-						
+
 					</div>
 
 				</div>
@@ -124,119 +124,143 @@
 		</div>
 	</div>
 	<!-- Main Content -->
-	
+
 	<div style="padding-top: 30px;" class="container-fluid well well-sm">
 		<div class="side-body">
 
-		
+			<div class="row">
+					<div class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
 
-					<form action="/waydplace/Frontal" method="post" id='formulaire'
-						onsubmit="return valideFichier()">
+						<img src='<%=profil.getMembre().getURLPhoto()%>'
+							class="img-rounded img-responsive">
+					</div>
+				</div>
+				
+				<form action="<%=Frontal.ACTION_CHARGE_PHOTO_MEMBRE%>" method="post"
+					enctype="multipart/form-data" onsubmit="return valideFichier()">
 
-						<input name="action" type="hidden"
-							value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>>
+					<div align="center" class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4 ">
 
-						<div  class="form-group row">
-							<div  align="center"
-								class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
+<br>
 
-								<img src='<%=profil.getMembre().getUrlPhoto()%>'
-									class="img-rounded img-responsive">
-							</div>
-						</div>
-
-						<div class="form-group row">
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
-
-								<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
-									type="text" class="form-control" id="nom"
-									placeholder="<%=CompteMembre.getHintNomSociete()%>"
-									maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
-									required value="<%=profil.getPseudo()%>">
-
-							</div>
-						</div>
-						<div class="form-group row">
-
-							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
-								<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
-								<div class='input-group date' id='datenaissance'>
-									<input type='text' class="form-control" id="datenaissance"
-										name="datenaissance" required /> <span
-										class="input-group-addon"> <span
-										class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="form-group row">
-
-							<div class="col-xs-12 col-xs-offset- col-md-6 col-md-offset-3 ">
-								<label for="typeUser">Genre</label> <select
-									data-style="btn-primary" class="form-control" id="typeGenre"
-									name="typeGenre">
-
-									<%
-										for (RefTypeGenre critereGenre:CacheDAO.getListGenre()) {
-									%>
-									<option value="<%=critereGenre.getId()%>"
-										<%=Outils.jspAdapterListSelected(critereGenre.getId(), profil.getIdGenre())%>>
-										<%=critereGenre.getLibelle()%></option>
-									<%
-										}
-									%>
-								</select>
-							</div>
+						<div  class="btn-group">
+							<label class="btn btnwayd btn-file btn-primary btn-md">
+								.. <input name="file" size="50" type="file" id="file"
+								style="display: none;">
+							</label> <input type="submit" value="Envoyer la photo"
+								class="btn btnwayd btn-md  " /> <a
+								href='<%=Frontal.ACTION_REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
+								class="btn btnwayd btn-md"> <span
+								class="glyphicon glyphicon-lock"></span></a> <a
+								href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
+								class='btn btn-danger btn-md'> <span
+								class="glyphicon glyphicon-remove"></span></a>
 
 						</div>
+					
+					</div>
+				</form>
+				
+				<form action="/waydplace/Frontal" method="post" id='formulaire'
+				onsubmit="return valideFichier()">
 
-						<div class="form-group row">
+				<input name="action" type="hidden"
+					value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>>
+				
+				
+				<div class="form-group row">
 
-							<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
-								<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
-								<textarea class="form-control" rows="5" id="description"
-									name="commentaire"
-									placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
-									maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=Outils.convertRequeteToString(profil.getDescription())%></textarea>
-							</div>
-						</div>
+					<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 
+						<label for="nom"><%=CompteMembre.LABEL_NOM%></label> <input
+							type="text" class="form-control" id="nom"
+							placeholder="<%=CompteMembre.getHintNomSociete()%>"
+							maxlength="<%=CompteMembre.TAILLE_PSEUDO_MAX%>" name="pseudo"
+							required value="<%=profil.getPseudo()%>">
 
+					</div>
+				</div>
+				<div class="form-group row">
 
-					</form>
-
-					<div class="form-group row">
-
-						<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
-
-							<h5 class="nbrcaracteremax" id="nbr">
-								0 Caractére
-								<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
-							</h5>
-
+					<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
+						<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
+						<div class='input-group date' id='datenaissance'>
+							<input type='text' class="form-control" id="datenaissance"
+								name="datenaissance" required /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
 						</div>
 					</div>
-					
-						<div class="form-group row">
+				</div>
+				<div class="form-group row">
 
-							<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
-									<button onclick="modifieCompte()" class="btnwayd btn-lg">Sauvegarder</button>
-							
-							</div>
-						</div>
+					<div class="col-xs-12 col-xs-offset- col-md-6 col-md-offset-3 ">
+						<label for="typeUser">Genre</label> <select
+							data-style="btn-primary" class="form-control" id="typeGenre"
+							name="typeGenre">
 
-			
-
-
+							<%
+								for (RefTypeGenre critereGenre:CacheDAO.getListGenre()) {
+							%>
+							<option value="<%=critereGenre.getId()%>"
+								<%=Outils.jspAdapterListSelected(critereGenre.getId(), profil.getIdGenre())%>>
+								<%=critereGenre.getLibelle()%></option>
+							<%
+								}
+							%>
+						</select>
+					</div>
 
 				</div>
 
+				<div class="form-group row">
+
+					<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
+						<label for="description"><%=CompteMembre.LABEL_DESCRIPTION_PROFIL%></label>
+						<textarea class="form-control" rows="5" id="description"
+							name="commentaire"
+							placeholder="<%=CompteMembre.getHintDescriptionProfil()%>"
+							maxlength="<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>"><%=Outils.convertRequeteToString(profil.getDescription())%></textarea>
+					</div>
+				</div>
+
+
+
+			</form>
+
+			<div class="form-group row">
+
+				<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
+
+					<h5 class="nbrcaracteremax" id="nbr">
+						0 Caractére
+						<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
+					</h5>
+
+				</div>
+			</div>
+
+			<div class="form-group row">
+
+				<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
+					<button onclick="modifieCompte()" class="btnwayd btn-lg">Sauvegarder</button>
+
+				</div>
 			</div>
 
 
 
-	
+
+
+		</div>
+
+	</div>
+
+
+
+
+
 
 </body>
 
@@ -310,28 +334,20 @@ function modifieCompte(){
 			                action: function(dialog) {
 			               	dialog.close();
 			                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
-			                  //  dialog.setMessage('Message 1');
-			                }
-			            
-			            }]
-			        }); 
-					
-					
-				}
-				else
-				{
-					
-					BootstrapDialog.alert(responseText);
-				}
+													//  dialog.setMessage('Message 1');
+												}
 
-				
+											} ]
+										});
 
-			});	
-	
-	
-	
-}
+							} else {
 
+								BootstrapDialog.alert(responseText);
+							}
+
+						});
+
+	}
 </script>
 
 

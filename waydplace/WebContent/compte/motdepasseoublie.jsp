@@ -1,11 +1,18 @@
-
-<%@page import="text.pageweb.MotPasseOublie"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page import="text.pageweb.LoginTxt"%>
+<%@page import="servlet.membre.FrontalGestionnaire"%>
+<%@page import="servlet.membre.Frontal"%>
+<%@page import="servlet.membre.ConnexionMembre"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href="/waydplace/css/indexcss.css" rel="stylesheet"
+	type="text/css">
+	
+	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -56,7 +63,7 @@
 	rel="stylesheet" type="text/css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link href="/waydplace/css/styleWayd.css" rel="stylesheet"
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
 <link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
 	media="all" type="text/css">
@@ -65,63 +72,71 @@
 
 </head>
 <body>
-	<div class="container">
-		<div class="page-header">
+	<a id="btn_googl" onclick="signInTestGestionnaire()"
+			class="btn btn-primary">Gestionnaire </a> <a id="btn_googl"
+			onclick="signInTestMembre1()" class="btn btn-primary">Membre 1 </a> <a
+			id="btn_googl" onclick="signInTestMembre2()" class="btn btn-primary">Membre
+			2 </a> <a id="btn_googl" onclick="signInTestAnonyme()"
+			class="btn btn-primary">Anonyme </a>
+<form id="formmasque" action="/waydplace/ConnexionMembre"
+			method="post">
 
-			<h1>
-				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
-					class="img-rounded" alt="Cinque Terre" width="100" height="100"><%=MotPasseOublie.JUMBO_TITRE%>
-			</h1>
-		</div>
+			<input id='action' type="hidden" name='action'> <input
+				id="token" type="hidden" class="form-control" name="tokenFireBase">
+			<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
+			<input id='action' type="hidden" name='action'> <input
+				id="codeSiteMasque" type="hidden" class="form-control"
+				name="jetonSite">
 
+		</form>
 
+<form id="formlogin" action="/waydplace/ConnexionMembre" method="post">
+		<input id="tokenfb" type="hidden" class="form-control" name="token">
+		<input id="pwd" type="hidden" class="form-control" name="pwd">
+		<input type="hidden" name='action'
+			value='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE%>'> <input
+			id="outputJetonSite" type="hidden" class="form-control"
+			name="jetonSite">
+</form>
 
-	</div>
-	<div class="container">
-		<div id="loginbox"
-			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-custom">
-					<div class="panel-title"><%=MotPasseOublie.TITRE_PANEL%></div>
+	
+<div class="container">
 
-				</div>
+    
+    <div class="omb_login">
+    <div  class="row">
+							<div
+								class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5 ">
 
-				<div style="padding-top: 30px" class="panel-body">
-
-					<div style="display: none" id="login-alert"
-						class="alert alert-danger col-sm-12"></div>
-
-					<form id="loginform" class="form-horizontal">
-
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input id="login-username"
-								type="text" class="form-control" name="email"
-								placeholder="<%=MotPasseOublie.HINT_EMAIL%>">
-						</div>
-
-
-
-						<div style="margin-top: 10px" class="form-group">
-							<!-- Button -->
-
-							<div class="col-sm-12 controls">
-
-								<a id="btn-password" onclick="valideFormulaire()"
-									class="btn btnwayd">Envoyer la demande </a> <a
-									href="/waydplace/index.jsp" class="btn btnwayd"><span
-									class="glyphicon glyphicon-home"></span> Accueil</a>
-
+								<img src='/waydplace/img/waydLogoHD.png' 
+									class="img-rounded img-responsive">
 							</div>
-
 						</div>
-				</div>
+  	<h3 class="omb_authTitle">Mot de passse oublié</h3>
+		
 
+		
 
+		<div class="row omb_row-sm-offset-3">
+			<div class="col-xs-12 col-sm-6">	
+			    <form  class="omb_loginForm" action="" autocomplete="off" method="POST">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<input type="text" class="form-control" name="email" placeholder="email address" id="login-username">
+					</div>
+					<span class="help-block"></span>
+										
+				
+					<br>
+					
+                  <br>
 				</form>
-
-			</div>
-		</div>
+						<button   onclick="valideFormulaire()"  class="btn btn-lg btnwayd btn-block" >Envoyer</button>
+			
+			</div> 
+    	</div>
+		
+	</div>
 	</div>
 
 
@@ -140,7 +155,7 @@ auth.sendPasswordResetEmail(email).then(function() {
  BootstrapDialog.show({
             title: 'Confirmation',
             closable: false,
-            message: 'Un mail de confirmation vous a Ã©tÃ© envoyÃ©',
+            message: 'Un mail de confirmation vous a été envoyé',
             buttons: [{
                 label: 'Ok',
                 action: function(dialog) {
@@ -167,11 +182,12 @@ auth.sendPasswordResetEmail(email).then(function() {
 
 	<script>
 	function valideFormulaire(){
-			
+		
 		sendEmailVerification();
 	}
 
 </script>
 
 </body>
+
 </html>

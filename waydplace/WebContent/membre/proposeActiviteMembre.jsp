@@ -100,26 +100,15 @@
 						<!-- Brand -->
 
 						<div class="brand-name-wrapper">
-							<a class="navbar-brand" href="#"> Proposer </a>
-						</div>
-
-	<a  href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL %>" class="btn btn-default"
+							<a class="navbar-brand" href="#">Proposer </a>
+							<a  href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL %>" class="btn btn-default"
 							id="search-trigger"> <span class="glyphicon glyphicon-home"></span>
 						</a>
-
-						<!-- Search body -->
-						<div id="search" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form class="navbar-form" role="search">
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Search">
-									</div>
-									<button type="submit" class="btn btn-default ">
-										<span class="glyphicon glyphicon-ok"></span>
-									</button>
-								</form>
-							</div>
+							
 						</div>
+
+	
+						
 					</div>
 
 				</div>
@@ -229,7 +218,7 @@
 			</form>
 
 
-			<div class="col-xs-4 col-xs-offset-10 col-md-2 col-md-offset-8 ">
+			<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
 
 				<h5 class="nbrcaracteremax" id="nbr">
 					0 Caractére

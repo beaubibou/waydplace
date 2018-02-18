@@ -41,6 +41,10 @@ public class Site {
 	public String getTelephone() {
 		return telephone;
 	}
+	public String getTelephoneStr() {
+		if( telephone==null) return "Non communiqué";
+		return telephone;
+	}
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}

@@ -98,10 +98,21 @@
 			id="outputJetonSite" type="hidden" class="form-control"
 			name="jetonSite">
 </form>
+
+	
 <div class="container">
- 
+
+    
     <div class="omb_login">
-    	<h3 class="omb_authTitle">Login or <a href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>">Sign up</a></h3>
+    <div  class="row">
+							<div
+								class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5 ">
+
+								<img src='/waydplace/img/waydLogoHD.png' 
+									class="img-rounded img-responsive">
+							</div>
+						</div>
+  	<h3 class="omb_authTitle">Login or <a href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>">Sign up</a></h3>
 		<div class="row omb_row-sm-offset-3 omb_socialButtons">
     	    <div class="col-xs-4 col-sm-2">
 		        <a href="#" class="btn btn-lg btn-block omb_btn-facebook">
@@ -109,8 +120,8 @@
 			        <span class="hidden-xs">Facebook</span>
 		        </a>
 	        </div>
-        	<div class="col-xs-4 col-sm-2">
-		        <a href="#" class="btn btn-lg btn-block omb_btn-twitter">
+        	<div  class="col-xs-4 col-sm-2">
+		        <a hidden href="#" class="btn btn-lg btn-block omb_btn-twitter">
 			        <i class="fa fa-twitter visible-xs"></i>
 			        <span class="hidden-xs">Twitter</span>
 		        </a>
@@ -152,14 +163,14 @@
 					</div>
                   <br>
 				</form>
-						<button   onclick="signPassword()"  class="btn btn-lg btn-primary btn-block" >Login</button>
+						<button   onclick="signPassword()"  class="btn btn-lg btnwayd btn-block" >Login</button>
 			
 			</div> 
     	</div>
 		<div class="row omb_row-sm-offset-3">
-			<div class="col-xs-12 col-sm-3">
-				<label class="checkbox">
-					<input type="checkbox" value="remember-me">Remember Me
+			<div  class="col-xs-12 col-sm-3">
+				<label hidden  class="checkbox">
+					<input hidden  type="checkbox" value="remember-me">Remember Me
 				</label>
 			</div>
 			<div class="col-xs-12 col-sm-3">

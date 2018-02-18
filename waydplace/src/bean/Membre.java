@@ -97,7 +97,7 @@ public class Membre {
 
 	}
 
-	private String getURLPhoto() {
+	public String getURLPhoto() {
 
 		if (photo == null)
 			return Parametres.IMAGE_INCONNUE;

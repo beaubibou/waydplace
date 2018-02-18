@@ -158,7 +158,7 @@
 							class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
 							<label for="tel">Tèl:</label> <input
 								style='background-color: white;' disabled type="text"
-								class="form-control" id="tel" value="<%=site.getTelephone()%>">
+								class="form-control" id="tel" value="<%=site.getTelephoneStr()%>">
 
 						</div>
 					</div>

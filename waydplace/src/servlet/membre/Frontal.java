@@ -1011,8 +1011,9 @@ public class Frontal extends HttpServlet {
 					if (!fi.isFormField()) {
 						BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
-						BufferedImage imBuff = resize(tmp, 300, 250);
-
+					//	BufferedImage imBuff = resize(tmp, 300, 250);
+						BufferedImage imBuff = tmp;
+						
 						String stringPhoto = encodeToString(imBuff, "jpeg");
 
 						MessageAction updatePhoto = MembreDAO.updatePhoto(
