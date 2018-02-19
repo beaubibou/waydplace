@@ -244,7 +244,7 @@
 			<div class="form-group row">
 
 				<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 ">
-					<button onclick="modifieCompte()" class="btnwayd btn-lg">Sauvegarder</button>
+					<button onclick="modifieCompte()" class=" btn-lg btnwayd">Sauvegarder</button>
 
 				</div>
 			</div>

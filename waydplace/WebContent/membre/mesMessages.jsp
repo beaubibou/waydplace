@@ -134,12 +134,12 @@
 				method='post'>
 
 				<div class="row">
-					<div class="col-xs-10 col-xs-offset-0 col-md-7 col-md-offset-2">
+					<div class="col-xs-10 col-xs-offset-0 col-md-6 col-md-offset-2">
 
-						<input name="message" type="text" class="form-control" id="usr">
+						<input placeholder="Tapez votre message" name="message" type="text" class="form-control" id="usr">
 					</div>
 
-					<div class="col-xs-1  col-md-1"></div>
+					<div class="col-xs-2  col-md-1"></div>
 					<button type="submit" class="btn btnwayd">
 					<span class="glyphicon glyphicon-ok"></span>
 							</button>
@@ -147,7 +147,7 @@
 				</div>
 
 			</form>
-
+<br>
 			<%
 				for (MessageActivite messageActivite : listMessage
 											.getListMessages()) {
@@ -155,7 +155,8 @@
 
 
 			<div class="row">
-				<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+				<div style="background-color:white;	background-color: #ffeecc ;
+	border: 5px solid #fff;" class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
 					<div class="page-header"></div>
 					<div class="comments-list">
 						<div class="media">

@@ -28,7 +28,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Acceuil</title>
-<meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -143,7 +143,7 @@
 
 		<div class="row omb_row-sm-offset-3">
 			<div class="col-xs-12 col-sm-6">	
-			    <form  class="omb_loginForm" action="" autocomplete="off" method="POST">
+			    <form  class="omb_loginForm" onsubmit="return signPassword()"  method="POST">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
 						<input type="text" class="form-control" name="email" placeholder="email address" id="login-username">
@@ -162,8 +162,9 @@
 							placeholder="<%=LoginTxt.CODE_SITE%>">
 					</div>
                   <br>
+                  	<button  type="submit"  class="btn btn-lg btnwayd btn-block" >Login</button>
 				</form>
-						<button   onclick="signPassword()"  class="btn btn-lg btnwayd btn-block" >Login</button>
+					
 			
 			</div> 
     	</div>
@@ -352,6 +353,7 @@ function signPassword(){
 			 
 		  // ...
 		});
+	return false;
 	
 }
 </script>

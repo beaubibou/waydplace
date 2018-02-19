@@ -190,7 +190,7 @@ public class ConnexionMembre extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String action = request.getParameter("action");
-		LOG.info(action);
+		LOG.info("Action:"+action);
 		if (action == null || action.isEmpty())
 			return;
 

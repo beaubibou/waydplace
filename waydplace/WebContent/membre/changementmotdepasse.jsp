@@ -1,37 +1,46 @@
-<!DOCTYPE html>
 
-
-<%@page import="servlet.membre.Frontal"%>
-<%@page import="text.pageweb.Erreur_HTML"%>
 <%@page import="text.pageweb.ChangemetMotDePasse"%>
-<%@page import="bean.Membre"%>
+<%@page import="text.pageweb.Erreur_HTML"%>
 <%@page import="bean.Profil"%>
+<%@page import="bean.RefTypeGenre"%>
+<%@page import="text.pageweb.CompteMembre"%>
+<%@page import="outils.Outils"%>
+<%@page import="servlet.membre.Frontal"%>
+<%@page import="parametre.ActionPage"%>
+<%@page import="dao.CacheDAO"%>
+<%@page import="bean.RefTypeActivite"%>
+<%@page import="text.pageweb.ProposeActiviteMembre"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 
-<html lang="en">
+<%@page import="java.util.ArrayList"%>
+
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-<title>Changement </title>
-<meta charset="utf-8">
-<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCiTVROhzVToGPW-h16amlnckDvFEse9Hg",
-    authDomain: "waydplace.firebaseapp.com",
-    databaseURL: "https://waydplace.firebaseio.com",
-    projectId: "waydplace",
-    storageBucket: "",
-    messagingSenderId: "165326675460"
-  };
-  firebase.initializeApp(config);
-</script>
+<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
 
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
 <link
@@ -40,106 +49,151 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
 
+<script src="/waydplace/js/moment.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
 <link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
 	type="text/css">
-<link href="/waydplace/css/nbrcaractere.css" rel="stylesheet"
-	media="all" type="text/css">
+
+<script src="/waydplace/js/valideform.js"></script>
+<script src="/waydplace/js/slide.js"></script>
+
 </head>
 <body>
+
 	<%
-  	
-	
-	Profil profil = (Profil) request.getSession().getAttribute("profil");
-  	String mail = profil.getMembre().getMail();
-
+	Profil profil = (Profil) request.getSession()
+	.getAttribute("profil");
+String mail = profil.getMembre().getMail();
 	%>
+	<div class="row">
+		<!-- uncomment code for absolute positioning tweek see top comment in css -->
+		<!-- <div class="absolute-wrapper"> </div> -->
+		<!-- Menu -->
+		<div class="side-menu">
 
-	<div class="container">
-		<div class="page-header">
+			<nav class="navbar navbar-default" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<div class="brand-wrapper">
+						<!-- Hamburger -->
+						<button type="button" class="navbar-toggle ">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
 
-			<h1>
-				<img src="/waydplace/img/waydLogoHD.png" style="margin-right: 50px;"
-					class="img-rounded" alt="Cinque Terre" width="100" height="100"><%=ChangemetMotDePasse.JUMBO_TITRE%></h1>
-		</div>
 
 
-		<br>
-	</div>
+						<div class="brand-name-wrapper">
+							<a class="navbar-brand" href="#"> Mon Compte </a>
+						</div>
 
 
-	<form id="formmasque" action="/wayd/Connexion" method="post">
-		<input id="token" type="hidden" class="form-control" name="token">
-		<input id="pwd" type="hidden" class="form-control" name="pwd">
-	</form>
+						<a href="<%=Frontal.ACTION_REDIRECTION_ACCEUIL%>"
+							class="btn btn-default" id="search-trigger"> <span
+							class="glyphicon glyphicon-home"></span>
+						</a>
 
-	<div class="container">
-		<div id="loginbox"
-			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading panel-heading-custom">
 
-					<div class="panel-title"><%=ChangemetMotDePasse.HINT_MOT_DE_PASSE%></div>
+						<!-- Search body -->
+
+					</div>
 
 				</div>
 
-				<div style="padding-top: 30px" class="panel-body">
+				<!-- Main Menu -->
+				<div class="side-menu-container">
+					<ul class="nav navbar-nav">
 
-					<div style="display: none" id="login-alert"
-						class="alert alert-danger col-sm-12"></div>
+						<%@ include file="menuMembre.jsp"%>
 
-					<form method="post" action="klk" id="loginform"
-						class="form-horizontal" role="form">
+
+					</ul>
+				</div>
+
+			</nav>
+
+		</div>
+	</div>
+	<!-- Main Content -->
+
+	<div style="padding-top: 30px;" class="container-fluid well well-sm">
+		<div class="side-body">
+	<form method="post" action="" id="loginform" class="form-horizontal"
+				role="form">
+
+				<div class="row">
+
+					<div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4 ">
 
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input id="ancienMdp"
+								class="glyphicon glyphicon-lock"></i></span> <input id="ancienMdp"
 								type="password" class="form-control" name="ancienMdp"
-								
 								placeholder="<%=ChangemetMotDePasse.HINT_ANCIEN_MOT_DE_PASSE%>">
 						</div>
-
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input id="motDePasse"
-								type="password" class="form-control" name="motDePasse"
-								
-								placeholder="<%=ChangemetMotDePasse.HINT_MOT_DE_PASSE%>">
-						</div>
-
-
-
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-lock"></i></span> <input id="motDePasseBis"
-								type="password" class="form-control" name="motDePasseBis"
-								
-								placeholder="<%=ChangemetMotDePasse.HINT_MOT_DE_PASSE_BIS%>">
-						</div>
-
-						<div style="margin-top: 10px" class="form-group">
-							<!-- Button -->
-
-							<div class="col-sm-12 controls">
-
-								<a id="btn-password" onclick="envoiDemande()"
-									class="btn btnwayd ">Envoyer la demande</a> <a
-									href='<%=Frontal.ACTION_REDIRECTION_MON_COMPTE%>' class="btn btnwayd"><span
-									class="glyphicon glyphicon-arrow-left"></span> </a>
-							</div>
-
-
-						</div>
-
-					</form>
+					</div>
 				</div>
-			</div>
+
+				<div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4 ">
+
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-lock"></i></span> <input id="motDePasse"
+							type="password" class="form-control" name="motDePasse"
+							placeholder="<%=ChangemetMotDePasse.HINT_MOT_DE_PASSE%>">
+					</div>
+				</div>
+
+
+				<div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4 ">
+
+					<div style="margin-bottom: 25px" class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-lock"></i></span> <input id="motDePasseBis"
+							type="password" class="form-control" name="motDePasseBis"
+							placeholder="<%=ChangemetMotDePasse.HINT_MOT_DE_PASSE_BIS%>">
+					</div>
+
+				</div>
+				<div style="margin-top: 10px" class="form-group">
+					<!-- Button -->
+
+					<div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4 ">
+
+						<a id="btn-password" onclick="envoiDemande()" class="btn btnwayd ">Envoyer
+							la demande</a> <a href='<%=Frontal.ACTION_REDIRECTION_MON_COMPTE%>'
+							class="btn btnwayd"><span
+							class="glyphicon glyphicon-arrow-left"></span> </a>
+					</div>
+
+
+				</div>
+
+			</form>
+			
 		</div>
+
 	</div>
-	<script>
+
+
+<script>
 
 
 function envoiDemande(){
 
+	
 	var email= "<%=mail%>";
 	var ancienmdp= document.getElementById("ancienMdp").value;
 	var mdp= document.getElementById("motDePasse").value;
@@ -201,4 +255,7 @@ firebase.auth().signInWithEmailAndPassword(email, ancienmdp).then(function(fireb
 
 
 </body>
+
+
+
 </html>

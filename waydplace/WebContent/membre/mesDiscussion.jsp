@@ -124,9 +124,6 @@
 	<!-- Main Content -->
 	<div class="container-fluid">
 		<div class="side-body">
-
-
-
 			
 					<%
 						for (Discussion discussion : listDiscussion.getMesDiscussion()) {
@@ -134,7 +131,7 @@
 			
 
 	       <div  onclick="document.location='<%=discussion.lienHtmlMessageDiscussion(profil)%>'" class="row">
-                <div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+                <div style="background-color:white" class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
                   <div class="page-header">
                     <h1><small class="pull-right"></small> <%=discussion.getTitreActivite() %> </h1>
                   </div> 

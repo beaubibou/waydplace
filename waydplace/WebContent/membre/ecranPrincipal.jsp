@@ -1,4 +1,5 @@
 
+<%@page import="bean.Profil"%>
 <%@page import="text.pageweb.EcranPrincipal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="dao.MessageDAO"%>
