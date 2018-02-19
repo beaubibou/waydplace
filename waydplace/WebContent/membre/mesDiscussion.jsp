@@ -61,7 +61,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="/waydplace/css/slide.css" rel="stylesheet" type="text/css">
 
-<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet" type="text/css">
+<link href="/waydplace/css/styleWaydSlide.css" rel="stylesheet"
+	type="text/css">
 
 
 <script src="/waydplace/js/slide.js"></script>
@@ -122,45 +123,71 @@
 	</div>
 
 	<!-- Main Content -->
-	<div class="container-fluid">
+	<div style="padding-top: 30px;"  class="container-fluid">
 		<div class="side-body">
-			
-					<%
-						for (Discussion discussion : listDiscussion.getMesDiscussion()) {
-					%>
-			
 
-	       <div  onclick="document.location='<%=discussion.lienHtmlMessageDiscussion(profil)%>'" class="row">
-                <div style="background-color:white" class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
-                  <div class="page-header">
-                    <h1><small class="pull-right"></small> <%=discussion.getTitreActivite() %> </h1>
-                  </div> 
-                   <div  class="comments-list">
-                       <div class="media">
-                           <p class="pull-right"><small><%=discussion.getDateDernierMessage() %></small></p>
-                            <a  class="media-left " >
-                              <img style="width:60px" src="<%=discussion.getPhotoInterlocuteurURL(profil)%>">
-                            </a>
-                            <div class="media-body">
-                                
-                              <h4 class="media-heading user_name"><%=discussion.getPseudoInterlocuteur(profil) %></h4>
-                                <%=discussion.getDernierMessage() %>
-                                <p></p>
-                                </div>
-                          </div>
-                       
-                    
-                    
-                    
-                </div>
-            </div>
-        </div>
+			<%
+				for (Discussion discussion : listDiscussion.getMesDiscussion()) {
+			%>
 
 
+			<div
+				onclick="document.location='<%=discussion.lienHtmlMessageDiscussion(profil)%>'"
+				class="row">
+				<div style="background-color: white"
+					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+					<div class="page-header">
+						<h1>
+							<small class="pull-right"></small>
+							<%=discussion.getTitreActivite()%>
+						</h1>
+					</div>
+					<div class="comments-list">
+						<div class="media">
+							<p class="pull-right">
+								<small><%=discussion.getDateDernierMessage()%></small>
+							</p>
+							<a class="media-left "> <img style="width: 60px"
+								src="<%=discussion.getPhotoInterlocuteurURL(profil)%>">
+							</a>
+							<div class="media-body">
 
-					<%
-						}
-					%>
+								<h4 class="media-heading user_name"><%=discussion.getPseudoInterlocuteur(profil)%></h4>
+								<%=discussion.getDernierMessage()%>
+								<p></p>
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+
+
+
+			<%
+				}
+			%>
+
+			<%
+				if (listDiscussion.getMesDiscussion().isEmpty()) {
+			%>
+			<div class="row">
+				<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+
+					<div class="jumbotron jumbotron-style">
+
+						<h2>Aucun message</h2>
+						<p>Vous n'avez aucun message en cours.
+						<p>
+					</div>
+				</div>
+			</div>
+			<%
+				}
+			%>
 
 
 		</div>

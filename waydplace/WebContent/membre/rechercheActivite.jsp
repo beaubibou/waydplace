@@ -232,7 +232,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 </div>
 
 <!-- Main Content -->
-<div class="container-fluid">
+<div style="padding-top: 30px;" class="container-fluid">
 	<div class="side-body">
 
 
@@ -303,6 +303,9 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 				else
 						{
 	%>
+		<div class="row">
+				<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+	
 	<div class="jumbotron jumbotron-style">
 		<h1>Pas de résultats</h1>
 		<h3>
@@ -310,6 +313,8 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 			à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
 		</h3>
 	</div>
+	</div>
+	
 
 	<%
 		}

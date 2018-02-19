@@ -69,10 +69,10 @@
 
 	<%
 		Profil profil = (Profil) request.getSession()
-			.getAttribute("profil");
+		.getAttribute("profil");
 
-		ListMessage listMessage = (ListMessage) request
-			.getAttribute("listMessage");
+			ListMessage listMessage = (ListMessage) request
+		.getAttribute("listMessage");
 	%>
 
 
@@ -102,8 +102,9 @@
 						</div>
 
 
-						<a data-toggle="collapse" href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_DISCUSSION_MEMBRE%>' class="btn btn-default"
-							id="search-trigger"> <span
+						<a data-toggle="collapse"
+							href='/waydplace/Frontal?action=<%=Frontal.REDIRECTION_DISCUSSION_MEMBRE%>'
+							class="btn btn-default" id="search-trigger"> <span
 							class="glyphicon glyphicon-arrow-left"></span>
 						</a>
 					</div>
@@ -130,33 +131,36 @@
 	<div style="padding-top: 30px;" class="container-fluid">
 		<div class="side-body">
 
-			<form action='<%=listMessage.getDiscussion().getLienReponseHTML(profil)%>'
+			<form
+				action='<%=listMessage.getDiscussion().getLienReponseHTML(profil)%>'
 				method='post'>
 
 				<div class="row">
 					<div class="col-xs-10 col-xs-offset-0 col-md-6 col-md-offset-2">
 
-						<input placeholder="Tapez votre message" name="message" type="text" class="form-control" id="usr">
+						<input placeholder="Tapez votre message" name="message"
+							type="text" class="form-control" id="usr">
 					</div>
 
 					<div class="col-xs-2  col-md-1"></div>
 					<button type="submit" class="btn btnwayd">
-					<span class="glyphicon glyphicon-ok"></span>
-							</button>
-				
+						<span class="glyphicon glyphicon-ok"></span>
+					</button>
+
 				</div>
 
 			</form>
-<br>
+			<br>
 			<%
 				for (MessageActivite messageActivite : listMessage
-											.getListMessages()) {
+												.getListMessages()) {
 			%>
 
 
 			<div class="row">
-				<div style="background-color:white;	background-color: #ffeecc ;
-	border: 5px solid #fff;" class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+				<div
+					style="background-color: white; background-color: #ffeecc; border: 5px solid #fff;"
+					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
 					<div class="page-header"></div>
 					<div class="comments-list">
 						<div class="media">
@@ -170,14 +174,15 @@
 
 								<h4 class="media-heading user_name"><%=listMessage.getEmetteur(messageActivite)%></h4>
 								<%=messageActivite.getMessage()%>
-									
+
 							</div>
-									<p align='right'>
-								<button onclick="confirmEfface('<%=messageActivite.getLienSupprime(profil)%>')"
+							<p align='right'>
+								<button
+									onclick="confirmEfface('<%=messageActivite.getLienSupprime(profil)%>')"
 									class="btn btn-danger btn-sm">
 									<span class="glyphicon glyphicon-remove"></span>
 								</button>
-								</p>
+							</p>
 
 						</div>
 					</div>
@@ -187,7 +192,10 @@
 
 			<%
 				}
+			
 			%>
+			
+		
 		</div>
 
 

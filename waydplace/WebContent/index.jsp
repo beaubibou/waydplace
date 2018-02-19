@@ -146,18 +146,18 @@
 			    <form  class="omb_loginForm" onsubmit="return signPassword()"  method="POST">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text" class="form-control" name="email" placeholder="email address" id="login-username">
+						<input required type="email" class="form-control" name="email" placeholder="email address" id="login-username">
 					</div>
 					<span class="help-block"></span>
 										
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<input id="login-password" type="password" class="form-control" name="password" placeholder="Password">
+						<input required id="login-password" type="password" class="form-control" name="password" placeholder="Password">
 					</div>
 					<br>
 					<div class="input-group">
 						<span class="input-group-addon"><i
-							class="glyphicon glyphicon-home"></i></span> <input id="inputJetonSite"
+							required class="glyphicon glyphicon-home"></i></span> <input id="inputJetonSite"
 							type="text" class="form-control" value="aaaa"
 							placeholder="<%=LoginTxt.CODE_SITE%>">
 					</div>
