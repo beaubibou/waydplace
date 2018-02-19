@@ -266,7 +266,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 						<p class="pull-right">
 							<small><%=activite.getHoraireLeA()%></small>
 						</p>
-						<a class="media-left "> <img style="width: 60px"
+						<a class="media-left "> <img style="width: 120px;"
 							src="<%=activite.getURLPhoto()%>">
 						</a>
 						<div class="media-body">
