@@ -170,9 +170,10 @@
 					<div class="form-group">
 						<div
 							class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
-							<label for="adresse">Tèl:</label> <input
-								style='background-color: white;' disabled type="text"
-								class="form-control" id="adresse" value="<%=site.getAdresse()%>">
+							<label for="description">Adresse</label>
+							<textarea id='description' disabled
+								style='background-color: white;' class="form-control" rows="3"><%=site.getAdresse()%></textarea>
+
 
 						</div>
 					</div>

@@ -145,7 +145,7 @@ public class SiteDAO {
 			}
 
 		} catch (SQLException | NamingException e) {
-				e.printStackTrace();
+				
 			LOG.error(ExceptionUtils.getStackTrace(e));
 
 		} finally {

@@ -95,7 +95,7 @@
 			</div>
 			<h3 class="omb_authTitle">
 				Particulier ou <a
-					href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>">Professionel</a>
+					href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>">Professionel</a>
 			</h3>
 
 
@@ -135,7 +135,7 @@
 							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 							<input id="login-password" type="password" class="form-control"
 								name="pwd"
-								placeholder=<%=CreationCompteMembre.HINT_MOT_DE_PASSE_BIS%>>
+								placeholder="<%=CreationCompteMembre.HINT_MOT_DE_PASSE%>">
 						</div>
 						<span class="help-block"></span>
 
@@ -155,8 +155,21 @@
 
 						<span class="help-block"></span>
 
-						<button type="submit"
-							class="btn btn-lg btnwayd btn-block">Créer</button>
+						<div class="btn-group btn-group-justified">
+
+							<div class="btn-group ">
+								<button type="submit" class="btn btn-lg btnwayd ">Créer</button>
+							</div>
+
+							<div class="btn-group ">
+								<a href="<%=ConnexionMembre.ACTION_REDIRECTION_LOGIN%>"
+									class="btn btn-lg btnwayd"> <span
+									class="glyphicon glyphicon-arrow-left"></span> Accueil
+								</a>
+							</div>
+
+
+						</div>
 
 					</form>
 

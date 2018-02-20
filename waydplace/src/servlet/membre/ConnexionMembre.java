@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.logging.Log;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -54,9 +55,14 @@ public class ConnexionMembre extends HttpServlet {
 	public static final String CONNEXION_SITE_MEMBRE = "connexionsitemembre";
 	public static final String CREER_COMPTE_PRO = "creerComptePro";
 	public static final String CREER_COMPTE_MEMBRE = "creerCompteMembre";
+	
+	public static final String VALIDE_SITE = "VALIDE_SITE";
+
 	public static final String REDIRECTION_LOGIN_PRO = "redirectionloginpro";
 	public static final String REDIRECTION_CREATION_COMPTE_MEMBRE = "redirectionCreationCompteMembre";
 	public static final String REDIRECTION_CREATION_COMPTE_PRO = "redirectionCreationComptePro";
+	public static final String CONNEXION = "CONNEXION";
+	
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(ConnexionMembre.class);
 	public static FirebaseOptions optionFireBase;
@@ -72,6 +78,7 @@ public class ConnexionMembre extends HttpServlet {
 	public static final String ACTION_REDIRECTION_CREATION_MDP_OUBLIE = "/waydplace/compte/motdepasseoublie.jsp";
 	public static final String ACTION_REDIRECTION_DEMANDE_CONFIRMATION_MAIL = "/waydplace/compte/redemandeConfirmationMail.jsp";
 	public static final String ACTION_REDIRECTION_LOGIN = "/waydplace/index.jsp";
+	public static final String ACTION_REDIRECTION_CONNEXION = "/waydplace/ConnexionMembre?action="+CONNEXION+"&codeSite=";
 
 	private static final String CLE_CAPTCHA = "6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
@@ -190,7 +197,8 @@ public class ConnexionMembre extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String action = request.getParameter("action");
-		LOG.info("Action:"+action);
+
+		LOG.info("Action:" + action);
 		if (action == null || action.isEmpty())
 			return;
 
@@ -209,11 +217,26 @@ public class ConnexionMembre extends HttpServlet {
 				connexionSiteMembre(request, response);
 
 				break;
+				
 			case CONNEXION_SITE_MEMBRE_TEST:
 
 				connexioSiteMembreTest(request, response);
 
 				break;
+			
+			case CONNEXION:
+
+				connexion(request, response);
+
+				break;
+				
+			case VALIDE_SITE:
+
+				valideSite(request, response);
+
+				break;
+				
+				
 
 			case REDIRECTION_CREATION_COMPTE_PRO:
 
@@ -255,6 +278,16 @@ public class ConnexionMembre extends HttpServlet {
 
 	}
 
+	private void connexion(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+	
+		Site site=SiteDAO.getSiteByJeton(request.getParameter("codeSite"));
+		request.setAttribute("nomSite", site.getNom());
+		
+		request.getRequestDispatcher("compte/Connexion.jsp").forward(request,
+				response);	
+	}
+
 	private void connexionSiteAdmin(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
@@ -268,7 +301,7 @@ public class ConnexionMembre extends HttpServlet {
 			response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
 		} else {
 
-			System.out.println(connexionSiteGestionnaire.getMessage());
+			LOG.info(connexionSiteGestionnaire.getMessage());
 
 		}
 
@@ -283,9 +316,6 @@ public class ConnexionMembre extends HttpServlet {
 		MessageAction connexionSiteMembre = connexionSiteMembre(tokenFireBase,
 				jetonSite, request, response);
 
-		
-		
-		
 		if (connexionSiteMembre.isOk()) {
 
 			Profil profil = (Profil) connexionSiteMembre.getReponseObject();
@@ -300,52 +330,23 @@ public class ConnexionMembre extends HttpServlet {
 				break;
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
-		
+
 				response.setContentType("text/plain");
 				response.getWriter().write("gestionnaire");
-		
+
 				break;
 
 			default:
-					break;
+				break;
 			}
 		} else {
 
-			System.out.println(connexionSiteMembre.getMessage());
 			response.setContentType("text/plain");
 			response.getWriter().write(connexionSiteMembre.getMessage());
-	
+
 		}
-		
-		
-		
-//		if (connexionSiteMembre.isOk()) {
-//
-//			Profil profil = (Profil) connexionSiteMembre.getReponseObject();
-//
-//			switch (profil.getTypeOrganisteur()) {
-//
-//			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-//				response.sendRedirect("membre/ecranPrincipal.jsp");
-//				break;
-//
-//			case Parametres.TYPE_ORGANISATEUR_SITE:
-//				response.sendRedirect("gestionnaire/ecranPrincipalGestionnaire.jsp");
-//
-//				break;
-//
-//			case Parametres.TYPE_ORGANISATEUR_VISITEUR:
-//				response.sendRedirect("membre/ecranPrincipal.jsp");
-//				break;
-//
-//			default:
-//				response.sendRedirect("erreur");
-//				break;
-//			}
-//		} else {
-//			LOG.error(connexionSiteMembre.getMessage());
-//			response.sendRedirect("erreur");
-//		}
+
+	
 	}
 
 	private void connexioSiteMembreTest(HttpServletRequest request,
@@ -356,8 +357,6 @@ public class ConnexionMembre extends HttpServlet {
 		MessageAction connexionSiteMembreTest = connexionSiteMembreTest(
 				tokenFireBase, jetonSite, request, response);
 
-			
-		
 		if (connexionSiteMembreTest.isOk()) {
 
 			Profil profil = (Profil) connexionSiteMembreTest.getReponseObject();
@@ -372,29 +371,46 @@ public class ConnexionMembre extends HttpServlet {
 				break;
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
-		
+
 				response.setContentType("text/plain");
 				response.getWriter().write("gestionnaire");
-		
+
 				break;
 
 			default:
-					break;
+				break;
 			}
 		} else {
 
 			System.out.println(connexionSiteMembreTest.getMessage());
 			response.setContentType("text/plain");
 			response.getWriter().write(connexionSiteMembreTest.getMessage());
-	
+
 		}
 
+	}
+	private void valideSite(HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		
+		String  codeSite= request.getParameter("codeSite");
+		Site site=SiteDAO.getSiteByJeton(codeSite);
+		LOG.info(codeSite);
+		if (site!=null) {
+			response.setContentType("text/plain");
+			response.getWriter().write("ok");
+
+		} else {
+
+			response.setContentType("text/plain");
+			response.getWriter().write("Code site non valide");
+		}
 	}
 
 	private void creerCompteMembre(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		MessageAction creerCompteMembre = creerCompteMembre(request);
 
+		
 		if (creerCompteMembre.isOk()) {
 			response.setContentType("text/plain");
 			response.getWriter().write("ok");

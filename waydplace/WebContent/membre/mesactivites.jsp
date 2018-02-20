@@ -182,12 +182,12 @@
 
 
 			<div class="row">
-				<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
-					<div class="page-header">
-						<h1>
+				<div  class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items ">
+					<div   class="page-header">
+						<h2>
 							<small class="pull-right"></small>
 							<%=activite.getTitre()%>
-						</h1>
+						</h2>
 					</div>
 					<div class="comments-list">
 						<div class="media">
@@ -255,14 +255,14 @@
 	%>
 
 	<div class="row">
-		<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+		<div  class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
 
 			<div class="jumbotron jumbotron-style">
 
 				<h2>Pas de résultats</h2>
 				<p>
 					Aucune de vos activités ne corresponde à vos critéres. N'hésitez
-					pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'><strong>proposer.</strong></a>
+					pas à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
 				<p>
 			</div>
 		</div>

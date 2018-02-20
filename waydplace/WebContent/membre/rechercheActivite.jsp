@@ -254,12 +254,12 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 
 
 		<div class="row" onclick="document.location='<%=lienDetailActivite%>'">
-			<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+			<div style="background-color:#FFFFFF;"class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
 				<div class="page-header">
-					<h1>
+					<h2>
 						<small class="pull-right"> <%=activite.getPanelActionParticipationHtml(profil, activite.getUid_membre())%></small>
 						<%=activite.getTitre()%>
-					</h1>
+					</h2>
 				</div>
 				<div class="comments-list">
 					<div class="media">
@@ -307,11 +307,11 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 				<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
 	
 	<div class="jumbotron jumbotron-style">
-		<h1>Pas de résultats</h1>
-		<h3>
+		<h2>Pas de résultats</h2>
+		<p>
 			Aucune de vos activités ne corresponde à vos critéres. N'hésitez pas
 			à en <a href='<%=Frontal.ACTION_REDIRECTION_PROPOSER%>'>proposer.</a>
-		</h3>
+		</p>
 	</div>
 	</div>
 	

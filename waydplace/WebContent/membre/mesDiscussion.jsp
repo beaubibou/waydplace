@@ -137,10 +137,10 @@
 				<div style="background-color: white"
 					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
 					<div class="page-header">
-						<h1>
+						<h2>
 							<small class="pull-right"></small>
 							<%=discussion.getTitreActivite()%>
-						</h1>
+						</h2>
 					</div>
 					<div class="comments-list">
 						<div class="media">
