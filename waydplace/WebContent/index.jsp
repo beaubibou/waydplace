@@ -81,11 +81,23 @@
 
 			</div>
 		</div>
+		
+		<div class="form-group">
+		
+			<div style="margin-top:10px;" class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
+				
+				<a  href='<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION_PRO%>'>Professionels</a>
+		
+			</div>
+		</div>
 
 
 	</form>
+	<br>
+
 
 </div>
+
 	<script type="text/javascript">
 	
 function connexionSite() {

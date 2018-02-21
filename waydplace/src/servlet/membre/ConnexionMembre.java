@@ -79,7 +79,7 @@ public class ConnexionMembre extends HttpServlet {
 	public static final String ACTION_REDIRECTION_DEMANDE_CONFIRMATION_MAIL = "/waydplace/compte/redemandeConfirmationMail.jsp";
 	public static final String ACTION_REDIRECTION_LOGIN = "/waydplace/index.jsp";
 	public static final String ACTION_REDIRECTION_CONNEXION = "/waydplace/ConnexionMembre?action="+CONNEXION+"&codeSite=";
-
+	public static final String ACTION_REDIRECTION_CONNEXION_PRO = "/waydplace/compte/ConnexionPRO.jsp";
 	private static final String CLE_CAPTCHA = "6Ld6TzgUAAAAAFZnSygMYDyAM83ZuReVIT7O068z";
 
 	static {

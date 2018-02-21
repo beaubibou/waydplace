@@ -5,18 +5,16 @@
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link
-	href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
-	rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <link href="/waydplace/css/indexcss.css" rel="stylesheet"
 	type="text/css">
-
-<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+	
+	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -76,125 +74,92 @@
 
 </head>
 <body>
-	<a id="btn_googl" onclick="signInTestGestionnaire()"
-		class="btn btn-primary">Gestionnaire </a>
-	<a id="btn_googl" onclick="signInTestMembre1()" class="btn btn-primary">Membre
-		1 </a>
-	<a id="btn_googl" onclick="signInTestMembre2()" class="btn btn-primary">Membre
-		2 </a>
-	<a id="btn_googl" onclick="signInTestAnonyme()" class="btn btn-primary">Anonyme
-	</a>
-	<form id="formmasque" action="/waydplace/ConnexionMembre" method="post">
+	
+<form id="formmasque" action="/waydplace/ConnexionMembre"
+			method="post">
 
-		<input id='action' type="hidden" name='action'> <input
-			id="token" type="hidden" class="form-control" name="tokenFireBase">
-		<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
-		<input id='action' type="hidden" name='action'> <input
-			id="codeSiteMasque" type="hidden" class="form-control"
-			name="jetonSite">
+			<input id='action' type="hidden" name='action'> <input
+				id="token" type="hidden" class="form-control" name="tokenFireBase">
+			<!-- 	<button type="submit" class="btn btn-primary">Submit</button> -->
+			<input id='action' type="hidden" name='action'> <input
+				id="codeSiteMasque" type="hidden" class="form-control"
+				name="jetonSite">
 
-	</form>
+		</form>
 
-	<form id="formlogin" action="/waydplace/ConnexionMembre" method="post">
+<form id="formlogin" action="/waydplace/ConnexionMembre" method="post">
 		<input id="tokenfb" type="hidden" class="form-control" name="token">
 		<input id="pwd" type="hidden" class="form-control" name="pwd">
 		<input type="hidden" name='action'
 			value='<%=ConnexionMembre.CONNEXION_SITE_MEMBRE%>'> <input
 			id="outputJetonSite" type="hidden" class="form-control"
 			name="jetonSite">
-	</form>
+</form>
 
+	
+<div class="container">
 
-	<div class="container">
+    
+    <div class="omb_login">
+    
+    <div  class="row">
+							<div
+								class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5 ">
 
-
-		<div class="omb_login">
-
-		<div class="row">
-				<div class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5 ">
-					<a href="<%=ConnexionMembre.ACTION_REDIRECTION_LOGIN%>">
-						<img src='/waydplace/img/waydLogoHD.png'
-						class="img-rounded img-responsive">
-					</a>
-				</div>
-			</div>
-			<h3 class="omb_authTitle">
-				Se connecter ou <a
-					href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>">S'inscrire</a>
-			</h3>
-			<div class="row omb_row-sm-offset-3 omb_socialButtons">
-				<div class="col-xs-3 col-sm-2">
-					<a href="#" class="btn btn-lg btn-block omb_btn-facebook"> <i
-						class="fa fa-facebook visible-xs"></i> <span class="hidden-xs">Facebook</span>
-					</a>
-				</div>
-				<div align='center' class="col-xs-5 col-sm-2">
-					<button type="button" class="btn btn-lg btn-block omb_btn_wayd"
-						onclick="signInTestAnonyme()">Visiteur</button>
-				</div>
-				<div class="col-xs-3 col-sm-2">
-					<a onclick="signInGoogle()"
-						class="btn btn-lg btn-block omb_btn-google"> <i
-						class="fa fa-google-plus visible-xs"></i> <span class="hidden-xs">Google+</span>
-					</a>
-				</div>
-			</div>
-
-			<div class="row omb_row-sm-offset-3 omb_loginOr">
-				<div class="col-xs-12 col-sm-6">
-					<hr class="omb_hrOr">
-					<span class="omb_spanOr">or</span>
-				</div>
-			</div>
-
-			<div class="row omb_row-sm-offset-3">
-				<div class="col-xs-12 col-sm-6">
-					<form class="omb_loginForm" onsubmit="return signPassword()"
-						method="POST">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input required type="email" class="form-control" name="email"
-								placeholder="<%=CreationCompteMembre.HINT_EMAIL%>"
-								id="login-username">
+								<img src='/waydplace/img/waydLogoHD.png' 
+									class="img-rounded img-responsive">
+							</div>
 						</div>
-						<span class="help-block"></span>
+  	<h3 class="omb_authTitle">Professionels <a href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>">S'inscrire</a></h3>
+		
 
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-							<input required id="login-password" type="password"
-								class="form-control" name="password"
-								placeholder="<%=CreationCompteMembre.HINT_MOT_DE_PASSE%>">
-						</div>
-						<br>
-						<div class="input-group">
-							<span class="input-group-addon"><i required
-								class="glyphicon glyphicon-home"></i></span> <input id="inputJetonSite"
-								type="text" class="form-control"
-								value="<%=request.getParameter("codeSite")%>"
-								placeholder="<%=LoginTxt.CODE_SITE%>">
-						</div>
-						<br>
-						<button type="submit" class="btn btn-lg btnwayd btn-block">Connecter</button>
-					</form>
-
-
-				</div>
+		<div class="row omb_row-sm-offset-3 omb_loginOr">
+			<div class="col-xs-12 col-sm-6">
+				<hr class="omb_hrOr">
+				<span class="omb_spanOr">ou</span>
 			</div>
-			<div class="row omb_row-sm-offset-3">
-				<div class="col-xs-12 col-sm-3">
-					<label hidden class="checkbox"> <input hidden
-						type="checkbox" value="remember-me">Remember Me
-					</label>
-				</div>
-				<div class="col-xs-12 col-sm-3">
-					<p class="omb_forgotPwd">
-						<a
-							href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot
-							de passe oublié?</a>
-					</p>
-				</div>
+		</div> 
+
+		<div class="row omb_row-sm-offset-3">
+			<div class="col-xs-12 col-sm-6">	
+			    <form  class="omb_loginForm" onsubmit="return signPassword()"  method="POST">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<input required type="email" class="form-control" name="email" placeholder="<%=CreationCompteMembre.HINT_EMAIL %>" id="login-username">
+					</div>
+					<span class="help-block"></span>
+										
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+						<input required id="login-password" type="password" class="form-control" name="password" placeholder="<%=CreationCompteMembre.HINT_MOT_DE_PASSE %>">
+					</div>
+					<br>
+					<div hidden class="input-group">
+						<span class="input-group-addon"><i
+							required class="glyphicon glyphicon-home"></i></span> <input id="inputJetonSite"
+							type="text" class="form-control" value="<%=request.getParameter("codeSite") %>"
+							placeholder="<%=LoginTxt.CODE_SITE%>">
+					</div>
+                  <br>
+                  	<button  type="submit"  class="btn btn-lg btnwayd btn-block" >Login</button>
+				</form>
+					
+			
+			</div> 
+    	</div>
+		<div class="row omb_row-sm-offset-3">
+			<div  class="col-xs-12 col-sm-3">
+				<label hidden  class="checkbox">
+					<input hidden  type="checkbox" value="remember-me">Remember Me
+				</label>
 			</div>
-		</div>
+			<div class="col-xs-12 col-sm-3">
+				<p class="omb_forgotPwd">
+					<a href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot de passe oublié?</a>
+				</p>
+			</div>
+		</div>	    	
+	</div>
 	</div>
 	<script>
 
@@ -371,7 +336,7 @@ function signPassword(){
 	
 }
 </script>
-	<script type="text/javascript">
+<script type="text/javascript">
 
 function connexionTest(){
 	
@@ -398,7 +363,7 @@ function connexionTest(){
 		}
 	</script>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 
 function connexionFireBase(){
 	
@@ -423,7 +388,7 @@ function connexionFireBase(){
 
 		}
 	</script>
-
+	
 
 </body>
 

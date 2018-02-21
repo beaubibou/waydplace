@@ -72,12 +72,7 @@
 
 </head>
 <body>
-	<a id="btn_googl" onclick="signInTestGestionnaire()"
-			class="btn btn-primary">Gestionnaire </a> <a id="btn_googl"
-			onclick="signInTestMembre1()" class="btn btn-primary">Membre 1 </a> <a
-			id="btn_googl" onclick="signInTestMembre2()" class="btn btn-primary">Membre
-			2 </a> <a id="btn_googl" onclick="signInTestAnonyme()"
-			class="btn btn-primary">Anonyme </a>
+	
 <form id="formmasque" action="/waydplace/ConnexionMembre"
 			method="post">
 

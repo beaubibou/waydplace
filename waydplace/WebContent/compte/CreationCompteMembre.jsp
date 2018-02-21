@@ -95,8 +95,11 @@
 				</div>
 			</div>
 			<h3 class="omb_authTitle">
-				Particulier ou <a
-					href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>">Professionel</a>
+				Inscription
+				
+<!-- 				ou <a -->
+<%-- 					href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>">Professionel</a> --%>
+			
 			</h3>
 
 
