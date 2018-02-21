@@ -5,7 +5,7 @@
 <%@page import="text.pageweb.ProposePlusieursActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
 <html lang="fr">
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="utf-8"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.CacheDAO"%>

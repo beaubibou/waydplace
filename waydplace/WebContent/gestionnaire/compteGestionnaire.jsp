@@ -7,7 +7,7 @@
 <%@page import="parametre.ActionPage"%>
 <%@page import="bean.Profil"%>
 <%@page import="text.pageweb.CompteMembre"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,6 +1,6 @@
 <%@page import="bean.AdapterAgenda"%>
 <%@page import="bean.ActiviteAgenda"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="utf-8"%>
     <%@page import="dao.ActiviteDAO"%>
 <%@page import="parametre.ActionPage"%>
