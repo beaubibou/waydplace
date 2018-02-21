@@ -1426,6 +1426,7 @@ public class Frontal extends HttpServlet {
 
 		String titre = request.getParameter("titre");
 
+		LOG.info("itre"+titre);
 		String libelle = request.getParameter("description");
 		titre = titre.trim();
 

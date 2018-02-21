@@ -8,16 +8,14 @@
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="utf-8"%>
-
+	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+<title>>ii<%=ProposeActiviteMembre.TITRE_ONGLET%></title>
 
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -26,7 +24,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -134,7 +131,7 @@
 
 
 
-			<form action="/waydplace/Frontal"
+			<form action="/waydplace/Frontal" 
 				onsubmit="return valideFormulaire()" method="post" id='formulaire'>
 
 
@@ -221,7 +218,7 @@
 			<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
 
 				<h5 class="nbrcaracteremax" id="nbr">
-					0 CaractÃ©re
+					0 Caractére
 					<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
 				</h5>
 
@@ -262,7 +259,7 @@
 						BootstrapDialog.show({
 				            title: 'Confirmation',
 				            closable: false,
-				            message: 'Votre activitÃ© a Ã©tÃ© ajoutÃ©e',
+				            message: 'Votre activité a été ajoutée',
 				            buttons: [{
 				                label: 'Ok',
 				                action: function(dialog) {
@@ -347,7 +344,7 @@
 				var msg = nombreCaractere + '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
 
 				$('#nbr').text(msg);
-				// Le script qui devra calculer et afficher le nombre de mots et de caractÃ¨res
+				// Le script qui devra calculer et afficher le nombre de mots et de caractères
 
 			})
 
