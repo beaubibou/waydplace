@@ -31,83 +31,54 @@
 <link href="/waydplace/css/boutton.css" rel="stylesheet" media="all"
 	type="text/css">
 
-<style>
-body, html {
-	height: 100%;
-	margin: 0;
-}
-
-.hero-image {
-	background-image: url("/waydplace/img/waydfond.jpg");
-	height: 100%;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	position: relative;
-}
-
-.hero-text {
-	text-align: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	color: white;
-}
-
-
-
-.hero-text button:hover {
-	background-color: #555;
-	color: white;
-}
-
-#jumbo {
-	/* IE8 and below */
-	background: rgb(255, 173, 64);
-	/* all other browsers */
-	background: rgba(255, 173, 64, 0.5);
-}
-</style>
 
 </head>
 <body>
 
+	<div class="row">
+		<div class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5 ">
 
-	<div class="hero-image">
+			<img src='/waydplace/img/waydLogoHD.png'
+				class="img-rounded img-responsive">
+		</div>
+	</div>
 
-			<div class="hero-text">
-				<div class="container">
-					<div class="jumbotron" id="jumbo">
+	
 
-						<img src="/waydplace/img/waydLogoHD.png" alt="Cinque Terre"
-							style="width: 30%">
-					
-						<form id="formulaire" onsubmit="return connexionSite()">
-						
-								<input name="action" type="hidden"
-							value=<%=ConnexionMembre.VALIDE_SITE%>> 
-					
-							<div class="form-group">
-								<div class="col-xs-8 col-md-4 col-md-offset-4 ">
-									<input type="text" class="form-control" id="codeSite" name="codeSite"
-										placeholder='Code site'>
-								</div>
-									<div class="col-xs-4 col-md-2  ">
-								 	<button  type="submit"  class="btn btnwayd" >Ok</button>
-							
-							</div>
-							</div>
-							
-							
-							</form>
-							
-					</div>
+	<form id="formulaire" onsubmit="return connexionSite()">
 
-					
-				</div>
+		<input name="action" type="hidden"
+			value=<%=ConnexionMembre.VALIDE_SITE%>>
+
+
+		<div class="form-group">
+			<div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4 ">
+				<input type="text" class="form-control" id="codeSite"
+					name="codeSite" placeholder='Code site'>
 			</div>
-		
+			</div>
+<div class="form-group">
+			<div class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
+			
+				 	<button style="margin-top:2px;" type="submit"  class="btn-lg btnwayd btn-block " >Ok</button>
+
+		</div>
+	</div>	
+
+
+	</form>
+
+<div class="row">
+		<div  class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4">
+
+			<div class="jumbotron jumbotron-style">
+
+				<h3>Wayplace!!</h3>
+				<p>
+					Demander le code site, et accéder aux activités. Proposez au autres
+				<p>
+			</div>
+		</div>
 	</div>
 
 <script type="text/javascript">

@@ -117,19 +117,16 @@
 						</div>
   	<h3 class="omb_authTitle">Login or <a href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>">Sign up</a></h3>
 		<div class="row omb_row-sm-offset-3 omb_socialButtons">
-    	    <div class="col-xs-4 col-sm-2">
+    	    <div class="col-xs-3 col-sm-2">
 		        <a href="#" class="btn btn-lg btn-block omb_btn-facebook">
 			        <i class="fa fa-facebook visible-xs"></i>
 			        <span class="hidden-xs">Facebook</span>
 		        </a>
 	        </div>
-        	<div  class="col-xs-4 col-sm-2">
-		        <a hidden href="#" class="btn btn-lg btn-block omb_btn-twitter">
-			        <i class="fa fa-twitter visible-xs"></i>
-			        <span class="hidden-xs">Twitter</span>
-		        </a>
+        	<div  align='center' class="col-xs-5 col-sm-2">
+		        <button type="button" class="btn btnwayd" onclick="signInTestAnonyme()">Visiteur</button>
 	        </div>	
-        	<div class="col-xs-4 col-sm-2">
+        	<div class="col-xs-3 col-sm-2">
 		        <a onclick="signInGoogle()" class="btn btn-lg btn-block omb_btn-google">
 			        <i class="fa fa-google-plus visible-xs"></i>
 			        <span class="hidden-xs">Google+</span>

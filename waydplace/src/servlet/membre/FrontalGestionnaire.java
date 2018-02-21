@@ -1034,7 +1034,7 @@ public class FrontalGestionnaire extends HttpServlet {
 					if (!fi.isFormField()) {
 						BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
-						BufferedImage imBuff = resize(tmp, 300, 200);
+						BufferedImage imBuff = resize(tmp);
 
 						String stringPhoto = encodeToString(imBuff, "jpeg");
 
@@ -1088,7 +1088,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 						BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
-						BufferedImage imBuff = resize(tmp, 300, 200);
+						BufferedImage imBuff = resize(tmp);
 
 						String stringPhoto = encodeToString(imBuff, "jpeg");
 
@@ -1118,9 +1118,11 @@ public class FrontalGestionnaire extends HttpServlet {
 		return new MessageAction(false, "erreur inconnue");
 	}
 
-	public static BufferedImage resize(BufferedImage img, int newW, int newH)
+	public static BufferedImage resize(BufferedImage img)
 			throws IOException {
-		return Thumbnails.of(img).forceSize(newW, newH).outputQuality(1)
+		
+
+		return Thumbnails.of(img).width(240).outputQuality(0.8)
 				.asBufferedImage();
 
 	}

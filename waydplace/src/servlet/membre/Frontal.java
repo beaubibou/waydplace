@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.resizers.Resizer;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -560,6 +561,11 @@ public class Frontal extends HttpServlet {
 
 			break;
 
+		case REDIRECTION_DETAIL_SITE:
+
+			redirectionDetailSite(profil, request, response);
+			break;
+
 		case REFRESH_RECHERCHE_NEWS_MEMBRE:
 
 			refreshRechercheNewsMembre(profil, response, request);
@@ -1011,8 +1017,8 @@ public class Frontal extends HttpServlet {
 					if (!fi.isFormField()) {
 						BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
-					//	BufferedImage imBuff = resize(tmp, 300, 250);
-						BufferedImage imBuff = tmp;
+						BufferedImage imBuff = resize(tmp);
+					//	BufferedImage imBuff = tmp;
 						
 						String stringPhoto = encodeToString(imBuff, "jpeg");
 
@@ -1059,9 +1065,11 @@ public class Frontal extends HttpServlet {
 		return imageString;
 	}
 
-	public static BufferedImage resize(BufferedImage img, int newW, int newH)
+	public static BufferedImage resize(BufferedImage img)
 			throws IOException {
-		return Thumbnails.of(img).forceSize(newW, newH).outputQuality(1)
+		
+
+		return Thumbnails.of(img).width(240).outputQuality(0.8)
 				.asBufferedImage();
 
 	}
@@ -1076,7 +1084,7 @@ public class Frontal extends HttpServlet {
 
 		DiscussionDAO
 				.ajouteDiscussion(idActivite, uidEmetteur, uidDestinataire);
-
+ 
 		MessageDAO.ajouteMessage(uidEmetteur, uidDestinataire, message,
 				idActivite);
 
