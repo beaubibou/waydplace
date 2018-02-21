@@ -88,9 +88,10 @@
 		<div class="omb_login">
 			<div class="row">
 				<div class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5 ">
-
-					<img src='/waydplace/img/waydLogoHD.png'
+					<a href="<%=ConnexionMembre.ACTION_REDIRECTION_LOGIN%>">
+						<img src='/waydplace/img/waydLogoHD.png'
 						class="img-rounded img-responsive">
+					</a>
 				</div>
 			</div>
 			<h3 class="omb_authTitle">

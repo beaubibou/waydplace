@@ -159,10 +159,10 @@
 
 			<div class="row">
 				<div
-					style="background-color: white; background-color: #ffeecc; border: 5px solid #fff;"
-					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
-					<div class="page-header"></div>
-					<div class="comments-list">
+					
+					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items">
+				
+					<div style='padding-top:8px' class="comments-list">
 						<div class="media">
 							<p class="pull-right">
 								<small><%=messageActivite.getDateCreationStr()%></small>

@@ -1,10 +1,12 @@
 package tag;
 
 import parametre.Parametres;
+import servlet.membre.ConnexionMembre;
 import servlet.membre.Frontal;
 import servlet.membre.FrontalCommun;
 import text.pageweb.MenuGestionnaireText;
 import bean.Profil;
+import bean.Site;
 import dao.MessageDAO;
 import dao.NewDAO;
 
@@ -13,7 +15,7 @@ public class MenuMembre {
 	private static final String LIEN_DETAIL_SITE_MEMBRE = "<li><a href='/waydplace/Frontal?action="
 			+ Frontal.REDIRECTION_DETAIL_SITE + "'>Site</a></li>";
 
-	private static final String LIEN_CONNEXION = "<li><a href='/waydplace/index.jsp'><span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
+	private static final String LIEN_CONNEXION = "<li><a href='/waydplace/compte/Connexion.jsp'><span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
 
 	private static final String LIEN_ALERTE_NEWS= "<li><span class='glyphicon glyphicon-exclamation-sign'></span></li>";
 
@@ -156,8 +158,8 @@ public class MenuMembre {
 
 		case Parametres.TYPE_ORGANISATEUR_VISITEUR:
 
-			lien = LIEN_CONNEXION;
-
+			lien =  "<li><a href='"+ConnexionMembre.ACTION_REDIRECTION_CONNEXION+profil.getSite().getJeton()+"'><"
+					+ "span class='glyphicon glyphicon-log-in'></span> Connexion</a></li>";
 			break;
 
 		case Parametres.TYPE_ORGANISATEUR_SITE:

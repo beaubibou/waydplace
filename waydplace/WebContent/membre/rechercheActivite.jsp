@@ -254,7 +254,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 
 
 		<div class="row" onclick="document.location='<%=lienDetailActivite%>'">
-			<div style="background-color:#FFFFFF;"class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+			<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items">
 				<div class="page-header">
 					<h2>
 						<small class="pull-right"> <%=activite.getPanelActionParticipationHtml(profil, activite.getUid_membre())%></small>

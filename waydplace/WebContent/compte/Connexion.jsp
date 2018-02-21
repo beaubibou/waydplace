@@ -124,7 +124,7 @@
 		        </a>
 	        </div>
         	<div  align='center' class="col-xs-5 col-sm-2">
-		        <button type="button" class="btn btnwayd" onclick="signInTestAnonyme()">Visiteur</button>
+		        <button type="button" class="btn btn-lg btn-block omb_btn_wayd" onclick="signInTestAnonyme()">Visiteur</button>
 	        </div>	
         	<div class="col-xs-3 col-sm-2">
 		        <a onclick="signInGoogle()" class="btn btn-lg btn-block omb_btn-google">

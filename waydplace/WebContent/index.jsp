@@ -34,16 +34,32 @@
 
 </head>
 <body>
+	<div class="container">
 
-	<div class="row">
+<div class="row">
 		<div class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5 ">
-
+<a href="#">
 			<img src='/waydplace/img/waydLogoHD.png'
-				class="img-rounded img-responsive">
+				class="img-rounded img-responsive"></a>
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4">
+
+			<div class="jumbotron jumbotron-style">
+
+
+				<h3>Wayplace!!</h3>
+				<p>Demander le code site, et accéder aux activités. Proposez au
+					autres
+				<p>
+			</div>
+		</div>
+	</div>
 	
+
+
 
 	<form id="formulaire" onsubmit="return connexionSite()">
 
@@ -54,34 +70,23 @@
 		<div class="form-group">
 			<div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4 ">
 				<input type="text" class="form-control" id="codeSite"
-					name="codeSite" placeholder='Code site'>
+					name="codeSite" placeholder='Code site' value="aaaa">
 			</div>
-			</div>
-<div class="form-group">
-			<div class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
-			
-				 	<button style="margin-top:2px;" type="submit"  class="btn-lg btnwayd btn-block " >Ok</button>
-
 		</div>
-	</div>	
+		<div class="form-group">
+			<div class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
+
+				<button style="margin-top: 10px;" type="submit"
+					class="btn-lg btnwayd btn-block ">Ok</button>
+
+			</div>
+		</div>
 
 
 	</form>
 
-<div class="row">
-		<div  class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4">
-
-			<div class="jumbotron jumbotron-style">
-
-				<h3>Wayplace!!</h3>
-				<p>
-					Demander le code site, et accéder aux activités. Proposez au autres
-				<p>
-			</div>
-		</div>
-	</div>
-
-<script type="text/javascript">
+</div>
+	<script type="text/javascript">
 	
 function connexionSite() {
 
@@ -102,16 +107,16 @@ function connexionSite() {
 													label : 'Ok',
 													action : function(dialog) {
 														dialog.close();
-														location.href = "<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION%>"+codeSite;
+														location.href = "<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION%>"
+																+ codeSite;
 														//  dialog.setMessage('Message 1');
-								 					}
+													}
 
 												} ]
 											});
 
 								} else {
 
-									 
 									BootstrapDialog.alert(responseText);
 								}
 

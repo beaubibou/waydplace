@@ -385,7 +385,6 @@ public class Frontal extends HttpServlet {
 
 			case Parametres.TYPE_ORGANISATEUR_SITE:
 
-			//	String lienRetour = getLienRetour(profil, from);
 				String lienRetour ="";
 				request.setAttribute("back", lienRetour);
 				request.getRequestDispatcher("membre/detailActiviteSite.jsp")
@@ -395,7 +394,6 @@ public class Frontal extends HttpServlet {
 
 			case Parametres.TYPE_ORGANISATEUR_MEMBRE:
 				lienRetour="";
-				//lienRetour = getLienRetour(profil, from);
 				request.setAttribute("back", lienRetour);
 				request.getRequestDispatcher("membre/detailActiviteMembre.jsp")
 						.forward(request, response);
@@ -561,9 +559,15 @@ public class Frontal extends HttpServlet {
 
 			break;
 
+		case REDIRECTION_DETAIL_ACTIVITE:
+
+			redirectionDetailActivite(profil, request, response);
+			break;
+			
 		case REDIRECTION_DETAIL_SITE:
 
 			redirectionDetailSite(profil, request, response);
+
 			break;
 
 		case REFRESH_RECHERCHE_NEWS_MEMBRE:

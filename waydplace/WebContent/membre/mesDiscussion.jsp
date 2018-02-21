@@ -134,8 +134,8 @@
 			<div
 				onclick="document.location='<%=discussion.lienHtmlMessageDiscussion(profil)%>'"
 				class="row">
-				<div style="background-color: white"
-					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
+				<div 
+					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items">
 					<div class="page-header">
 						<h2>
 							<small class="pull-right"></small>

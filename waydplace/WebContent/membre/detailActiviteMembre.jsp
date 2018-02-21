@@ -102,10 +102,11 @@
 						<div class="brand-name-wrapper">
 							<a class="navbar-brand" href="#"> Activite Membre </a>
 						</div>
-						<a  href="javascript:history.back()" class="btn btn-default"
-							id="search-trigger"> <span class="glyphicon glyphicon-arrow-left"></span>
+						<a href="javascript:history.back()" class="btn btn-default"
+							id="search-trigger"> <span
+							class="glyphicon glyphicon-arrow-left"></span>
 						</a>
-					
+
 					</div>
 
 				</div>
@@ -137,6 +138,13 @@
 					<img src='<%=activite.getURLPhoto()%>'
 						class="img-rounded img-responsive">
 				</div>
+					<div 
+					class="col-xs-1  col-md-1 ">
+				
+					<%=activite.getPanelActionParticipationHtml(profil,
+					activite.getUid_membre())%>
+					</div>
+					
 			</div>
 
 
@@ -160,16 +168,16 @@
 					<div class="form-group">
 						<div
 							class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
-							<label for="tel">Tèl:</label> <input
-								style='background-color: white;' disabled type="text"
-								class="form-control" id="tel" value="<%=activite.getHoraireLigne()%>">
+							<input style='background-color: white;' disabled type="text"
+								class="form-control" id="tel"
+								value="<%=activite.getHoraireLigne()%>">
 
 						</div>
 					</div>
 				</div>
 			</div>
 
-	
+
 
 			<div class="row">
 				<div class="form-group">
@@ -185,9 +193,8 @@
 					</div>
 				</div>
 			</div>
-
-
-		</div>
+</div>
+	
 	</div>
 </body>
 
