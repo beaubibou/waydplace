@@ -1,4 +1,5 @@
 
+<%@page import="parametre.Parametres"%>
 <%@page import="bean.Profil"%>
 <%@page import="pager.PagerActivite"%>
 <%@page import="critere.CritereTypeActivite"%>
@@ -253,7 +254,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 		%>
 
 
-		<div class="row" onclick="document.location='<%=lienDetailActivite%>'">
+		<div  class="row ligneitem" onclick="document.location='<%=lienDetailActivite%>'">
 			<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items">
 				<div class="page-header">
 					<h2>
@@ -266,7 +267,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 						<p class="pull-right">
 							<small><%=activite.getHoraireLeA()%></small>
 						</p>
-						<a class="media-left "> <img style="width: 120px;"
+						<a class="media-left "> <img style="width: 120px;" class="<%=Parametres.STYLE_IMAGE_MEDIA %>"
 							src="<%=activite.getURLPhoto()%>">
 						</a>
 						<div class="media-body">

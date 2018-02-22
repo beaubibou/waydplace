@@ -1,7 +1,6 @@
 package servlet.membre;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,17 +10,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.google.gson.Gson;
-
-import dao.ActiviteDAO;
-import dao.MembreDAO;
-import dao.SiteDAO;
-import pager.PagerActivite;
 import parametre.Parametres;
-import bean.Activite;
 import bean.Membre;
 import bean.Profil;
-import bean.Site;
+import dao.MembreDAO;
 
 /**
  * Servlet implementation class FrontalCommun
@@ -36,7 +28,7 @@ public class FrontalCommun extends HttpServlet {
 	public static final String FROM_MES_RECHERCHE_ACTIVITES_MEMBRES = "FROM_MES_RECHERCHE_ACTIVITES_MEMBRES";
 	public static final String FROM_MES_ACTIVITES_GESTIONNAIRE = "FROM_MES_ACTIVITES_GESTIONNAIRE";
 	public static final String FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE = "FROM_MES_RECHERCHE_ACTIVITES_GESTIONNAIRE";
-
+	private static final String TEXT_PLAIN="text/plain";
 	public FrontalCommun() {
 		super();
 	}
@@ -145,48 +137,12 @@ public class FrontalCommun extends HttpServlet {
 		if (messageAlert != null)
 			monMessage = messageAlert;
 
-		response.setContentType("text/plain");
+		response.setContentType(TEXT_PLAIN);
 		response.getWriter().write(monMessage);
 
 	}
 
-	private void redirectionDetailActivite(Profil profil,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
 
-		Activite activite = getActivite(request);
-		request.setAttribute("activite", activite);
-		String from = request.getParameter("from");
-
-		if (activite == null) {
-			profil.setMessageDialog("L'activite a été est supprimée.");
-			response.sendRedirect("membre/rechercheActivite.jsp");
-			return;
-		}
-
-		
-		switch (activite.getId_ref_type_organisateur()) {
-
-		case Parametres.TYPE_ORGANISATEUR_SITE:
-
-			String lienRetour = getLienRetour(profil, from);
-			request.setAttribute("back", lienRetour);
-			request.getRequestDispatcher("commun/detailActiviteSite.jsp")
-					.forward(request, response);
-
-			break;
-
-		case Parametres.TYPE_ORGANISATEUR_MEMBRE:
-
-			lienRetour = getLienRetour(profil, from);
-			request.setAttribute("back", lienRetour);
-			request.getRequestDispatcher("commun/detailActiviteMembre.jsp")
-					.forward(request, response);
-
-			break;
-		}
-
-	}
 
 	private String getLienRetour(Profil profil, String from) {
 	
@@ -245,33 +201,8 @@ public class FrontalCommun extends HttpServlet {
 		return retour;
 	}
 
-	
 
 	
-
-
-	private Activite getActivite(HttpServletRequest request) {
-
-		Activite retour = null;
-		int idActivite = 0;
-
-		try {
-
-			idActivite = Integer.parseInt(request.getParameter("idactivite"));
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-
-			return retour;
-
-		}
-		String uidMembre = request.getParameter("idmembre");
-		retour = ActiviteDAO.getActivite(idActivite, uidMembre);
-
-		return retour;
-	}
-
 	private Membre getMembre(HttpServletRequest request, Profil profil) {
 
 		Membre membre;

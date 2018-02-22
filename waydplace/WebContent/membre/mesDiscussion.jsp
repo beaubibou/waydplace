@@ -1,4 +1,5 @@
 
+<%@page import="parametre.Parametres"%>
 <%@page import="bean.Profil"%>
 <%@page import="bean.Discussion"%>
 <%@page import="bean.ListDiscussion"%>
@@ -133,7 +134,7 @@
 
 			<div
 				onclick="document.location='<%=discussion.lienHtmlMessageDiscussion(profil)%>'"
-				class="row">
+				class="row ligneitem">
 				<div 
 					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items">
 					<div class="page-header">
@@ -147,7 +148,7 @@
 							<p class="pull-right">
 								<small><%=discussion.getDateDernierMessage()%></small>
 							</p>
-							<a class="media-left "> <img style="width: 60px"
+							<a class="media-left "> <img style="width:60px" class="<%=Parametres.STYLE_IMAGE_MEDIA %>"
 								src="<%=discussion.getPhotoInterlocuteurURL(profil)%>">
 							</a>
 							<div class="media-body">

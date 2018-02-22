@@ -98,14 +98,15 @@
 
 						<!-- Brand -->
 						<div class="brand-name-wrapper">
-							<a class="navbar-brand" href="#">  Activite site </a>
+							<a class="navbar-brand" href="#"> Activité site </a>
 						</div>
-						
-						<a  href="javascript:history.back()" class="btn btn-default"
-							id="search-trigger"> <span class="glyphicon glyphicon-arrow-left"></span>
+
+						<a href="javascript:history.back()" class="btn btn-default"
+							id="search-trigger"> <span
+							class="glyphicon glyphicon-arrow-left"></span>
 						</a>
 
-					
+
 					</div>
 
 				</div>
@@ -131,12 +132,13 @@
 
 
 			<div class="row">
-				<div align="center"
+				<div align="center" 
 					class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
 
-					<img src='<%=activite.getURLPhoto()%>'
-						class="img-rounded img-responsive">
+					<img src='<%=activite.getURLPhoto()%>' 
+						class="img-circle img-thumbnail img-responsive">
 				</div>
+
 			</div>
 
 
@@ -162,22 +164,23 @@
 							class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
 							<label for="tel">Tèl:</label> <input
 								style='background-color: white;' disabled type="text"
-								class="form-control" id="tel" value="<%=activite.getHoraireLigne()%>">
+								class="form-control" id="tel"
+								value="<%=activite.getHoraireLigne()%>">
 
 						</div>
 					</div>
 				</div>
 			</div>
 
-	
+
 
 			<div class="row">
 				<div class="form-group">
 					<div class="form-group">
 						<div
 							class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 ">
-							<label for="description">Description</label>
-							<textarea id='description' disabled
+								<label for="description">Description</label>
+							<textarea id='description'  disabled
 								style='background-color: white;' class="form-control" rows="5"><%=activite.getLibelle()%></textarea>
 
 
@@ -185,12 +188,65 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="form-group">
 
+						<div 
+							class="col-xs-12  col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-4 ">
+
+						<%=activite.getInteretHTML(profil) %>
+						</div>
+
+					</div>
+				</div>
+			</div>
 
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
 
+function likeActivite(){
+	
+
+	$.get("<%=activite.getLienLike(profil)%>" ,
+			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+				if (responseText == 'ok')
+				{
+					BootstrapDialog.show({
+			            title: 'Confirmation',
+			            closable: false,
+			            message: 'Votre intèret a été pris en compte',
+			            buttons: [{
+			                label: 'Ok',
+			                action: function(dialog) {
+			                	
+			               	dialog.close();
+			               	document.getElementById("formulaire").reset(); 
+			                location.href='<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>'
+			                  //  dialog.setMessage('Message 1');
+			                }
+			            
+			            }]
+			        }); 
+					
+					
+				}
+				else
+				{
+					
+					BootstrapDialog.alert(responseText);
+				}
+
+				
+
+			});	
+	
+	
+	
+}
+</script>
 
 
 

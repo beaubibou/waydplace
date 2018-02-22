@@ -100,7 +100,7 @@
 
 						<!-- Brand -->
 						<div class="brand-name-wrapper">
-							<a class="navbar-brand" href="#"> Activite Membre </a>
+							<a class="navbar-brand" href="#"> Activité Membre </a>
 						</div>
 						<a href="javascript:history.back()" class="btn btn-default"
 							id="search-trigger"> <span
@@ -136,7 +136,7 @@
 					class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
 
 					<img src='<%=activite.getURLPhoto()%>'
-						class="img-rounded img-responsive">
+						class="<%=Parametres.STYLE_IMAGE%>">
 				</div>
 					<div 
 					class="col-xs-1  col-md-1 ">

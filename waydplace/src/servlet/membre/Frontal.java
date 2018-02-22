@@ -5,11 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.resizers.Resizer;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -33,7 +30,6 @@ import outils.Outils;
 import pager.PagerActivite;
 import pager.PagerMesActivites;
 import pager.PagerNew;
-import parametre.ActionPage;
 import parametre.MessageText;
 import parametre.Parametres;
 import sun.misc.BASE64Encoder;
@@ -44,7 +40,6 @@ import bean.Activite;
 import bean.ListMessage;
 import bean.Membre;
 import bean.MessageAction;
-import bean.MessageActivite;
 import bean.Profil;
 import bean.Site;
 import dao.ActiviteDAO;
@@ -59,6 +54,7 @@ import dao.SiteDAO;
  * Servlet implementation class Frontal
  */
 public class Frontal extends HttpServlet {
+	private static final String TEXT_PLAIN="text/plain";
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(Frontal.class);
 	public static final String REDIRECTION_PROPOSER_ACTIVITE_MEMBRE = "proposerActiviteMembre";
@@ -95,7 +91,7 @@ public class Frontal extends HttpServlet {
 	public static final String REDIRECTION_INSCRIPTION_MEMBRE = "REDIRECTION_INSCRIPTION_MEMBRE";
 	public static final String REDIRECTION_NEWS_MEMBRE = "REDIRECTION_NEWS_MEMBRE";
 	public static final String REFRESH_RECHERCHE_NEWS_MEMBRE = "REFRESH_RECHERCHE_NEWS_MEMBRE";
-	public static final String AJOUTER_INTERET_MEMBRE = "AJOUTER_INTERET_GESTIONNAIRE";
+	public static final String AJOUTER_INTERET_MEMBRE = "AJOUTER_INTERET_MEMBRE";
 
 	public static final String ACTION_REDIRECTION_PROPOSER = "/waydplace/Frontal?action="
 			+ REDIRECTION_PROPOSER_ACTIVITE_MEMBRE;
@@ -513,22 +509,30 @@ public class Frontal extends HttpServlet {
 	}
 
 	private MessageAction ajouteInteretMembre(Profil profil,
-			HttpServletResponse response, HttpServletRequest request) {
+			HttpServletResponse response, HttpServletRequest request) throws IOException {
 
 		String uid = request.getParameter("uid");
 		int idActivite = Integer.parseInt(request.getParameter("idActivite"));
 
+	
 		if (!InteretDAO.isInteret(uid, idActivite)) {
 
-			return new MessageAction(false,
-					"Vous avez déja like cette activité");
+			InteretDAO.ajouteInteret(idActivite, uid, 0);
+			response.setContentType(TEXT_PLAIN);
+			response.getWriter().write("ok");
+			return new MessageAction(false, "");
 
 		} else {
 
-			InteretDAO.ajouteInteret(idActivite, uid, 0);
-			return new MessageAction(true, "ok");
-
+			response.setContentType(TEXT_PLAIN);
+			response.getWriter().write("Vous avez déja like cette activité");
+			return new MessageAction(true, "");
 		}
+		
+		
+		
+		
+	
 
 	}
 
@@ -763,12 +767,12 @@ public class Frontal extends HttpServlet {
 
 		if (modifierActiviteMembre.isOk()) {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(modifierActiviteMembre.getMessage());
 		}
 	}
@@ -782,12 +786,12 @@ public class Frontal extends HttpServlet {
 
 		if (modifierCompteMembre.isOk()) {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(modifierCompteMembre.getMessage());
 		}
 	}
@@ -892,12 +896,12 @@ public class Frontal extends HttpServlet {
 
 		if (ajouteActiviteMembre.isOk()) {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(ajouteActiviteMembre.getMessage());
 		}
 
@@ -963,7 +967,9 @@ public class Frontal extends HttpServlet {
 		String idactiviteStr = request.getParameter("idactivite");
 		String uidPour = request.getParameter("uid_pour");
 		String uidAvec = request.getParameter("uid_avec");
+		
 		String message = request.getParameter("message");
+	
 		int idActivite = Integer.parseInt(idactiviteStr);
 
 		String lastaction = request.getParameter("ieip");
@@ -1022,7 +1028,6 @@ public class Frontal extends HttpServlet {
 						BufferedImage tmp = ImageIO.read(fi.getInputStream());
 
 						BufferedImage imBuff = resize(tmp);
-					//	BufferedImage imBuff = tmp;
 						
 						String stringPhoto = encodeToString(imBuff, "jpeg");
 
@@ -1129,10 +1134,14 @@ public class Frontal extends HttpServlet {
 	private MessageAction modifierCompteMembre(HttpServletRequest request,
 			Profil profil) {
 
-		String pseudo = request.getParameter("pseudo");
+		String pseudo = Outils.convertISO85591(request.getParameter("pseudo"));
+		
 		pseudo = pseudo.trim();
-		String description = request.getParameter("commentaire");
-
+		
+		String description = Outils.convertISO85591(request.getParameter("commentaire"));
+	
+		
+		
 		String uid = request.getParameter("uid");
 		String idtypeGenreStr = request.getParameter("typeGenre");
 
@@ -1187,9 +1196,9 @@ public class Frontal extends HttpServlet {
 	private MessageAction modifierActiviteMembre(HttpServletRequest request,
 			Profil profil) {
 
-		String titre = request.getParameter("titre");
-		String libelle = request.getParameter("description");
-
+		String titre = Outils.convertISO85591(request.getParameter("titre"));
+		String libelle = Outils.convertISO85591(request.getParameter("description"));
+	
 		titre = titre.trim();
 
 		int idRefTypeActivite = 0;
@@ -1424,10 +1433,9 @@ public class Frontal extends HttpServlet {
 	private MessageAction ajouterActiviteMembre(HttpServletRequest request,
 			Profil profil) {
 
-		String titre = request.getParameter("titre");
-
-		LOG.info("itre"+titre);
-		String libelle = request.getParameter("description");
+		String titre = Outils.convertISO85591(request.getParameter("titre"));
+		String libelle = Outils.convertISO85591(request.getParameter("description"));
+	
 		titre = titre.trim();
 
 		int idRefTypeActivite = 0;

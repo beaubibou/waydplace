@@ -230,18 +230,9 @@
 					<button onclick="ajouteActivite()" class="btnwayd btn-lg">Proposer</button>
 				</div>
 			</div>
-
-
-
-
-
 		</div>
 
 	</div>
-
-
-
-
 
 </body>
 

@@ -1,4 +1,5 @@
 
+<%@page import="parametre.Parametres"%>
 <%@page import="bean.ListMessage"%>
 <%@page import="bean.MessageActivite"%>
 <%@page import="critere.CritereEtatActivite"%>
@@ -157,7 +158,7 @@
 			%>
 
 
-			<div class="row">
+			<div class="row ligneitem">
 				<div
 					
 					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items">
@@ -167,7 +168,7 @@
 							<p class="pull-right">
 								<small><%=messageActivite.getDateCreationStr()%></small>
 							</p>
-							<a class="media-left "> <img style="width: 60px"
+							<a class="media-left "> <img style="width: 60px" class="<%=Parametres.STYLE_IMAGE_MEDIA %>
 								src="<%=listMessage.getPhotoURL(messageActivite.getUid_avec())%>">
 							</a>
 							<div class="media-body">

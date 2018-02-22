@@ -1,4 +1,5 @@
 
+<%@page import="parametre.Parametres"%>
 <%@page import="bean.Profil"%>
 <%@page import="bean.RefTypeGenre"%>
 <%@page import="text.pageweb.CompteMembre"%>
@@ -130,7 +131,7 @@
 					<div class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
 
 						<img src='<%=profil.getMembre().getURLPhoto()%>'
-							class="img-rounded img-responsive">
+							class="<%=Parametres.STYLE_IMAGE%>">
 					</div>
 				</div>
 				

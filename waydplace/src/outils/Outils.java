@@ -1,5 +1,6 @@
 package outils;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -107,10 +108,11 @@ public class Outils {
 
 		try {
 
-			int tel = Integer.parseInt(telephone);
+			 Integer.parseInt(telephone);
 
 		} catch (Exception e) {
-
+			
+			e.printStackTrace();
 			return false;
 		}
 
@@ -127,4 +129,16 @@ public class Outils {
 
 	}
 
+	public static String convertISO85591(String chaine){
+		
+		
+		try {
+			return  new String ( chaine.getBytes("ISO-8859-1"),"UTF-8"  );
+		} catch (UnsupportedEncodingException e) {
+		
+			
+			e.printStackTrace();
+			return "Conversion impossible";
+		}
+	}
 }

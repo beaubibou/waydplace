@@ -51,6 +51,11 @@ public class Activite {
 		return false;
 	}
 
+	public String getLienLike(Profil profil){
+		
+		return  "/waydplace/Frontal?action="+Frontal.AJOUTER_INTERET_MEMBRE+"&uid="+profil.getUID()+"&idActivite="+id;
+		
+	}
 	public boolean isOrganistateur(String uid) {
 
 		if (uid_membre.equals(uid))
@@ -528,10 +533,14 @@ public String getDetailEnteteMembreHtml(){
 
 public String getInteretHTML(Profil profil){
 	
-	String lien="/waydplace/Frontal?action="+Frontal.AJOUTER_INTERET_MEMBRE+"&uid="+profil.getUID()+"&idActivite="+id;
+	if (profil.getTypeOrganisteur()==Parametres.TYPE_ORGANISATEUR_MEMBRE){
+		return "<p>	<button onclick='likeActivite()' type='button'  class='btn btn-default btnwayd'><span "
+				+ "class='glyphicon glyphicon-thumbs-up'></span> Intéressé</button></p>";
+
+	}
 	
-	return "<p align='right'>Intéressé ? <a href='"+lien+"'<button type='button' class='btn btn-info'>   <span class='glyphicon glyphicon-thumbs-up'></span> "
-			+ " </button></a></p>";
+	return "";
+	
 }
 
 }

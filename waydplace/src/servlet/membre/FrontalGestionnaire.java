@@ -96,6 +96,8 @@ public class FrontalGestionnaire extends HttpServlet {
 	public static final String REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE = "REDIRECTION_PROPOSER_NOTIFICATION_GESTIONNAIRE";
 	public static final String REDIRECTION_PROPOSER_NEW_GESTIONNAIRE = "REDIRECTION_PROPOSER_NEW_GESTIONNAIRE";
 	public static final String REDIRECTION_NEWS_GESTIONNAIRE = "REDIRECTION_NEWS_GESTIONNAIRE";
+	private static final String TEXT_PLAIN="text/plain";
+	
 
 
 	public static final String ACTION_REDIRECTION_MES_ACTIVITE_GESTIONNAIRE = "/waydplace/FrontalGestionnaire?action="
@@ -416,20 +418,20 @@ public class FrontalGestionnaire extends HttpServlet {
 				request, profil);
 
 		if (modifierNewsGestionnaire.isOk()) {
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(modifierNewsGestionnaire.getMessage());
 		}
 	}
 
 	private MessageAction modifierNewsGestionnaire(HttpServletRequest request,
 			Profil profil) {
-		String titre = request.getParameter("titre");
-		String message = request.getParameter("message");
+		String titre = Outils.convertISO85591(request.getParameter("titre"));
+		String message = Outils.convertISO85591(request.getParameter("message"));
 
 		titre = titre.trim();
 	//	message = message.trim();
@@ -625,7 +627,7 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(
 					ajoutePlusieursActiviteGestionnaire.getMessage());
 		}
@@ -640,12 +642,12 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		if (ajouteActiviteGestionnaire.isOk()) {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(ajouteActiviteGestionnaire.getMessage());
 		}
 	}
@@ -659,12 +661,12 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		if (ajouteNewGestionnaire.isOk()) {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(ajouteNewGestionnaire.getMessage());
 		}
 	}
@@ -672,9 +674,10 @@ public class FrontalGestionnaire extends HttpServlet {
 	private MessageAction ajouterNewGestionnaire(HttpServletRequest request,
 			HttpServletResponse response, Profil profil) {
 
-		String titre = request.getParameter("titre");
-		String message = request.getParameter("message");
-	//	message = message.trim();
+		String titre =Outils.convertISO85591( request.getParameter("titre"));
+		String message = Outils.convertISO85591( request.getParameter("message"));
+	
+		
 		titre = titre.trim();
 
 		MessageAction vpAjouteNewGestionnaire = vpAjouteNewGestionnaire(titre,
@@ -854,12 +857,12 @@ public class FrontalGestionnaire extends HttpServlet {
 				request, profil);
 
 		if (modifierActivitGestionnaire.isOk()) {
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter()
 					.write(modifierActivitGestionnaire.getMessage());
 		}
@@ -874,12 +877,12 @@ public class FrontalGestionnaire extends HttpServlet {
 				request, profil);
 
 		if (modifierCompteGestionnaire.isOk()) {
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(modifierCompteGestionnaire.getMessage());
 		}
 
@@ -904,11 +907,11 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		if (modifierSite.isOk()) {
 
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write("ok");
 
 		} else {
-			response.setContentType("text/plain");
+			response.setContentType(TEXT_PLAIN);
 			response.getWriter().write(modifierSite.getMessage());
 		}
 
@@ -953,14 +956,14 @@ public class FrontalGestionnaire extends HttpServlet {
 	private MessageAction modifierCompteGestionnaire(
 			HttpServletRequest request, Profil profil) {
 		LOG.info("modifie compte gestionaire");
-		String pseudo = request.getParameter("pseudo");
-		String description = request.getParameter("commentaire");
+		String pseudo =Outils.convertISO85591( request.getParameter("pseudo"));
+		String description = Outils.convertISO85591(request.getParameter("commentaire"));
 		String uid = request.getParameter("uid");
 		String idtypeGenreStr = request.getParameter("typeGenre");
 
+		
 		pseudo = pseudo.trim();
-	//	description = description.trim();
-
+	
 		String datedebut = request.getParameter("datenaissance");
 		DateTime datenaissanceDT = null;
 
@@ -968,7 +971,9 @@ public class FrontalGestionnaire extends HttpServlet {
 			datenaissanceDT = getDateFromString(datedebut);
 		} catch (ParseException e) {
 
+			
 			LOG.error(ExceptionUtils.getStackTrace(e));
+			return new MessageAction(false, e.getMessage());
 		}
 
 		Date dateNaissance = datenaissanceDT.toDate();
@@ -1145,10 +1150,10 @@ public class FrontalGestionnaire extends HttpServlet {
 	}
 
 	private MessageAction modifierSite(HttpServletRequest request, Profil profil) {
-		String nom = request.getParameter("nom");
-		String description = request.getParameter("description");
-		String adresse = request.getParameter("adresse");
-		String jetonSite = request.getParameter("jetonSite");
+		String nom = Outils.convertISO85591( request.getParameter("nom"));
+		String description = Outils.convertISO85591( request.getParameter("description"));
+		String adresse = Outils.convertISO85591( request.getParameter("adresse"));
+		String jetonSite = Outils.convertISO85591(request.getParameter("jetonSite"));
 		String telephone = request.getParameter("telephone");
 
 		nom = nom.trim();
@@ -1281,9 +1286,11 @@ public class FrontalGestionnaire extends HttpServlet {
 
 		HashMap<Integer, String> joursVoulus = new HashMap<Integer, String>();
 
-		String titre = request.getParameter("titre");
-		String libelle = request.getParameter("description");
+		String titre = Outils.convertISO85591(request.getParameter("titre"));
+		String libelle =Outils.convertISO85591( request.getParameter("description"));
 
+		
+		
 		libelle = libelle.trim();
 		titre = titre.trim();
 
@@ -1422,8 +1429,8 @@ public class FrontalGestionnaire extends HttpServlet {
 	private MessageAction modifierActiviteGestionnaire(
 			HttpServletRequest request, Profil profil) {
 
-		String titre = request.getParameter("titre");
-		String libelle = request.getParameter("description");
+		String titre = Outils.convertISO85591(request.getParameter("titre"));
+		String libelle = Outils.convertISO85591(request.getParameter("description"));
 		titre = titre.trim();
 		libelle = libelle.trim();
 
@@ -1593,9 +1600,10 @@ public class FrontalGestionnaire extends HttpServlet {
 			HttpServletRequest request, HttpServletResponse response,
 			Profil profil) {
 
-		String titre = request.getParameter("titre");
-		String libelle = request.getParameter("description");
-	//	libelle = libelle.trim();
+		String titre =	Outils.convertISO85591( request.getParameter("titre"));
+		String libelle =	Outils.convertISO85591( request.getParameter("description"));
+	
+			
 		titre = titre.trim();
 		int idRefTypeActivite = 0;
 

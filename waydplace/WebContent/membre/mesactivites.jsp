@@ -1,4 +1,5 @@
 
+<%@page import="parametre.Parametres"%>
 <%@page import="bean.Profil"%>
 <%@page import="critere.CritereEtatActivite"%>
 <%@page import="servlet.membre.FrontalCommun"%>
@@ -181,7 +182,7 @@
 			%>
 
 
-			<div class="row">
+			<div class="row ligneitem">
 				<div  class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items ">
 					<div   class="page-header">
 						<h2>
@@ -194,9 +195,9 @@
 							<p class="pull-right">
 								<small><%=activite.getHoraireLeA()%></small>
 							</p>
-							<a class="media-left "> <img style="width:120px;"
+							<div class="media-left"> <img style="width:120px;" class="<%=Parametres.STYLE_IMAGE_MEDIA %>"
 								src="<%=activite.getURLPhoto()%>">
-							</a>
+							</div>
 							<div class="media-body">
 
 								<h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur()%></h4>
