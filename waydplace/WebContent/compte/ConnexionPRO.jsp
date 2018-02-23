@@ -110,7 +110,7 @@
 									class="img-rounded img-responsive">
 							</div>
 						</div>
-  	<h3 class="omb_authTitle">Professionels <a href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>">S'inscrire</a></h3>
+  	<h4 class="omb_authTitle">Professionels <a href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_PRO%>">S'inscrire</a></h4>
 		
 
 		<div class="row omb_row-sm-offset-3 omb_loginOr">

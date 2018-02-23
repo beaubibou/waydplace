@@ -10,6 +10,6 @@ public class Parametres {
 	public static final int GENRE_HOMME = 1;
 	public static final String IMAGE_INCONNUE="/waydplace/img/inconnu.jpg";
 	public static final String STYLE_IMAGE="img-circle img-thumbnail img-responsive";
-	public static final String STYLE_IMAGE_MEDIA="media-object img-circle img-thumbnail img-responsive";
+	public static final String STYLE_IMAGE_MEDIA="media-object img-rounded  img-responsive";
 	
 }

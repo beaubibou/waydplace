@@ -118,17 +118,17 @@
 					</a>
 				</div>
 			</div>
-			<h3 class="omb_authTitle">
+			<h4 class="omb_authTitle">
 				Se connecter ou <a
 					href="<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_COMPTE_MEMBRE%>">S'inscrire</a>
-			</h3>
+			</h4>
 			<div class="row omb_row-sm-offset-3 omb_socialButtons">
 				<div class="col-xs-3 col-sm-2">
 					<a href="#" class="btn btn-lg btn-block omb_btn-facebook"> <i
 						class="fa fa-facebook visible-xs"></i> <span class="hidden-xs">Facebook</span>
 					</a>
 				</div>
-				<div align='center' class="col-xs-5 col-sm-2">
+				<div class="col-xs-6 col-sm-2">
 					<button type="button" class="btn btn-lg btn-block omb_btn_wayd"
 						onclick="signInTestAnonyme()">Visiteur</button>
 				</div>
@@ -143,7 +143,7 @@
 			<div class="row omb_row-sm-offset-3 omb_loginOr">
 				<div class="col-xs-12 col-sm-6">
 					<hr class="omb_hrOr">
-					<span class="omb_spanOr">or</span>
+					<span class="omb_spanOr">ou</span>
 				</div>
 			</div>
 

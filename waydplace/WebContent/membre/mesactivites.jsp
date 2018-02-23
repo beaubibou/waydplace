@@ -195,7 +195,7 @@
 							<p class="pull-right">
 								<small><%=activite.getHoraireLeA()%></small>
 							</p>
-							<div class="media-left"> <img style="width:120px;" class="<%=Parametres.STYLE_IMAGE_MEDIA %>"
+							<div class="media-left"> <img style="width:120px;"
 								src="<%=activite.getURLPhoto()%>">
 							</div>
 							<div class="media-body">

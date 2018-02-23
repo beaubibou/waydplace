@@ -138,25 +138,26 @@
 				<div 
 					class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items">
 					<div class="page-header">
-						<h2>
+						<h3>
 							<small class="pull-right"></small>
 							<%=discussion.getTitreActivite()%>
-						</h2>
+						</h3> 
 					</div>
 					<div class="comments-list">
 						<div class="media">
 							<p class="pull-right">
 								<small><%=discussion.getDateDernierMessage()%></small>
 							</p>
-							<a class="media-left "> <img style="width:60px" class="<%=Parametres.STYLE_IMAGE_MEDIA %>"
+							<a class="media-left "> <img style="width:60px" 
 								src="<%=discussion.getPhotoInterlocuteurURL(profil)%>">
 							</a>
 							<div class="media-body">
 
 								<h4 class="media-heading user_name"><%=discussion.getPseudoInterlocuteur(profil)%></h4>
 								<%=discussion.getDernierMessage()%>
-								<p></p>
+								
 							</div>
+							<p></p>
 						</div>
 
 
