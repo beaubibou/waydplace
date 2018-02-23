@@ -12,4 +12,6 @@ public class Parametres {
 	public static final String STYLE_IMAGE="img-circle img-thumbnail img-responsive";
 	public static final String STYLE_IMAGE_MEDIA="media-object img-rounded  img-responsive";
 	
+	
+	public static final int TAILLE_COMMENTAIRE_ELLISPIS_ACTIVITE=240;
 }

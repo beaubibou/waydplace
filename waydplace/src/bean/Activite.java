@@ -223,8 +223,8 @@ public class Activite {
 	public String getLibelleEllipis(){
 		
 		StringBuilder retour=new StringBuilder(libelle);
-		if (retour.length()>61)
-		return	retour.substring(0, 60)+"...";
+		if (retour.length()>240)
+		return	retour.substring(0, 239)+"...";
 		
 		else return
 				libelle;

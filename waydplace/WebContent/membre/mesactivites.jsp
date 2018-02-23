@@ -186,25 +186,23 @@
 				<div  class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items ">
 					<div   class="page-header">
 						<h2>
-							<small class="pull-right"></small>
+							<small class="pull-right"><%=activite.getHoraireLeA()%></small>
 							<%=activite.getTitre()%>
 						</h2>
 					</div>
 					<div class="comments-list">
 						<div class="media">
-							<p class="pull-right">
-								<small><%=activite.getHoraireLeA()%></small>
-							</p>
+							
 							<div class="media-left"> <img style="width:120px;"
 								src="<%=activite.getURLPhoto()%>">
 							</div>
 							<div class="media-body">
 
 								<h4 class="media-heading user_name"><%=activite.getPseudoOrganisateur()%></h4>
-								<%=activite.getLibelleEllipis()%>
-
+								<%=Outils.ellipsis(activite.getLibelle(),Parametres.TAILLE_COMMENTAIRE_ELLISPIS_ACTIVITE)%>
+ 
 							</div>
-
+ 
 							<p align='right'>
 								<%
 									if (lienModifierActivite!=null) {

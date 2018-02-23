@@ -70,7 +70,7 @@
 
 	<%
 		Profil profil = (Profil) request.getSession()
-			.getAttribute("profil");
+		.getAttribute("profil");
 	%>
 	<div class="row">
 		<!-- uncomment code for absolute positioning tweek see top comment in css -->
@@ -128,45 +128,46 @@
 		<div class="side-body">
 
 			<div class="row">
-					<div class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
+				<div class="col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-5 ">
 
-						<img src='<%=profil.getMembre().getURLPhoto()%>'
-							class="<%=Parametres.STYLE_IMAGE%>">
-					</div>
+					<img src='<%=profil.getMembre().getURLPhoto()%>'
+						class="<%=Parametres.STYLE_IMAGE%>">
 				</div>
-				
-				<form action="<%=Frontal.ACTION_CHARGE_PHOTO_MEMBRE%>" method="post"
-					enctype="multipart/form-data" onsubmit="return valideFichier()">
+			</div>
 
-					<div align="center" class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4 ">
+			<form action="<%=Frontal.ACTION_CHARGE_PHOTO_MEMBRE%>" method="post"
+				enctype="multipart/form-data" onsubmit="return valideFichier()">
 
-<br>
+				<div align="center"
+					class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4 ">
 
-						<div  class="btn-group">
-							<label class="btn btnwayd btn-file btn-primary btn-md">
-								.. <input name="file" size="50" type="file" id="file"
-								style="display: none;">
-							</label> <input type="submit" value="Envoyer la photo"
-								class="btn btnwayd btn-md  " /> <a
-								href='<%=Frontal.ACTION_REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
-								class="btn btnwayd btn-md"> <span
-								class="glyphicon glyphicon-lock"></span></a> <a
-								href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
-								class='btn btn-danger btn-md'> <span
-								class="glyphicon glyphicon-remove"></span></a>
+					<br>
 
-						</div>
-					
+					<div class="btn-group">
+						<label class="btn btnwayd btn-file btn-primary btn-md"> ..
+							<input name="file" size="50" type="file" id="file"
+							style="display: none;">
+						</label> <input type="submit" value="Envoyer la photo"
+							class="btn btnwayd btn-md  " /> <a
+							href='<%=Frontal.ACTION_REDIRECTION_CHANGE_MOT_DE_PASSE_MEMBRE%>'
+							class="btn btnwayd btn-md"> <span
+							class="glyphicon glyphicon-lock"></span></a> <a
+							href='/waydplace/Frontal?action=<%=Frontal.SUPPRIMER_PHOTO_MEMBRE%>'
+							class='btn btn-danger btn-md'> <span
+							class="glyphicon glyphicon-remove"></span></a>
+
 					</div>
-				</form>
-				
-				<form action="/waydplace/Frontal" method="post" id='formulaire'
+
+				</div>
+			</form>
+
+			<form action="/waydplace/Frontal" method="post" id='formulaire'
 				onsubmit="return valideFichier()">
 
 				<input name="action" type="hidden"
 					value=<%=Frontal.MODIFIER_COMPTE_MEMBRE%>>
-				
-				
+
+
 				<div class="form-group row">
 
 					<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
@@ -226,6 +227,7 @@
 
 
 
+
 			</form>
 
 			<div class="form-group row">
@@ -255,10 +257,6 @@
 		</div>
 
 	</div>
-
-
-
-
 
 
 </body>

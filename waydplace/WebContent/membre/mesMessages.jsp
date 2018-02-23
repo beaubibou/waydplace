@@ -168,9 +168,8 @@
 							<p class="pull-right">
 								<small><%=messageActivite.getDateCreationStr()%></small>
 							</p>
-							<a class="media-left "> <img style="width: 60px" 
-								src="<%=listMessage.getPhotoURL(messageActivite.getUid_avec())%>">
-							</a>
+							<a class="media-left "> 
+							</a> 
 							<div class="media-body">
 
 								<h4 class="media-heading user_name"><%=listMessage.getEmetteur(messageActivite)%></h4>

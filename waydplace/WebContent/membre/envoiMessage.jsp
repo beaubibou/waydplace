@@ -160,7 +160,7 @@
 					</div>
 				</div>
 				
-				<div class="col-xs-4 col-xs-offset-10 col-md-2 col-md-offset-8 ">
+				<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
 
 				<h5 class="nbrcaracteremax" id="nbr">
 					0 Caractére

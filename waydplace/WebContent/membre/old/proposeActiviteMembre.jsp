@@ -205,12 +205,8 @@
 					</div>
 				</div>
 
-
-
-
+ 
 			</form>
-			
-			
 
 
 			<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">

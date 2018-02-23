@@ -26,7 +26,7 @@ public class Outils {
 			return "";
 		else
 
-			return ((String) requetAttribute);
+			return (String) requetAttribute;
 
 	}
 

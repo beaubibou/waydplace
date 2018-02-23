@@ -110,22 +110,8 @@ function connexionSite() {
 									+ $("#formulaire").serialize(),
 							function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 								if (responseText == 'ok') {
-									BootstrapDialog
-											.show({
-												title : 'Confirmation',
-												closable : false,
-												message : 'Bienvenue!! ',
-												buttons : [ {
-													label : 'Ok',
-													action : function(dialog) {
-														dialog.close();
-														location.href = "<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION%>"
-																+ codeSite;
-														//  dialog.setMessage('Message 1');
-													}
-
-												} ]
-											});
+									location.href = "<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION%>"
+										+ codeSite;
 
 								} else {
 

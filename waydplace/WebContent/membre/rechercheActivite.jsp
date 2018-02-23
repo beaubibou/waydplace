@@ -258,14 +258,15 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 			<div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items">
 				<div class="page-header">
 					<h2>
-						<small class="pull-right"> <%=activite.getPanelActionParticipationHtml(profil, activite.getUid_membre())%></small>
+						<small class="pull-right"><%=activite.getHoraireLeA()%> </small>
+					
 						<%=activite.getTitre()%>
 					</h2>
 				</div>
 				<div class="comments-list">
 					<div class="media">
 						<p class="pull-right">
-							<small><%=activite.getHoraireLeA()%></small>
+							
 						</p>
 						<a class="media-left "> <img style="width: 120px;" 
 							src="<%=activite.getURLPhoto()%>">
@@ -278,7 +279,8 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 
 
 						</div>
-						<p></p>
+						<p align='right'><%=activite.getPanelActionParticipationHtml(profil, activite.getUid_membre())%>		
+		</p>
 					</div>
 
 				</div>
