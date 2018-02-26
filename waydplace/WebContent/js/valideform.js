@@ -19,8 +19,6 @@ function valideActivite (description,titre,datedebut,datefin){
 		return "La durée ne peut pas exeder 12 heures";
 	}
 
-		
-	
 	return 'ok';
 	
 }

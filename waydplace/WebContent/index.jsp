@@ -1,6 +1,6 @@
 
 <%@page import="servlet.membre.ConnexionMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -77,7 +77,7 @@
 			<div class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
 
 				<button style="margin-top: 10px;" type="submit"
-					class="btn-lg btnwayd btn-block ">Ok</button>
+					class="btn-lg btnwayd btn-block ">Entrez</button>
 
 			</div>
 		</div>

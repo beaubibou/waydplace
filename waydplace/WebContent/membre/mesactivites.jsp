@@ -13,7 +13,7 @@
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
 <%@page import="java.util.ArrayList"%>
@@ -60,9 +60,6 @@
 
 
 <script src="/waydplace/js/slide.js"></script>
-
-
-
 
 </head>
 <body>
@@ -172,13 +169,12 @@
 			<%
 				if (listMesActivite!=null)
 																				
-																	for (Activite activite : listMesActivite)
-																			{
+			for (Activite activite : listMesActivite)
+																		{
 				String lienDetailActivite =  "/waydplace/Frontal?action="+Frontal.REDIRECTION_DETAIL_ACTIVITE+"&idactivite="
-																													+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
-																
-																			String lienEffaceActivite = activite.getLienSupprimerMembre(profil);
-																			String lienModifierActivite =activite.getLienModifierMembre(profil);
+			+activite.getId()+"&idmembre=" +activite.getUid_membre()+"&from="+FrontalCommun.FROM_MES_ACTIVITES_MEMBRES;
+					String lienEffaceActivite = activite.getLienSupprimerMembre(profil);
+					String lienModifierActivite =activite.getLienModifierMembre(profil);
 			%>
 
 
@@ -186,7 +182,7 @@
 				<div  class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2 items ">
 					<div   class="page-header">
 						<h2>
-							<small class="pull-right"><%=activite.getHoraireLeA()%></small>
+							<small style="font-size: 12px;"class="pull-right"><%=activite.getHoraireLeA()%></small>
 							<%=activite.getTitre()%>
 						</h2>
 					</div>

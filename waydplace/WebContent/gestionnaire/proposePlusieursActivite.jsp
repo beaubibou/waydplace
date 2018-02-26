@@ -5,7 +5,7 @@
 <%@page import="text.pageweb.ProposePlusieursActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
 <html lang="fr">
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.CacheDAO"%>
@@ -95,7 +95,7 @@
 									<div class="form-group">
 										<label for="iddatedebut"><%=ProposePlusieursActivite.LABEL_DATE_DEBUT%></label>
 										<div class='input-group date' id='datedebut'>
-											<input type='text' class="form-control" id="iddatedebut"
+											<input readonly style="background-color:white;" type='text' class="form-control" id="iddatedebut"
 												name="debut" /> <span class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -107,7 +107,7 @@
 									<div class="form-group">
 										<label for="iddatefin"><%=ProposePlusieursActivite.LABEL_DATE_FIN%></label>
 										<div class='input-group date' id="datefin">
-											<input type='text' class="form-control" id="iddatefin"
+											<input readonly style="background-color:white;" type='text' class="form-control" id="iddatefin"
 												name="fin" /> <span class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -137,7 +137,7 @@
 									<div class="form-group">
 										<label for="idheuredebut"><%=ProposePlusieursActivite.LABEL_HEURE_DEBUT%></label>
 										<div class='input-group date' id='heuredebut'>
-											<input type='text' class="form-control" id="idheuredebut"
+											<input readonly style="background-color:white;" type='text' class="form-control" id="idheuredebut"
 												name="heuredebut" /> <span class="input-group-addon">
 												<span class="glyphicon glyphicon-calendar"></span>
 											</span>

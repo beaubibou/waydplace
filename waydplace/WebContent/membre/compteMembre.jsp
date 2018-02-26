@@ -9,7 +9,7 @@
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
-<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html;charset=utf-8"
 	pageEncoding="utf-8"%>
 
 <%@page import="java.util.ArrayList"%>
@@ -185,7 +185,7 @@
 					<div class="col-xs-12 col-xs-offset-0 col-md-6 col-md-offset-3 ">
 						<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
 						<div class='input-group date' id='datenaissance'>
-							<input type='text' class="form-control" id="datenaissance"
+							<input readonly style="background-color:white;"  type='text' class="form-control" id="datenaissance"
 								name="datenaissance" required /> <span
 								class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"></span>
@@ -250,10 +250,6 @@
 				</div>
 			</div>
 
-
-
-
-
 		</div>
 
 	</div>
@@ -265,7 +261,9 @@
 	
 			$('#datenaissance').datetimepicker({
 				defaultDate : new Date(<%=profil.getDateNaissance().getYear()%>,<%=profil.getDateNaissance().getMonthOfYear() - 1%>,<%=profil.getDateNaissance().getDayOfMonth()%>),
-				format : 'DD/MM/YYYY'
+				format : 'DD/MM/YYYY',
+				focusOnShow: false,
+				  ignoreReadonly: true
 
 			});
 

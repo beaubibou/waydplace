@@ -4,12 +4,12 @@
 <%@page import="servlet.membre.FrontalGestionnaire"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link
 	href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
 	rel="stylesheet">
@@ -30,8 +30,8 @@
 	firebase.initializeApp(config);
 </script>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Création compte</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>CrÃ©ation compte</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -201,7 +201,7 @@
 
 
 						<h5 class="nbrcaracteremax" id="nbr">
-							0 Caractére sur
+							0 CaractÃ©re sur
 							<%=CreationCompteProText.TAILLE_DESCRIPTION_PROFIL_MAX%>
 						</h5>
 
@@ -215,7 +215,7 @@
 						<div class="btn-group btn-group-justified">
 
 							<div class="btn-group ">
-								<button type="submit" class="btn btn-lg btnwayd ">Créer</button>
+								<button type="submit" class="btn btn-lg btnwayd ">CrÃ©er</button>
 							</div>
 
 							<div class="btn-group ">
@@ -251,7 +251,7 @@
 			}
 
 			if (pwd1 != pwd2) {
-				BootstrapDialog.alert("Mot de passe différents");
+				BootstrapDialog.alert("Mot de passe diffÃ©rents");
 				return false;
 			}
 
@@ -274,7 +274,7 @@
 											.show({
 												title : 'Confirmation',
 												closable : false,
-												message : 'Votre compte a été crée un mail vous a été envoyé.',
+												message : 'Votre compte a Ã©tÃ© crÃ©e un mail vous a Ã©tÃ© envoyÃ©.',
 												buttons : [ {
 													label : 'Ok',
 													action : function(dialog) {

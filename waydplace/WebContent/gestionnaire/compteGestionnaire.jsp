@@ -7,7 +7,7 @@
 <%@page import="parametre.ActionPage"%>
 <%@page import="bean.Profil"%>
 <%@page import="text.pageweb.CompteMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,7 +120,7 @@
 
 								<label for="datenaissance"><%=CompteMembre.DATE_NAISSANCE%></label>
 								<div class='input-group date' id='datenaissance'>
-									<input type='text' class="form-control" id="datenaissance"
+									<input readonly style="background-color:white;" type='text' class="form-control" id="datenaissance"
 										name="datenaissance" required /> <span
 										class="input-group-addon"> <span
 										class="glyphicon glyphicon-calendar"></span>

@@ -5,12 +5,12 @@
 <%@page import="text.pageweb.ChangemetMotDePasse"%>
 <%@page import="bean.Membre"%>
 <%@page import="bean.Profil"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 
 <html lang="fr">
 <head>
-<title>titre</title>
+<title>Changement</title>
 
 <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -3,8 +3,8 @@
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
 <%@page import="text.pageweb.RedemandeConfirmationMail"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 
 <html lang="en">
 <head>
@@ -22,7 +22,7 @@
   firebase.initializeApp(config);
 </script>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Mot de passe</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -159,7 +159,7 @@ function envoiDemande(){
 		firebase.auth().currentUser.sendEmailVerification().then(function() {
 			  // Email sent.
  
-			BootstrapDialog.alert('Un email de confirmation vous a été envoyé', function(){
+			BootstrapDialog.alert('Un email de confirmation vous a Ã©tÃ© envoyÃ©', function(){
 				document.location.href="<%=ConnexionMembre.ACTION_REDIRECTION_LOGIN%>";
 			});
 			

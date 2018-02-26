@@ -7,14 +7,14 @@
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; utf-8"
+	pageEncoding="utf-8"%>
 <%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<title>>ii<%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -153,7 +153,7 @@
 					<div class="col-xs-12 col-xs-offset-0 col-md-3 col-md-offset-3 ">
 						<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
 						<div class='input-group date' id='datedebut'>
-							<input type='text' class="form-control" id="iddatedebut" required
+							<input style="background-color:white;" readonly type='text' class="form-control " id="iddatedebut" required
 								name="debut" /> <span class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"></span>
 							</span>
@@ -165,7 +165,7 @@
 
 						<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
 						<div class='input-group date' id="datefin">
-							<input type='text' class="form-control" id="iddatefin" required
+							<input type='text' style="background-color:white;" readonly class="form-control" id="iddatefin" required
 								name="fin" /> <span class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"></span>
 							</span>
@@ -206,17 +206,12 @@
 				</div>
 
 
-
-
 			</form>
-			
-			
-
-
+	
 			<div class="col-xs-4 col-xs-offset-8 col-md-2 col-md-offset-8 ">
 
 				<h5 class="nbrcaracteremax" id="nbr">
-					0 Caractére
+					0 CaractÃ©re
 					<%=CompteMembre.TAILLE_DESCRIPTION_PROFIL_MAX%>
 				</h5>
 
@@ -249,7 +244,7 @@
 						BootstrapDialog.show({
 				            title: 'Confirmation',
 				            closable: false,
-				            message: 'Votre activité a été ajoutée',
+				            message: 'Votre activitÃ© a Ã©tÃ© ajoutÃ©e',
 				            buttons: [{
 				                label: 'Ok',
 				                action: function(dialog) {
@@ -283,7 +278,9 @@
 
 			$('#datedebut').datetimepicker({
 				defaultDate : new Date,
-				format : 'DD/MM/YYYY HH:mm'
+				format : 'DD/MM/YYYY HH:mm',
+				focusOnShow: false,
+				  ignoreReadonly: true
 
 			});
 
@@ -293,7 +290,9 @@
 					{
 						defaultDate : moment(new Date()).hours(heure)
 								.minutes(0).seconds(0).milliseconds(0),
-						format : 'DD/MM/YYYY HH:mm'
+						format : 'DD/MM/YYYY HH:mm',
+						focusOnShow: false,
+						  ignoreReadonly: true
 
 					});
 
@@ -334,7 +333,7 @@
 				var msg = nombreCaractere + '<%=ProposeActiviteMembre.getNbrCarateresDescription()%>';
 
 				$('#nbr').text(msg);
-				// Le script qui devra calculer et afficher le nombre de mots et de caractères
+				// Le script qui devra calculer et afficher le nombre de mots et de caractÃ¨res
 
 			})
 

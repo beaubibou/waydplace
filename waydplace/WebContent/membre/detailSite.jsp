@@ -10,7 +10,7 @@
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
 <%@page import="java.util.ArrayList"%>
@@ -212,7 +212,9 @@
 	
 			$('#datenaissance').datetimepicker({
 				defaultDate : new Date(<%=profil.getDateNaissance().getYear()%>,<%=profil.getDateNaissance().getMonthOfYear() - 1%>,<%=profil.getDateNaissance().getDayOfMonth()%>),
-				format : 'DD/MM/YYYY'
+				format : 'DD/MM/YYYY',
+				focusOnShow: false,
+				  ignoreReadonly: true
 
 			});
 

@@ -16,7 +16,7 @@
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
 <%@page import="java.util.ArrayList"%>
@@ -179,7 +179,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 							<div class="form-group">
 								<label for="iddatedebut">Début</label>
 								<div class='input-group date' id='datedebut'>
-									<input type='text' class="form-control" id="iddatedebut"
+									<input readonly style="background-color:white;" type='text' class="form-control" id="iddatedebut"
 										name="debut" /> <span class="input-group-addon"> <span
 										class="glyphicon glyphicon-calendar"></span>
 									</span>
@@ -191,7 +191,7 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 							<div class="form-group">
 								<label for="iddatefin">Fin</label>
 								<div class='input-group date' id="datefin">
-									<input type='text' class="form-control" id="iddatefin"
+									<input readonly style="background-color:white;" type='text' class="form-control" id="iddatefin"
 										name="fin" /> <span class="input-group-addon"> <span
 										class="glyphicon glyphicon-calendar"></span>
 									</span>
@@ -365,7 +365,9 @@ ArrayList<Activite> listActivite = pager.getListActivite();
 	,
 <%=filtre.getCritereDateFinCreation().getDayOfMonth()%>
 	),
-							format : 'DD/MM/YYYY'
+							format : 'DD/MM/YYYY',
+							focusOnShow: false,
+							  ignoreReadonly: true
 
 						}).on('dp.change', function(e) {
 					document.getElementById("formulaire").submit();

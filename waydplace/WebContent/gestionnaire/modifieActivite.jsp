@@ -5,7 +5,7 @@
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
 <%@page import="java.util.ArrayList"%>
@@ -110,7 +110,7 @@
 									<div class="form-group">
 										<label for="iddatedebut"><%=ProposeActiviteMembre.LABEL_DATE_DEBUT%></label>
 										<div class='input-group date' id='datedebut'>
-											<input type='text' class="form-control" id="iddatedebut"
+											<input readonly style="background-color:white;" type='text' class="form-control" id="iddatedebut"
 												name="debut" /> <span class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -121,8 +121,8 @@
 								<div class='col-sm-4'>
 									<div class="form-group">
 										<label for="iddatefin"><%=ProposeActiviteMembre.LABEL_DATE_FIN%></label>
-										<div class='input-group date' id="datefin">
-											<input type='text' class="form-control" id="iddatefin"
+										<div  class='input-group date' id="datefin">
+											<input readonly style="background-color:white;" type='text' class="form-control" id="iddatefin"
 												name="fin" /> <span class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>

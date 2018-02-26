@@ -4,12 +4,12 @@
 <%@page import="servlet.membre.FrontalGestionnaire"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <link href="/waydplace/css/indexcss.css" rel="stylesheet"
 	type="text/css">
@@ -28,7 +28,7 @@
   firebase.initializeApp(config);
 </script>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Acceuil</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -141,7 +141,7 @@
 							placeholder="<%=LoginTxt.CODE_SITE%>">
 					</div>
                   <br>
-                  	<button  type="submit"  class="btn btn-lg btnwayd btn-block" >Login</button>
+                  	<button  type="submit"  class="btn btn-lg btnwayd btn-block" >Je me connecte</button>
 				</form>
 					
 			
@@ -155,7 +155,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-3">
 				<p class="omb_forgotPwd">
-					<a href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot de passe oublié?</a>
+					<a href='<%=ConnexionMembre.ACTION_REDIRECTION_CREATION_MDP_OUBLIE%>'>Mot de passe oubliÃ©?</a>
 				</p>
 			</div>
 		</div>	    	
@@ -325,7 +325,7 @@ function signPassword(){
 
 		  else
 			  if (errorCode=="auth/user-disabled")
-				  BootstrapDialog.alert("Le compte est désactivé.");
+				  BootstrapDialog.alert("Le compte est dÃ©sactivÃ©.");
 			  else
 			  BootstrapDialog.alert(errorMessage);
 		 

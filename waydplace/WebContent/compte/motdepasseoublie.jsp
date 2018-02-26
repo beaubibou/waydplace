@@ -2,12 +2,12 @@
 <%@page import="servlet.membre.FrontalGestionnaire"%>
 <%@page import="servlet.membre.Frontal"%>
 <%@page import="servlet.membre.ConnexionMembre"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <link href="/waydplace/css/indexcss.css" rel="stylesheet"
 	type="text/css">
@@ -26,7 +26,7 @@
   firebase.initializeApp(config);
 </script>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Mot de passe</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -107,7 +107,7 @@
 					</a>
 				</div>
 			</div>
-  	<h3 class="omb_authTitle">Mot de passse oublié</h3>
+  	<h3 class="omb_authTitle">Mot de passse oubliÃ©</h3>
 		
 
 		
@@ -126,7 +126,7 @@
 					
                   <br>
 				</form>
-						<button   onclick="valideFormulaire()"  class="btn btn-lg btnwayd btn-block" >Envoyer</button>
+						<button   onclick="valideFormulaire()"  class="btn btn-lg btnwayd btn-block" >Je rÃ©initialise mon mot de passe</button>
 			
 			</div> 
     	</div>
@@ -150,7 +150,7 @@ auth.sendPasswordResetEmail(email).then(function() {
  BootstrapDialog.show({
             title: 'Confirmation',
             closable: false,
-            message: 'Un mail de confirmation vous a été envoyé',
+            message: 'Un mail de confirmation vous a Ã©tÃ© envoyÃ©',
             buttons: [{
                 label: 'Ok',
                 action: function(dialog) {
