@@ -1,3 +1,4 @@
+<%@page import="text.pageweb.DetailActiviteMembre"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
@@ -20,7 +21,7 @@
 <html lang="fr">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+<title>><%=DetailActiviteMembre.TITRE_ONGLET%></title>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">

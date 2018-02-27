@@ -18,7 +18,7 @@
 <html lang="fr">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+<title>><%=CompteMembre.TITRE_ONGLET%></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
