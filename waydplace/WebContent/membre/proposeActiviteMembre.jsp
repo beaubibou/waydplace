@@ -245,11 +245,7 @@
 						BootstrapDialog.show({
 				            title: 'Confirmation',
 				            closable: false,
-				            message: 'Votre activité a été ajoutée',contentType: 'Content-type: text/plain; charset=iso-8859-1',
-				            // This is the imporant part!!!
-				            beforeSend: function(jqXHR) {
-				                jqXHR.overrideMimeType('text/html;charset=iso-8859-1');
-				            },
+				            message: 'Votre activité a été ajoutée',
 				            buttons: [{
 				                label: 'Ok',
 				                action: function(dialog) {
