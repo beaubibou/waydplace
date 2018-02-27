@@ -223,7 +223,9 @@
 					{
 						defaultDate : moment(new Date()).hours(0).minutes(0)
 								.seconds(0).milliseconds(0),
-						format : 'DD/MM/YYYY'
+						format : 'DD/MM/YYYY',
+						focusOnShow: false,
+						  ignoreReadonly: true
 
 					});
 
@@ -231,19 +233,25 @@
 					{
 						defaultDate : moment(new Date()).hours(0).minutes(0)
 								.seconds(0).milliseconds(0),
-						format : 'DD/MM/YYYY'
+						format : 'DD/MM/YYYY',
+						focusOnShow: false,
+						  ignoreReadonly: true
 
 					});
 
 			$('#heuredebut').datetimepicker({
 				defaultDate : new Date,
-				format : 'HH:mm'
+				format : 'HH:mm',
+				focusOnShow: false,
+				  ignoreReadonly: true
 
 			});
 
 			$('#heurefin').datetimepicker({
 				defaultDate : new Date,
-				format : 'HH:mm'
+				format : 'HH:mm',
+				focusOnShow: false,
+				  ignoreReadonly: true
 
 			});
 

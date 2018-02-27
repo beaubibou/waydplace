@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@page import="bean.RefTypeGenre"%>
 <%@page import="text.pageweb.CompteMembre"%>
 <%@page import="outils.Outils"%>
@@ -7,14 +8,14 @@
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
-<%@ page language="java" contentType="text/html; utf-8"
-	pageEncoding="utf-8"%>
+
 <%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+
+<title><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -244,7 +245,11 @@
 						BootstrapDialog.show({
 				            title: 'Confirmation',
 				            closable: false,
-				            message: 'Votre activité a été ajoutée',
+				            message: 'Votre activité a été ajoutée',contentType: 'Content-type: text/plain; charset=iso-8859-1',
+				            // This is the imporant part!!!
+				            beforeSend: function(jqXHR) {
+				                jqXHR.overrideMimeType('text/html;charset=iso-8859-1');
+				            },
 				            buttons: [{
 				                label: 'Ok',
 				                action: function(dialog) {

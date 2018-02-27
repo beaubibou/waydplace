@@ -19,7 +19,7 @@
 <%@page import="text.pageweb.MesActivites"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <title>Liste activités</title>
 

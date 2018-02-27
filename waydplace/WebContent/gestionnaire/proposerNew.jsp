@@ -183,6 +183,7 @@
 				            title: 'Confirmation',
 				            closable: false,
 				            message: 'Votre news a été ajoutée',
+				            
 				            buttons: [{
 				                label: 'Ok',
 				                action: function(dialog) {

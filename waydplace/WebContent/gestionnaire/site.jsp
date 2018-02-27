@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <title><%=SiteText.TITRE_ONGLET%></title>
 

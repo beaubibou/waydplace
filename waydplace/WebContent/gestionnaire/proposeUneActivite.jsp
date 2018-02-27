@@ -176,7 +176,9 @@
 
 			$('#datedebut').datetimepicker({
 				defaultDate : new Date,
-				format : 'DD/MM/YYYY HH:mm'
+				format : 'DD/MM/YYYY HH:mm',
+				focusOnShow: false,
+				  ignoreReadonly: true
 
 			});
 
@@ -186,7 +188,9 @@
 					{
 						defaultDate : moment(new Date()).hours(heure)
 								.minutes(0).seconds(0).milliseconds(0),
-						format : 'DD/MM/YYYY HH:mm'
+						format : 'DD/MM/YYYY HH:mm',
+						focusOnShow: false,
+						  ignoreReadonly: true 
 
 					});
 

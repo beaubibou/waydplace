@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@page import="text.pageweb.ModifierActiviteMembre"%>
 <%@page import="bean.Activite"%>
 <%@page import="bean.RefTypeGenre"%>
@@ -9,15 +10,15 @@
 <%@page import="dao.CacheDAO"%>
 <%@page import="bean.RefTypeActivite"%>
 <%@page import="text.pageweb.ProposeActiviteMembre"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+
 
 <%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<title>><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%=ProposeActiviteMembre.TITRE_ONGLET%></title>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">

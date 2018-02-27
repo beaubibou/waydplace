@@ -133,6 +133,21 @@ public class Outils {
 		
 		if (chaine==null)return null;
 		try {
+			
+			System.out.println(chaine);
+		
+			String retour= new String ( chaine.getBytes("ISO-8859-1"),"UTF-8"  );
+				
+			System.out.println(retour);
+			
+			 retour= new String ( chaine.getBytes("ISO-8859-1") );
+				
+			System.out.println(retour);
+				
+			 retour= new String ( chaine.getBytes("utf-8") );
+				
+				System.out.println(retour);
+			
 			return  new String ( chaine.getBytes("ISO-8859-1"),"UTF-8"  );
 		} catch (UnsupportedEncodingException e) {
 		

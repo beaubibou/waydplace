@@ -1088,7 +1088,7 @@ public class Frontal extends HttpServlet {
 		String idactiviteStr = request.getParameter("idactivite");
 		String uidEmetteur = request.getParameter("uid_emetteur");
 		String uidDestinataire = request.getParameter("uid_destinataire");
-		String message = request.getParameter("message");
+		String message = Outils.convertISO85591(request.getParameter("message"));
 		int idActivite = Integer.parseInt(idactiviteStr);
 
 		DiscussionDAO
