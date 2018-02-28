@@ -54,19 +54,5 @@
     <servlet-name>FrontalCommun</servlet-name>
     <url-pattern>/FrontalCommun</url-pattern>
   </servlet-mapping>
-	
-<filter>
-    <filter-name>CharsetFilter</filter-name>
-    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
-    <init-param>
-        <param-name>requestEncoding</param-name>
-        <param-value>UTF-8</param-value>
-    </init-param>
-    
-</filter>
-<filter-mapping>
-        <filter-name>CharsetFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-</filter-mapping>
-  
+ 
 </web-app>

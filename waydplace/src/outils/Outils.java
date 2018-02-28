@@ -132,6 +132,7 @@ public class Outils {
 	public static String convertISO85591(String chaine){
 		
 		if (chaine==null)return null;
+		
 		try {
 			
 			System.out.println(chaine);

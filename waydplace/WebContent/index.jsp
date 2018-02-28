@@ -35,69 +35,62 @@
 
 </head>
 <body>
-	<div class="container">
-
-<div class="row">
-		<div class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5 ">
-<a href="#">
-			<img src='/waydplace/img/waydLogoHD.png'
-				class="img-rounded img-responsive"></a>
-		</div>
-	</div>
 
 	<div class="row">
-		<div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-4">
+		<div class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 ">
+		<div class="carousel-inner">
 
-			<div class="jumbotron jumbotron-style">
+			<div class="item active">
+				<img src="/waydplace/img/waydLogoHD.png" alt="Los Angeles"
+					class="img-responsive">
+				<div class="carousel-caption">
 
 
-				<h3>Wayplace!!</h3>
-				<p>Demander le code site, et accéder aux activités. Proposez au
-					autres
-				<p>
+					<form id="formulaire" onsubmit="return connexionSite()">
+
+						<input name="action" type="hidden"
+							value=<%=ConnexionMembre.VALIDE_SITE%>>
+
+
+						<div class="form-group">
+							<div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4 ">
+								<input type="text" class="form-control" id="codeSite"
+									name="codeSite" placeholder='Code site' value="aaaa">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
+
+								<button style="margin-top: 10px;" type="submit"
+									class="btn-lg btnwayd btn-block ">Entrez</button>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<div style="margin-top: 10px;"
+								class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
+
+								<a href='<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION_PRO%>'>Professionels</a>
+
+							</div>
+						</div>
+
+
+					</form>
+				</div>
 			</div>
+
+
 		</div>
-	</div>
-	
-
-
-
-	<form id="formulaire" onsubmit="return connexionSite()">
-
-		<input name="action" type="hidden"
-			value=<%=ConnexionMembre.VALIDE_SITE%>>
-
-
-		<div class="form-group">
-			<div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4 ">
-				<input type="text" class="form-control" id="codeSite"
-					name="codeSite" placeholder='Code site' value="aaaa">
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
-
-				<button style="margin-top: 10px;" type="submit"
-					class="btn-lg btnwayd btn-block ">Entrez</button>
-
-			</div>
-		</div>
-		
-		<div class="form-group">
-		
-			<div style="margin-top:10px;" class="col-xs-8 col-xs-offset-2  col-md-4 col-md-offset-4 ">
-				
-				<a  href='<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION_PRO%>'>Professionels</a>
-		
-			</div>
-		</div>
-
-
-	</form>
-	<br>
-
 
 </div>
+
+		<br>
+
+
+	</div>
 
 	<script type="text/javascript">
 	
@@ -107,12 +100,11 @@ function connexionSite() {
 	 
 
 			$.get(
-							"/waydplace/ConnexionMembre?"
-									+ $("#formulaire").serialize(),
+							"/waydplace/ConnexionMembre?"+ $("#formulaire").serialize(),
 							function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 								if (responseText == 'ok') {
 									location.href = "<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION%>"
-										+ codeSite;
+											+ codeSite;
 
 								} else {
 

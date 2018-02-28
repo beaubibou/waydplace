@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import net.coobird.thumbnailator.Thumbnails;
 
+import org.apache.catalina.filters.SetCharacterEncodingFilter;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -891,6 +893,7 @@ public class Frontal extends HttpServlet {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 
+		LOG.info("ti"+request.getParameter("titre"));
 		MessageAction ajouteActiviteMembre = ajouterActiviteMembre(request,
 				profil);
 
@@ -967,8 +970,7 @@ public class Frontal extends HttpServlet {
 		String idactiviteStr = request.getParameter("idactivite");
 		String uidPour = request.getParameter("uid_pour");
 		String uidAvec = request.getParameter("uid_avec");
-		
-		String message = request.getParameter("message");
+		String message = Outils.convertISO85591(request.getParameter("message"));
 	
 		int idActivite = Integer.parseInt(idactiviteStr);
 
@@ -1085,7 +1087,8 @@ public class Frontal extends HttpServlet {
 
 	private MessageAction vpEnvoiMessageDAO(HttpServletRequest request,
 			Profil profil) {
-		String idactiviteStr = request.getParameter("idactivite");
+		
+			String idactiviteStr = request.getParameter("idactivite");
 		String uidEmetteur = request.getParameter("uid_emetteur");
 		String uidDestinataire = request.getParameter("uid_destinataire");
 		String message = Outils.convertISO85591(request.getParameter("message"));
@@ -1432,7 +1435,7 @@ public class Frontal extends HttpServlet {
 
 	private MessageAction ajouterActiviteMembre(HttpServletRequest request,
 			Profil profil) {
-
+		LOG.info("codage:"+request.getCharacterEncoding());
 		String titre = Outils.convertISO85591(request.getParameter("titre"));
 		String libelle = Outils.convertISO85591(request.getParameter("description"));
 	

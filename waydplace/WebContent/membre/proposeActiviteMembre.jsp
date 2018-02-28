@@ -126,16 +126,11 @@
 	<!-- Main Content -->
 	<div style="padding-top: 30px;" class="container-fluid">
 		<div class="side-body">
-
-
-
-
 			<form action="/waydplace/Frontal" 
 				onsubmit="return valideFormulaire()" method="post" id='formulaire'>
 
 				<input type='hidden' name='action'
 					value='<%=Frontal.AJOUTER_ACTIVITE_MEMBRE%>'>
-
 
 				<div class="form-group row">
 
@@ -238,7 +233,7 @@
 		if (valideFormulaire()==false)
 			return;
 		
-		$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,
+		$.post("/waydplace/Frontal?"+$("#formulaire").serialize() ,
 				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 					if (responseText == 'ok')
 					{
