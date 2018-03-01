@@ -162,7 +162,7 @@
 				</div>
 			</form>
 
-			<form action="/waydplace/Frontal" method="post" id='formulaire'
+			<form action="/waydplace/Frontal" id='formulaire'
 				onsubmit="return valideFichier()">
 
 				<input name="action" type="hidden"
@@ -317,7 +317,7 @@
 function modifieCompte(){
 	
 	
-	$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,
+	$.post($("#formulaire").attr("action"),$("#formulaire").serialize() ,
 			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 				if (responseText == 'ok')
 				{

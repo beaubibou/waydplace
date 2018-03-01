@@ -100,7 +100,7 @@
 
 	
 <div class="form-group"></div>
-		<form action="/waydplace/FrontalGestionnaire" method="post"
+		<form action="/waydplace/FrontalGestionnaire" 
 			onsubmit="return valideFormulaire()" id='formulaire'>
 
 			<input name="action" type="hidden"
@@ -214,7 +214,7 @@
 		function modifieSite(){
 			
 			
-			$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
+			$.post($("#formulaire").attr("action"),$("#formulaire").serialize() ,
 					function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 						if (responseText == 'ok')
 						{

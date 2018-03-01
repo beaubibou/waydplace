@@ -46,7 +46,7 @@
 				<div class="carousel-caption">
 
 
-					<form id="formulaire" onsubmit="return connexionSite()">
+					<form action='/waydplace/ConnexionMembre' id="formulaire" onsubmit="return connexionSite()">
 
 						<input name="action" type="hidden"
 							value=<%=ConnexionMembre.VALIDE_SITE%>>
@@ -97,10 +97,8 @@
 function connexionSite() {
 
 	var codeSite=document.getElementById("codeSite").value;
-	 
-
-			$.get(
-							"/waydplace/ConnexionMembre?"+ $("#formulaire").serialize(),
+		
+			$.post($("#formulaire").attr("action"), $("#formulaire").serialize(),
 							function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 								if (responseText == 'ok') {
 									location.href = "<%=ConnexionMembre.ACTION_REDIRECTION_CONNEXION%>"

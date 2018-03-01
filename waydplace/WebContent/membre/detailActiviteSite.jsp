@@ -212,7 +212,7 @@
 function likeActivite(){
 	
 
-	$.get("<%=activite.getLienLike(profil)%>" ,
+	$.post("<%=activite.getLienLike(profil)%>" ,
 			function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 				if (responseText == 'ok')
 				{

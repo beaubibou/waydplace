@@ -76,7 +76,7 @@
 
 
 					<form action="/waydplace/FrontalGestionnaire"
-						onsubmit="return valideFormulaire()" method="post" id='formulaire'>
+						onsubmit="return valideFormulaire()" id='formulaire'>
 
 						<div class="form-group" style="border-bottom: 1px solid #888;">
 
@@ -175,7 +175,7 @@
 		if (valideFormulaire()==false)
 			return;
 		
-		$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
+		$.post($("#formulaire").attr("action"),$("#formulaire").serialize() ,
 				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 					if (responseText == 'ok')
 					{

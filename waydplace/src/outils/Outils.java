@@ -131,30 +131,31 @@ public class Outils {
 
 	public static String convertISO85591(String chaine){
 		
-		if (chaine==null)return null;
-		
-		try {
-			
-			System.out.println(chaine);
-		
-			String retour= new String ( chaine.getBytes("ISO-8859-1"),"UTF-8"  );
-				
-			System.out.println(retour);
-			
-			 retour= new String ( chaine.getBytes("ISO-8859-1") );
-				
-			System.out.println(retour);
-				
-			 retour= new String ( chaine.getBytes("utf-8") );
-				
-				System.out.println(retour);
-			
-			return  new String ( chaine.getBytes("ISO-8859-1"),"UTF-8"  );
-		} catch (UnsupportedEncodingException e) {
-		
-			
-			e.printStackTrace();
-			return "Conversion impossible";
-		}
+		return chaine;
+//		if (chaine==null)return null;
+//		
+//		try {
+//			
+//			System.out.println(chaine);
+//		
+//			String retour= new String ( chaine.getBytes("ISO-8859-1"),"UTF-8"  );
+//				
+//			System.out.println(retour);
+//			
+//			 retour= new String ( chaine.getBytes("ISO-8859-1") );
+//				
+//			System.out.println(retour);
+//				
+//			 retour= new String ( chaine.getBytes("utf-8") );
+//				
+//				System.out.println(retour);
+//			
+//			return  new String ( chaine.getBytes("ISO-8859-1"),"UTF-8"  );
+//		} catch (UnsupportedEncodingException e) {
+//		
+//			
+//			e.printStackTrace();
+//			return "Conversion impossible";
+//		}
 	}
 }

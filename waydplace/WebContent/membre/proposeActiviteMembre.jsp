@@ -233,7 +233,7 @@
 		if (valideFormulaire()==false)
 			return;
 		
-		$.post("/waydplace/Frontal?"+$("#formulaire").serialize() ,
+		$.post($("#formulaire").attr("action"),$("#formulaire").serialize() ,
 				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 					if (responseText == 'ok')
 					{

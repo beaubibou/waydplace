@@ -124,11 +124,8 @@
 		<div class="side-body">
 
 
-
-
-
 			<form action="/waydplace/Frontal" id='formulaire'
-				onsubmit="return valideFormulaire()" method="post">
+				onsubmit="return valideFormulaire()" >
 
 				<input name="action" type="hidden"
 					value=<%=Frontal.MODIFIER_ACTIVITE_MEMBRE%>> <input
@@ -249,7 +246,7 @@
 			return;
 		
 		
-		$.get("/waydplace/Frontal?"+$("#formulaire").serialize() ,
+		$.post($("#formulaire").attr("action"),$("#formulaire").serialize() ,
 				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 
 					if (responseText == 'ok')

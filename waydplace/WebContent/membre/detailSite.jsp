@@ -267,38 +267,6 @@
 	$('#nbr').text(msg);
 </script>
 
-<script type="text/javascript">
-	function modifieCompte() {
-		$
-				.get(
-						"/waydplace/Frontal?" + $("#formulaire").serialize(),
-						function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-							if (responseText == 'ok') {
-								BootstrapDialog
-										.show({
-											title : 'Confirmation',
-											closable : false,
-											message : 'Votre compte a été modfiée',
-											buttons : [ {
-												label : 'Ok',
-												action : function(dialog) {
-													dialog.close();
-													location.href = "'"	+<%=Frontal.ACTION_REDIRECTION_MES_ACTIVITE_MEMBRE%>+ "'";
-													//  dialog.setMessage('Message 1');
-												}
-
-											} ]
-										});
-
-							} else {
-
-								BootstrapDialog.alert(responseText);
-							}
-
-						});
-
-	}
-</script>
 
 
 </body>

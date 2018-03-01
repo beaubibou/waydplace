@@ -78,7 +78,7 @@
 
 
 					<form action="/waydplace/FrontalGestionnaire"
-						onsubmit="return valideFormulaire()" method="post" id="formulaire">
+						onsubmit="return valideFormulaire()"  id="formulaire">
 		
 				<input  name="action" type="hidden"  value=<%=FrontalGestionnaire.MODIFIER_ACTIVITE_GESTIONNAIRE %> >
 				<input  name="idactivite" type="hidden"  value=<%=activite.getId() %> >
@@ -198,7 +198,7 @@ function valideFormulaire() {
 			return;
 		
 		
-		$.get("/waydplace/FrontalGestionnaire?"+$("#formulaire").serialize() ,
+		$.post($("#formulaire").attr("action"),$("#formulaire").serialize() ,
 				function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
 
 					if (responseText == 'ok')
